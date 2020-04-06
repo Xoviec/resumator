@@ -1,9 +1,9 @@
-import React from "react";
-import { ThemeProvider } from "emotion-theming";
-import "./assets/css/global.css";
-import theme from "./config/theme";
-import { Button, Flex, Box, Heading, Text } from "rebass";
-import frontmenLogo from "./assets/svg/frontmen-logo.svg";
+import React from "react"
+import { ThemeProvider } from "emotion-theming"
+import "./assets/css/global.css"
+import theme from "./config/theme"
+import { Button, Flex, Box, Heading, Text } from "rebass"
+import frontmenLogo from "./assets/svg/frontmen-logo.svg"
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -29,6 +29,6 @@ const App = () => (
       </Box>
     </Flex>
   </ThemeProvider>
-);
+)
 
-export default App;
+export default App
