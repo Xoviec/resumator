@@ -26,6 +26,9 @@ function Form() {
         />
         {errors.lastName && "Last name is required"}
 
+        <input name="city" defaultValue="" ref={register({ required: true })} />
+        {errors.city && "City is required"}
+
         <input
           type="date"
           name="birthdate"
@@ -33,13 +36,6 @@ function Form() {
           ref={register({ required: true })}
         />
         {errors.birthdate && "Birthdate is required"}
-
-        <input
-          name="introduction"
-          defaultValue=""
-          ref={register({ required: true })}
-        />
-        {errors.introduction && "Introduction is required"}
 
         <input type="submit" />
       </form>
