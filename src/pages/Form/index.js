@@ -36,19 +36,19 @@ function Form() {
         {errors.lastName && "Last name is required"}
 
         <input
-          name="city"
-          defaultValue={firebaseValues.city}
-          ref={register({ required: true })}
-        />
-        {errors.city && "City is required"}
-
-        <input
           type="date"
           name="birthdate"
           defaultValue={firebaseValues.birthdate}
           ref={register({ required: true })}
         />
         {errors.birthdate && "Birthdate is required"}
+
+        <input
+          name="city"
+          defaultValue={firebaseValues.city}
+          ref={register({ required: true })}
+        />
+        {errors.city && "City is required"}
 
         <input type="submit" />
       </form>
