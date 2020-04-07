@@ -111,6 +111,20 @@ export default {
       bg: "secondary",
     },
   },
+  forms: {
+    input: {
+      color: "secondary",
+    },
+    select: {},
+    textarea: {
+      color: "secondary",
+    },
+    label: {
+      color: "secondary",
+    },
+    radio: {},
+    checkbox: {},
+  },
   styles: {
     root: {
       fontFamily: "body",
