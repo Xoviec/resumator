@@ -6,7 +6,6 @@ import { Button, Flex, Box, Heading, Text } from "rebass";
 import frontmenLogo from "./assets/svg/frontmen-logo.svg";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import FirebaseTest from "./components/FirebaseTest";
-// import useFirebase from "./hooks/useFirebase";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
