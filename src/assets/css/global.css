@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  height: 100%;
+}
+
 @font-face {
   font-family: Stratum;
   src: url(../fonts/Stratum1-Bold.woff) format("woff"),
