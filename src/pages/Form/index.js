@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Label, Input } from "@rebass/forms";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -21,21 +22,24 @@ function Form() {
       <h1>Resume Form</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
+        <Label htmlFor="firstName">First name</Label>
+        <Input
           name="firstName"
           defaultValue={firebaseValues.firstName}
           ref={register({ required: true })}
         />
         {errors.firstName && "First name is required"}
 
-        <input
+        <Label htmlFor="lastName">Last name</Label>
+        <Input
           name="lastName"
           defaultValue={firebaseValues.lastName}
           ref={register({ required: true })}
         />
         {errors.lastName && "Last name is required"}
 
-        <input
+        <Label htmlFor="birthdate">Birthdate</Label>
+        <Input
           type="date"
           name="birthdate"
           defaultValue={firebaseValues.birthdate}
@@ -43,7 +47,8 @@ function Form() {
         />
         {errors.birthdate && "Birthdate is required"}
 
-        <input
+        <Label htmlFor="city">City</Label>
+        <Input
           name="city"
           defaultValue={firebaseValues.city}
           ref={register({ required: true })}
