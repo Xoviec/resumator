@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading } from "rebass";
+import { Box, Heading, Text } from "rebass";
 import data from "./mock.json";
 
 const PdfPreviewer = () => {
@@ -10,17 +10,24 @@ const PdfPreviewer = () => {
   }, []);
 
   const resumeView = () => {
-    if (resume) {
-      for (let [key, value] of Object.entries(resume)) {
-        console.log(`${key}: ${value}`);
-      }
-    }
+    return resume ? (
+      <>
+        <Box width="100%" backgroundColor="#e0e0e0" height="400px">
+          <Text fontSize={7}>
+            Hi, I am {resume.firstName} <br />
+            Frontend expert
+          </Text>
+        </Box>
+      </>
+    ) : (
+      <div>...loading</div>
+    );
   };
   return (
-    <Box width="100%" p="2rem" color="white" bg="white" textAlign="center">
-      <Heading fontSize={7} color="secondary" mb="3">
+    <Box width="100%" p="2rem" color="white" bg="white" textAlign="left">
+      <Box color="secondary" mb="3">
         {resumeView()}
-      </Heading>
+      </Box>
     </Box>
   );
 };
