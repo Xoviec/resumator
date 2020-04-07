@@ -4,14 +4,14 @@ import "../assets/css/global.css";
 import { Box } from "rebass";
 import theme from "../config/theme";
 
-const CreatorLayout = ({ children }) => {
+const MainLayout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Box bg="secondary" p={[2, 5]} sx={{ minHeight: "100%" }}>
+      <Box as="main" bg="secondary" p={["1rem", "2rem"]} sx={{ minHeight: "100%" }}>
         {children}
       </Box>
     </ThemeProvider>
   );
 };
 
-export default CreatorLayout;
+export default MainLayout;
