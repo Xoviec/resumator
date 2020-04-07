@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, Flex } from "rebass";
-import { Label, Input } from "@rebass/forms";
+import { Label, Input, Textarea } from "@rebass/forms";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -9,6 +9,7 @@ const firebaseValues = {
   lastName: "Doe",
   birthdate: "1980-01-30",
   city: "Amsterdam",
+  introduction: "",
 };
 
 function Form() {
@@ -65,6 +66,18 @@ function Form() {
               ref={register({ required: true })}
             />
             {errors.city && "City is required"}
+          </Box>
+        </Flex>
+
+        <Flex mx={-2} mb={3}>
+          <Box width={1 / 2} px={2}>
+            <Label htmlFor="introduction">Introduction</Label>
+            <Textarea
+              name="introduction"
+              defaultValue={firebaseValues.introduction}
+              ref={register({ required: true })}
+            />
+            {errors.introduction && "Introduction is required"}
           </Box>
         </Flex>
 
