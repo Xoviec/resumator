@@ -1,10 +1,9 @@
 import React from "react";
-
-import firebase from "firebase/app";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import "firebase/firestore";
+import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 const FirebaseTest = () => {
+  const { firebase } = React.useContext(FirebaseAppContext);
   const [val, loading, error] = useCollectionData(
     firebase.firestore().collection("resumes")
     // firebase.firestore().collection("resumes").where("name", "==", "Sebastiaan")
