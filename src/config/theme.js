@@ -1,5 +1,3 @@
-// default theme preset
-
 export const colors = {
   lightBlue: "#00cccc",
   darkBlue: " #1f1e32",
@@ -113,14 +111,14 @@ export default {
   },
   forms: {
     input: {
-      color: "secondary",
+      color: "white",
     },
     select: {},
     textarea: {
-      color: "secondary",
+      color: "white",
     },
     label: {
-      color: "secondary",
+      color: "white",
     },
     radio: {},
     checkbox: {},
