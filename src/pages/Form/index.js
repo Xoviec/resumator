@@ -70,7 +70,7 @@ function Form() {
         </Flex>
 
         <Flex mx={-2} mb={3}>
-          <Box width={1 / 2} px={2}>
+          <Box width={1} px={2}>
             <Label htmlFor="introduction">Introduction</Label>
             <Textarea
               name="introduction"
