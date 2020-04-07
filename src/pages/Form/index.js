@@ -24,7 +24,7 @@ function Form() {
       <h1>Resume Form</h1>
 
       <Box as="form" onSubmit={handleSubmit(onSubmit)} py={3}>
-        <Flex mx={-2} mb={3}>
+        <Flex mb={3}>
           <Box width={1 / 2} px={2}>
             <Label htmlFor="firstName">First name</Label>
             <Input
@@ -46,7 +46,7 @@ function Form() {
           </Box>
         </Flex>
 
-        <Flex mx={-2} mb={3}>
+        <Flex mb={3}>
           <Box width={1 / 2} px={2}>
             <Label htmlFor="birthdate">Birthdate</Label>
             <Input
@@ -69,7 +69,7 @@ function Form() {
           </Box>
         </Flex>
 
-        <Flex mx={-2} mb={3}>
+        <Flex mb={3}>
           <Box width={1} px={2}>
             <Label htmlFor="introduction">Introduction</Label>
             <Textarea
