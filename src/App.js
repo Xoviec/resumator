@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
 import HomePage from "./pages/Home";
+import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import LoginLayout from "./pages/layout/LoginLayout";
 
@@ -10,6 +12,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/" component={HomePageWrapper} />
+          <Route exact path="/creator" component={PdfCreatorWrapper} />
           <Route exact path="/previewer" component={PdfPreviewerWrapper} />
         </Switch>
       </div>
@@ -24,6 +27,15 @@ const HomePageWrapper = () => {
     </LoginLayout>
   );
 };
+
+const PdfCreatorWrapper = () => {
+  return (
+    <LoginLayout>
+      <PdfCreator />
+    </LoginLayout>
+  );
+};
+
 const PdfPreviewerWrapper = () => {
   return (
     <LoginLayout>

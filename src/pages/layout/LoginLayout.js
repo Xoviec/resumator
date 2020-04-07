@@ -15,6 +15,7 @@ const LoginLayout = ({ children }) => {
         alignItems="center"
         bg="secondary"
       >
+        <Link to="/Creator">Creator</Link>
         <Link to="/Previewer">Previewer</Link>
         <Link to="/">Home</Link>
         <Box p="2rem">
