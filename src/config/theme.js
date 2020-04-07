@@ -6,7 +6,7 @@ export const colors = {
   orange: "#ff5900",
   lightGrey: "#e6e6e6",
   mediumGrey: "#d1d1d1",
-}
+};
 
 export default {
   colors: {
@@ -118,4 +118,4 @@ export default {
       lineHeight: "body",
     },
   },
-}
+};
