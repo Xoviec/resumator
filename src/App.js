@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
 import HomePage from "./pages/Home";
+import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
-import LoginLayout from "./pages/layout/LoginLayout";
+import LoginLayout from "./layouts/Login";
+import CreatorLayout from "./layouts/Creator";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import FirebaseTest from "./components/FirebaseTest";
 
@@ -28,14 +31,13 @@ const firebaseConfig = {
 function App() {
   return (
     <FirebaseAppContextProvider config={firebaseConfig}>
+      <FirebaseTest />
       <BrowserRouter>
-        <div className="App">
-          <FirebaseTest />
-          <Switch>
-            <Route exact path="/" component={HomePageWrapper} />
-            <Route exact path="/previewer" component={PdfPreviewerWrapper} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/" component={HomePageWrapper} />
+          <Route exact path="/creator" component={PdfCreatorWrapper} />
+          <Route exact path="/previewer" component={PdfPreviewerWrapper} />
+        </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>
   );
@@ -48,6 +50,15 @@ const HomePageWrapper = () => {
     </LoginLayout>
   );
 };
+
+const PdfCreatorWrapper = () => {
+  return (
+    <CreatorLayout>
+      <PdfCreator />
+    </CreatorLayout>
+  );
+};
+
 const PdfPreviewerWrapper = () => {
   return (
     <LoginLayout>
