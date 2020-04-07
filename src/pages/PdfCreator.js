@@ -12,11 +12,11 @@ const firebaseValues = {
   introduction: "",
 };
 
-function Form() {
+const PdfCreator = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
     // TODO: save values in firebase
-    console.log(data);
+    console.log(data); // eslint-disable-line
   };
 
   return (
@@ -81,6 +81,6 @@ function Form() {
       <Button as="input" type="submit" />
     </Box>
   );
-}
+};
 
-export default Form;
+export default PdfCreator;
