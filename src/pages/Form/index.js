@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Box, Button, Flex } from "rebass";
 import { Label, Input } from "@rebass/forms";
 
 // TODO: remove when firebase values are truly fetched
@@ -21,42 +22,54 @@ function Form() {
     <div>
       <h1>Resume Form</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Label htmlFor="firstName">First name</Label>
-        <Input
-          name="firstName"
-          defaultValue={firebaseValues.firstName}
-          ref={register({ required: true })}
-        />
-        {errors.firstName && "First name is required"}
+      <Box as="form" onSubmit={handleSubmit(onSubmit)} py={3}>
+        <Flex mx={-2} mb={3}>
+          <Box width={1 / 2} px={2}>
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+              name="firstName"
+              defaultValue={firebaseValues.firstName}
+              ref={register({ required: true })}
+            />
+            {errors.firstName && "First name is required"}
+          </Box>
 
-        <Label htmlFor="lastName">Last name</Label>
-        <Input
-          name="lastName"
-          defaultValue={firebaseValues.lastName}
-          ref={register({ required: true })}
-        />
-        {errors.lastName && "Last name is required"}
+          <Box width={1 / 2} px={2}>
+            <Label htmlFor="lastName">Last name</Label>
+            <Input
+              name="lastName"
+              defaultValue={firebaseValues.lastName}
+              ref={register({ required: true })}
+            />
+            {errors.lastName && "Last name is required"}
+          </Box>
+        </Flex>
 
-        <Label htmlFor="birthdate">Birthdate</Label>
-        <Input
-          type="date"
-          name="birthdate"
-          defaultValue={firebaseValues.birthdate}
-          ref={register({ required: true })}
-        />
-        {errors.birthdate && "Birthdate is required"}
+        <Flex mx={-2} mb={3}>
+          <Box width={1 / 2} px={2}>
+            <Label htmlFor="birthdate">Birthdate</Label>
+            <Input
+              type="date"
+              name="birthdate"
+              defaultValue={firebaseValues.birthdate}
+              ref={register({ required: true })}
+            />
+            {errors.birthdate && "Birthdate is required"}
+          </Box>
 
-        <Label htmlFor="city">City</Label>
-        <Input
-          name="city"
-          defaultValue={firebaseValues.city}
-          ref={register({ required: true })}
-        />
-        {errors.city && "City is required"}
+          <Box width={1 / 2} px={2}>
+            <Label htmlFor="city">City</Label>
+            <Input
+              name="city"
+              defaultValue={firebaseValues.city}
+              ref={register({ required: true })}
+            />
+            {errors.city && "City is required"}
+          </Box>
+        </Flex>
 
-        <input type="submit" />
-      </form>
+        <Button as="input" type="submit" />
+      </Box>
     </div>
   );
 }
