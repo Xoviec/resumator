@@ -6,7 +6,7 @@ import theme from "../../config/theme";
 import { Link } from "react-router-dom";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 
-function Layout({ children }) {
+const LoginLayout = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <Flex
@@ -24,6 +24,6 @@ function Layout({ children }) {
       </Flex>
     </ThemeProvider>
   );
-}
+};
 
-export default Layout;
+export default LoginLayout;

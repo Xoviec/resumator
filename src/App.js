@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./pages/Home";
 import PdfPreviewer from "./pages/PdfPreviewer";
-import Layout from "./pages/layout/Layout";
+import LoginLayout from "./pages/layout/LoginLayout";
 
 function App() {
   return (
@@ -19,16 +19,16 @@ function App() {
 
 const HomePageWrapper = () => {
   return (
-    <Layout>
+    <LoginLayout>
       <HomePage />
-    </Layout>
+    </LoginLayout>
   );
 };
 const PdfPreviewerWrapper = () => {
   return (
-    <Layout>
+    <LoginLayout>
       <PdfPreviewer />
-    </Layout>
+    </LoginLayout>
   );
 };
 
