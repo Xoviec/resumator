@@ -5,16 +5,16 @@
     "dateOfBirth": "01-04-1999",
     "address": {
         "street": "Sesamstraat",
-        "houseNumber":"1",
-        "zipcode":"1000AA",
-        "city":"Hilversum",
-        "phoneNumber":""
+        "houseNumber": "1",
+        "zipcode": "1000AA",
+        "city": "Hilversum",
+        "phoneNumber": ""
     },
-    "introduction": "I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church-key mustache cardigan succulents. Single-origin coffee tumeric ennui ethical bicycle rights enamel pin.",
+    "about": "I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church-key mustache cardigan succulents. Single-origin coffee tumeric ennui ethical bicycle rights enamel pin. I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church-key mustache cardigan succulents. Single-origin coffee tumeric ennui ethical bicycle rights enamel pin.",
     "avatar": "",
     "skills": ["Html", "CSS", "JavaScript", "React"],
     "openSourceWork": [],
     "publications": [],
-    "experience":[],
-    "eductation":[]
+    "projects": [],
+    "eductation": []
 }

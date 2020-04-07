@@ -1,6 +1,12 @@
 import React from "react";
-import { Box, Heading, Text } from "rebass";
+import { Box, Flex } from "rebass";
 import data from "./mock.json";
+import {
+  ResumeHeader,
+  ResumeAbout,
+  ResumeProjects,
+  ResumeSkills,
+} from "./ResumeComponents";
 
 const PdfPreviewer = () => {
   const [resume, SetResume] = React.useState();
@@ -12,12 +18,12 @@ const PdfPreviewer = () => {
   const resumeView = () => {
     return resume ? (
       <>
-        <Box width="100%" backgroundColor="#e0e0e0" height="400px">
-          <Text fontSize={7}>
-            Hi, I am {resume.firstName} <br />
-            Frontend expert
-          </Text>
-        </Box>
+        <ResumeHeader name={resume.firstName} />
+        <Flex>
+          <ResumeAbout text={resume.about} />
+          <ResumeProjects projects={resume.projects} />
+        </Flex>
+        <ResumeSkills />
       </>
     ) : (
       <div>...loading</div>
