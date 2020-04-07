@@ -8,7 +8,7 @@ import { Label, Input, Textarea } from "@rebass/forms";
 const firebaseValues = {
   firstName: "John",
   lastName: "Doe",
-  birthdate: "1980-01-30",
+  dateOfBirth: "1980-01-30",
   city: "Amsterdam",
   introduction: "",
 };
@@ -54,12 +54,12 @@ const PdfCreator = () => {
           {errors.lastName && "Last name is required"}
         </InputWrapper>
         <InputWrapper>
-          <StyledLabel htmlFor="birthdate">Birthdate</StyledLabel>
+          <StyledLabel htmlFor="dateOfBirth">Birthdate</StyledLabel>
 
           <Input
             type="date"
-            name="birthdate"
-            defaultValue={firebaseValues.birthdate}
+            name="dateOfBirth"
+            defaultValue={firebaseValues.dateOfBirth}
             ref={register({ required: true })}
           />
           {errors.lastName && <ErrorMessage>Last name is required</ErrorMessage>}
