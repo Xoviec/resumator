@@ -63,9 +63,7 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
           </InputWrapper>
 
           <InputWrapper>
-            <StyledLabel htmlFor={`education[${index}.endDate]`}>
-              End date
-            </StyledLabel>
+            <StyledLabel htmlFor={`${name}[${index}.endDate]`}>End date</StyledLabel>
             <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
           </InputWrapper>
 
