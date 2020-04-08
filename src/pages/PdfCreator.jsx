@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Box, Button, Heading } from "rebass";
 import { Label, Input, Textarea } from "@rebass/forms";
 
-import FieldsInput from "../components/form/FieldsInput";
+import { FieldsInput } from "../components/form";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
