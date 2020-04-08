@@ -1,8 +1,10 @@
 import React from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styled from "@emotion/styled";
-import { Box, Button, Flex, Heading } from "rebass";
+import { Box, Button, Heading } from "rebass";
 import { Label, Input, Textarea } from "@rebass/forms";
+
+import FieldsInput from "../components/form/FieldsInput";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -17,11 +19,6 @@ const firebaseValues = {
 const PdfCreator = () => {
   const { control, register, handleSubmit, errors } = useForm({
     defaultValues: firebaseValues,
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "skills",
   });
 
   const onSubmit = (data) => {
@@ -95,34 +92,12 @@ const PdfCreator = () => {
         </Heading>
 
         <InputWrapper>
-          {fields.map((item, index) => (
-            <Flex
-              mb={1}
-              key={item.id}
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Box width={1} mr={1}>
-                <Input name={`skills[${index}].name`} ref={register()} />
-              </Box>
-              <Box>
-                <Button
-                  onClick={() => remove(index)}
-                  variant="outline"
-                  color="white"
-                >
-                  x
-                </Button>
-              </Box>
-            </Flex>
-          ))}
-          <Button
-            onClick={() => append({ name: "" })}
-            variant="outline"
-            color="white"
-          >
-            + Add skill
-          </Button>
+          <FieldsInput
+            name="skills"
+            addButtonLabel="+ Add skill"
+            control={control}
+            register={register}
+          />
         </InputWrapper>
       </FormGroup>
 
