@@ -6,24 +6,30 @@ import {
   ResumeAbout,
   ResumeProjects,
   ResumeSkills,
+  ResumeEducation,
 } from "./ResumeComponents";
 
 const PdfPreviewer = () => {
   const [resume, SetResume] = React.useState();
 
+  // Using an effect hook is now an assumption on how we will fetch data form API
+  // Can be refactored later when real API comes in
   React.useEffect(() => {
     SetResume(data);
   }, []);
 
   const resumeView = () => {
+    // TODO map data from api and create new data object
+
     return resume ? (
       <>
-        <ResumeHeader name={resume.firstName} />
+        <ResumeHeader name={resume.firstName} city={resume.address.city} />
         <Flex>
-          <ResumeAbout text={resume.about} />
-          <ResumeProjects projects={resume.projects} />
+          <ResumeAbout width={1 / 2} text={resume.introduction} />
+          <ResumeProjects width={1 / 2} experience={resume.experience} />
         </Flex>
-        <ResumeSkills />
+        <ResumeSkills skills={resume.skills} />
+        <ResumeEducation />
       </>
     ) : (
       <div>...loading</div>

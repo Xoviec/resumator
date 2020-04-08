@@ -85,6 +85,10 @@ export default {
         color: "primary",
       },
     },
+    spanText: {
+      fontSize: 2,
+      fontWeight: "bold",
+    }
   },
   buttons: {
     primary: {
