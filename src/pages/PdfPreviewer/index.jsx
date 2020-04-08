@@ -28,11 +28,13 @@ const PdfPreviewer = () => {
           city={resume.personalia.address.city}
         />
         <Flex>
-          <ResumeAbout width={1 / 2} text={resume.introduction} />
+          <Box>
+            <ResumeAbout width={1 / 2} text={resume.introduction} />
+            <ResumeSkills skills={resume.skills} />
+            <ResumeEducation />
+          </Box>
           <ResumeExperience width={1 / 2} experience={resume.experience} />
         </Flex>
-        <ResumeSkills skills={resume.skills} />
-        <ResumeEducation />
       </>
     ) : (
       <div>...loading</div>
