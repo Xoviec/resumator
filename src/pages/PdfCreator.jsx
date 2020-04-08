@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Box, Button, Heading } from "rebass";
 import { Label, Input, Textarea } from "@rebass/forms";
 
-import { FieldsInput } from "../components/form";
+import { EducationInput, FieldsInput } from "../components/form";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -84,6 +84,15 @@ const PdfCreator = () => {
         <Heading as="legend" color="white" p="0" mb="2rem">
           Education
         </Heading>
+
+        <InputWrapper>
+          <EducationInput
+            name="education"
+            addButtonLabel="+ Add education"
+            control={control}
+            register={register}
+          />
+        </InputWrapper>
       </FormGroup>
 
       <FormGroup>
