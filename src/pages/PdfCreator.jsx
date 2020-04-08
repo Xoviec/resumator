@@ -94,10 +94,6 @@ const PdfCreator = () => {
           Skills
         </Heading>
 
-        <Button onClick={() => append({ name: "" })} variant="outline" color="white">
-          + Add skill
-        </Button>
-
         <InputWrapper>
           {fields.map((item, index) => (
             <Flex
@@ -120,6 +116,13 @@ const PdfCreator = () => {
               </Box>
             </Flex>
           ))}
+          <Button
+            onClick={() => append({ name: "" })}
+            variant="outline"
+            color="white"
+          >
+            + Add skill
+          </Button>
         </InputWrapper>
       </FormGroup>
 
