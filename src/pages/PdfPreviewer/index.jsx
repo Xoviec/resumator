@@ -4,7 +4,7 @@ import data from "./mock.json";
 import {
   ResumeHeader,
   ResumeAbout,
-  ResumeProjects,
+  ResumeExperience,
   ResumeSkills,
   ResumeEducation,
 } from "./ResumeComponents";
@@ -23,10 +23,13 @@ const PdfPreviewer = () => {
 
     return resume ? (
       <>
-        <ResumeHeader name={resume.firstName} city={resume.address.city} />
+        <ResumeHeader
+          name={resume.firstName}
+          city={resume.personalia.address.city}
+        />
         <Flex>
           <ResumeAbout width={1 / 2} text={resume.introduction} />
-          <ResumeProjects width={1 / 2} experience={resume.experience} />
+          <ResumeExperience width={1 / 2} experience={resume.experience} />
         </Flex>
         <ResumeSkills skills={resume.skills} />
         <ResumeEducation />
