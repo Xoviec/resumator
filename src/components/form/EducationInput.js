@@ -75,6 +75,7 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
                 as="input"
                 type="checkbox"
                 name={`${name}[${index}].certificate`}
+                ref={register()}
               />
               Certificate
             </StyledLabel>
@@ -89,12 +90,12 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
   );
 };
 
-// FIXME: duplicate component
+// FIXME: duplicate component (see: PdfCreator.jsx)
 const InputWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-// FIXME: duplicate component
+// FIXME: duplicate component (see: PdfCreator.jsx)
 const StyledLabel = styled(Label)`
   margin-bottom: 0.25rem;
 `;
