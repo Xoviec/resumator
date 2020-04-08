@@ -2,7 +2,9 @@ import React from "react";
 import { Box, Text, Heading, Flex } from "rebass";
 
 export const ResumeExperience = ({ experience }) => {
-  const ProjectBox = ({ id, role, company, stackAndTechniques, description }) => {
+  const ProjectBox = ({
+    project: { id, role, company, stackAndTechniques, description },
+  }) => {
     return (
       <Box key={id} mb={50}>
         <Box mb={20}>
@@ -13,7 +15,11 @@ export const ResumeExperience = ({ experience }) => {
         <Flex mt={4} backgroundColor={"grey"}>
           <Text mr={2}>Techniques: </Text>
           {stackAndTechniques.map((skill) => {
-            return <Text mr={2}>{skill}</Text>;
+            return (
+              <Text key={skill} mr={2}>
+                {skill}
+              </Text>
+            );
           })}
         </Flex>
       </Box>
@@ -25,7 +31,7 @@ export const ResumeExperience = ({ experience }) => {
         EXPERIENCE
       </Text>
       {experience.map((project) => {
-        return ProjectBox(project);
+        return <ProjectBox key={project.id} project={project} />;
       })}
     </Box>
   );
