@@ -1,40 +1,41 @@
 import React from "react";
 import { Box, Button, Flex } from "rebass";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const MoveControls = ({ index, fields, remove, swap }) => {
-  return (
-    <Flex>
-      <Box width={1 / 3} mx={1}>
-        {index !== fields.length - 1 && (
-          <Button
-            onClick={() => swap(index, index + 1)}
-            variant="outline"
-            color="white"
-          >
-            ↓️
-          </Button>
-        )}
-      </Box>
-
-      <Box width={1 / 3} mx={1}>
-        {index !== 0 && (
-          <Button
-            onClick={() => swap(index, index - 1)}
-            variant="outline"
-            color="white"
-          >
-            ↑
-          </Button>
-        )}
-      </Box>
-
-      <Box width={1 / 3} ml={1}>
-        <Button onClick={() => remove(index)} variant="outline" color="white">
-          ‒
+const MoveControls = ({ index, fields, remove, swap }) => (
+  <Flex>
+    <Box width="6.5rem">
+      {index !== fields.length - 1 && (
+        <Button
+          onClick={() => swap(index, index + 1)}
+          variant="outline"
+          color="white"
+          mr={1}
+        >
+          <Icon icon={faArrowDown} size="sm" />
         </Button>
-      </Box>
-    </Flex>
-  );
-};
+      )}
+      {index !== 0 && (
+        <Button
+          onClick={() => swap(index, index - 1)}
+          variant="outline"
+          color="white"
+        >
+          <Icon icon={faArrowUp} size="sm" />
+        </Button>
+      )}
+    </Box>
+
+    <Button
+      onClick={() => remove(index)}
+      variant="outline"
+      color="white"
+      alignSelf="right"
+    >
+      <Icon icon={faTimes} size="sm" />{" "}
+    </Button>
+  </Flex>
+);
 
 export default MoveControls;

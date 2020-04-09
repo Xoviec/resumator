@@ -2,15 +2,24 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
-
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
-  EducationInput,
+  faPlus,
+  faAddressCard,
+  faGraduationCap,
+  faBriefcase,
+  faCodeBranch,
+  faBrain,
+  faCertificate,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { EducationInput, FieldsInput } from "../components/form";
+import {
   ErrorMessage,
   FormGroup,
   InputWrapper,
   StyledLabel,
-  FieldsInput,
-} from "../components/form";
+} from "../components/form/styledComponents";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -44,10 +53,10 @@ const PdfCreator = () => {
         Create Resume
       </Heading>
       <FormGroup>
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faAddressCard} size="sm" /> Personal details
+        </Heading>
         <InputWrapper>
-          <Heading as="legend" color="white" p="0" mb="2rem">
-            Personal details
-          </Heading>
           <StyledLabel htmlFor="firstName">First name</StyledLabel>
           <Input name="firstName" ref={register({ required: true })} />
           {errors.firstName && <ErrorMessage>First name is required</ErrorMessage>}
@@ -78,23 +87,23 @@ const PdfCreator = () => {
       </FormGroup>
 
       <FormGroup>
-        <Heading as="legend" color="white" p="0" mb="2rem">
-          Work Experience
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faBriefcase} size="sm" /> Work Experience
         </Heading>
         <Button variant="outline" color="white">
-          + Add Work Experience
+          <Icon icon={faPlus} size="sm" /> Add work experience
         </Button>
       </FormGroup>
 
       <FormGroup>
-        <Heading as="legend" color="white" p="0" mb="2rem">
-          Education
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faGraduationCap} size="sm" /> Education
         </Heading>
 
         <InputWrapper>
           <EducationInput
             name="education"
-            addButtonLabel="+ Add education"
+            addButtonLabel="Add education"
             control={control}
             register={register}
           />
@@ -102,14 +111,14 @@ const PdfCreator = () => {
       </FormGroup>
 
       <FormGroup>
-        <Heading as="legend" color="white" p="0" mb="2rem">
-          Skills
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faBrain} size="sm" /> Skills
         </Heading>
 
         <InputWrapper>
           <FieldsInput
             name="skills"
-            addButtonLabel="+ Add skill"
+            addButtonLabel="Add skill"
             control={control}
             register={register}
           />
@@ -117,18 +126,18 @@ const PdfCreator = () => {
       </FormGroup>
 
       <FormGroup>
-        <Heading as="legend" color="white" p="0" mb="2rem">
-          Projects
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faCodeBranch} size="sm" /> Projects
         </Heading>
       </FormGroup>
       <FormGroup>
-        <Heading as="legend" color="white" p="0" mb="2rem">
-          Badges
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faCertificate} size="sm" /> Badges
         </Heading>
       </FormGroup>
       <FormGroup>
-        <Heading as="legend" color="white" p="0" mb="2rem">
-          Avatar
+        <Heading as="legend" color="white" p="0">
+          <Icon icon={faUserCircle} size="sm" /> Avatar
         </Heading>
       </FormGroup>
       <Button as="input" type="submit" />

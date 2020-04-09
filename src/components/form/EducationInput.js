@@ -2,7 +2,8 @@ import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
 import { Checkbox, Input } from "@rebass/forms";
-
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
 
@@ -15,10 +16,10 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
   return (
     <>
       {fields.map((item, index) => (
-        <div key={item.id}>
-          <Flex alignItems="center" justifyContent="space-between">
+        <Box key={item.id} mb="1rem">
+          <Flex alignItems="flex-start" justifyContent="space-between">
             <Box width={1} mr={1}>
-              <Heading fontSize={20} as="legend" color="white" my="2rem">
+              <Heading fontSize={20} as="legend" color="white">
                 Education #{index + 1}
               </Heading>
             </Box>
@@ -78,11 +79,11 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
               Certificate
             </StyledLabel>
           </InputWrapper>
-        </div>
+        </Box>
       ))}
 
       <Button onClick={() => prepend({})} variant="outline" color="white">
-        {addButtonLabel}
+        <Icon icon={faPlus} size="sm" /> {addButtonLabel}
       </Button>
     </>
   );
