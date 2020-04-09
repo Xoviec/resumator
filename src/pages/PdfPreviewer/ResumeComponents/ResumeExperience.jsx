@@ -26,7 +26,7 @@ export const ResumeExperience = ({ experience }) => {
     );
   };
   return (
-    <Box ml={5} mt={"2.5rem"} maxWidth={500}>
+    <Box ml={5} mt={"2.5rem"}>
       <Text fontSize={5} color="#ff450d" mb={2}>
         EXPERIENCE
       </Text>
