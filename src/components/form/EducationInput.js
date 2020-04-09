@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
-import { Checkbox, Label, Input } from "@rebass/forms";
+import { Checkbox, Input } from "@rebass/forms";
 
 import MoveControls from "./MoveControls";
+import { InputWrapper, StyledLabel } from "./styledComponents";
 
 const EducationInput = ({ name, addButtonLabel, control, register }) => {
   const { fields, prepend, remove, swap } = useFieldArray({
@@ -87,15 +87,5 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
     </>
   );
 };
-
-// FIXME: duplicate component (see: PdfCreator.jsx)
-const InputWrapper = styled.div`
-  margin-top: 1rem;
-`;
-
-// FIXME: duplicate component (see: PdfCreator.jsx)
-const StyledLabel = styled(Label)`
-  margin-bottom: 0.25rem;
-`;
 
 export default EducationInput;
