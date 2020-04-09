@@ -1,10 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import styled from "@emotion/styled";
 import { Box, Button, Heading } from "rebass";
-import { Label, Input, Textarea } from "@rebass/forms";
+import { Input, Textarea } from "@rebass/forms";
 
-import { FieldsInput } from "../components/form";
+import {
+  EducationInput,
+  ErrorMessage,
+  FormGroup,
+  InputWrapper,
+  StyledLabel,
+  FieldsInput,
+} from "../components/form";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -84,6 +90,15 @@ const PdfCreator = () => {
         <Heading as="legend" color="white" p="0" mb="2rem">
           Education
         </Heading>
+
+        <InputWrapper>
+          <EducationInput
+            name="education"
+            addButtonLabel="+ Add education"
+            control={control}
+            register={register}
+          />
+        </InputWrapper>
       </FormGroup>
 
       <FormGroup>
@@ -120,25 +135,5 @@ const PdfCreator = () => {
     </Box>
   );
 };
-
-const FormGroup = styled.fieldset`
-  margin-bottom: 2rem;
-  border: 0;
-  padding: 0;
-`;
-
-const StyledLabel = styled(Label)`
-  margin-bottom: 0.25rem;
-`;
-
-const InputWrapper = styled.div`
-  margin-top: 1rem;
-`;
-
-const ErrorMessage = styled.label`
-  display: block;
-  padding-top: 0.25rem;
-  color: tomato;
-`;
 
 export default PdfCreator;
