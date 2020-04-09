@@ -41,10 +41,20 @@ const PdfPreviewer = () => {
     );
   };
   return (
-    <Box width="100%" p="2rem" color="white" bg="white" textAlign="left">
-      <Box color="secondary" mb="3">
-        {resumeView()}
-      </Box>
+    <Box>
+      <Flex
+        width={1000}
+        justifyContent="center"
+        p="2rem"
+        color="white"
+        bg="white"
+        textAlign="left"
+        mb={50}
+      >
+        <Box color="secondary" mb="3">
+          {resumeView()}
+        </Box>
+      </Flex>
     </Box>
   );
 };
