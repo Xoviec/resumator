@@ -7,7 +7,7 @@ import {
   ResumeExperience,
   ResumeSkills,
   ResumeEducation,
-} from "./ResumeComponents";
+} from "../../components/ResumeComponents";
 
 const PdfPreviewer = () => {
   const [resume, SetResume] = React.useState();
@@ -25,7 +25,7 @@ const PdfPreviewer = () => {
       <>
         <ResumeHeader
           name={resume.personalia.firstName}
-          city={resume.personalia.address.city}
+          city={resume.personalia.city}
         />
         <Flex>
           <Box minWidth={300}>
