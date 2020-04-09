@@ -1,5 +1,3 @@
-import { red, white } from "color-name";
-
 export const colors = {
   lightBlue: "#00cccc",
   darkBlue: " #1f1e32",
