@@ -19,4 +19,16 @@ export default yup.object().shape({
         stackAndTechniques: yup.array().min(1),
       })
     ),
+  edution: yup
+    .array()
+    .min(1)
+    .of(
+      yup.object.shape({
+        institute: yup.string().required(),
+        name: yup.string().required(),
+        level: yup.string(),
+        startDate: yup.date().required(),
+        endDate: yup.date().required(),
+      })
+    ),
 });
