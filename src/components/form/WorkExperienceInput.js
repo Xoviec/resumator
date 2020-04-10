@@ -1,14 +1,15 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
-import { Checkbox, Input } from "@rebass/forms";
+import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import FieldsInput from "./FieldsInput";
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
 
-const EducationInput = ({ name, addButtonLabel, control, register }) => {
+const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
     name,
@@ -25,7 +26,7 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
           <Flex direction="row" alignItems="center" justifyContent="space-between">
             <Box width="100%" mr={1}>
               <Heading fontSize={20} as="legend" color="white" my="2rem">
-                Education #{index + 1}
+                Work Experience #{index + 1}
               </Heading>
             </Box>
 
@@ -40,49 +41,43 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
           </Flex>
 
           <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.institute]`}>
-              Institute
+            <StyledLabel htmlFor={`${name}[${index}.company]`}>Company</StyledLabel>
+            <Input name={`${name}[${index}].company`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.role]`}>Role</StyledLabel>
+            <Input name={`${name}[${index}].role`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.from]`}>Start date</StyledLabel>
+            <Input type="date" name={`${name}[${index}].from`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.untill]`}>End date</StyledLabel>
+            <Input type="date" name={`${name}[${index}].untill`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.description]`}>
+              Description
             </StyledLabel>
-            <Input name={`${name}[${index}].institute`} ref={register()} />
+            <Textarea name={`${name}[${index}].description`} ref={register()} />
           </InputWrapper>
 
           <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.name]`}>Name</StyledLabel>
-            <Input name={`${name}[${index}].name`} ref={register()} />
-          </InputWrapper>
-
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.level]`}>Level</StyledLabel>
-            <Input name={`${name}[${index}].level`} ref={register()} />
-          </InputWrapper>
-
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.startDate]`}>
-              Start date
+            <StyledLabel htmlFor={`${name}[${index}].stackAndTechniques`}>
+              Stack and techniques
             </StyledLabel>
 
-            <Input
-              type="date"
-              name={`${name}[${index}].startDate`}
-              ref={register()}
+            <FieldsInput
+              name={`${name}[${index}].stackAndTechniques`}
+              addButtonLabel="Add stack / technique"
+              control={control}
+              register={register}
             />
-          </InputWrapper>
-
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.endDate]`}>End date</StyledLabel>
-            <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
-          </InputWrapper>
-
-          <InputWrapper>
-            <StyledLabel>
-              <Checkbox
-                as="input"
-                type="checkbox"
-                name={`${name}[${index}].certificate`}
-                ref={register()}
-              />
-              Certificate
-            </StyledLabel>
           </InputWrapper>
         </Box>
       ))}
@@ -90,4 +85,4 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
   );
 };
 
-export default EducationInput;
+export default WorkExperienceInput;

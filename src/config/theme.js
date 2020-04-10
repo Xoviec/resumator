@@ -24,6 +24,9 @@ const generalButtonStyling = {
   transitionProperty: "transform",
   transitionDuration: "0.1s",
   transitionTimingFunction: "ease-in",
+  "&:hover": {
+    cursor: "pointer",
+  },
   ...disabledStyling,
 };
 
