@@ -8,7 +8,6 @@ import Overview from "./pages/Overview";
 import Home from "./pages/Home";
 import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
-import CreatorLayout from "./layouts/Creator";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import FirebaseTest from "./components/FirebaseTest";
 
