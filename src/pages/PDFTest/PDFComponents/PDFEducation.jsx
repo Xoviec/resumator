@@ -15,7 +15,7 @@ const TextArea = styled.Text`
 
 export function PDFEducation({ introduction }) {
   return (
-    <Root>
+    <Root wrap={false}>
       <TextArea>{introduction}</TextArea>
     </Root>
   );
