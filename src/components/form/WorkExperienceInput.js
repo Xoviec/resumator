@@ -22,7 +22,7 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
       </Button>
 
       {fields.map((item, index) => (
-        <div key={item.id}>
+        <Box key={item.id} mb="1rem">
           <Flex alignItems="center" justifyContent="space-between">
             <Box width={1} mr={1}>
               <Heading fontSize={20} as="legend" color="white" my="2rem">
@@ -79,7 +79,7 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
               register={register}
             />
           </InputWrapper>
-        </div>
+        </Box>
       ))}
     </>
   );

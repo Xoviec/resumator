@@ -24,7 +24,7 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
         <Box key={item.id} mb="1rem">
           <Flex alignItems="flex-start" justifyContent="space-between">
             <Box width={1} mr={1}>
-              <Heading fontSize={20} as="legend" color="white">
+              <Heading fontSize={20} as="legend" color="white" my="2rem">
                 Education #{index + 1}
               </Heading>
             </Box>
