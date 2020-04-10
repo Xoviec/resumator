@@ -31,4 +31,5 @@ export default yup.object().shape({
         endDate: yup.date().required(),
       })
     ),
+  skill: yup.array().min(1),
 });
