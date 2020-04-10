@@ -4,7 +4,6 @@
     "jest": true,
     "es6": true
   },
-  "plugins": ["import"],
   "extends": [
     "plugin:prettier/recommended",
     "plugin:react/recommended",
