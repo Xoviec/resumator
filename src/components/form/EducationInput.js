@@ -4,6 +4,7 @@ import { Box, Button, Flex, Heading } from "rebass";
 import { Checkbox, Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
 

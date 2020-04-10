@@ -4,7 +4,6 @@ import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
-  faPlus,
   faAddressCard,
   faGraduationCap,
   faBriefcase,
@@ -13,7 +12,13 @@ import {
   faCertificate,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { EducationInput, FieldsInput } from "../components/form";
+
+import {
+  EducationInput,
+  FieldsInput,
+  WorkExperienceInput,
+} from "../components/form";
+
 import {
   ErrorMessage,
   FormGroup,
@@ -90,9 +95,15 @@ const PdfCreator = () => {
         <Heading as="legend" color="white" p="0">
           <Icon icon={faBriefcase} size="sm" /> Work Experience
         </Heading>
-        <Button variant="outline" color="white">
-          <Icon icon={faPlus} size="sm" /> Add work experience
-        </Button>
+
+        <InputWrapper>
+          <WorkExperienceInput
+            name="experience"
+            addButtonLabel="Add experience"
+            control={control}
+            register={register}
+          />
+        </InputWrapper>
       </FormGroup>
 
       <FormGroup>
