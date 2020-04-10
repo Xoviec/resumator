@@ -13,6 +13,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
+import validationSchema from "../config/validation";
 import {
   EducationInput,
   FieldsInput,
@@ -41,6 +42,7 @@ const firebaseValues = {
 const PdfCreator = () => {
   const { control, register, handleSubmit, errors } = useForm({
     defaultValues: firebaseValues,
+    validationSchema,
   });
 
   const onSubmit = (data) => {
@@ -65,30 +67,34 @@ const PdfCreator = () => {
         </Heading>
         <InputWrapper>
           <StyledLabel htmlFor="firstName">First name</StyledLabel>
-          <Input name="firstName" ref={register({ required: true })} />
-          {errors.firstName && <ErrorMessage>First name is required</ErrorMessage>}
+          <Input name="firstName" ref={register()} />
+          {errors.firstName && (
+            <ErrorMessage>{errors.firstName.message}</ErrorMessage>
+          )}
         </InputWrapper>
         <InputWrapper>
           <StyledLabel htmlFor="lastName">Last name</StyledLabel>
-          <Input name="lastName" ref={register({ required: true })} />
-          {errors.lastName && "Last name is required"}
+          <Input name="lastName" ref={register()} />
+          {errors.lastName && <ErrorMessage>{errors.lastName.message}</ErrorMessage>}
         </InputWrapper>
         <InputWrapper>
           <StyledLabel htmlFor="dateOfBirth">Birthdate</StyledLabel>
 
-          <Input type="date" name="dateOfBirth" ref={register({ required: true })} />
-          {errors.lastName && <ErrorMessage>Last name is required</ErrorMessage>}
+          <Input type="date" name="dateOfBirth" ref={register()} />
+          {errors.dateOfBirth && (
+            <ErrorMessage>{errors.dateOfBirth.message}</ErrorMessage>
+          )}
         </InputWrapper>
         <InputWrapper>
           <StyledLabel htmlFor="city">City</StyledLabel>
-          <Input name="city" ref={register({ required: true })} />
-          <ErrorMessage> {errors.city && "City is required"}</ErrorMessage>
+          <Input name="city" ref={register()} />
+          {errors.city && <ErrorMessage>{errors.city.message}</ErrorMessage>}
         </InputWrapper>
         <InputWrapper>
           <StyledLabel htmlFor="introduction">Introduction</StyledLabel>
-          <Textarea name="introduction" ref={register({ required: true })} />
+          <Textarea name="introduction" ref={register()} />
           {errors.introduction && (
-            <ErrorMessage>Introduction is required</ErrorMessage>
+            <ErrorMessage>{errors.introduction.message}</ErrorMessage>
           )}
         </InputWrapper>
       </FormGroup>
