@@ -19,11 +19,11 @@ export default yup.object().shape({
         stackAndTechniques: yup.array().min(1),
       })
     ),
-  edution: yup
+  education: yup
     .array()
     .min(1)
     .of(
-      yup.object.shape({
+      yup.object().shape({
         institute: yup.string().required(),
         name: yup.string().required(),
         level: yup.string(),
