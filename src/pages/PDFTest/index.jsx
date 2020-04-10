@@ -1,64 +1,38 @@
 import React from "react";
+import { Document, PDFViewer, Font } from "@react-pdf/renderer";
 import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  PDFViewer,
-} from "@react-pdf/renderer";
-import styled from "@react-pdf/styled-components";
+  PDFHeader,
+  PDFIntroduction,
+  PDFSkills,
+  PDFEducation,
+} from "./PDFComponents";
 import data from "../PdfPreviewer/mock.json";
+import styled from "@react-pdf/styled-components";
+import font from "../../assets/fonts/Stratum1-Bold.ttf";
 
-// Create styles
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#fff",
-  },
-  section: {
-    flexGrow: 1,
-    backgroundColor: "#19c3c0",
-    color: "#fff",
-  },
-  span: {
-    fontWeight: "bold",
-  },
-  test: {
-    display: "inline-block",
-  },
-  header: {
-    padding: "10px",
-  },
+Font.register({
+  family: "FamilyName",
+  format: "truetype",
+  src: font,
 });
 
-const Heading = styled.Text`
-  margin: 10px;
-  font-size: 48px;
+const Wrapper = styled.Page`
+  padding: 20px;
 `;
 
-const Header = styled.View`
-  display: flex;
-  flex-direction: row;
-  background-color: #e0e0e0;
-`;
-
-// Create Document Component
 const MyDocument = ({ resume }) => {
   console.log(resume);
   return (
     <Document>
-      <Page size="A4" style={styles.header}>
-        <View style={styles.header}>
-          <Header>
-            <Heading>Hi, I am</Heading>
-            <Heading>{resume.personalia.firstName}</Heading>
-          </Header>
-          <Text>Frontend expert</Text>
-        </View>
-        <View style={styles.section}>
-          <Text>{resume.introduction}</Text>
-        </View>
-      </Page>
+      <Wrapper size="A4">
+        <PDFHeader
+          name={resume.personalia.firstName}
+          city={resume.personalia.city}
+        />
+        <PDFIntroduction introduction={resume.introduction} />
+        <PDFSkills introduction={resume.introduction} />
+        <PDFEducation introduction={resume.introduction} />
+      </Wrapper>
     </Document>
   );
 };
