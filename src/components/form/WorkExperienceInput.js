@@ -5,6 +5,7 @@ import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import FieldsInput from "./FieldsInput";
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
 
@@ -66,7 +67,18 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
             <Textarea name={`${name}[${index}].description`} ref={register()} />
           </InputWrapper>
 
-          {/* TODO: fieldsInput for stack & techniques */}
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}].stackAndTechniques`}>
+              Stack and techniques
+            </StyledLabel>
+
+            <FieldsInput
+              name={`${name}[${index}].stackAndTechniques`}
+              addButtonLabel="Add stack / technique"
+              control={control}
+              register={register}
+            />
+          </InputWrapper>
         </div>
       ))}
     </>
