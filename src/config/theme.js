@@ -6,6 +6,39 @@ export const colors = {
   mediumGrey: "#d1d1d1",
 };
 
+const disabledStyling = {
+  "&[disabled], button:disabled": {
+    opacity: "0.5",
+    cursor: "default",
+    pointerEvents: "none",
+  },
+};
+
+const generalButtonStyling = {
+  fontFamily: "Stratum, Arial, system-ui, sans-serif",
+  fontSize: 3,
+  fontWeight: "bold",
+  color: "background",
+  borderRadius: "default",
+  outline: 0,
+  transitionProperty: "transform",
+  transitionDuration: "0.1s",
+  transitionTimingFunction: "ease-in",
+  ...disabledStyling,
+};
+
+const generalInputStyling = {
+  color: "white",
+  "&:hover, :focus": {
+    borderColor: "hotpink",
+    outline: "none",
+  },
+  "&:focus": {
+    boxShadow: "inset 0 0 0px 1px hotpink",
+  },
+  ...disabledStyling,
+};
+
 export default {
   colors: {
     text: "#000",
@@ -88,34 +121,52 @@ export default {
   },
   buttons: {
     primary: {
-      fontFamily: "Stratum, Arial, system-ui, sans-serif",
-      fontSize: 3,
-      fontWeight: "bold",
-      color: "background",
+      ...generalButtonStyling,
       bg: "primary",
-      borderRadius: "default",
-    },
-    outline: {
-      fontFamily: "Stratum, Arial, system-ui, sans-serif",
-      variant: "buttons.primary",
-      color: "secondary",
-      bg: "transparent",
-      boxShadow: "inset 0 0 2px",
+      "&:hover, :focus": {
+        transform: "skewX(-8deg)",
+      },
+      "&:active": {
+        boxShadow: "inset 0 0 0px 2px rgba(0, 0, 0, 0.6)",
+      },
     },
     secondary: {
-      fontFamily: "Stratum, Arial, system-ui, sans-serif",
+      ...generalButtonStyling,
       variant: "buttons.primary",
       color: "background",
       bg: "secondary",
     },
+    hotpink: {
+      ...generalButtonStyling,
+      color: "white",
+      bg: "hotpink",
+    },
+    outline: {
+      ...generalButtonStyling,
+      variant: "buttons.primary",
+      color: "secondary",
+      bg: "transparent",
+      boxShadow: "inset 0 0 0px 1px",
+      "&:hover, :focus": {
+        color: "hotpink",
+        transform: "skewX(-5deg)",
+      },
+      "&:active": {
+        boxShadow: "inset 0 0 0px 3px",
+      },
+    },
   },
   forms: {
     input: {
-      color: "white",
+      ...generalInputStyling,
+      height: "40px", //same as buttons
     },
-    select: {},
+    select: {
+      ...generalInputStyling,
+    },
     textarea: {
-      color: "white",
+      ...generalInputStyling,
+      resize: "vertical",
     },
     label: {
       color: "white",
