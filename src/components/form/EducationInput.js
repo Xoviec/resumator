@@ -16,6 +16,10 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
 
   return (
     <>
+      <Button onClick={() => prepend({})} variant="outline" color="white">
+        <Icon icon={faPlus} size="sm" /> {addButtonLabel}
+      </Button>
+
       {fields.map((item, index) => (
         <Box key={item.id} mb="1rem">
           <Flex alignItems="flex-start" justifyContent="space-between">
@@ -82,10 +86,6 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
           </InputWrapper>
         </Box>
       ))}
-
-      <Button onClick={() => prepend({})} variant="outline" color="white">
-        <Icon icon={faPlus} size="sm" /> {addButtonLabel}
-      </Button>
     </>
   );
 };
