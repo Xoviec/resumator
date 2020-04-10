@@ -32,7 +32,9 @@ const firebaseValues = {
   lastName: "Doe",
   dateOfBirth: "1980-01-30",
   city: "Amsterdam",
-  introduction: "",
+  introduction: "Lorem ipsum",
+  education: [{}],
+  experience: [{}],
   skills: [{ name: "JavaScript" }, { name: "React" }],
 };
 
