@@ -1,7 +1,7 @@
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
-import { Input } from "@rebass/forms";
+import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -43,6 +43,30 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
             <StyledLabel htmlFor={`${name}[${index}.company]`}>Company</StyledLabel>
             <Input name={`${name}[${index}].company`} ref={register()} />
           </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.role]`}>Role</StyledLabel>
+            <Input name={`${name}[${index}].role`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.from]`}>Start date</StyledLabel>
+            <Input type="date" name={`${name}[${index}].from`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.untill]`}>End date</StyledLabel>
+            <Input type="date" name={`${name}[${index}].untill`} ref={register()} />
+          </InputWrapper>
+
+          <InputWrapper>
+            <StyledLabel htmlFor={`${name}[${index}.description]`}>
+              Description
+            </StyledLabel>
+            <Textarea name={`${name}[${index}].description`} ref={register()} />
+          </InputWrapper>
+
+          {/* TODO: fieldsInput for stack & techniques */}
         </div>
       ))}
     </>
