@@ -1,5 +1,8 @@
 import * as yup from "yup";
 
+export const MIN_NUMBER_OF_EXPERIENCE = 1;
+export const MIN_NUMBER_OF_EDUCATION = 1;
+
 export default yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
@@ -8,7 +11,7 @@ export default yup.object().shape({
   introduction: yup.string().required().max(200),
   experience: yup
     .array()
-    .min(1)
+    .min(MIN_NUMBER_OF_EXPERIENCE)
     .of(
       yup.object().shape({
         company: yup.string().required(),
@@ -21,7 +24,7 @@ export default yup.object().shape({
     ),
   education: yup
     .array()
-    .min(1)
+    .min(MIN_NUMBER_OF_EDUCATION)
     .of(
       yup.object().shape({
         institute: yup.string().required(),

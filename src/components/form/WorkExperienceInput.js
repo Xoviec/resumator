@@ -5,6 +5,8 @@ import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import { MIN_NUMBER_OF_EXPERIENCE } from "../../config/validation";
+
 import FieldsInput from "./FieldsInput";
 import FormField from "./FormField";
 import MoveControls from "./MoveControls";
@@ -33,6 +35,7 @@ const WorkExperienceInput = ({ name, addButtonLabel }) => {
 
             <Box flexShrink={0}>
               <MoveControls
+                min={MIN_NUMBER_OF_EXPERIENCE}
                 index={index}
                 fields={fields}
                 remove={remove}

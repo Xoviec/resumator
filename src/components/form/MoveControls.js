@@ -3,7 +3,7 @@ import { Box, Button, Flex } from "rebass";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const MoveControls = ({ index, fields, remove, swap }) => (
+const MoveControls = ({ index, min, fields, remove, swap }) => (
   <Flex>
     <Box width="6.5rem">
       {index !== fields.length - 1 && (
@@ -16,6 +16,7 @@ const MoveControls = ({ index, fields, remove, swap }) => (
           <Icon icon={faArrowDown} size="sm" />
         </Button>
       )}
+
       {index !== 0 && (
         <Button
           onClick={() => swap(index, index - 1)}
@@ -27,15 +28,21 @@ const MoveControls = ({ index, fields, remove, swap }) => (
       )}
     </Box>
 
-    <Button
-      onClick={() => remove(index)}
-      variant="outline"
-      color="white"
-      alignSelf="right"
-    >
-      <Icon icon={faTimes} size="sm" />{" "}
-    </Button>
+    {fields.length > min && (
+      <Button
+        onClick={() => remove(index)}
+        variant="outline"
+        color="white"
+        alignSelf="right"
+      >
+        <Icon icon={faTimes} size="sm" />{" "}
+      </Button>
+    )}
   </Flex>
 );
+
+MoveControls.defaultProps = {
+  min: 0,
+};
 
 export default MoveControls;

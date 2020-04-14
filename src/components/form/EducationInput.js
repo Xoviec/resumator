@@ -5,6 +5,8 @@ import { Checkbox, Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import { MIN_NUMBER_OF_EDUCATION } from "../../config/validation";
+
 import FormField from "./FormField";
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
@@ -34,6 +36,7 @@ const EducationInput = ({ name, addButtonLabel }) => {
             <Box flexShrink={0}>
               <MoveControls
                 index={index}
+                min={MIN_NUMBER_OF_EDUCATION}
                 fields={fields}
                 remove={remove}
                 swap={swap}
