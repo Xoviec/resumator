@@ -1,10 +1,12 @@
 import React from "react";
-import { Document, PDFViewer, Font } from "@react-pdf/renderer";
+import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
 import {
   PDFHeader,
   PDFIntroduction,
   PDFSkills,
   PDFEducation,
+  PDFProjects,
+  PDFWorkExperience,
 } from "./PDFComponents";
 import data from "../PdfPreviewer/mock.json";
 import styled from "@react-pdf/styled-components";
@@ -20,6 +22,11 @@ const Wrapper = styled.Page`
   padding: 20px;
 `;
 
+const Flex = styled.View`
+  display: flex;
+  flex-direction: row;
+`;
+
 const MyDocument = ({ resume }) => {
   console.log(resume);
   return (
@@ -29,9 +36,17 @@ const MyDocument = ({ resume }) => {
           name={resume.personalia.firstName}
           city={resume.personalia.city}
         />
-        <PDFIntroduction introduction={resume.introduction} />
-        <PDFSkills introduction={resume.introduction} />
-        <PDFEducation introduction={resume.introduction} />
+        <Flex>
+          <View>
+            <PDFIntroduction introduction={resume.introduction} />
+            <PDFSkills skills={resume.skills} />
+            <PDFEducation introduction={resume.introduction} />
+          </View>
+          <View>
+            <PDFProjects introduction={resume.introduction} />
+            <PDFWorkExperience introduction={resume.introduction} />
+          </View>
+        </Flex>
       </Wrapper>
     </Document>
   );

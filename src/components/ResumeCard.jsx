@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 
 const Card = styled(Box)`
   padding: 2rem 1rem 2rem 1rem;
-  /* parent has -1rem padding fix */
   margin: 0 1rem 2rem 1rem;
   background-color: #12111d;
   color: white;
