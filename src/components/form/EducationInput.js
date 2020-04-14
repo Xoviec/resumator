@@ -1,5 +1,5 @@
 import React from "react";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
 import { Checkbox, Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,8 @@ import FormField from "./FormField";
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
 
-const EducationInput = ({ name, addButtonLabel, control, register, errors }) => {
+const EducationInput = ({ name, addButtonLabel }) => {
+  const { control, register } = useFormContext();
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
     name,
@@ -40,27 +41,19 @@ const EducationInput = ({ name, addButtonLabel, control, register, errors }) => 
             </Box>
           </Flex>
 
-          <FormField
-            htmlFor={`${name}[${index}.institute]`}
-            label="Institute"
-            errors={errors}
-          >
+          <FormField name={`${name}[${index}].institute]`} label="Institute">
             <Input name={`${name}[${index}].institute`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}.name]`} label="Name" errors={errors}>
+          <FormField name={`${name}[${index}].name]`} label="Name">
             <Input name={`${name}[${index}].name`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}.level]`} label="Level" errors={errors}>
+          <FormField name={`${name}[${index}].level]`} label="Level">
             <Input name={`${name}[${index}].level`} ref={register()} />
           </FormField>
 
-          <FormField
-            name={`${name}[${index}.startDate]`}
-            label="Start date"
-            errors={errors}
-          >
+          <FormField name={`${name}[${index}].startDate]`} label="Start date">
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
@@ -68,11 +61,7 @@ const EducationInput = ({ name, addButtonLabel, control, register, errors }) => 
             />
           </FormField>
 
-          <FormField
-            name={`${name}[${index}.endDate]`}
-            label="End date"
-            errors={errors}
-          >
+          <FormField name={`${name}[${index}].endDate]`} label="End date">
             <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
           </FormField>
 
