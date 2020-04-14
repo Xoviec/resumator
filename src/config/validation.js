@@ -3,6 +3,18 @@ import * as yup from "yup";
 export const MIN_NUMBER_OF_EXPERIENCE = 1;
 export const MIN_NUMBER_OF_EDUCATION = 1;
 
+yup.setLocale({
+  mixed: {
+    default: "Invalid value",
+    notType: "Invalid value",
+    required: "Cannot be empty",
+  },
+  number: {
+    // eslint-disable-next-line
+    min: "Should atleast contain ${min} entry",
+  },
+});
+
 export default yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
