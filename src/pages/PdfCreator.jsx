@@ -65,23 +65,23 @@ const PdfCreator = () => {
           </Heading>
 
           <FormField name="firstName" label="First name">
-            <Input name="firstName" ref={methods.register()} />
+            <Input name="firstName" ref={methods.register} />
           </FormField>
 
           <FormField name="lastName" label="Last name">
-            <Input name="lastName" ref={methods.register()} />
+            <Input name="lastName" ref={methods.register} />
           </FormField>
 
           <FormField name="dateOfBirth" label="Birth date">
-            <Input type="date" name="dateOfBirth" ref={methods.register()} />
+            <Input type="date" name="dateOfBirth" ref={methods.register} />
           </FormField>
 
           <FormField name="city" label="City">
-            <Input name="city" ref={methods.register()} />
+            <Input name="city" ref={methods.register} />
           </FormField>
 
           <FormField name="introduction" label="Introduction">
-            <Textarea name="introduction" ref={methods.register()} />
+            <Textarea name="introduction" ref={methods.register} />
           </FormField>
         </FormGroup>
 

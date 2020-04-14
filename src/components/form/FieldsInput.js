@@ -24,7 +24,7 @@ const FieldsInput = ({ name, addButtonLabel }) => {
           justifyContent="space-between"
         >
           <Box width="100%" mr={1}>
-            <Input name={`${name}[${index}].name`} ref={register()} />
+            <Input name={`${name}[${index}].name`} ref={register} />
           </Box>
 
           <Box flexShrink={0}>
