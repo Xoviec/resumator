@@ -6,10 +6,16 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import FieldsInput from "./FieldsInput";
+import FormField from "./FormField";
 import MoveControls from "./MoveControls";
-import { InputWrapper, StyledLabel } from "./styledComponents";
 
-const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
+const WorkExperienceInput = ({
+  name,
+  addButtonLabel,
+  control,
+  register,
+  errors,
+}) => {
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
     name,
@@ -40,45 +46,54 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
             </Box>
           </Flex>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.company]`}>Company</StyledLabel>
+          <FormField
+            name={`${name}[${index}].company`}
+            label="Company"
+            errors={errors}
+          >
             <Input name={`${name}[${index}].company`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.role]`}>Role</StyledLabel>
+          <FormField name={`${name}[${index}].role]`} label="Role" errors={errors}>
             <Input name={`${name}[${index}].role`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.from]`}>Start date</StyledLabel>
+          <FormField
+            name={`${name}[${index}.from`}
+            label="Start date"
+            errors={errors}
+          >
             <Input type="date" name={`${name}[${index}].from`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.untill]`}>End date</StyledLabel>
+          <FormField
+            name={`${name}[${index}.untill`}
+            label="End date"
+            errors={errors}
+          >
             <Input type="date" name={`${name}[${index}].untill`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.description]`}>
-              Description
-            </StyledLabel>
+          <FormField
+            name={`${name}[${index}.description`}
+            label="Description"
+            errors={errors}
+          >
             <Textarea name={`${name}[${index}].description`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}].stackAndTechniques`}>
-              Stack and techniques
-            </StyledLabel>
-
+          <FormField
+            name={`${name}[${index}].stackAndTechniques`}
+            label="Stack and techniques"
+            errors={errors}
+          >
             <FieldsInput
               name={`${name}[${index}].stackAndTechniques`}
               addButtonLabel="Add stack / technique"
               control={control}
               register={register}
             />
-          </InputWrapper>
+          </FormField>
         </Box>
       ))}
     </>

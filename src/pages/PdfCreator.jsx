@@ -57,6 +57,7 @@ const PdfCreator = () => {
       <Heading as="h1" color="white" p="0" mb="2rem" fontSize="3rem">
         Create Resume
       </Heading>
+
       <FormGroup>
         <Heading as="legend" color="white" p="0">
           <Icon icon={faAddressCard} size="sm" /> Personal details
@@ -94,6 +95,7 @@ const PdfCreator = () => {
             addButtonLabel="Add experience"
             control={control}
             register={register}
+            errors={errors}
           />
         </InputWrapper>
       </FormGroup>
@@ -133,11 +135,13 @@ const PdfCreator = () => {
           <Icon icon={faCodeBranch} size="sm" /> Projects
         </Heading>
       </FormGroup>
+
       <FormGroup>
         <Heading as="legend" color="white" p="0">
           <Icon icon={faCertificate} size="sm" /> Badges
         </Heading>
       </FormGroup>
+
       <FormGroup>
         <Heading as="legend" color="white" p="0">
           <Icon icon={faUserCircle} size="sm" /> Avatar
