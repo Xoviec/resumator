@@ -1,11 +1,45 @@
-// default theme preset
-
 export const colors = {
   lightBlue: "#00cccc",
   darkBlue: " #1f1e32",
   orange: "#ff5900",
   lightGrey: "#e6e6e6",
   mediumGrey: "#d1d1d1",
+};
+
+const disabledStyling = {
+  "&[disabled], button:disabled": {
+    opacity: "0.5",
+    cursor: "default",
+    pointerEvents: "none",
+  },
+};
+
+const generalButtonStyling = {
+  fontFamily: "Stratum, Arial, system-ui, sans-serif",
+  fontSize: 3,
+  fontWeight: "bold",
+  color: "background",
+  borderRadius: "default",
+  outline: 0,
+  transitionProperty: "transform",
+  transitionDuration: "0.1s",
+  transitionTimingFunction: "ease-in",
+  "&:hover": {
+    cursor: "pointer",
+  },
+  ...disabledStyling,
+};
+
+const generalInputStyling = {
+  color: "white",
+  "&:hover, :focus": {
+    borderColor: "hotpink",
+    outline: "none",
+  },
+  "&:focus": {
+    boxShadow: "inset 0 0 0px 1px hotpink",
+  },
+  ...disabledStyling,
 };
 
 export default {
@@ -90,26 +124,58 @@ export default {
   },
   buttons: {
     primary: {
-      fontFamily: "Stratum, Arial, system-ui, sans-serif",
-      fontSize: 3,
-      fontWeight: "bold",
-      color: "background",
+      ...generalButtonStyling,
       bg: "primary",
-      borderRadius: "default",
-    },
-    outline: {
-      fontFamily: "Stratum, Arial, system-ui, sans-serif",
-      variant: "buttons.primary",
-      color: "secondary",
-      bg: "transparent",
-      boxShadow: "inset 0 0 2px",
+      "&:hover, :focus": {
+        transform: "skewX(-8deg)",
+      },
+      "&:active": {
+        boxShadow: "inset 0 0 0px 2px rgba(0, 0, 0, 0.6)",
+      },
     },
     secondary: {
-      fontFamily: "Stratum, Arial, system-ui, sans-serif",
+      ...generalButtonStyling,
       variant: "buttons.primary",
       color: "background",
       bg: "secondary",
     },
+    hotpink: {
+      ...generalButtonStyling,
+      color: "white",
+      bg: "hotpink",
+    },
+    outline: {
+      ...generalButtonStyling,
+      variant: "buttons.primary",
+      color: "secondary",
+      bg: "transparent",
+      boxShadow: "inset 0 0 0px 1px",
+      "&:hover, :focus": {
+        color: "hotpink",
+        transform: "skewX(-5deg)",
+      },
+      "&:active": {
+        boxShadow: "inset 0 0 0px 3px",
+      },
+    },
+  },
+  forms: {
+    input: {
+      ...generalInputStyling,
+      height: "40px", //same as buttons
+    },
+    select: {
+      ...generalInputStyling,
+    },
+    textarea: {
+      ...generalInputStyling,
+      resize: "vertical",
+    },
+    label: {
+      color: "white",
+    },
+    radio: {},
+    checkbox: {},
   },
   styles: {
     root: {
