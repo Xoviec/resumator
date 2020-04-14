@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
-import { Document, PDFViewer, Font, Image } from "@react-pdf/renderer";
+import { Document, PDFViewer, Font, Image, View } from "@react-pdf/renderer";
 import font from "../../../assets/fonts/Stratum1-Bold.ttf";
-import image from "../../../assets/images/avatarFive.png";
+import image from "../../../assets/images/avatarSeven.png";
 
 Font.register({
   family: "FamilyName",
@@ -32,13 +32,20 @@ const SubHeading = styled.Text`
   color: #ff450d;
 `;
 
+const Flex = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* width: 300px; */
+`;
+
 const HeaderBlockTop = styled.View`
   display: flex;
   flex-direction: row;
 `;
 
 const Avatar = styled.Image`
-  width: 100px;
+  margin-right: 20px;
 `;
 
 const HeaderBlockBottom = styled.View`
@@ -48,15 +55,19 @@ const HeaderBlockBottom = styled.View`
 export function PDFHeader({ name, city }) {
   return (
     <Root>
-      <HeaderBlockTop>
-        <Heading>Hi, I am </Heading>
-        <HeadingName>{name}</HeadingName>
-      </HeaderBlockTop>
-      <HeaderBlockBottom>
-        <Heading>Frontend expert</Heading>
-      </HeaderBlockBottom>
-      <SubHeading>{city.toUpperCase()} REGION - NL - OCTOBER 1982</SubHeading>
-      <Avatar source={image} />
+      <Flex>
+        <View>
+          <HeaderBlockTop>
+            <Heading>Hi, I am </Heading>
+            <HeadingName>{name}</HeadingName>
+          </HeaderBlockTop>
+          <HeaderBlockBottom>
+            <Heading>Frontend expert</Heading>
+          </HeaderBlockBottom>
+          <SubHeading>{city.toUpperCase()} REGION - NL - OCTOBER 1982</SubHeading>
+        </View>
+        <Avatar src={image} />
+      </Flex>
     </Root>
   );
 }

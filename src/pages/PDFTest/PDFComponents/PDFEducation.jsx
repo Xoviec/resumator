@@ -25,6 +25,9 @@ export function PDFEducation({ introduction }) {
   return (
     <Root wrap={false}>
       <Header>EDUCATION</Header>
+      {introduction.map((edu) => {
+        return <Text>{edu.institute}</Text>;
+      })}
       <Education />
       <Education />
       <Education />

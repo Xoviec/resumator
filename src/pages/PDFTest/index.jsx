@@ -40,11 +40,12 @@ const MyDocument = ({ resume }) => {
           <View>
             <PDFIntroduction introduction={resume.introduction} />
             <PDFSkills skills={resume.skills} />
-            <PDFEducation introduction={resume.introduction} />
+            <PDFEducation introduction={resume.education} />
+            <View style={{ width: "200px", height: "100vh" }}></View>
           </View>
           <View>
-            <PDFProjects introduction={resume.introduction} />
-            <PDFWorkExperience introduction={resume.introduction} />
+            <PDFProjects introduction={resume.projects} />
+            <PDFWorkExperience introduction={resume.experience} />
           </View>
         </Flex>
       </Wrapper>

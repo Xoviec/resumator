@@ -34,27 +34,15 @@ const TextArea = styled.Text`
 export function ProjectsExperienceCard(props) {
   return (
     <Root wrap={false}>
-      <Header>SENIOR FRONTEND DEVELOPER</Header>
+      <Header>{props.item.role}</Header>
       <Flex>
-        <SubText>RaboBank Utrecht</SubText>
+        <SubText>{props.item.company}</SubText>
         <SubText>March 2016 - December 2018</SubText>
       </Flex>
-      <TextArea>
-        You probably haven't heard of them glossier biodiesel cronut schlitz. Paleo
-        chia photo booth tofu helvetica kombucha, leggings crucifix butcher
-        sustainable godard DIY marfa bespoke blue bottle. Pork belly shabby chic
-        letterpress yr celiac banh mi, tofu chambray squid 3 wolf moon mustache four
-        dollar toast cronut listicle. Franzen You probably haven't heard of them
-        glossier biodiesel cronut schlitz. Paleo chia photo booth tofu helvetica
-        kombucha, leggings crucifix butcher sustainable godard DIY marfa bespoke blue
-        bottle. Pork belly shabby chic letterpress yr celiac banh mi, tofu chambray
-        squid 3 wolf moon mustache four dollar toast cronut listicle. Franzen You
-        probably haven't heard of them glossier biodiesel cronut schlitz. Paleo chia
-        photo booth tofu helvetica kombucha, leggings crucifix butcher sustainable
-        godard DIY marfa bespoke blue bottle. Pork belly shabby chic letterpress yr
-        celiac banh mi, tofu chambray squid 3 wolf moon mustache four dollar toast
-        cronut listicle. Franzen
-      </TextArea>
+      <TextArea>{props.item.description}</TextArea>
+      {props.item.stackAndTechniques.map((stack) => {
+        return <Text>{stack}</Text>;
+      })}
     </Root>
   );
 }

@@ -18,12 +18,9 @@ export function PDFProjects({ introduction }) {
   return (
     <Root wrap={true}>
       <Header>PROJECTS</Header>
-      <ProjectsExperienceCard />
-      <ProjectsExperienceCard />
-      <ProjectsExperienceCard />
-      <ProjectsExperienceCard />
-      <ProjectsExperienceCard />
-      <ProjectsExperienceCard />
+      {introduction.map((item) => {
+        return <ProjectsExperienceCard item={item} />;
+      })}
     </Root>
   );
 }
