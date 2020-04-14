@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
+import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 
 const Root = styled.View`
   padding: 20px;
@@ -10,12 +11,19 @@ const Root = styled.View`
 const Header = styled.Text`
   color: #ff450d;
   font-size: 8px;
+  margin-bottom: 20px;
 `;
 
 export function PDFProjects({ introduction }) {
   return (
-    <Root wrap={false}>
+    <Root wrap={true}>
       <Header>PROJECTS</Header>
+      <ProjectsExperienceCard />
+      <ProjectsExperienceCard />
+      <ProjectsExperienceCard />
+      <ProjectsExperienceCard />
+      <ProjectsExperienceCard />
+      <ProjectsExperienceCard />
     </Root>
   );
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
-import { Document, PDFViewer, Font } from "@react-pdf/renderer";
+import { Document, PDFViewer, Font, Image } from "@react-pdf/renderer";
 import font from "../../../assets/fonts/Stratum1-Bold.ttf";
+import image from "../../../assets/images/avatarFive.png";
 
 Font.register({
   family: "FamilyName",
@@ -36,6 +37,10 @@ const HeaderBlockTop = styled.View`
   flex-direction: row;
 `;
 
+const Avatar = styled.Image`
+  width: 100px;
+`;
+
 const HeaderBlockBottom = styled.View`
   margin-bottom: 10px;
 `;
@@ -51,6 +56,7 @@ export function PDFHeader({ name, city }) {
         <Heading>Frontend expert</Heading>
       </HeaderBlockBottom>
       <SubHeading>{city.toUpperCase()} REGION - NL - OCTOBER 1982</SubHeading>
+      <Avatar source={image} />
     </Root>
   );
 }

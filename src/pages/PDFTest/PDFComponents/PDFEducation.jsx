@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
+import { View, Text } from "@react-pdf/renderer";
 
 const Root = styled.View`
   background-color: #e0e0e0;
@@ -13,10 +14,21 @@ const Header = styled.Text`
   font-size: 8px;
 `;
 
+const Education = () => {
+  return (
+    <View>
+      <Text>School</Text>
+    </View>
+  );
+};
 export function PDFEducation({ introduction }) {
   return (
     <Root wrap={false}>
       <Header>EDUCATION</Header>
+      <Education />
+      <Education />
+      <Education />
+      <Education />
     </Root>
   );
 }
