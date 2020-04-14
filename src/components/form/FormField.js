@@ -1,4 +1,5 @@
 import React from "react";
+import { ErrorMessage as FormErrorMessage } from "react-hook-form";
 import { ErrorMessage, InputWrapper, StyledLabel } from "./styledComponents";
 
 const FormField = ({ children, name, label, errors }) => {
@@ -6,7 +7,10 @@ const FormField = ({ children, name, label, errors }) => {
     <InputWrapper>
       {label && <StyledLabel htmlFor={name}>{label}</StyledLabel>}
       {children}
-      {errors[name] && <ErrorMessage>{errors[name].message}</ErrorMessage>}
+
+      <FormErrorMessage errors={errors} name={name}>
+        {({ message }) => <ErrorMessage>{message}</ErrorMessage>}
+      </FormErrorMessage>
     </InputWrapper>
   );
 };
