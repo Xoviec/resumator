@@ -111,6 +111,7 @@ const PdfCreator = () => {
             addButtonLabel="Add education"
             control={control}
             register={register}
+            errors={errors}
           />
         </InputWrapper>
       </FormGroup>
@@ -147,6 +148,7 @@ const PdfCreator = () => {
           <Icon icon={faUserCircle} size="sm" /> Avatar
         </Heading>
       </FormGroup>
+
       <Button as="input" type="submit" />
     </Box>
   );

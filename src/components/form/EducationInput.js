@@ -5,10 +5,11 @@ import { Checkbox, Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import FormField from "./FormField";
 import MoveControls from "./MoveControls";
 import { InputWrapper, StyledLabel } from "./styledComponents";
 
-const EducationInput = ({ name, addButtonLabel, control, register }) => {
+const EducationInput = ({ name, addButtonLabel, control, register, errors }) => {
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
     name,
@@ -39,39 +40,41 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
             </Box>
           </Flex>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.institute]`}>
-              Institute
-            </StyledLabel>
+          <FormField
+            htmlFor={`${name}[${index}.institute]`}
+            label="Institute"
+            errors={errors}
+          >
             <Input name={`${name}[${index}].institute`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.name]`}>Name</StyledLabel>
+          <FormField name={`${name}[${index}.name]`} label="Name" errors={errors}>
             <Input name={`${name}[${index}].name`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.level]`}>Level</StyledLabel>
+          <FormField name={`${name}[${index}.level]`} label="Level" errors={errors}>
             <Input name={`${name}[${index}].level`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.startDate]`}>
-              Start date
-            </StyledLabel>
-
+          <FormField
+            name={`${name}[${index}.startDate]`}
+            label="Start date"
+            errors={errors}
+          >
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
               ref={register()}
             />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.endDate]`}>End date</StyledLabel>
+          <FormField
+            name={`${name}[${index}.endDate]`}
+            label="End date"
+            errors={errors}
+          >
             <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
-          </InputWrapper>
+          </FormField>
 
           <InputWrapper>
             <StyledLabel>
