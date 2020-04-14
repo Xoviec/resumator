@@ -17,15 +17,11 @@ import validationSchema from "../config/validation";
 import {
   EducationInput,
   FieldsInput,
+  FormField,
   WorkExperienceInput,
 } from "../components/form";
 
-import {
-  ErrorMessage,
-  FormGroup,
-  InputWrapper,
-  StyledLabel,
-} from "../components/form/styledComponents";
+import { FormGroup, InputWrapper } from "../components/form/styledComponents";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -65,38 +61,26 @@ const PdfCreator = () => {
         <Heading as="legend" color="white" p="0">
           <Icon icon={faAddressCard} size="sm" /> Personal details
         </Heading>
-        <InputWrapper>
-          <StyledLabel htmlFor="firstName">First name</StyledLabel>
-          <Input name="firstName" ref={register()} />
-          {errors.firstName && (
-            <ErrorMessage>{errors.firstName.message}</ErrorMessage>
-          )}
-        </InputWrapper>
-        <InputWrapper>
-          <StyledLabel htmlFor="lastName">Last name</StyledLabel>
-          <Input name="lastName" ref={register()} />
-          {errors.lastName && <ErrorMessage>{errors.lastName.message}</ErrorMessage>}
-        </InputWrapper>
-        <InputWrapper>
-          <StyledLabel htmlFor="dateOfBirth">Birthdate</StyledLabel>
 
+        <FormField name="firstName" label="First name" errors={errors}>
+          <Input name="firstName" ref={register()} />
+        </FormField>
+
+        <FormField name="lastName" label="Last name" errors={errors}>
+          <Input name="lastName" ref={register()} />
+        </FormField>
+
+        <FormField name="dateOfBirth" label="Birth date" errors={errors}>
           <Input type="date" name="dateOfBirth" ref={register()} />
-          {errors.dateOfBirth && (
-            <ErrorMessage>{errors.dateOfBirth.message}</ErrorMessage>
-          )}
-        </InputWrapper>
-        <InputWrapper>
-          <StyledLabel htmlFor="city">City</StyledLabel>
+        </FormField>
+
+        <FormField name="city" label="City" errors={errors}>
           <Input name="city" ref={register()} />
-          {errors.city && <ErrorMessage>{errors.city.message}</ErrorMessage>}
-        </InputWrapper>
-        <InputWrapper>
-          <StyledLabel htmlFor="introduction">Introduction</StyledLabel>
+        </FormField>
+
+        <FormField name="introduction" label="Introduction" errors={errors}>
           <Textarea name="introduction" ref={register()} />
-          {errors.introduction && (
-            <ErrorMessage>{errors.introduction.message}</ErrorMessage>
-          )}
-        </InputWrapper>
+        </FormField>
       </FormGroup>
 
       <FormGroup>
