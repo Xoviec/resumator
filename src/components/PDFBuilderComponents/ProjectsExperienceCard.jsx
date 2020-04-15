@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
-import { Document, PDFViewer, Text } from "@react-pdf/renderer";
 
 const Root = styled.View`
   margin-bottom: 20px;
-  width: 200px;
+  width: 300px;
 `;
 
 const Header = styled.Text`
@@ -27,8 +26,25 @@ const Flex = styled.View`
 
 const TextArea = styled.Text`
   font-size: 6px;
+  width: 280px;
+  margin-top: 6px;
+`;
+
+const TechniquesWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+  background-color: #e0e0e0;
+  padding-top: 2px;
+  padding-bottom: 2px;
   width: 300px;
   margin-top: 6px;
+`;
+
+const Plain = styled.Text`
+  font-size: 6px;
+  color: #5a5b5e;
+  margin-right: 3px;
+  margin-left: 3px;
 `;
 
 export function ProjectsExperienceCard(props) {
@@ -40,9 +56,17 @@ export function ProjectsExperienceCard(props) {
         <SubText>March 2016 - December 2018</SubText>
       </Flex>
       <TextArea>{props.item.description}</TextArea>
-      {props.item.stackAndTechniques.map((stack) => {
-        return <Text>{stack}</Text>;
-      })}
+      <TechniquesWrapper>
+        <Plain>Techniques:</Plain>
+        {props.item.stackAndTechniques.map((stack) => {
+          return (
+            <>
+              <Plain>{stack}</Plain>
+              <Plain>-</Plain>
+            </>
+          );
+        })}
+      </TechniquesWrapper>
     </Root>
   );
 }

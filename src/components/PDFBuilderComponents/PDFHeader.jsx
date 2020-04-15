@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
-import { Document, PDFViewer, Font, Image, View } from "@react-pdf/renderer";
-import font from "../../../assets/fonts/Stratum1-Bold.ttf";
-import image from "../../../assets/images/avatarSeven.png";
+import { Font, View } from "@react-pdf/renderer";
+import font from "../../assets/fonts/Stratum1-Bold.ttf";
+import image from "../../assets/images/avatarSeven.png";
 
 Font.register({
   family: "FamilyName",
@@ -36,7 +36,6 @@ const Flex = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* width: 300px; */
 `;
 
 const HeaderBlockTop = styled.View`

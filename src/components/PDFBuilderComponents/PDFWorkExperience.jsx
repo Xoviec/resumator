@@ -11,12 +11,12 @@ const Root = styled.View`
 const Header = styled.Text`
   color: #ff450d;
   font-size: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export function PDFWorkExperience({ introduction }) {
   return (
-    <Root wrap={true}>
+    <Root wrap={false}>
       <Header>WORK EXPERIENCE</Header>
       {introduction.map((item) => {
         return <ProjectsExperienceCard item={item} />;

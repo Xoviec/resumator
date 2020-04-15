@@ -4,14 +4,14 @@ import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 
 const Root = styled.View`
   padding: 20px;
-  margin-bottom: 20px;
   width: 200px;
+  margin-bottom: -40px;
 `;
 
 const Header = styled.Text`
   color: #ff450d;
   font-size: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 `;
 
 export function PDFProjects({ introduction }) {

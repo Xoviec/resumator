@@ -1,76 +1,85 @@
 import React from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import { Box, Flex, Button } from "rebass";
-import data from "./mock.json";
+import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
 import {
-  ResumeHeader,
-  ResumeAbout,
-  ResumeExperience,
-  ResumeSkills,
-  ResumeEducation,
-} from "../../components/ResumeComponents";
+  PDFHeader,
+  PDFIntroduction,
+  PDFSkills,
+  PDFEducation,
+  PDFProjects,
+  PDFWorkExperience,
+} from "../../components/PDFBuilderComponents";
+import data from "../../mock/mock.json";
+import styled from "@react-pdf/styled-components";
+import font from "../../assets/fonts/Stratum1-Bold.ttf";
 
-const PdfPreviewer = () => {
-  const [resume, SetResume] = React.useState();
+Font.register({
+  family: "FamilyName",
+  format: "truetype",
+  src: font,
+});
 
-  // Using an effect hook is now an assumption on how we will fetch data form API
-  // Can be refactored later when real API comes in
-  React.useEffect(() => {
-    SetResume(data);
-  }, []);
+const Wrapper = styled.Page`
+  padding: 20px;
+`;
 
-  function printDocument() {
-    const input = document.getElementById("printArea");
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "png", 100, 100);
-      // pdf.output('dataurlnewwindow');
-      pdf.save("download.pdf");
-    });
-  }
+const Flex = styled.View`
+  display: flex;
+  flex-direction: row;
+`;
 
-  const resumeView = () => {
-    // TODO map data from api and create new data object
-
-    return resume ? (
-      <>
-        <ResumeHeader
+const MyDocument = ({ resume }) => {
+  console.log(resume);
+  return (
+    <Document>
+      <Wrapper size="A4">
+        <PDFHeader
           name={resume.personalia.firstName}
           city={resume.personalia.city}
         />
         <Flex>
-          <Box minWidth={300}>
-            <ResumeAbout width={1 / 4} text={resume.introduction} />
-            <ResumeSkills skills={resume.skills} />
-            <ResumeEducation />
-          </Box>
-          <ResumeExperience width={3 / 2} experience={resume.experience} />
+          <View>
+            <PDFIntroduction introduction={resume.introduction} />
+            <PDFSkills skills={resume.skills} />
+            <PDFEducation introduction={resume.education} />
+            <View style={{ width: "200px", height: "100vh" }}></View>
+          </View>
+          <View>
+            <PDFProjects introduction={resume.projects} />
+            <PDFWorkExperience introduction={resume.experience} />
+          </View>
         </Flex>
-      </>
-    ) : (
-      <div>...loading</div>
-    );
-  };
-  return (
-    <Box>
-      <Flex
-        width={1000}
-        justifyContent="center"
-        p="2rem"
-        color="white"
-        bg="white"
-        textAlign="left"
-        mb={50}
-      >
-        <Box color="secondary" mb="3">
-          <div id="printArea">{resumeView()}</div>
-        </Box>
-      </Flex>
-      <Button onClick={printDocument}>Create PDF</Button>
-    </Box>
+      </Wrapper>
+    </Document>
   );
 };
 
-export default PdfPreviewer;
+const PDFPreviewer = () => {
+  const [resume, SetResume] = React.useState();
+
+  React.useEffect(() => {
+    SetResume(data);
+  }, []);
+
+  return resume ? (
+    <>
+      <PDFViewer width={"100%"} height={"100%"}>
+        <MyDocument resume={resume} />
+      </PDFViewer>
+    </>
+  ) : (
+    <div>...loading</div>
+  );
+};
+
+export default PDFPreviewer;
+
+// TODO
+
+// font toevoegen
+// https://fonts.google.com/specimen/Titillium+Web
+
+// dash fixen in stack and technique
+
+// todo schrijven bij helper functie voor datum
+
+// printje maken en kijken hoe het er uit ziet
