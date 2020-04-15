@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FirebaseAppContext } from "../context/FirebaseContext";
+import resumeMock from "./PdfPreviewer/mock.json";
 import { useForm, FormContext } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
@@ -36,14 +38,15 @@ const firebaseValues = {
 };
 
 const PdfCreator = () => {
+  const { firebase } = useContext(FirebaseAppContext);
   const methods = useForm({
     defaultValues: firebaseValues,
     validationSchema,
   });
 
   const onSubmit = (data) => {
-    // TODO: save values in firebase
-    console.log(data); // eslint-disable-line
+    //todo: use actual data instead of mock
+    firebase.firestore().collection("resumes").doc().set(resumeMock);
   };
 
   return (

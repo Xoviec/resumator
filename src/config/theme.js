@@ -111,6 +111,7 @@ export default {
       color: "primary",
     },
     nav: {
+      fontFamily: "Stratum, Arial, system-ui, sans-serif",
       fontSize: 1,
       fontWeight: "bold",
       display: "inline-block",
