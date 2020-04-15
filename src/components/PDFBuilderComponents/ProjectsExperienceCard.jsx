@@ -47,6 +47,20 @@ const Plain = styled.Text`
   margin-left: 3px;
 `;
 
+const renderStack = (item) => {
+  const arrayCount = item.stackAndTechniques.length - 1;
+  return item.stackAndTechniques.map((project, index) => {
+    return index < arrayCount ? (
+      <>
+        <Plain>{project}</Plain>
+        <Plain>-</Plain>
+      </>
+    ) : (
+      <Plain>{project}</Plain>
+    );
+  });
+};
+
 export function ProjectsExperienceCard(props) {
   return (
     <Root wrap={false}>
@@ -58,14 +72,7 @@ export function ProjectsExperienceCard(props) {
       <TextArea>{props.item.description}</TextArea>
       <TechniquesWrapper>
         <Plain>Techniques:</Plain>
-        {props.item.stackAndTechniques.map((stack) => {
-          return (
-            <>
-              <Plain>{stack}</Plain>
-              <Plain>-</Plain>
-            </>
-          );
-        })}
+        {props.item ? renderStack(props.item) : null}
       </TechniquesWrapper>
     </Root>
   );
