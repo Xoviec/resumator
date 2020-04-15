@@ -1,5 +1,5 @@
 import React from "react";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Box, Button, Flex } from "rebass";
 import { Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import MoveControls from "./MoveControls";
 
-const FieldsInput = ({ name, addButtonLabel, control, register }) => {
+const FieldsInput = ({ name, addButtonLabel }) => {
+  const { control, register } = useFormContext();
   const { fields, append, remove, swap } = useFieldArray({
     control,
     name,
@@ -23,7 +24,7 @@ const FieldsInput = ({ name, addButtonLabel, control, register }) => {
           justifyContent="space-between"
         >
           <Box width="100%" mr={1}>
-            <Input name={`${name}[${index}].name`} ref={register()} />
+            <Input name={`${name}[${index}].name`} ref={register} />
           </Box>
 
           <Box flexShrink={0}>

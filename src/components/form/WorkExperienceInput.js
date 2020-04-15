@@ -1,15 +1,18 @@
 import React from "react";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import FieldsInput from "./FieldsInput";
-import MoveControls from "./MoveControls";
-import { InputWrapper, StyledLabel } from "./styledComponents";
+import { MIN_NUMBER_OF_EXPERIENCE } from "../../config/validation";
 
-const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
+import FieldsInput from "./FieldsInput";
+import FormField from "./FormField";
+import MoveControls from "./MoveControls";
+
+const WorkExperienceInput = ({ name, addButtonLabel }) => {
+  const { control, register } = useFormContext();
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
     name,
@@ -32,6 +35,7 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
 
             <Box flexShrink={0}>
               <MoveControls
+                min={MIN_NUMBER_OF_EXPERIENCE}
                 index={index}
                 fields={fields}
                 remove={remove}
@@ -40,45 +44,35 @@ const WorkExperienceInput = ({ name, addButtonLabel, control, register }) => {
             </Box>
           </Flex>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.company]`}>Company</StyledLabel>
-            <Input name={`${name}[${index}].company`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}].company`} label="Company">
+            <Input name={`${name}[${index}].company`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.role]`}>Role</StyledLabel>
-            <Input name={`${name}[${index}].role`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}].role]`} label="Role">
+            <Input name={`${name}[${index}].role`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.from]`}>Start date</StyledLabel>
-            <Input type="date" name={`${name}[${index}].from`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}.from`} label="Start date">
+            <Input type="date" name={`${name}[${index}].from`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.untill]`}>End date</StyledLabel>
-            <Input type="date" name={`${name}[${index}].untill`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}.untill`} label="End date">
+            <Input type="date" name={`${name}[${index}].untill`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.description]`}>
-              Description
-            </StyledLabel>
-            <Textarea name={`${name}[${index}].description`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}.description`} label="Description">
+            <Textarea name={`${name}[${index}].description`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}].stackAndTechniques`}>
-              Stack and techniques
-            </StyledLabel>
-
+          <FormField
+            name={`${name}[${index}].stackAndTechniques`}
+            label="Stack and techniques"
+          >
             <FieldsInput
               name={`${name}[${index}].stackAndTechniques`}
               addButtonLabel="Add stack / technique"
-              control={control}
-              register={register}
             />
-          </InputWrapper>
+          </FormField>
         </Box>
       ))}
     </>
