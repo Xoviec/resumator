@@ -80,12 +80,3 @@ const PDFPreviewer = () => {
 };
 
 export default PDFPreviewer;
-
-// TODO
-
-// font toevoegen
-// https://fonts.google.com/specimen/Titillium+Web
-
-// todo schrijven bij helper functie voor datum
-
-// printje maken en kijken hoe het er uit ziet

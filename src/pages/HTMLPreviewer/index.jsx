@@ -1,7 +1,5 @@
 import React from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-import { Box, Flex, Button } from "rebass";
+import { Box, Flex } from "rebass";
 import data from "../../mock/mock.json";
 import {
   ResumeHeader,
@@ -19,17 +17,6 @@ const HTMLPreviewer = () => {
   React.useEffect(() => {
     SetResume(data);
   }, []);
-
-  function printDocument() {
-    const input = document.getElementById("printArea");
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "png", 100, 100);
-      // pdf.output('dataurlnewwindow');
-      pdf.save("download.pdf");
-    });
-  }
 
   const resumeView = () => {
     // TODO map data from api and create new data object
@@ -71,7 +58,6 @@ const HTMLPreviewer = () => {
           <div id="printArea">{resumeView()}</div>
         </Box>
       </Flex>
-      <Button onClick={printDocument}>Create PDF</Button>
     </Box>
   );
 };
