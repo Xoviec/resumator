@@ -6,10 +6,7 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { MIN_NUMBER_OF_EXPERIENCE } from "../../config/validation";
-
-import FieldsInput from "./FieldsInput";
-import FormField from "./FormField";
-import MoveControls from "./MoveControls";
+import { FieldsInput, FormField, MoveControls } from "../FormComponents";
 
 const WorkExperienceInput = ({ name, addButtonLabel }) => {
   const { control, register } = useFormContext();

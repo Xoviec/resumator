@@ -14,14 +14,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import validationSchema from "../config/validation";
+
 import {
   EducationInput,
+  WorkExperienceInput,
+} from "../components/CreatorComponents";
+
+import {
   FieldsInput,
   FormField,
-  WorkExperienceInput,
-} from "../components/form";
-
-import { FormGroup, InputWrapper } from "../components/form/styledComponents";
+  FormGroup,
+  InputWrapper,
+} from "../components/FormComponents";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
