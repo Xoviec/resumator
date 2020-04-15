@@ -8,9 +8,14 @@ const FirebaseTest = () => {
     firebase.firestore().collection("resumes")
     // firebase.firestore().collection("resumes").where("name", "==", "Sebastiaan")
   );
-  if (!loading && !error) console.log(val);
+  if (!loading && !error) console.log({ val });
 
-  return <>Nothing here</>;
+  return (
+    <>
+      FireStoreData:
+      <code>{val ? <pre>{JSON.stringify(val, null, 2)}</pre> : "nothing here"}</code>
+    </>
+  );
 };
 
 export default FirebaseTest;
