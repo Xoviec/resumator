@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
 import angularBadge from "../../assets/images/angularBadge.png";
 import nodeBadge from "../../assets/images/nodeBadge.png";
@@ -12,6 +11,14 @@ const Root = styled.View`
   width: 200px;
 `;
 
+const Flex = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
 const Header = styled.Text`
   color: #19c3c0;
   font-size: 10px;
@@ -22,9 +29,11 @@ const SubHeader = styled.Text`
   margin-bottom: 8px;
 `;
 
-const Li = styled.Text`
-  color: #fff;
-  font-size: 9px;
+const LiWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 4px;
 `;
 
 const LiDot = styled.Text`
@@ -37,23 +46,13 @@ const LiDot = styled.Text`
   margin-right: 10px;
 `;
 
-const LiWrapper = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 4px;
+const Li = styled.Text`
+  color: #fff;
+  font-size: 9px;
 `;
 
 const Badge = styled.Image`
   width: 22%;
-`;
-
-const Flex = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 10px;
-  margin-bottom: 10px;
 `;
 
 export function PDFSkills({ skills }) {

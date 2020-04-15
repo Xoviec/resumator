@@ -14,12 +14,12 @@ const Header = styled.Text`
   margin-bottom: 10px;
 `;
 
-export function PDFWorkExperience({ introduction }) {
+export function PDFWorkExperience({ experience }) {
   return (
     <Root wrap={false}>
       <Header>WORK EXPERIENCE</Header>
-      {introduction.map((item) => {
-        return <ProjectsExperienceCard item={item} />;
+      {experience.map((project) => {
+        return <ProjectsExperienceCard project={project} />;
       })}
     </Root>
   );

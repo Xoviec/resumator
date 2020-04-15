@@ -47,9 +47,9 @@ const Plain = styled.Text`
   margin-left: 3px;
 `;
 
-const renderStack = (item) => {
-  const arrayCount = item.stackAndTechniques.length - 1;
-  return item.stackAndTechniques.map((project, index) => {
+const renderStack = ({ stackAndTechniques }) => {
+  const arrayCount = stackAndTechniques.length - 1;
+  return stackAndTechniques.map((project, index) => {
     return index < arrayCount ? (
       <>
         <Plain>{project}</Plain>
@@ -61,18 +61,19 @@ const renderStack = (item) => {
   });
 };
 
-export function ProjectsExperienceCard(props) {
+export function ProjectsExperienceCard({ project }) {
+  const { role, company, description } = project;
   return (
     <Root wrap={false}>
-      <Header>{props.item.role}</Header>
+      <Header>{role}</Header>
       <Flex>
-        <SubText>{props.item.company}</SubText>
+        <SubText>{company}</SubText>
         <SubText>March 2016 - December 2018</SubText>
       </Flex>
-      <TextArea>{props.item.description}</TextArea>
+      <TextArea>{description}</TextArea>
       <TechniquesWrapper>
         <Plain>Techniques:</Plain>
-        {props.item ? renderStack(props.item) : null}
+        {project ? renderStack(project) : null}
       </TechniquesWrapper>
     </Root>
   );

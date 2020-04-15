@@ -1,5 +1,5 @@
 import React from "react";
-import { Document, PDFViewer, Font, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
 import {
   PDFHeader,
   PDFIntroduction,
@@ -36,8 +36,7 @@ const Flex = styled.View`
   flex-direction: row;
 `;
 
-const MyDocument = ({ resume }) => {
-  console.log(resume);
+const PDFDocument = ({ resume }) => {
   return (
     <Document>
       <Wrapper size="A4">
@@ -49,12 +48,12 @@ const MyDocument = ({ resume }) => {
           <View>
             <PDFIntroduction introduction={resume.introduction} />
             <PDFSkills skills={resume.skills} />
-            <PDFEducation introduction={resume.education} />
+            <PDFEducation education={resume.education} />
             <View style={{ width: "200px", height: "100vh" }}></View>
           </View>
           <View>
-            <PDFProjects introduction={resume.projects} />
-            <PDFWorkExperience introduction={resume.experience} />
+            <PDFProjects projects={resume.projects} />
+            <PDFWorkExperience experience={resume.experience} />
           </View>
         </Flex>
       </Wrapper>
@@ -72,7 +71,7 @@ const PDFPreviewer = () => {
   return resume ? (
     <>
       <PDFViewer width={"100%"} height={"100%"}>
-        <MyDocument resume={resume} />
+        <PDFDocument resume={resume} />
       </PDFViewer>
     </>
   ) : (

@@ -26,21 +26,21 @@ const Wrapper = styled.View`
   margin-bottom: 5px;
 `;
 
-const Education = (props) => {
+const Education = ({ education: { name, institute } }) => {
   return (
     <Wrapper>
-      <DegreeText>{props.edu.name}</DegreeText>
-      <CollegeText>{props.edu.institute}</CollegeText>
+      <DegreeText>{name}</DegreeText>
+      <CollegeText>{institute}</CollegeText>
       <CollegeText>2011 - 2014</CollegeText>
     </Wrapper>
   );
 };
-export function PDFEducation({ introduction }) {
+export function PDFEducation({ education }) {
   return (
     <Root wrap={false}>
       <Header>EDUCATION</Header>
-      {introduction.map((edu) => {
-        return <Education edu={edu} />;
+      {education.map((education) => {
+        return <Education education={education} />;
       })}
     </Root>
   );

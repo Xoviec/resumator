@@ -14,12 +14,12 @@ const Header = styled.Text`
   margin-bottom: 12px;
 `;
 
-export function PDFProjects({ introduction }) {
+export function PDFProjects({ projects }) {
   return (
     <Root wrap={true}>
       <Header>PROJECTS</Header>
-      {introduction.map((item) => {
-        return <ProjectsExperienceCard item={item} />;
+      {projects.map((project) => {
+        return <ProjectsExperienceCard project={project} />;
       })}
     </Root>
   );
