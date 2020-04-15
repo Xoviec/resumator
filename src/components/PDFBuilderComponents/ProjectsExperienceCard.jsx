@@ -25,7 +25,7 @@ const Flex = styled.View`
 `;
 
 const TextArea = styled.Text`
-  font-size: 6px;
+  font-size: 8px;
   width: 280px;
   margin-top: 6px;
 `;
@@ -41,7 +41,7 @@ const TechniquesWrapper = styled.View`
 `;
 
 const Plain = styled.Text`
-  font-size: 6px;
+  font-size: 8px;
   color: #5a5b5e;
   margin-right: 3px;
   margin-left: 3px;

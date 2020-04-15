@@ -1,5 +1,5 @@
 import React from "react";
-import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
+import { Document, PDFViewer, Font, View, StyleSheet } from "@react-pdf/renderer";
 import {
   PDFHeader,
   PDFIntroduction,
@@ -10,12 +10,21 @@ import {
 } from "../../components/PDFBuilderComponents";
 import data from "../../mock/mock.json";
 import styled from "@react-pdf/styled-components";
-import font from "../../assets/fonts/Stratum1-Bold.ttf";
+import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
+import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Regular.ttf";
+
+Font.register([
+  {
+    family: "FamilyName",
+    format: "truetype",
+    src: Stratum1,
+  },
+]);
 
 Font.register({
-  family: "FamilyName",
+  family: "Titillium Web",
   format: "truetype",
-  src: font,
+  src: Tillium,
 });
 
 const Wrapper = styled.Page`
@@ -77,8 +86,6 @@ export default PDFPreviewer;
 
 // font toevoegen
 // https://fonts.google.com/specimen/Titillium+Web
-
-// dash fixen in stack and technique
 
 // todo schrijven bij helper functie voor datum
 

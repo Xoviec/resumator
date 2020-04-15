@@ -10,7 +10,7 @@ const Root = styled.View`
 
 const TextArea = styled.Text`
   color: #fff;
-  font-size: 8px;
+  font-size: 9px;
 `;
 
 export function PDFIntroduction({ introduction }) {

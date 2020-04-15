@@ -9,15 +9,16 @@ const Root = styled.View`
 
 const Header = styled.Text`
   color: #ff450d;
-  font-size: 8px;
+  font-size: 10px;
+  font-family: "Titillium Web";
 `;
 
 const DegreeText = styled.Text`
-  font-size: 9px;
+  font-size: 10px;
   font-family: "Stratum";
 `;
 const CollegeText = styled.Text`
-  font-size: 7px;
+  font-size: 10px;
 `;
 
 const Wrapper = styled.View`
