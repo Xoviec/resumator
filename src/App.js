@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
+import FirebaseTest from "./components/FirebaseTest";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
