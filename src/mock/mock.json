@@ -1,0 +1,149 @@
+{
+  "personalia": {
+    "firstName": "Beau",
+    "lastName": "Ter Ham",
+    "email": "Beau@frontmen.nl",
+    "dateOfBirth": "01-04-1999",
+    "city": "Hilversum"
+  },
+  "introduction": "I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church-key mustache cardigan succulents. Single-origin coffee tumeric ennui ethical bicycle rights enamel pin. I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church",
+  "avatar": "",
+  "skills": ["Html", "CSS", "JavaScript", "React"],
+  "openSourceWork": [{
+    "id": "1",
+    "link": "www.github.com/myrepo",
+    "description": "jkhsahjdsfkhjfkhj"
+  }],
+  "publications": [{
+    "id": "1",
+    "title": "Super awesome React Article",
+    "link": "www.medium.com/bo"
+  }],
+  "experience": [{
+      "id": "1",
+      "role": "Frontend developer",
+      "company": "awesome startup",
+      "description": "Organic ethical thundercats, kinfolk cred before they sold out hoodie four loko neutra skateboard four dollar toast tumeric. Chartreuse you probably haven't heard of them blog before they sold out subway tile. Pug pickled pok pok banh mi distillery, fam 90's affogato man braid mumblecore heirloom. Marfa farm-to-table prism jianbing palo santo squid lo-fi kogi drinking vinegar retro keytar microdosing skateboard freegan. Poke street art pabst synth, crucifix tote bag tumeric tofu marfa hella church-key etsy. Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
+      "stackAndTechniques": ["React", "Jest", "Node", "Docker", "CI/CD"],
+      "startDate": "01-01-2010",
+      "endDate": "01-05-2012"
+    },
+    {
+      "id": "2",
+      "role": "Senior Frontend developer",
+      "company": "Money Bank",
+      "description": "Banjo mumblecore air plant tousled beard trust fund blog pabst ennui edison bulb. Gastropub selvage enamel pin retro. Chicharrones yr vaporware squid, meh polaroid 8-bit cray skateboard iceland readymade four dollar toast cred everyday carry. Asymmetrical man bun kombucha wayfarers cray sriracha. Mumblecore bespoke hammock heirloom pug ramps glossier four dollar toast chartreuse. Bicycle rights plaid fanny pack, etsy vaporware drinking vinegar ethical PBR&B health goth DIY forage.",
+      "stackAndTechniques": ["AngularJS", "Chai", "Sinon", "Docker", "Jenkins"],
+      "startDate": "01-01-2012",
+      "endDate": "01-05-2014"
+    },
+    {
+      "id": "3",
+      "role": "Team Lead Frontend",
+      "company": "Cool Telecom",
+      "description": "Whatever viral banh mi hella, pork belly snackwave yuccie. Fanny pack YOLO snackwave craft beer squid. Gochujang yr banh mi, fixie fanny pack raclette hoodie four dollar toast. Photo booth fixie lomo kogi XOXO godard kale chips shabby chic actually offal microdosing four loko flannel sriracha slow-carb. 90's enamel pin glossier helvetica small batch etsy meditation hexagon pug typewriter cliche XOXO plaid kale chips. Letterpress ugh fashion axe, farm-to-table polaroid lumbersexual pug deep v swag quinoa pok pok ramps la croix raclette. Polaroid semiotics biodiesel, beard jean shorts keffiyeh skateboard microdosing 8-bit asymmetrical put a bird on it meh fixie ugh.",
+      "stackAndTechniques": ["Vue", "Jest", "Docker", "Jenkins"],
+      "startDate": "01-01-2016",
+      "endDate": "01-05-2018"
+    }
+  ],
+  "projects": [{
+      "id": "1",
+      "role": "Frontend developer",
+      "company": "awesome startup",
+      "description": "Organic ethical thundercats, kinfolk cred before they sold out hoodie four loko neutra skateboard four dollar toast tumeric. Chartreuse you probably haven't heard of them blog before they sold out subway tile. Pug pickled pok pok banh mi distillery, fam 90's affogato man braid mumblecore heirloom. Marfa farm-to-table prism jianbing palo santo squid lo-fi kogi drinking vinegar retro keytar microdosing skateboard freegan. Poke street art pabst synth, crucifix tote bag tumeric tofu marfa hella church-key etsy. Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
+      "stackAndTechniques": ["React", "Jest", "Node", "Docker", "CI/CD"],
+      "startDate": "01-01-2010",
+      "endDate": "01-05-2012"
+    },
+    {
+      "id": "2",
+      "role": "Senior Frontend developer",
+      "company": "Money Bank",
+      "description": "Banjo mumblecore air plant tousled beard trust fund blog pabst ennui edison bulb. Gastropub selvage enamel pin retro. Chicharrones yr vaporware squid, meh polaroid 8-bit cray skateboard iceland readymade four dollar toast cred everyday carry. Asymmetrical man bun kombucha wayfarers cray sriracha. Mumblecore bespoke hammock heirloom pug ramps glossier four dollar toast chartreuse. Bicycle rights plaid fanny pack, etsy vaporware drinking vinegar ethical PBR&B health goth DIY forage.",
+      "stackAndTechniques": ["AngularJS", "Chai", "Sinon", "Docker", "Jenkins"],
+      "startDate": "01-01-2012",
+      "endDate": "01-05-2014"
+    },
+    {
+      "id": "3",
+      "role": "Team Lead Frontend",
+      "company": "Cool Telecom",
+      "description": "Whatever viral banh mi hella, pork belly snackwave yuccie. Fanny pack YOLO snackwave craft beer squid. Gochujang yr banh mi, fixie fanny pack raclette hoodie four dollar toast. Photo booth fixie lomo kogi XOXO godard kale chips shabby chic actually offal microdosing four loko flannel sriracha slow-carb. 90's enamel pin glossier helvetica small batch etsy meditation hexagon pug typewriter cliche XOXO plaid kale chips. Letterpress ugh fashion axe, farm-to-table polaroid lumbersexual pug deep v swag quinoa pok pok ramps la croix raclette. Polaroid semiotics biodiesel, beard jean shorts keffiyeh skateboard microdosing 8-bit asymmetrical put a bird on it meh fixie ugh.",
+      "stackAndTechniques": ["Vue", "Jest", "Docker", "Jenkins"],
+      "startDate": "01-01-2016",
+      "endDate": "01-05-2018"
+    }, {
+      "id": "2",
+      "role": "Senior Frontend developer",
+      "company": "Money Bank",
+      "description": "Banjo mumblecore air plant tousled beard trust fund blog pabst ennui edison bulb. Gastropub selvage enamel pin retro. Chicharrones yr vaporware squid, meh polaroid 8-bit cray skateboard iceland readymade four dollar toast cred everyday carry. Asymmetrical man bun kombucha wayfarers cray sriracha. Mumblecore bespoke hammock heirloom pug ramps glossier four dollar toast chartreuse. Bicycle rights plaid fanny pack, etsy vaporware drinking vinegar ethical PBR&B health goth DIY forage.",
+      "stackAndTechniques": ["AngularJS", "Chai", "Sinon", "Docker", "Jenkins"],
+      "startDate": "01-01-2012",
+      "endDate": "01-05-2014"
+    },
+    {
+      "id": "3",
+      "role": "Team Lead Frontend",
+      "company": "Cool Telecom",
+      "description": "Whatever viral banh mi hella, pork belly snackwave yuccie. Fanny pack YOLO snackwave craft beer squid. Gochujang yr banh mi, fixie fanny pack raclette hoodie four dollar toast. Photo booth fixie lomo kogi XOXO godard kale chips shabby chic actually offal microdosing four loko flannel sriracha slow-carb. 90's enamel pin glossier helvetica small batch etsy meditation hexagon pug typewriter cliche XOXO plaid kale chips. Letterpress ugh fashion axe, farm-to-table polaroid lumbersexual pug deep v swag quinoa pok pok ramps la croix raclette. Polaroid semiotics biodiesel, beard jean shorts keffiyeh skateboard microdosing 8-bit asymmetrical put a bird on it meh fixie ugh.",
+      "stackAndTechniques": ["Vue", "Jest", "Docker", "Jenkins"],
+      "startDate": "01-01-2016",
+      "endDate": "01-05-2018"
+    }, {
+      "id": "2",
+      "role": "Senior Frontend developer",
+      "company": "Money Bank",
+      "description": "Banjo mumblecore air plant tousled beard trust fund blog pabst ennui edison bulb. Gastropub selvage enamel pin retro. Chicharrones yr vaporware squid, meh polaroid 8-bit cray skateboard iceland readymade four dollar toast cred everyday carry. Asymmetrical man bun kombucha wayfarers cray sriracha. Mumblecore bespoke hammock heirloom pug ramps glossier four dollar toast chartreuse. Bicycle rights plaid fanny pack, etsy vaporware drinking vinegar ethical PBR&B health goth DIY forage.",
+      "stackAndTechniques": ["AngularJS", "Chai", "Sinon", "Docker", "Jenkins"],
+      "startDate": "01-01-2012",
+      "endDate": "01-05-2014"
+    },
+    {
+      "id": "3",
+      "role": "Team Lead Frontend",
+      "company": "Cool Telecom",
+      "description": "Whatever viral banh mi hella, pork belly snackwave yuccie. Fanny pack YOLO snackwave craft beer squid. Gochujang yr banh mi, fixie fanny pack raclette hoodie four dollar toast. Photo booth fixie lomo kogi XOXO godard kale chips shabby chic actually offal microdosing four loko flannel sriracha slow-carb. 90's enamel pin glossier helvetica small batch etsy meditation hexagon pug typewriter cliche XOXO plaid kale chips. Letterpress ugh fashion axe, farm-to-table polaroid lumbersexual pug deep v swag quinoa pok pok ramps la croix raclette. Polaroid semiotics biodiesel, beard jean shorts keffiyeh skateboard microdosing 8-bit asymmetrical put a bird on it meh fixie ugh.",
+      "stackAndTechniques": ["Vue", "Jest", "Docker", "Jenkins"],
+      "startDate": "01-01-2016",
+      "endDate": "01-05-2018"
+    }
+  ],
+  "education": [{
+      "id": "1",
+      "institute": "Hogeschool van Amsterdam",
+      "name": "Bedrijfskunde",
+      "from": "01-09-2005",
+      "till": "01-06-2009",
+      "level": "HBO",
+      "certificate": true
+    },
+    {
+      "id": "2",
+      "institute": "ROC holadiejee",
+      "name": "IT",
+      "from": "01-09-2001",
+      "till": "01-06-2005",
+      "level": "MBO",
+      "certificate": true
+    },
+    {
+      "id": "3",
+      "institute": "Udemy",
+      "name": "React course",
+      "from": "01-09-2001",
+      "till": "01-06-2005",
+      "level": "Advanced",
+      "certificate": true
+    },
+    {
+      "id": "4",
+      "institute": "Frontend Masters",
+      "name": "Frontend webdevelopment",
+      "from": "01-09-2001",
+      "till": "01-06-2005",
+      "level": "Advanced",
+      "certificate": false
+    }
+  ]
+}
