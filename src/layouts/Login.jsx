@@ -3,7 +3,6 @@ import { ThemeProvider } from "emotion-theming";
 import "../assets/css/global.css";
 import { Flex, Box } from "rebass";
 import theme from "../config/theme";
-import { Link } from "react-router-dom";
 import frontmenLogo from "../assets/svg/frontmen-logo.svg";
 
 const LoginLayout = ({ children }) => (
@@ -14,9 +13,6 @@ const LoginLayout = ({ children }) => (
       alignItems="center"
       bg="secondary"
     >
-      <Link to="/creator">Creator</Link>
-      <Link to="/previewer">Previewer</Link>
-      <Link to="/">Home</Link>
       <Box p="2rem">
         <img src={frontmenLogo} alt="logo" />
       </Box>

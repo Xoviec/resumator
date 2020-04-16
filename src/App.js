@@ -9,7 +9,6 @@ import Home from "./pages/Home";
 import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
-import FirebaseTest from "./components/FirebaseTest";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
@@ -33,13 +32,14 @@ const firebaseConfig = {
 function App() {
   return (
     <FirebaseAppContextProvider config={firebaseConfig}>
-      <FirebaseTest />
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={HomePageWrapper} />
           <Route exact path="/overview" component={OverviewWrapper} />
           <Route exact path="/creator" component={PdfCreatorWrapper} />
+          <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
           <Route exact path="/previewer" component={PdfPreviewerWrapper} />
+          <Route exact path="/previewer/:id" component={PdfPreviewerWrapper} />
         </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>
