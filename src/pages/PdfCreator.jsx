@@ -28,10 +28,12 @@ import {
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
-  firstName: "Zakaria",
-  lastName: "Aboe Sarah",
-  dateOfBirth: "1980-01-30",
-  city: "Amsterdam",
+  personalia: {
+    firstName: "Zakaria",
+    lastName: "Aboe Sarah",
+    dateOfBirth: "1980-01-30",
+    city: "Amsterdam",
+  },
   introduction: "Introduction",
   education: [{}],
   experience: [{}],
@@ -47,12 +49,9 @@ const PdfCreator = () => {
   });
 
   const onSubmit = (data) => {
-    //todo: use actual data instead of mock
-    // firebase.firestore().collection("resumes").doc().set(resumeMock);
-    console.log(data);
+    console.log({ data });
+    firebase.firestore().collection("resumes").doc().set(resumeMock);
   };
-
-  // const onSubmit = (data) => console.log(data); (edited)
 
   return (
     <FormContext {...methods}>
@@ -72,20 +71,24 @@ const PdfCreator = () => {
             <Icon icon={faAddressCard} size="sm" /> Personal details
           </Heading>
 
-          <FormField name="firstName" label="First name">
-            <Input name="firstName" ref={methods.register} />
+          <FormField name="personalia.firstName" label="First name">
+            <Input name="personalia.firstName" ref={methods.register} />
           </FormField>
 
-          <FormField name="lastName" label="Last name">
-            <Input name="lastName" ref={methods.register} />
+          <FormField name="personalia.lastName" label="Last name">
+            <Input name="personalia.lastName" ref={methods.register} />
           </FormField>
 
-          <FormField name="dateOfBirth" label="Birth date">
-            <Input type="date" name="dateOfBirth" ref={methods.register} />
+          <FormField name="personalia.dateOfBirth" label="Birth date">
+            <Input
+              name="personalia.dateOfBirth"
+              type="date"
+              ref={methods.register}
+            />
           </FormField>
 
-          <FormField name="city" label="City">
-            <Input name="city" ref={methods.register} />
+          <FormField name="personalia.city" label="City">
+            <Input name="personalia.city" ref={methods.register} />
           </FormField>
 
           <FormField name="introduction" label="Introduction">

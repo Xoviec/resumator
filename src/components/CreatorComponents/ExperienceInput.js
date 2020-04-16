@@ -53,11 +53,11 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
             <Input name={`${name}[${index}].role`} ref={register} />
           </FormField>
 
-          <FormField name={`${name}[${index}.from`} label="Start date">
+          <FormField name={`${name}[${index}.startDate`} label="Start date">
             <Input type="date" name={`${name}[${index}].from`} ref={register} />
           </FormField>
 
-          <FormField name={`${name}[${index}.untill`} label="End date">
+          <FormField name={`${name}[${index}.endDate`} label="End date">
             <Input type="date" name={`${name}[${index}].untill`} ref={register} />
           </FormField>
 
