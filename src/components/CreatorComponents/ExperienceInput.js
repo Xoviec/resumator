@@ -5,13 +5,9 @@ import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { MIN_NUMBER_OF_EXPERIENCE } from "../../config/validation";
+import { FieldsInput, FormField, MoveControls } from "../FormComponents";
 
-import FieldsInput from "./FieldsInput";
-import FormField from "./FormField";
-import MoveControls from "./MoveControls";
-
-const WorkExperienceInput = ({ name, addButtonLabel }) => {
+const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
   const { control, register } = useFormContext();
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
@@ -29,13 +25,13 @@ const WorkExperienceInput = ({ name, addButtonLabel }) => {
           <Flex direction="row" alignItems="center" justifyContent="space-between">
             <Box width="100%" mr={1}>
               <Heading fontSize={20} as="legend" color="white" my="2rem">
-                Work Experience #{index + 1}
+                {label} #{index + 1}
               </Heading>
             </Box>
 
             <Box flexShrink={0}>
               <MoveControls
-                min={MIN_NUMBER_OF_EXPERIENCE}
+                min={min}
                 index={index}
                 fields={fields}
                 remove={remove}
@@ -79,4 +75,8 @@ const WorkExperienceInput = ({ name, addButtonLabel }) => {
   );
 };
 
-export default WorkExperienceInput;
+ExperienceInput.defaultProps = {
+  min: 0,
+};
+
+export default ExperienceInput;

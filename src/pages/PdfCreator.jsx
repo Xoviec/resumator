@@ -13,15 +13,15 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import validationSchema from "../config/validation";
+import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
+import { EducationInput, ExperienceInput } from "../components/CreatorComponents";
+
 import {
-  EducationInput,
   FieldsInput,
   FormField,
-  WorkExperienceInput,
-} from "../components/form";
-
-import { FormGroup, InputWrapper } from "../components/form/styledComponents";
+  FormGroup,
+  InputWrapper,
+} from "../components/FormComponents";
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
@@ -32,6 +32,7 @@ const firebaseValues = {
   introduction: "Lorem ipsum",
   education: [{}],
   experience: [{}],
+  projects: [{}],
   skills: [{ name: "JavaScript" }, { name: "React" }],
 };
 
@@ -91,7 +92,12 @@ const PdfCreator = () => {
           </Heading>
 
           <InputWrapper>
-            <WorkExperienceInput name="experience" addButtonLabel="Add experience" />
+            <ExperienceInput
+              name="experience"
+              label="Work experience"
+              addButtonLabel="Add experience"
+              min={MIN_NUMBER_OF_EXPERIENCE}
+            />
           </InputWrapper>
         </FormGroup>
 
@@ -119,6 +125,14 @@ const PdfCreator = () => {
           <Heading as="legend" color="white" p="0">
             <Icon icon={faCodeBranch} size="sm" /> Projects
           </Heading>
+
+          <InputWrapper>
+            <ExperienceInput
+              name="projects"
+              label="Project"
+              addButtonLabel="Add project"
+            />
+          </InputWrapper>
         </FormGroup>
 
         <FormGroup>

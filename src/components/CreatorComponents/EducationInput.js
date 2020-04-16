@@ -7,9 +7,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { MIN_NUMBER_OF_EDUCATION } from "../../config/validation";
 
-import FormField from "./FormField";
-import MoveControls from "./MoveControls";
-import { InputWrapper, StyledLabel } from "./styledComponents";
+import {
+  InputWrapper,
+  FormField,
+  MoveControls,
+  StyledLabel,
+} from "../FormComponents";
 
 const EducationInput = ({ name, addButtonLabel }) => {
   const { control, register } = useFormContext();
