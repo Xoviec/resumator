@@ -40,7 +40,7 @@ function App() {
           <Route exact path="/overview" component={OverviewWrapper} />
           <Route exact path="/creator" component={PdfCreatorWrapper} />
           <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
-          <Route exact path="/previewer/:id" component={PdfPreviewerWrapper} />
+          <Route exact path="/previewer/:id" component={PdfPreviewer} />
           <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
           <Route exact path="/pdf-previewer" component={PdfPreviewer} />
         </Switch>

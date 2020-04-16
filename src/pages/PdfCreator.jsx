@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
-import resumeMock from "./PdfPreviewer/mock.json";
+import resumeMock from "../mock/mock.json";
 import { useForm, FormContext } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";

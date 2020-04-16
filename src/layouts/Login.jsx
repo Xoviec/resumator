@@ -4,6 +4,7 @@ import "../assets/css/global.css";
 import { Flex, Box } from "rebass";
 import theme from "../config/theme";
 import frontmenLogo from "../assets/svg/frontmen-logo.svg";
+import {Link} from 'react-router-dom';
 
 const LoginLayout = ({ children }) => (
   <ThemeProvider theme={theme}>
