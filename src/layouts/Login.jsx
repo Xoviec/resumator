@@ -13,6 +13,10 @@ const LoginLayout = ({ children }) => (
       alignItems="center"
       bg="secondary"
     >
+      <Link to="/creator">Creator</Link>
+      <Link to="/pdf-previewer">PDF Previewer</Link>
+      <Link to="/html-previewer">HTML Previewer</Link>
+      <Link to="/">Home</Link>
       <Box p="2rem">
         <img src={frontmenLogo} alt="logo" />
       </Box>

@@ -1,15 +1,11 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
 import { Font, View } from "@react-pdf/renderer";
-import font from "../../assets/fonts/Stratum1-Bold.ttf";
+import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import image from "../../assets/images/avatarSeven.png";
 
-Font.register({
-  family: "FamilyName",
-  format: "truetype",
-  src: font,
-});
-Font.register({ family: "Stratum", src: font });
+Font.register({ family: "Stratum", src: Stratum1 });
+
 const Root = styled.View`
   background-color: #e0e0e0;
   height: 120px;

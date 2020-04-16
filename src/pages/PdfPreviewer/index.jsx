@@ -13,14 +13,7 @@ import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Regular.ttf";
 
-Font.register([
-  {
-    family: "FamilyName",
-    format: "truetype",
-    src: Stratum1,
-  },
-]);
-
+Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
   family: "Titillium Web",
   format: "truetype",
