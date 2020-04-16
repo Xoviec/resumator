@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
-import resumeMock from "../mock/mock.json";
+import resumeMock from "../mock/smallmock.json";
 import { useForm, FormContext } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
@@ -44,14 +44,16 @@ const firebaseValues = {
 const PdfCreator = () => {
   const { firebase } = useContext(FirebaseAppContext);
   const methods = useForm({
-    defaultValues: firebaseValues,
+    defaultValues: { ...resumeMock },
     validationSchema,
   });
 
   const onSubmit = (data) => {
     console.log({ data });
-    firebase.firestore().collection("resumes").doc().set(resumeMock);
+    firebase.firestore().collection("resumes").doc().set(data);
   };
+
+  console.log(methods.errors);
 
   return (
     <FormContext {...methods}>
@@ -70,6 +72,10 @@ const PdfCreator = () => {
           <Heading as="legend" color="white" p="0">
             <Icon icon={faAddressCard} size="sm" /> Personal details
           </Heading>
+
+          <FormField name="personalia.email" label="First name">
+            <Input name="personalia.email" type="email" ref={methods.register} />
+          </FormField>
 
           <FormField name="personalia.firstName" label="First name">
             <Input name="personalia.firstName" ref={methods.register} />

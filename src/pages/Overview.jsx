@@ -45,6 +45,8 @@ const Home = () => {
       )
     );
 
+  console.log({ val });
+
   return (
     <Box as="section" py={3} maxWidth="1600px" margin="0 auto">
       <Debug val={val} loading={loading} errlr={error} />
@@ -71,21 +73,24 @@ const Home = () => {
           <Icon icon={faSyncAlt} size="5x" spin color="white" />
         </Flex>
       ) : (
-          <Flex textAlign="center" flexWrap="wrap" mx="-1rem">
-            {val.map(({ avatar, personalia: { firstName, lastName, city } }, i) => (
+        <Flex textAlign="center" flexWrap="wrap" mx="-1rem">
+          {val.map(
+            ({ id, avatar, personalia: { firstName, lastName, city } }, i) => (
               <ResumeCard
                 key={i}
-                id={i}
+                //TODO: fixme, get id from the fireStore
+                id={id || i}
                 name={`${firstName} ${lastName}`}
                 avatar={avatar}
                 city={city}
               />
-            ))}
-            {filterText && resumeList.length === 0 && (
-              <Text color="white">Nothing found, try another search</Text>
-            )}
-          </Flex>
-        )}
+            )
+          )}
+          {filterText && resumeList.length === 0 && (
+            <Text color="white">Nothing found, try another search</Text>
+          )}
+        </Flex>
+      )}
     </Box>
   );
 };
