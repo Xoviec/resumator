@@ -65,11 +65,11 @@ export function PDFSkills({ skills }) {
         <Badge src={cssBadge} />
       </Flex>
       <SubHeader>LANGUAGES - FRAMEWORKS - LIBRARIES</SubHeader>
-      {skills.map((skill) => {
+      {skills.map((skill, i) => {
         return (
-          <LiWrapper>
+          <LiWrapper key={i}>
             <LiDot />
-            <Li>{skill}</Li>
+            <Li>{skill.name}</Li>
           </LiWrapper>
         );
       })}

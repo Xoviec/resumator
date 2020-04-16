@@ -18,9 +18,9 @@ export function PDFWorkExperience({ experience }) {
   return (
     <Root wrap={false}>
       <Header>WORK EXPERIENCE</Header>
-      {experience.map((project) => {
-        return <ProjectsExperienceCard project={project} />;
-      })}
+      {experience.map((project, i) => (
+        <ProjectsExperienceCard key={i} project={project} />
+      ))}
     </Root>
   );
 }
