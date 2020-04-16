@@ -8,6 +8,7 @@ const MoveControls = ({ index, min, fields, remove, swap }) => (
     <Box width="6.5rem">
       {index !== fields.length - 1 && (
         <Button
+          type="button"
           onClick={() => swap(index, index + 1)}
           variant="outline"
           color="white"
@@ -30,6 +31,7 @@ const MoveControls = ({ index, min, fields, remove, swap }) => (
 
     {fields.length > min && (
       <Button
+        type="button"
         onClick={() => remove(index)}
         variant="outline"
         color="white"

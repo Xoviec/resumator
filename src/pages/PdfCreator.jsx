@@ -17,7 +17,6 @@ import {
 
 import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
 import { EducationInput, ExperienceInput } from "../components/CreatorComponents";
-import { Debug } from "../components";
 
 import {
   FieldsInput,
@@ -25,21 +24,6 @@ import {
   FormGroup,
   InputWrapper,
 } from "../components/FormComponents";
-
-// TODO: remove when firebase values are truly fetched
-const firebaseValues = {
-  personalia: {
-    firstName: "Zakaria",
-    lastName: "Aboe Sarah",
-    dateOfBirth: "1980-01-30",
-    city: "Amsterdam",
-  },
-  introduction: "Introduction",
-  education: [{}],
-  experience: [{}],
-  projects: [{}],
-  skills: [{ name: "JavaScript" }, { name: "React" }],
-};
 
 const PdfCreator = () => {
   const { firebase } = useContext(FirebaseAppContext);
