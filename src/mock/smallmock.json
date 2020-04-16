@@ -56,8 +56,8 @@
           "name": "Docker"
         }
       ],
-      "startDate": "01-01-2010",
-      "endDate": "01-05-2012"
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20"
     },
     {
       "id": "2",
@@ -78,8 +78,8 @@
           "name": "Ember"
         }
       ],
-      "startDate": "01-01-2012",
-      "endDate": "01-05-2014"
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20"
     }
   ],
   "projects": [
@@ -108,8 +108,8 @@
       "id": "1",
       "institute": "Hogeschool van Amsterdam",
       "name": "Bedrijfskunde",
-      "startDate": "01-09-2005",
-      "endDate": "01-06-2009",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
       "level": "HBO",
       "certificate": true
     },
@@ -117,8 +117,8 @@
       "id": "2",
       "institute": "ROC holadiejee",
       "name": "IT",
-      "startDate": "01-09-2001",
-      "endDate": "01-06-2005",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
       "level": "MBO",
       "certificate": true
     },
@@ -126,8 +126,8 @@
       "id": "3",
       "institute": "Udemy",
       "name": "React course",
-      "startDate": "01-09-2001",
-      "endDate": "01-06-2005",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
       "level": "Advanced",
       "certificate": true
     },
@@ -135,8 +135,8 @@
       "id": "4",
       "institute": "Frontend Masters",
       "name": "Frontend webdevelopment",
-      "startDate": "01-09-2001",
-      "endDate": "01-06-2005",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
       "level": "Advanced",
       "certificate": false
     }
