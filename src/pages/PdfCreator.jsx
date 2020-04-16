@@ -17,6 +17,7 @@ import {
 
 import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
 import { EducationInput, ExperienceInput } from "../components/CreatorComponents";
+import { Debug } from "../components";
 
 import {
   FieldsInput,
@@ -27,11 +28,11 @@ import {
 
 // TODO: remove when firebase values are truly fetched
 const firebaseValues = {
-  firstName: "John",
-  lastName: "Doe",
+  firstName: "Zakaria",
+  lastName: "Aboe Sarah",
   dateOfBirth: "1980-01-30",
   city: "Amsterdam",
-  introduction: "Lorem ipsum",
+  introduction: "Introduction",
   education: [{}],
   experience: [{}],
   projects: [{}],
@@ -47,8 +48,11 @@ const PdfCreator = () => {
 
   const onSubmit = (data) => {
     //todo: use actual data instead of mock
-    firebase.firestore().collection("resumes").doc().set(resumeMock);
+    // firebase.firestore().collection("resumes").doc().set(resumeMock);
+    console.log(data);
   };
+
+  // const onSubmit = (data) => console.log(data); (edited)
 
   return (
     <FormContext {...methods}>

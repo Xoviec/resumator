@@ -16,7 +16,12 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
 
   return (
     <>
-      <Button onClick={() => prepend({})} variant="outline" color="white">
+      <Button
+        onClick={() => prepend({})}
+        variant="outline"
+        color="white"
+        type="button"
+      >
         <Icon icon={faPlus} size="sm" /> {addButtonLabel}
       </Button>
 
