@@ -1,5 +1,6 @@
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 const FirebaseTest = () => {
@@ -8,7 +9,10 @@ const FirebaseTest = () => {
     firebase.firestore().collection("resumes")
     // firebase.firestore().collection("resumes").where("name", "==", "Sebastiaan")
   );
-  if (!loading && !error) console.log({ val });
+
+  const [user, initialising, userError] = useAuthState(firebase.auth());
+  if (!initialising && !userError) console.log(user.email);
+  if (!loading && !error) console.log(val);
 
   return (
     <>

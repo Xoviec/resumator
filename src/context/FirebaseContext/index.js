@@ -1,6 +1,7 @@
 import React from "react";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/auth";
 
 export const FirebaseAppContext = React.createContext({
   firebase: {},
@@ -20,7 +21,13 @@ const FirebaseAppContextProvider = ({ children, config }) => {
   if (initializing) return null;
 
   return (
-    <FirebaseAppContext.Provider value={{ firebase: firebaseApp, initializing }}>
+    <FirebaseAppContext.Provider
+      value={{
+        firebase: firebaseApp,
+        initializing,
+        provider: new firebase.auth.GoogleAuthProvider(),
+      }}
+    >
       {children}
     </FirebaseAppContext.Provider>
   );
