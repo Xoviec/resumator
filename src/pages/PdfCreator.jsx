@@ -33,11 +33,8 @@ const PdfCreator = () => {
   });
 
   const onSubmit = (data) => {
-    console.log({ data });
     firebase.firestore().collection("resumes").doc().set(data);
   };
-
-  console.log(methods.errors);
 
   return (
     <FormContext {...methods}>
