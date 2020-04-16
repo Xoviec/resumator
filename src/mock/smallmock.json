@@ -6,7 +6,7 @@
     "dateOfBirth": "2019-01-30",
     "city": "Hilversum"
   },
-  "introduction": "I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church-key mustache cardigan succulents. Single-origin coffee tumeric ennui ethical bicycle rights enamel pin. I'm baby sriracha kogi swag art party knausgaard wolf. Fashion axe chillwave taiyaki small batch 8-bit etsy cronut. Skateboard hammock migas fam asymmetrical bespoke, dreamcatcher poke etsy. Green juice messenger bag hell of pop-up marfa, man bun fashion axe godard flexitarian umami YOLO air plant seitan. Bushwick kinfolk four loko 8-bit, lomo flexitarian echo park ennui authentic DIY church",
+  "introduction": "I'm baby srirach rights enamel  loko 8-bit, lomo flexitarian echo park ennui authentic DIY church",
   "avatar": "",
   "skills": [
     {
@@ -41,7 +41,7 @@
       "id": "1",
       "role": "Frontend developer",
       "company": "awesome startup",
-      "description": "Organic ethical thundercats, kinfolk cred before they sold out hoodie four loko neutra skateboard four dollar toast tumeric. Chartreuse you probably haven't heard of them blog before they sold out subway tile. Pug pickled pok pok banh mi disendDateery, fam 90's affogato man braid mumblecore heirloom. Marfa farm-to-table prism jianbing palo santo squid lo-fi kogi drinking vinegar retro keytar microdosing skateboard freegan. Poke street art pabst synth, crucifix tote bag tumeric tofu marfa hella church-key etsy. Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
+      "description": "Organic  farm-to-table prism jianbing palo santo squid lo-fi kogi drinking microdosing skateboard freegan. Poke street art pabst synth, crucifix tote bag tumeric tofu marfa hella church-key etsy. Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
       "stackAndTechniques": [
         {
           "name": "React"
@@ -63,7 +63,7 @@
       "id": "2",
       "role": "Senior Frontend developer",
       "company": "Money Bank",
-      "description": "Banjo mumblecore air plant tousled beard trust fund blog pabst ennui edison bulb. Gastropub selvage enamel pin retro. Chicharrones yr vaporware squid, meh polaroid 8-bit cray skateboard iceland readymade four dollar toast cred everyday carry. Asymmetrical man bun kombucha wayfarers cray sriracha. Mumblecore bespoke hammock heirloom pug ramps glossier four dollar toast chartreuse. Bicycle rights plaid fanny pack, etsy vaporware drinking vinegar ethical PBR&B health goth DIY forage.",
+      "description": "Banjo mumblecore air plant  chartreuse. Bicycle rights plaid fanny pack,  vinegar ethical PBR&B health goth DIY forage.",
       "stackAndTechniques": [
         {
           "name": "Angular"
@@ -87,7 +87,7 @@
       "id": "1",
       "role": "Frontend developer",
       "company": "awesome startup",
-      "description": "Organic ethical thundercats, kinfolk cred before they sold out hoodie four loko neutra skateboard four dollar toast tumeric. Chartreuse you probably haven't heard of them blog before they sold out subway tile. Pug pickled pok pok banh mi disendDateery, fam 90's affogato man braid mumblecore heirloom. Marfa farm-to-table prism jianbing palo santo squid lo-fi kogi drinking vinegar retro keytar microdosing skateboard freegan. Poke street art pabst synth, crucifix tote bag tumeric tofu marfa hella church-key etsy. Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
+      "description": "Organic . Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
       "stackAndTechniques": [
         {
           "name": "Angular"
@@ -99,8 +99,8 @@
           "name": "Azure"
         }
       ],
-      "startDate": "01-01-2010",
-      "endDate": "01-05-2012"
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20"
     }
   ],
   "education": [

@@ -24,7 +24,7 @@ const experienceSchema = yup.object().shape({
   role: yup.string().required(),
   startDate: yup.date().required(),
   endDate: yup.date().required(),
-  description: yup.string().required().max(200),
+  description: yup.string().required().max(250),
   stackAndTechniques: yup.array().min(1).of(skillOrStackSchema),
 });
 
@@ -36,7 +36,7 @@ export default yup.object().shape({
     dateOfBirth: yup.date().required(),
     city: yup.string().required(),
   }),
-  introduction: yup.string().required().max(200),
+  introduction: yup.string().required().max(250),
   experience: yup.array().min(MIN_NUMBER_OF_EXPERIENCE).of(experienceSchema),
   projects: yup.array().of(experienceSchema),
   education: yup
