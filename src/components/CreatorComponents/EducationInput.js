@@ -1,14 +1,21 @@
 import React from "react";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Box, Button, Flex, Heading } from "rebass";
 import { Checkbox, Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import MoveControls from "./MoveControls";
-import { InputWrapper, StyledLabel } from "./styledComponents";
+import { MIN_NUMBER_OF_EDUCATION } from "../../config/validation";
 
-const EducationInput = ({ name, addButtonLabel, control, register }) => {
+import {
+  InputWrapper,
+  FormField,
+  MoveControls,
+  StyledLabel,
+} from "../FormComponents";
+
+const EducationInput = ({ name, addButtonLabel }) => {
+  const { control, register } = useFormContext();
   const { fields, prepend, remove, swap } = useFieldArray({
     control,
     name,
@@ -16,7 +23,12 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
 
   return (
     <>
-      <Button onClick={() => prepend({})} variant="outline" color="white">
+      <Button
+        onClick={() => prepend({})}
+        variant="outline"
+        color="white"
+        type="button"
+      >
         <Icon icon={faPlus} size="sm" /> {addButtonLabel}
       </Button>
 
@@ -32,6 +44,7 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
             <Box flexShrink={0}>
               <MoveControls
                 index={index}
+                min={MIN_NUMBER_OF_EDUCATION}
                 fields={fields}
                 remove={remove}
                 swap={swap}
@@ -39,39 +52,29 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
             </Box>
           </Flex>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.institute]`}>
-              Institute
-            </StyledLabel>
-            <Input name={`${name}[${index}].institute`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}].institute]`} label="Institute">
+            <Input name={`${name}[${index}].institute`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.name]`}>Name</StyledLabel>
-            <Input name={`${name}[${index}].name`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}].name]`} label="Name">
+            <Input name={`${name}[${index}].name`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.level]`}>Level</StyledLabel>
-            <Input name={`${name}[${index}].level`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}].level]`} label="Level">
+            <Input name={`${name}[${index}].level`} ref={register} />
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.startDate]`}>
-              Start date
-            </StyledLabel>
-
+          <FormField name={`${name}[${index}].startDate]`} label="Start date">
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
               ref={register()}
             />
-          </InputWrapper>
+          </FormField>
 
-          <InputWrapper>
-            <StyledLabel htmlFor={`${name}[${index}.endDate]`}>End date</StyledLabel>
-            <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
-          </InputWrapper>
+          <FormField name={`${name}[${index}].endDate]`} label="End date">
+            <Input type="date" name={`${name}[${index}].endDate`} ref={register} />
+          </FormField>
 
           <InputWrapper>
             <StyledLabel>
@@ -79,7 +82,7 @@ const EducationInput = ({ name, addButtonLabel, control, register }) => {
                 as="input"
                 type="checkbox"
                 name={`${name}[${index}].certificate`}
-                ref={register()}
+                ref={register}
               />
               Certificate
             </StyledLabel>

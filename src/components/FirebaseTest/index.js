@@ -14,7 +14,12 @@ const FirebaseTest = () => {
   if (!initialising && !userError) console.log(user.email);
   if (!loading && !error) console.log(val);
 
-  return <>Nothing here</>;
+  return (
+    <>
+      FireStoreData:
+      <code>{val ? <pre>{JSON.stringify(val, null, 2)}</pre> : "nothing here"}</code>
+    </>
+  );
 };
 
 export default FirebaseTest;
