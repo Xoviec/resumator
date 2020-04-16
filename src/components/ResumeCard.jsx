@@ -41,12 +41,12 @@ const ResumeCard = ({ avatar, name, city, id }) => {
         <FooterButton
           variant="outline"
           mr="1rem"
-          onClick={() => goTo(`./previewer/${id}`)}
+          onClick={() => goTo(`./creator/${id}`)}
         >
           Edit&nbsp;&nbsp;
           <Icon icon={faPencilAlt} />
         </FooterButton>
-        <FooterButton onClick={() => goTo(`./creator/${id}`)}>
+        <FooterButton onClick={() => goTo(`./previewer/${id}`)}>
           View&nbsp;&nbsp;
           <Icon icon={faExternalLinkAlt} />
         </FooterButton>
