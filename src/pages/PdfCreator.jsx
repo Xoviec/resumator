@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
-import resumeMock from "../mock/mock.json";
+import resumeMock from "../mock/smallmock.json";
 import { useForm, FormContext } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
@@ -25,29 +25,15 @@ import {
   InputWrapper,
 } from "../components/FormComponents";
 
-// TODO: remove when firebase values are truly fetched
-const firebaseValues = {
-  firstName: "John",
-  lastName: "Doe",
-  dateOfBirth: "1980-01-30",
-  city: "Amsterdam",
-  introduction: "Lorem ipsum",
-  education: [{}],
-  experience: [{}],
-  projects: [{}],
-  skills: [{ name: "JavaScript" }, { name: "React" }],
-};
-
 const PdfCreator = () => {
   const { firebase } = useContext(FirebaseAppContext);
   const methods = useForm({
-    defaultValues: firebaseValues,
+    defaultValues: { ...resumeMock },
     validationSchema,
   });
 
   const onSubmit = (data) => {
-    //todo: use actual data instead of mock
-    firebase.firestore().collection("resumes").doc().set(resumeMock);
+    firebase.firestore().collection("resumes").doc().set(data);
   };
 
   return (
@@ -68,20 +54,28 @@ const PdfCreator = () => {
             <Icon icon={faAddressCard} size="sm" /> Personal details
           </Heading>
 
-          <FormField name="firstName" label="First name">
-            <Input name="firstName" ref={methods.register} />
+          <FormField name="personalia.email" label="First name">
+            <Input name="personalia.email" type="email" ref={methods.register} />
           </FormField>
 
-          <FormField name="lastName" label="Last name">
-            <Input name="lastName" ref={methods.register} />
+          <FormField name="personalia.firstName" label="First name">
+            <Input name="personalia.firstName" ref={methods.register} />
           </FormField>
 
-          <FormField name="dateOfBirth" label="Birth date">
-            <Input type="date" name="dateOfBirth" ref={methods.register} />
+          <FormField name="personalia.lastName" label="Last name">
+            <Input name="personalia.lastName" ref={methods.register} />
           </FormField>
 
-          <FormField name="city" label="City">
-            <Input name="city" ref={methods.register} />
+          <FormField name="personalia.dateOfBirth" label="Birth date">
+            <Input
+              name="personalia.dateOfBirth"
+              type="date"
+              ref={methods.register}
+            />
+          </FormField>
+
+          <FormField name="personalia.city" label="City">
+            <Input name="personalia.city" ref={methods.register} />
           </FormField>
 
           <FormField name="introduction" label="Introduction">

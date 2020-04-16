@@ -1,0 +1,144 @@
+{
+  "personalia": {
+    "firstName": "Beau",
+    "lastName": "Ter Ham",
+    "email": "Beau@frontmen.nl",
+    "dateOfBirth": "2019-01-30",
+    "city": "Hilversum"
+  },
+  "introduction": "I'm baby srirach rights enamel  loko 8-bit, lomo flexitarian echo park ennui authentic DIY church",
+  "avatar": "",
+  "skills": [
+    {
+      "name": "Html"
+    },
+    {
+      "name": "Javascript"
+    },
+    {
+      "name": "CSS"
+    },
+    {
+      "name": "React"
+    }
+  ],
+  "openSourceWork": [
+    {
+      "id": "1",
+      "link": "www.github.com/myrepo",
+      "description": "jkhsahjdsfkhjfkhj"
+    }
+  ],
+  "publications": [
+    {
+      "id": "1",
+      "title": "Super awesome React Article",
+      "link": "www.medium.com/bo"
+    }
+  ],
+  "experience": [
+    {
+      "id": "1",
+      "role": "Frontend developer",
+      "company": "awesome startup",
+      "description": "Organic  farm-to-table prism jianbing palo santo squid lo-fi kogi drinking microdosing skateboard freegan. Poke street art pabst synth, crucifix tote bag tumeric tofu marfa hella church-key etsy. Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
+      "stackAndTechniques": [
+        {
+          "name": "React"
+        },
+        {
+          "name": "Jest"
+        },
+        {
+          "name": "Node"
+        },
+        {
+          "name": "Docker"
+        }
+      ],
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20"
+    },
+    {
+      "id": "2",
+      "role": "Senior Frontend developer",
+      "company": "Money Bank",
+      "description": "Banjo mumblecore air plant  chartreuse. Bicycle rights plaid fanny pack,  vinegar ethical PBR&B health goth DIY forage.",
+      "stackAndTechniques": [
+        {
+          "name": "Angular"
+        },
+        {
+          "name": "Chai"
+        },
+        {
+          "name": "Jenkins"
+        },
+        {
+          "name": "Ember"
+        }
+      ],
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "role": "Frontend developer",
+      "company": "awesome startup",
+      "description": "Organic . Pabst jianbing try-hard single-origin coffee DIY chicharrones, ugh taxidermy.",
+      "stackAndTechniques": [
+        {
+          "name": "Angular"
+        },
+        {
+          "name": "CI"
+        },
+        {
+          "name": "Azure"
+        }
+      ],
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20"
+    }
+  ],
+  "education": [
+    {
+      "id": "1",
+      "institute": "Hogeschool van Amsterdam",
+      "name": "Bedrijfskunde",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
+      "level": "HBO",
+      "certificate": true
+    },
+    {
+      "id": "2",
+      "institute": "ROC holadiejee",
+      "name": "IT",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
+      "level": "MBO",
+      "certificate": true
+    },
+    {
+      "id": "3",
+      "institute": "Udemy",
+      "name": "React course",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
+      "level": "Advanced",
+      "certificate": true
+    },
+    {
+      "id": "4",
+      "institute": "Frontend Masters",
+      "name": "Frontend webdevelopment",
+      "startDate": "2010-01-01",
+      "endDate": "2012-01-20",
+      "level": "Advanced",
+      "certificate": false
+    }
+  ]
+}

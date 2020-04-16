@@ -15,21 +15,28 @@ yup.setLocale({
   },
 });
 
+const skillOrStackSchema = yup.object().shape({
+  name: yup.string().required(),
+});
+
 const experienceSchema = yup.object().shape({
   company: yup.string().required(),
   role: yup.string().required(),
-  from: yup.date().required(),
-  untill: yup.date().required(),
-  description: yup.string().required().max(200),
-  stackAndTechniques: yup.array().min(1),
+  startDate: yup.date().required(),
+  endDate: yup.date().required(),
+  description: yup.string().required().max(250),
+  stackAndTechniques: yup.array().min(1).of(skillOrStackSchema),
 });
 
 export default yup.object().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  dateOfBirth: yup.date().required(),
-  city: yup.string().required(),
-  introduction: yup.string().required().max(200),
+  personalia: yup.object().shape({
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+    email: yup.string().email().required(),
+    dateOfBirth: yup.date().required(),
+    city: yup.string().required(),
+  }),
+  introduction: yup.string().required().max(250),
   experience: yup.array().min(MIN_NUMBER_OF_EXPERIENCE).of(experienceSchema),
   projects: yup.array().of(experienceSchema),
   education: yup
@@ -44,5 +51,5 @@ export default yup.object().shape({
         endDate: yup.date().required(),
       })
     ),
-  skill: yup.array().min(1),
+  skills: yup.array().min(1).of(skillOrStackSchema),
 });

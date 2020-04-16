@@ -52,11 +52,11 @@ const renderStack = ({ stackAndTechniques }) => {
   return stackAndTechniques.map((project, index) => {
     return index < arrayCount ? (
       <>
-        <Plain>{project}</Plain>
+        <Plain>{project.name}</Plain>
         <Plain>-</Plain>
       </>
     ) : (
-      <Plain>{project}</Plain>
+      <Plain>{project.name}</Plain>
     );
   });
 };

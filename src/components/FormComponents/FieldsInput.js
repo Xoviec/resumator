@@ -38,7 +38,12 @@ const FieldsInput = ({ name, addButtonLabel }) => {
         </Flex>
       ))}
 
-      <Button onClick={() => append({ name: "" })} variant="outline" color="white">
+      <Button
+        onClick={() => append({ name: "" })}
+        variant="outline"
+        color="white"
+        type="button"
+      >
         <Icon icon={faPlus} size="sm" /> {addButtonLabel}
       </Button>
     </>

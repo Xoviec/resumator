@@ -4,7 +4,6 @@ import "../assets/css/global.css";
 import { Flex, Box } from "rebass";
 import theme from "../config/theme";
 import frontmenLogo from "../assets/svg/frontmen-logo.svg";
-import {Link} from 'react-router-dom';
 
 const LoginLayout = ({ children }) => (
   <ThemeProvider theme={theme}>
@@ -14,10 +13,6 @@ const LoginLayout = ({ children }) => (
       alignItems="center"
       bg="secondary"
     >
-      <Link to="/creator">Creator</Link>
-      <Link to="/pdf-previewer">PDF Previewer</Link>
-      <Link to="/html-previewer">HTML Previewer</Link>
-      <Link to="/">Home</Link>
       <Box p="2rem">
         <img src={frontmenLogo} alt="logo" />
       </Box>

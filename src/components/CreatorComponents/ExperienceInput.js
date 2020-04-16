@@ -16,7 +16,12 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
 
   return (
     <>
-      <Button onClick={() => prepend({})} variant="outline" color="white">
+      <Button
+        onClick={() => prepend({})}
+        variant="outline"
+        color="white"
+        type="button"
+      >
         <Icon icon={faPlus} size="sm" /> {addButtonLabel}
       </Button>
 
@@ -48,12 +53,12 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
             <Input name={`${name}[${index}].role`} ref={register} />
           </FormField>
 
-          <FormField name={`${name}[${index}.from`} label="Start date">
-            <Input type="date" name={`${name}[${index}].from`} ref={register} />
+          <FormField name={`${name}[${index}.startDate`} label="Start date">
+            <Input type="date" name={`${name}[${index}].startDate`} ref={register} />
           </FormField>
 
-          <FormField name={`${name}[${index}.untill`} label="End date">
-            <Input type="date" name={`${name}[${index}].untill`} ref={register} />
+          <FormField name={`${name}[${index}.endDate`} label="End date">
+            <Input type="date" name={`${name}[${index}].endDate`} ref={register} />
           </FormField>
 
           <FormField name={`${name}[${index}.description`} label="Description">

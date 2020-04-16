@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../context/FirebaseContext";
 import { Flex, Box, Heading, Text, Button } from "rebass";
 import { Input } from "@rebass/forms";
@@ -20,9 +20,13 @@ const overviewMock = [...Array(7).keys()].map(() => ({ ...userMock }));
 
 const Home = () => {
   const { firebase } = useContext(FirebaseAppContext);
-  const [val, loading, error] = useCollectionData(
+  const [val, loading, error] = useCollection(
     firebase.firestore().collection("resumes")
   );
+
+  // id key isn't in the data by default, so merging it like this
+  const data = val && val.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
   const [filteredResumes, setFilteredResumes] = useState([]);
   const [filterText, updateFilterText] = useState("");
   const resumeList = filterText ? filteredResumes : overviewMock;
@@ -71,21 +75,25 @@ const Home = () => {
           <Icon icon={faSyncAlt} size="5x" spin color="white" />
         </Flex>
       ) : (
-          <Flex textAlign="center" flexWrap="wrap" mx="-1rem">
-            {val.map(({ avatar, personalia: { firstName, lastName, city } }, i) => (
-              <ResumeCard
-                key={i}
-                id={i}
-                name={`${firstName} ${lastName}`}
-                avatar={avatar}
-                city={city}
-              />
-            ))}
-            {filterText && resumeList.length === 0 && (
-              <Text color="white">Nothing found, try another search</Text>
+        <Flex textAlign="center" flexWrap="wrap" mx="-1rem">
+          {data &&
+            data.map(
+              ({ id, avatar, personalia: { firstName, lastName, city } }, i) => (
+                <ResumeCard
+                  key={i}
+                  //TODO: fixme, get id from the fireStore
+                  id={id}
+                  name={`${firstName} ${lastName}`}
+                  avatar={avatar}
+                  city={city}
+                />
+              )
             )}
-          </Flex>
-        )}
+          {filterText && resumeList.length === 0 && (
+            <Text color="white">Nothing found, try another search</Text>
+          )}
+        </Flex>
+      )}
     </Box>
   );
 };
