@@ -7,7 +7,7 @@ import MainLayout from "./layouts/Main";
 import Overview from "./pages/Overview";
 import Home from "./pages/Home";
 import PdfCreator from "./pages/PdfCreator";
-import PDFPreviewer from "./pages/PDFPreviewer";
+import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import FirebaseTest from "./components/FirebaseTest";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
@@ -42,7 +42,7 @@ function App() {
           <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
           <Route exact path="/previewer/:id" component={PdfPreviewerWrapper} />
           <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
-          <Route exact path="/pdf-previewer" component={PDFPreviewer} />
+          <Route exact path="/pdf-previewer" component={PdfPreviewer} />
         </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>

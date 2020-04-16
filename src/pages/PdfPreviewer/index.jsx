@@ -61,7 +61,7 @@ const PDFDocument = ({ resume }) => {
   );
 };
 
-const PDFPreviewer = () => {
+const PdfPreviewer = () => {
   const [resume, SetResume] = React.useState();
 
   React.useEffect(() => {
@@ -79,4 +79,4 @@ const PDFPreviewer = () => {
   );
 };
 
-export default PDFPreviewer;
+export default PdfPreviewer;
