@@ -48,27 +48,27 @@ function App() {
   );
 }
 
-const HomePageWrapper = () => (
+const HomePageWrapper = (props) => (
   <LoginLayout>
-    <Home />
+    <Home {...props} />
   </LoginLayout>
 );
 
-const PdfCreatorWrapper = () => (
+const PdfCreatorWrapper = (props) => (
   <MainLayout>
-    <PdfCreator />
+    <PdfCreator {...props} />
   </MainLayout>
 );
 
-const OverviewWrapper = () => (
+const OverviewWrapper = (props) => (
   <MainLayout>
-    <Overview />
+    <Overview {...props} />
   </MainLayout>
 );
 
-const HTMLPreviewerWrapper = () => (
+const HTMLPreviewerWrapper = (props) => (
   <LoginLayout>
-    <HTMLPreviewer />
+    <HTMLPreviewer {...props} />
   </LoginLayout>
 );
 
