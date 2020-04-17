@@ -57,14 +57,9 @@ const PDFDocument = ({ resume }) => {
 
 const PdfPreviewer = (props) => {
   const { firebase } = useContext(FirebaseAppContext);
-
-  // uuid is the users uuid from the firestore database
-  // it will be used to fetch the correct resume data
   const uuid = props.match.params.id;
-  console.log(uuid);
   const [value, loading, error] = useDocument(
-    // Remove hardcoded uuid when google auth is merged
-    firebase.firestore().doc("resumes/5dngjR6z8R0vofQTSuNb")
+    firebase.firestore().doc(`resumes/${uuid}`)
   );
 
   return (
