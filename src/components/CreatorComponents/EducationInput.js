@@ -68,7 +68,7 @@ const EducationInput = ({ name, addButtonLabel }) => {
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
-              ref={register()()}
+              ref={register()}
             />
           </FormField>
 
