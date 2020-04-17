@@ -5,7 +5,7 @@ import { Flex, Box, Heading, Text, Button } from "rebass";
 import { Input } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPlus, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
-import { ResumeCard, Debug } from "../components";
+import { ResumeCard } from "../components";
 import { useHistory } from "react-router-dom";
 
 const userMock = {
@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <Box as="section" py={3} maxWidth="1600px" margin="0 auto">
-      <Debug val={val} loading={loading} errlr={error} />
+      {/* <Debug val={val} loading={loading} error={error} /> */}
       <Heading as="h1" fontSize="3rem" color="white" mb="2rem">
         Resumes Overview
       </Heading>

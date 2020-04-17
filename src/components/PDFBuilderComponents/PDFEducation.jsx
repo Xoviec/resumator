@@ -39,8 +39,8 @@ export function PDFEducation({ education }) {
   return (
     <Root wrap={false}>
       <Header>EDUCATION</Header>
-      {education.map((education) => {
-        return <Education key={education.id} education={education} />;
+      {education.map((education, i) => {
+        return <Education key={i} education={education} />;
       })}
     </Root>
   );

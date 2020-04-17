@@ -1,15 +1,20 @@
 import React from "react";
 import { Button, Box, Heading, Text } from "rebass";
 import { FirebaseAppContext } from "../context/FirebaseContext";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
   const { firebase, provider } = React.useContext(FirebaseAppContext);
+  const history = useHistory();
   const login = () => {
     console.log(
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then((user) => console.log(user))
+        .then((user) => {
+          console.log({ user });
+          history.push("/overview");
+        })
     );
   };
   return (
