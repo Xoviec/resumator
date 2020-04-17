@@ -20,6 +20,7 @@ const MoveControls = ({ index, min, fields, remove, swap }) => (
 
       {index !== 0 && (
         <Button
+          type="button"
           onClick={() => swap(index, index - 1)}
           variant="outline"
           color="white"
