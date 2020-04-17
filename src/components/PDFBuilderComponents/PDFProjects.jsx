@@ -18,9 +18,11 @@ export function PDFProjects({ projects }) {
   return (
     <Root wrap={true}>
       <Header>PROJECTS</Header>
-      {projects.map((project, i) => (
-        <ProjectsExperienceCard key={i} project={project} />
-      ))}
+      {projects.map((project, index) => {
+        return (
+          <ProjectsExperienceCard key={`project.id-${index}`} project={project} />
+        );
+      })}
     </Root>
   );
 }

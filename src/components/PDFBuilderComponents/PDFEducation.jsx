@@ -40,7 +40,7 @@ export function PDFEducation({ education }) {
     <Root wrap={false}>
       <Header>EDUCATION</Header>
       {education.map((education) => {
-        return <Education education={education} />;
+        return <Education key={education.id} education={education} />;
       })}
     </Root>
   );

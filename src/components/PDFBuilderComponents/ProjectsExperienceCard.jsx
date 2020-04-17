@@ -51,12 +51,12 @@ const renderStack = ({ stackAndTechniques }) => {
   const arrayCount = stackAndTechniques.length - 1;
   return stackAndTechniques.map((project, index) => {
     return index < arrayCount ? (
-      <>
-        <Plain>{project.name}</Plain>
+      <React.Fragment key={project.name}>
+        <Plain key={index}>{project.name}</Plain>
         <Plain>-</Plain>
-      </>
+      </React.Fragment>
     ) : (
-      <Plain>{project.name}</Plain>
+      <Plain key={project.name}>{project.name}</Plain>
     );
   });
 };

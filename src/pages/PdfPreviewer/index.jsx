@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
 import {
   PDFHeader,
@@ -8,10 +8,11 @@ import {
   PDFProjects,
   PDFWorkExperience,
 } from "../../components/PDFBuilderComponents";
-import data from "../../mock/mock.json";
 import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Regular.ttf";
+import { useDocument } from "react-firebase-hooks/firestore";
+import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
@@ -54,21 +55,23 @@ const PDFDocument = ({ resume }) => {
   );
 };
 
-const PdfPreviewer = () => {
-  const [resume, SetResume] = React.useState();
+const PdfPreviewer = (props) => {
+  const { firebase } = useContext(FirebaseAppContext);
+  const uuid = props.match.params.id;
+  const [value, loading, error] = useDocument(
+    firebase.firestore().doc(`resumes/${uuid}`)
+  );
 
-  React.useEffect(() => {
-    SetResume(data);
-  }, []);
-
-  return resume ? (
+  return (
     <>
-      <PDFViewer width={"100%"} height={"100%"}>
-        <PDFDocument resume={resume} />
-      </PDFViewer>
+      {error && <strong>Error: {JSON.stringify(error)}</strong>}
+      {loading && <span>Document: Loading...</span>}
+      {value && (
+        <PDFViewer width={"100%"} height={"100%"}>
+          <PDFDocument resume={value.data()} />
+        </PDFViewer>
+      )}
     </>
-  ) : (
-    <div>...loading</div>
   );
 };
 
