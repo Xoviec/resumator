@@ -53,27 +53,27 @@ const EducationInput = ({ name, addButtonLabel }) => {
           </Flex>
 
           <FormField name={`${name}[${index}].institute]`} label="Institute">
-            <Input name={`${name}[${index}].institute`} ref={register} />
+            <Input name={`${name}[${index}].institute`} ref={register()} />
           </FormField>
 
           <FormField name={`${name}[${index}].name]`} label="Name">
-            <Input name={`${name}[${index}].name`} ref={register} />
+            <Input name={`${name}[${index}].name`} ref={register()} />
           </FormField>
 
           <FormField name={`${name}[${index}].level]`} label="Level">
-            <Input name={`${name}[${index}].level`} ref={register} />
+            <Input name={`${name}[${index}].level`} ref={register()} />
           </FormField>
 
           <FormField name={`${name}[${index}].startDate]`} label="Start date">
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
-              ref={register()}
+              ref={register()()}
             />
           </FormField>
 
           <FormField name={`${name}[${index}].endDate]`} label="End date">
-            <Input type="date" name={`${name}[${index}].endDate`} ref={register} />
+            <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
           </FormField>
 
           <InputWrapper>
@@ -82,7 +82,7 @@ const EducationInput = ({ name, addButtonLabel }) => {
                 as="input"
                 type="checkbox"
                 name={`${name}[${index}].certificate`}
-                ref={register}
+                ref={register()}
               />
               Certificate
             </StyledLabel>
