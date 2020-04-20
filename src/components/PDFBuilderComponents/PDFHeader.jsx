@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@react-pdf/styled-components";
 import { Font, View } from "@react-pdf/renderer";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
-import image from "../../assets/images/avatarSeven.png";
+import image from "../../assets/images/avatars/7.png";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 
