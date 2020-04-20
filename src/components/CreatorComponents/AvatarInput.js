@@ -25,10 +25,12 @@ const AvatarInput = () => {
             <Box my={1}>
               <Label>
                 <Radio
+                  as="input"
+                  type="radio"
                   name="avatar"
                   id={avatar.name}
                   value={avatar.name}
-                  register={register()}
+                  ref={register()}
                 />
               </Label>
             </Box>
