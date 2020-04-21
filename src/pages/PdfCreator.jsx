@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
 import resumeMock from "../mock/smallmock.json";
 import { useForm, FormContext } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import { Input, Textarea } from "@rebass/forms";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
 import {
   faAddressCard,
   faGraduationCap,
@@ -13,6 +14,7 @@ import {
   faBrain,
   faCertificate,
   faUserCircle,
+  faSyncAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
@@ -26,14 +28,27 @@ import {
 } from "../components/FormComponents";
 
 const PdfCreator = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+
   const { firebase } = useContext(FirebaseAppContext);
   const methods = useForm({
     defaultValues: { ...resumeMock },
     validationSchema,
   });
 
-  const onSubmit = (data) => {
-    firebase.firestore().collection("resumes").doc().set(data);
+  const onSubmit = async (data) => {
+    //TODO: Use a toast/notification to show success or errors
+    try {
+      setIsLoading(true);
+      const resumesRef = firebase.firestore().collection().doc();
+      await resumesRef.set(data);
+      setIsLoading(false);
+      history.push("./overview");
+    } catch (e) {
+      setIsLoading(false);
+      alert(`Error writing document. ${e.message}`);
+    }
   };
 
   return (
@@ -144,7 +159,9 @@ const PdfCreator = () => {
           </Heading>
         </FormGroup>
 
-        <Button as="input" type="submit" />
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? <Icon icon={faSyncAlt} spin color="white" /> : "Submit"}
+        </Button>
       </Box>
     </FormContext>
   );
