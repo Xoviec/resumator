@@ -52,19 +52,19 @@ const EducationInput = ({ name, addButtonLabel }) => {
             </Box>
           </Flex>
 
-          <FormField name={`${name}[${index}].institute]`} label="Institute">
+          <FormField name={`${name}[${index}].institute`} label="Institute">
             <Input name={`${name}[${index}].institute`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}].name]`} label="Name">
+          <FormField name={`${name}[${index}].name`} label="Name">
             <Input name={`${name}[${index}].name`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}].level]`} label="Level">
+          <FormField name={`${name}[${index}].level`} label="Level">
             <Input name={`${name}[${index}].level`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}].startDate]`} label="Start date">
+          <FormField name={`${name}[${index}].startDate`} label="Start date">
             <Input
               type="date"
               name={`${name}[${index}].startDate`}
@@ -72,7 +72,7 @@ const EducationInput = ({ name, addButtonLabel }) => {
             />
           </FormField>
 
-          <FormField name={`${name}[${index}].endDate]`} label="End date">
+          <FormField name={`${name}[${index}].endDate`} label="End date">
             <Input type="date" name={`${name}[${index}].endDate`} ref={register()} />
           </FormField>
 
