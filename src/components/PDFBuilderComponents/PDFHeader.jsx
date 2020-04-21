@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@react-pdf/styled-components";
 import { Font, View } from "@react-pdf/renderer";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
-import image from "../../assets/images/avatarSeven.png";
+import avatars from "../../assets/images/avatars";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 
@@ -47,7 +47,7 @@ const HeaderBlockBottom = styled.View`
   margin-bottom: 10px;
 `;
 
-export function PDFHeader({ name, city }) {
+export function PDFHeader({ avatar, name, city }) {
   return (
     <Root>
       <Flex>
@@ -61,7 +61,7 @@ export function PDFHeader({ name, city }) {
           </HeaderBlockBottom>
           <SubHeading>{city.toUpperCase()} REGION - NL - OCTOBER 1982</SubHeading>
         </View>
-        <Avatar src={image} />
+        <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[6]).img} />
       </Flex>
     </Root>
   );

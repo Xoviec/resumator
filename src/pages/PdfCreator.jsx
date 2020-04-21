@@ -16,7 +16,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
-import { EducationInput, ExperienceInput } from "../components/CreatorComponents";
+import {
+  AvatarInput,
+  EducationInput,
+  ExperienceInput,
+} from "../components/CreatorComponents";
 
 import {
   FieldsInput,
@@ -142,6 +146,10 @@ const PdfCreator = () => {
           <Heading as="legend" color="white" p="0">
             <Icon icon={faUserCircle} size="sm" /> Avatar
           </Heading>
+
+          <InputWrapper>
+            <AvatarInput />
+          </InputWrapper>
         </FormGroup>
 
         <Button as="input" type="submit" />

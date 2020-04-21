@@ -35,6 +35,7 @@ const PDFDocument = ({ resume }) => {
     <Document>
       <Wrapper size="A4">
         <PDFHeader
+          avatar={resume.avatar}
           name={resume.personalia.firstName}
           city={resume.personalia.city}
         />
