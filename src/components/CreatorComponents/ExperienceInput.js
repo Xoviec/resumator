@@ -49,7 +49,7 @@ const ExperienceInput = ({ name, label, addButtonLabel, min }) => {
             <Input name={`${name}[${index}].company`} ref={register()} />
           </FormField>
 
-          <FormField name={`${name}[${index}].role]`} label="Role">
+          <FormField name={`${name}[${index}].role`} label="Role">
             <Input name={`${name}[${index}].role`} ref={register()} />
           </FormField>
 
