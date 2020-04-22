@@ -49,6 +49,11 @@ const Home = () => {
       )
     );
 
+  // Todo: make notification
+  if (error) {
+    console.error(error);
+  }
+
   return (
     <Box as="section" py={3} maxWidth="1600px" margin="0 auto">
       {/* <Debug val={val} loading={loading} error={error} /> */}
