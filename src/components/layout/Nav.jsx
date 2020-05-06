@@ -13,11 +13,20 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import Drawer from "@material-ui/core/Drawer";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import PeopleIcon from "@material-ui/icons/People";
+import List from "@material-ui/core/List";
+import WebIcon from "@material-ui/icons/Web";
 
+const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -71,11 +80,23 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
     },
   },
-  sectionMobile: {
+  toolbar: {
     display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  listItem: {
+    justifyContent: "center",
   },
 }));
 
@@ -87,26 +108,15 @@ const Nav = ({ profile }) => {
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -125,42 +135,9 @@ const Nav = ({ profile }) => {
     </Menu>
   );
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -208,21 +185,31 @@ const Nav = ({ profile }) => {
               <AccountCircle />
             </IconButton>
           </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
       {renderMenu}
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <div className={classes.toolbar} />
+        <List>
+          <ListItem button key={"overview"} className={classes.listItem}>
+            <IconButton aria-label="overview" onClick={() => goTo("/overview")}>
+              <PeopleIcon />
+            </IconButton>
+          </ListItem>
+          <ListItem button key={"preview"} className={classes.listItem}>
+            <IconButton aria-label="preview" onClick={() => goTo("/")}>
+              <WebIcon />
+            </IconButton>
+          </ListItem>
+        </List>
+      </Drawer>
     </div>
   );
 };

@@ -5,15 +5,32 @@ import { Nav } from "../components/layout";
 import theme from "../config/theme";
 import "../assets/css/global.css";
 
-const MainLayout = ({ children }) => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Nav />
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { makeStyles } from "@material-ui/core/styles";
 
-      <Box as="main" bg="secondary" p={["1rem", "2rem"]} sx={{ minHeight: "100%" }}>
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  spacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
+  },
+}));
+
+const MainLayout = ({ children }) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <Nav />
+      <main className={classes.content}>
+        <div className={classes.spacer} />
         {children}
-      </Box>
-    </ThemeProvider>
+      </main>
+    </div>
   );
 };
 
