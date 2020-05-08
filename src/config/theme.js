@@ -48,6 +48,7 @@ export default {
     background: "#fff",
     primary: colors.orange,
     secondary: colors.darkBlue,
+    lightBlue: colors.lightBlue,
     muted: "#f6f6f9",
     gray: colors.mediumGrey,
     highlight: "hsla(205, 100%, 40%, 0.125)",

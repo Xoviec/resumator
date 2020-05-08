@@ -10,6 +10,9 @@ import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
+import LivePreviewer from "./pages/LivePreviewer";
+import { ThemeProvider } from "emotion-theming";
+import theme from "./config/theme";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
@@ -33,17 +36,20 @@ const firebaseConfig = {
 function App() {
   return (
     <FirebaseAppContextProvider config={firebaseConfig}>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={HomePageWrapper} />
-          <Route exact path="/overview" component={OverviewWrapper} />
-          <Route exact path="/creator" component={PdfCreatorWrapper} />
-          <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
-          <Route exact path="/previewer/:id" component={PdfPreviewer} />
-          <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
-          <Route exact path="/pdf-previewer" component={PdfPreviewer} />
-        </Switch>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={HomePageWrapper} />
+            <Route exact path="/overview" component={OverviewWrapper} />
+            <Route exact path="/creator" component={PdfCreatorWrapper} />
+            <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
+            <Route exact path="/live/:id" component={LivePreviewer} />
+            <Route exact path="/previewer/:id" component={PdfPreviewer} />
+            <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
+            <Route exact path="/pdf-previewer" component={PdfPreviewer} />
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
     </FirebaseAppContextProvider>
   );
 }
