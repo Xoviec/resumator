@@ -1,8 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "emotion-theming";
-import { Box } from "rebass";
 import { Nav } from "../components/layout";
-import theme from "../config/theme";
 import "../assets/css/global.css";
 
 import CssBaseline from "@material-ui/core/CssBaseline";

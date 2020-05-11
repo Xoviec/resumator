@@ -15,7 +15,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import PeopleIcon from "@material-ui/icons/People";
 import List from "@material-ui/core/List";
 import WebIcon from "@material-ui/icons/Web";
