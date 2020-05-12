@@ -1,16 +1,27 @@
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
 
-/* user */
+exports.createUser = functions.auth.user().onCreate(async (user) => {
+  try {
+    const userRef = admin.firestore().collection("users");
 
-// { disabled: false,
-// displayName: 'Sebas',
-// email: 'Sebas@frontmen.nl',
-// emailVerified: false,
-// metadata: {creationTime: null, lastSignInTime: null},
-// photoURL: null,
-// providerData: ['google.com'],
-// uid: '123' }
+    const snap = await userRef.where("email", "==", user.email).get();
 
-exports.createUser = functions.auth.user().onCreate((user) => {
-  console.log(user);
+    let userData = { registered: true };
+    // Write new user if it doesn't exist
+    if (snap.empty) {
+      userData = { name: user.displayName, email: user.email, ...userData };
+    } else {
+      let userDoc = {};
+      snap.forEach((doc) => {
+        userDoc = doc.data();
+        doc.ref.delete();
+      });
+      userData = { ...userDoc, ...userData };
+    }
+    return admin.firestore().collection("users").doc(user.uid).set(userData);
+  } catch (err) {
+    throw new functions.https.HttpsError("failed-precondition", err.message);
+  }
 });
