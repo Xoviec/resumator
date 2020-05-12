@@ -1,23 +1,46 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Card from "../Card";
-import EditIcon from "./EditIcon";
-import { faPen, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ActionButtons from "./ActionButtons";
+import EditModalWrapper from "./ModalWrapper";
+import { FormField } from "../FormComponents";
+import { Input, Textarea } from "@rebass/forms";
+import { Button, Flex } from "rebass";
+import { useForm } from "react-hook-form";
 
-const Experience = ({ type, experience }) => {
+const Experience = ({
+  type,
+  experience,
+  onSubmit,
+  onEditHandler,
+  onDeleteHandler,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [editingExisting, setIsEditingExisting] = useState(false);
+  const [currentItemId, setCurrentItemId] = useState(null);
+
+  const methods = useForm({});
+  const register = methods.register;
+
+  const onClickEdit = (experienceEntry) => {
+    setCurrentItemId(experienceEntry.id);
+    setIsEditingExisting(true);
+    methods.reset(experienceEntry);
+    setIsEditing(true);
+  };
 
   return (
     <Card>
       <Title>{type}</Title>
       <AddNew
         className="add-new-button"
-        onClick={() => console.log("test")}
+        onClick={() => setIsEditing((prevState) => !prevState)}
         icon={faPlus}
       />
       {experience.map((e) => (
-        <ExperienceItem key={e.id}>
+        <ExperienceItem key={e.id} id={e.id}>
           <TopSection>
             <h3> {e.role}</h3>
             <h3>
@@ -28,21 +51,84 @@ const Experience = ({ type, experience }) => {
           <Techniques>
             <span>
               Techniques:{" "}
-              {e.stackAndTechniques.map((t) => (
-                <span key={t.name}>{t.name} </span>
-              ))}
+              {e.stackAndTechniques &&
+                e.stackAndTechniques.map((t) => <span key={t.name}>{t.name} </span>)}
             </span>
           </Techniques>
-          <EditIcon
-            className="edit-button"
-            onClick={() => setIsEditing((prevState) => !prevState)}
-            isEditing={isEditing}
+          <ActionButtons
+            className={`edit-button-${e.id}`}
+            onEditClick={() => onClickEdit(e)}
+            onDeleteClick={() => onDeleteHandler(e)}
           />
         </ExperienceItem>
       ))}
+      <EditModalWrapper
+        isOpen={isEditing}
+        onRequestClose={() => {
+          setIsEditingExisting(false);
+          methods.reset({});
+          setIsEditing(false);
+        }}
+        methods={methods}
+        contentLabel="Add education details"
+        heading="Add new education"
+      >
+        <FormField name="company" label="Company">
+          <Input name="company" ref={register()} />
+        </FormField>
+
+        <FormField name="role" label="Role">
+          <Input name="role" ref={register()} />
+        </FormField>
+
+        <FormField name="description">
+          <StyledTextArea name="description" ref={register()} />
+        </FormField>
+
+        <FormField name="startDate" label="Start Date">
+          <Input name="startDate" type="date" ref={register()} />
+        </FormField>
+
+        <FormField name="endDate" label="End Date">
+          <Input name="endDate" type="date" ref={register()} />
+        </FormField>
+
+        <Flex justifyContent="flex-end">
+          <Button
+            onClick={() => {
+              // reset();
+              setIsEditing(false);
+            }}
+            mr={4}
+            variant="outline"
+            type="button"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              if (editingExisting) {
+                onEditHandler({ ...methods.getValues(), id: currentItemId });
+              } else {
+                onSubmit(methods.getValues());
+              }
+              setCurrentItemId(null);
+              setIsEditing(false);
+            }}
+            variant="primary"
+            type="button"
+          >
+            Save
+          </Button>
+        </Flex>
+      </EditModalWrapper>
     </Card>
   );
 };
+
+const StyledTextArea = styled(Textarea)`
+  height: 280px;
+`;
 
 const AddNew = styled(FontAwesomeIcon)`
   position: absolute;
@@ -83,6 +169,14 @@ const ExperienceItem = styled.div`
     .edit-button {
       visibility: visible;
     }
+  }
+
+  &:hover {
+    ${({ id }) => `
+    .edit-button-${id} {
+      visibility: visible;
+     }
+    `}
   }
 `;
 

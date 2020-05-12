@@ -12,7 +12,6 @@ const UseResume = (id) => {
 
   useEffect(() => {
     if (value) {
-      console.log(value.data());
       setData(value.data());
     }
   }, [value]);

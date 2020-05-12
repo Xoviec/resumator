@@ -3,12 +3,14 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const EditIcon = ({ isEditing, onClick }) => {
-  if (!isEditing) {
-    return <Edit className="edit-button" onClick={onClick} icon={faPen} />;
-  }
-
-  return null;
+const EditIcon = ({ onClick, icon, className }) => {
+  return (
+    <Edit
+      className={className ? className : "edit-button"}
+      onClick={onClick}
+      icon={icon || faPen}
+    />
+  );
 };
 
 const Edit = styled(FontAwesomeIcon)`
