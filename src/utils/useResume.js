@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
 import { useDocument } from "react-firebase-hooks/firestore";
 
-const UseResume = (id) => {
+const useResume = (id) => {
   const { firebase } = useContext(FirebaseAppContext);
   const [value, loading, error] = useDocument(
     firebase.firestore().doc(`resumes/${id}`)
@@ -19,4 +19,4 @@ const UseResume = (id) => {
   return [data, loading, error];
 };
 
-export default UseResume;
+export default useResume;

@@ -3,13 +3,11 @@ import TopSection from "./Topsection";
 import Introduction from "./Introduction";
 import Education from "./Education";
 import styled from "@emotion/styled";
-import { Button } from "rebass";
 import { useHistory } from "react-router-dom";
-import Modal from "react-modal";
-import { PDFDocument } from "../../pages/PdfPreviewer";
-import { PDFViewer } from "@react-pdf/renderer";
 import Experience from "./Experience";
 import Skills from "./Skills";
+import PDFPreviewModal from "./PDFPreviewModal";
+import PreviewControls from "./PreviewControls";
 
 const deleteEntry = (section, values, state) => {
   return state[section].filter((s) => s.id !== values.id);
@@ -35,7 +33,6 @@ const LivePreviewerTemplate = ({ data }) => {
 
   const onEditHandler = (section, values) => {
     const newState = updateEntry(section, values, dataState);
-    console.log(newState);
     setDataState((prevState) => ({
       ...prevState,
       [section]: newState,
@@ -67,39 +64,7 @@ const LivePreviewerTemplate = ({ data }) => {
 
   return (
     <LivePreviewerTemplateContainer>
-      <TopSide>
-        <div>
-          <StyledButton
-            onClick={() => goTo(`/overview`)}
-            variant="secondary"
-            type="button"
-          >
-            Back to overview
-          </StyledButton>
-        </div>
-
-        <div>
-          <StyledButton variant="secondary" type="button">
-            Download
-          </StyledButton>
-          <StyledButton
-            onClick={() => {
-              setShowPDFModal(true);
-            }}
-            variant="secondary"
-            type="button"
-          >
-            Preview
-          </StyledButton>
-
-          <StyledButton variant="secondary" type="button">
-            Share
-          </StyledButton>
-          <StyledButton variant="primary" type="button">
-            Save
-          </StyledButton>
-        </div>
-      </TopSide>
+      <PreviewControls goTo={goTo} setShowPDFModal={setShowPDFModal} />
       <Content>
         {dataState.personalia && (
           <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
@@ -141,45 +106,14 @@ const LivePreviewerTemplate = ({ data }) => {
         )}
       </Content>
 
-      {showPDFModal && (
-        <StyledModal
-          isOpen={showPDFModal}
-          onRequestClose={() => setShowPDFModal(false)}
-          contentLabel="PDF preview"
-          ariaHideApp={false}
-        >
-          <ModalContent>
-            <PDFViewer width={"100%"} height={"100%"}>
-              <PDFDocument resume={dataState} />
-            </PDFViewer>
-          </ModalContent>
-        </StyledModal>
-      )}
+      <PDFPreviewModal
+        data={dataState}
+        setShowPDFModal={setShowPDFModal}
+        showPDFModal={showPDFModal}
+      />
     </LivePreviewerTemplateContainer>
   );
 };
-const StyledModal = styled(Modal)`
-  margin: 32px;
-  padding: 32px;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary};
-`;
-
-const ModalContent = styled.div`
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary};
-`;
-
-const TopSide = styled.div`
-  display: flex;
-  grid-gap: 8px;
-  padding: 16px;
-  justify-content: space-between;
-`;
-
-const StyledButton = styled(Button)`
-  margin: 0 8px;
-`;
 
 const Content = styled.div``;
 

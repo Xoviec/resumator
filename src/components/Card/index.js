@@ -7,7 +7,6 @@ const Card = ({ children, ...props }) => {
 
 const CardContainer = styled.div`
   position: relative;
-
   background-color: white;
   padding: 24px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);

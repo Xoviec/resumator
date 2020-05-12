@@ -31,7 +31,6 @@ const Flex = styled.View`
 `;
 
 export const PDFDocument = ({ resume }) => {
-  console.log(resume);
   return (
     <Document>
       <Wrapper size="A4">

@@ -19,7 +19,7 @@ const Introduction = ({ introduction, onSubmit }) => {
 
   useEffect(() => {
     methods.reset({ introduction });
-  }, [introduction, methods]);
+  }, [introduction]);
 
   const reset = () => {
     methods.reset({ introduction });
