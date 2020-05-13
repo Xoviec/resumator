@@ -18,6 +18,7 @@ import ListItem from "@material-ui/core/ListItem";
 import PeopleIcon from "@material-ui/icons/People";
 import List from "@material-ui/core/List";
 import WebIcon from "@material-ui/icons/Web";
+import { throttle } from "throttle-debounce";
 
 const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
@@ -99,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ profile }) => {
+const Nav = ({ profile, handleSearch }) => {
   const mockProps = { profile: { lastName: "Ter Ham", firstName: "Beau" } };
   const { firstName, lastName } = mockProps.profile;
   const history = useHistory();
@@ -116,6 +117,10 @@ const Nav = ({ profile }) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChange = (e) => {
+    throttle(800, handleSearch(e.target.value));
   };
 
   const menuId = "primary-search-account-menu";
@@ -135,57 +140,62 @@ const Nav = ({ profile }) => {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            &nbsp;
-            {firstName}
-            &nbsp;
-            {lastName}
-          </Typography>
-          <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+    <div>
+      <div className={classes.grow}>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
             <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              edge="start"
+              className={classes.menuButton}
               color="inherit"
+              aria-label="open drawer"
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
+            {profile && (
+              <Typography className={classes.title} variant="h6" noWrap>
+                &nbsp;
+                {firstName}
+                &nbsp;
+                {lastName}
+              </Typography>
+            )}
+            <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={17} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
       {renderMenu}
       <Drawer
         className={classes.drawer}

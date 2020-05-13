@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav } from "../components/layout";
 import "../assets/css/global.css";
 
@@ -18,14 +18,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainLayout = ({ children }) => {
+  const [searchText, setSearchText] = useState("");
+  const handleSearch = (val) => {
+    setSearchText(val);
+  };
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Nav />
+      <Nav handleSearch={handleSearch} />
       <main className={classes.content}>
         <div className={classes.spacer} />
-        {children}
+        {React.cloneElement(children, { searchText })}
       </main>
     </div>
   );
