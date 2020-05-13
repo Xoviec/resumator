@@ -8,6 +8,11 @@ import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
+  activeIcon: {
+    marginBottom: -2,
+    paddingRight: 5,
+    fontSize: 14,
+  },
   inlineList: {
     display: "inline",
   },
@@ -102,14 +107,17 @@ const Home = ({ searchText }) => {
               render: (rowData) => {
                 return rowData.active ? (
                   <span>
-                    <FiberManualRecordIcon style={{ fontSize: 12 }} />
+                    <FiberManualRecordIcon
+                      color="primary"
+                      className={classes.activeIcon}
+                    />
                     Active
                   </span>
                 ) : (
                   <span style={{ color: "gray" }}>
                     <FiberManualRecordIcon
                       color="disabled"
-                      style={{ fontSize: 12 }}
+                      className={classes.activeIcon}
                     />
                     Inactive
                   </span>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,9 +23,6 @@ import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 
 const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -35,6 +32,25 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  iconList: {
+    padding: 0,
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "40ch",
+    },
   },
   listItem: {
     justifyContent: "center",
@@ -76,19 +92,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "40ch",
-    },
-  },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -106,10 +109,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Nav = ({ profile, handleSearch }) => {
-  const mockProps = { profile: { lastName: "Ter Ham", firstName: "Beau" } };
-  const { firstName, lastName } = mockProps.profile;
+  // const { firstName, lastName } = profile;
   const history = useHistory();
   const goTo = (path) => history.push(path);
+  const location = useLocation();
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -161,9 +164,9 @@ const Nav = ({ profile, handleSearch }) => {
             {profile && (
               <Typography className={classes.title} variant="h6" noWrap>
                 &nbsp;
-                {firstName}
+                {profile.firstName}
                 &nbsp;
-                {lastName}
+                {profile.lastName}
               </Typography>
             )}
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
@@ -212,8 +215,13 @@ const Nav = ({ profile, handleSearch }) => {
         anchor="left"
       >
         <div className={classes.toolbar} />
-        <List>
-          <ListItem button key={"overview"} className={classes.listItem}>
+        <List className={classes.iconList}>
+          <ListItem
+            button
+            key={"overview"}
+            className={classes.listItem}
+            selected={location.pathname === "/overview"}
+          >
             <IconButton aria-label="overview" onClick={() => goTo("/overview")}>
               <PeopleIcon />
             </IconButton>
