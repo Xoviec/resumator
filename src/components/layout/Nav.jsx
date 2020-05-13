@@ -19,6 +19,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import List from "@material-ui/core/List";
 import WebIcon from "@material-ui/icons/Web";
 import { throttle } from "throttle-debounce";
+import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 
 const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +28,20 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  listItem: {
+    justifyContent: "center",
+  },
+  logo: {
+    width: 40,
+    height: 40,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -88,16 +103,6 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  listItem: {
-    justifyContent: "center",
-  },
 }));
 
 const Nav = ({ profile, handleSearch }) => {
@@ -152,6 +157,7 @@ const Nav = ({ profile, handleSearch }) => {
             >
               <MenuIcon />
             </IconButton>
+            <img className={classes.logo} src={frontmenLogo} alt="logo" />
             {profile && (
               <Typography className={classes.title} variant="h6" noWrap>
                 &nbsp;

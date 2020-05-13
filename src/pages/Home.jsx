@@ -1,7 +1,9 @@
 import React from "react";
-import { Button, Box, Heading, Text } from "rebass";
 import { FirebaseAppContext } from "../context/FirebaseContext";
 import { useHistory } from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const Home = () => {
   const { firebase, provider } = React.useContext(FirebaseAppContext);
@@ -19,13 +21,13 @@ const Home = () => {
   };
   return (
     <Box width="100%" p="2rem" color="white" bg="white" textAlign="center">
-      <Heading fontSize={7} color="secondary" mb="3">
+      <Typography variant="h3" component="h1" gutterBottom color={"primary"}>
         Frontmen Resumator
-      </Heading>
-      <Text fontSize={4} color="text" mb="4">
+      </Typography>
+      <Typography variant="h4" component="h2" gutterBottom color={"secondary"}>
         Welcome to the Frontmen Resumator, a tool to generate Resumes
-      </Text>
-      <Button variant="primary" p="1rem" onClick={login}>
+      </Typography>
+      <Button variant="contained" color="secondary" onClick={login}>
         Login with Frontmen account
       </Button>
     </Box>

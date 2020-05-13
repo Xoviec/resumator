@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Nav } from "../components/layout";
 import "../assets/css/global.css";
-
+import theme from "../config/theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,14 +24,16 @@ const MainLayout = ({ children }) => {
   };
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Nav handleSearch={handleSearch} />
-      <main className={classes.content}>
-        <div className={classes.spacer} />
-        {React.cloneElement(children, { searchText })}
-      </main>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Nav handleSearch={handleSearch} />
+        <main className={classes.content}>
+          <div className={classes.spacer} />
+          {React.cloneElement(children, { searchText })}
+        </main>
+      </div>
+    </ThemeProvider>
   );
 };
 
