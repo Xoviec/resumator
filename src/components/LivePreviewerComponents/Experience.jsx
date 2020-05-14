@@ -5,7 +5,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtons from "./ActionButtons";
 import EditModalWrapper from "./ModalWrapper";
-import { Button, Flex } from "rebass";
 import { useForm } from "react-hook-form";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import Input from "../Input";
@@ -72,6 +71,18 @@ const Experience = ({
         methods={methods}
         contentLabel="Add education details"
         heading="Add new education"
+        onPrimaryActionClicked={() => {
+          if (editingExisting) {
+            onEditHandler({ ...methods.getValues(), id: currentItemId });
+          } else {
+            onSubmit(methods.getValues());
+          }
+          setCurrentItemId(null);
+          setIsEditing(false);
+        }}
+        onSecondaryActionClicked={() => {
+          setIsEditing(false);
+        }}
       >
         <Input
           as={TextField}
@@ -114,34 +125,6 @@ const Experience = ({
           defaultValue=""
           type="date"
         />
-
-        <Flex justifyContent="flex-end">
-          <Button
-            onClick={() => {
-              setIsEditing(false);
-            }}
-            mr={4}
-            variant="outline"
-            type="button"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              if (editingExisting) {
-                onEditHandler({ ...methods.getValues(), id: currentItemId });
-              } else {
-                onSubmit(methods.getValues());
-              }
-              setCurrentItemId(null);
-              setIsEditing(false);
-            }}
-            variant="primary"
-            type="button"
-          >
-            Save
-          </Button>
-        </Flex>
       </EditModalWrapper>
     </Card>
   );

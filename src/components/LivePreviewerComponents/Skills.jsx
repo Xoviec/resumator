@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
 import EditIcon from "./EditIcon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Input from "../Input";
 
 const Skills = ({ skills, onSubmit }) => {
@@ -52,6 +52,14 @@ const Skills = ({ skills, onSubmit }) => {
         methods={methods}
         contentLabel="Edit skills"
         heading="New skill"
+        onPrimaryActionClicked={() => {
+          onSubmit("skills", [...skills, { name: methods.getValues().skill }]);
+          setIsEditing(false);
+        }}
+        onSecondaryActionClicked={() => {
+          reset();
+          setIsEditing(false);
+        }}
       >
         <Input
           as={TextField}
@@ -60,29 +68,6 @@ const Skills = ({ skills, onSubmit }) => {
           control={methods.control}
           defaultValue=""
         />
-        <Flex justifyContent="flex-end">
-          <Button
-            onClick={() => {
-              reset();
-              setIsEditing(false);
-            }}
-            mr={4}
-            variant="contained"
-            type="button"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              onSubmit("skills", [...skills, { name: methods.getValues().skill }]);
-              setIsEditing(false);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Save
-          </Button>
-        </Flex>
       </EditModalWrapper>
     </StyledCard>
   );

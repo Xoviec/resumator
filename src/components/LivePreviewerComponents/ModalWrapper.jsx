@@ -2,6 +2,7 @@ import React from "react";
 import { FormContext } from "react-hook-form";
 import styled from "@emotion/styled";
 import { Modal } from "@material-ui/core";
+import ModalActionButtons from "./ModalActionButtons";
 
 const EditModalWrapper = ({
   isOpen,
@@ -9,6 +10,10 @@ const EditModalWrapper = ({
   methods,
   heading,
   children,
+  primaryText,
+  secondaryText,
+  onPrimaryActionClicked,
+  onSecondaryActionClicked,
 }) => {
   return (
     <StyledModal
@@ -22,6 +27,12 @@ const EditModalWrapper = ({
           <StyledForm>
             {heading && <h1>{heading}</h1>}
             {children}
+            <ModalActionButtons
+              primaryText={primaryText}
+              secondaryText={secondaryText}
+              onPrimaryActionClicked={onPrimaryActionClicked}
+              onSecondaryActionClicked={onSecondaryActionClicked}
+            />
           </StyledForm>
         </FormContext>
       </ModalContent>

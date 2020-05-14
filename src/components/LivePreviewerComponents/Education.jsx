@@ -5,13 +5,11 @@ import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { Flex } from "rebass";
 import EducationItem from "./EducationItem";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -54,6 +52,20 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         methods={methods}
         contentLabel="Add education details"
         heading="Add new education"
+        onPrimaryActionClicked={() => {
+          if (editingExisting) {
+            onUpdateEducation({ ...methods.getValues(), id: currentItemId });
+          } else {
+            onSubmit(methods.getValues());
+          }
+          setCurrentItemId(null);
+          setIsEditing(false);
+        }}
+        onSecondaryActionClicked={() => {
+          setIsEditingExisting(false);
+          setIsEditing(false);
+          setCurrentItemId(null);
+        }}
       >
         <Input
           as={TextField}
@@ -94,35 +106,6 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           }
           label={<p>Certificate</p>}
         />
-
-        <Flex justifyContent="flex-end">
-          <Button
-            onClick={() => {
-              setIsEditingExisting(false);
-              setIsEditing(false);
-              setCurrentItemId(null);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              if (editingExisting) {
-                onUpdateEducation({ ...methods.getValues(), id: currentItemId });
-              } else {
-                onSubmit(methods.getValues());
-              }
-              setCurrentItemId(null);
-              setIsEditing(false);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Save
-          </Button>
-        </Flex>
       </EditModalWrapper>
     </EducationContainer>
   );

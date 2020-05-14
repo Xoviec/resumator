@@ -3,9 +3,8 @@ import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import Card from "../Card";
 import EditIcon from "./EditIcon";
-import { Flex } from "rebass";
 import EditModalWrapper from "./ModalWrapper";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Input from "../Input";
 
 const Introduction = ({ introduction, onSubmit }) => {
@@ -37,6 +36,14 @@ const Introduction = ({ introduction, onSubmit }) => {
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
         contentLabel="Edit introduction"
+        onPrimaryActionClicked={() => {
+          onSubmit("introduction", methods.getValues().introduction);
+          setIsEditing(false);
+        }}
+        onSecondaryActionClicked={() => {
+          reset();
+          setIsEditing(false);
+        }}
       >
         <Input
           as={TextField}
@@ -48,29 +55,6 @@ const Introduction = ({ introduction, onSubmit }) => {
           control={methods.control}
           defaultValue=""
         />
-
-        <Flex justifyContent="flex-end">
-          <Button
-            onClick={() => {
-              reset();
-              setIsEditing(false);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              onSubmit("introduction", methods.getValues().introduction);
-              setIsEditing(false);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Save
-          </Button>
-        </Flex>
       </EditModalWrapper>
     </DescriptionContainer>
   );

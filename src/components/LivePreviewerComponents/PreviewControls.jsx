@@ -32,7 +32,7 @@ const PreviewControls = ({ setShowPDFModal, goTo }) => {
         <StyledButton variant="contained" type="button">
           Share
         </StyledButton>
-        <StyledButton variant="contained" type="button">
+        <StyledButton variant="contained" type="button" color="primary">
           Save
         </StyledButton>
       </div>

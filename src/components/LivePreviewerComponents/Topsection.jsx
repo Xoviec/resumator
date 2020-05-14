@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import avatars from "../../assets/images/avatars";
 import { useForm } from "react-hook-form";
-import { Flex } from "rebass";
 import Card from "../Card";
 import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import { getFormattedDate } from "../../utils/getFormattedDate";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Input from "../Input";
 
 const TopSection = ({ personalia, onSubmit }) => {
@@ -51,6 +50,14 @@ const TopSection = ({ personalia, onSubmit }) => {
         methods={methods}
         contentLabel="Edit personal details"
         heading="Personal details"
+        onPrimaryActionClicked={() => {
+          onSubmit("personalia", methods.getValues());
+          setIsEditing(false);
+        }}
+        onSecondaryActionClicked={() => {
+          reset();
+          setIsEditing(false);
+        }}
       >
         <Input
           as={TextField}
@@ -84,29 +91,6 @@ const TopSection = ({ personalia, onSubmit }) => {
           control={methods.control}
           defaultValue=""
         />
-
-        <Flex justifyContent="flex-end">
-          <Button
-            onClick={() => {
-              reset();
-              setIsEditing(false);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              onSubmit("personalia", methods.getValues());
-              setIsEditing(false);
-            }}
-            variant="contained"
-            type="button"
-          >
-            Save
-          </Button>
-        </Flex>
       </EditModalWrapper>
     </TopSectionContainer>
   );
