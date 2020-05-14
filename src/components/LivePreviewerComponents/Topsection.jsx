@@ -8,6 +8,7 @@ import Card from "../Card";
 import EditIcon from "./EditIcon";
 import { FormField } from "../FormComponents";
 import EditModalWrapper from "./ModalWrapper";
+import { getFormattedDate } from "../../utils/getFormattedDate";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +35,7 @@ const TopSection = ({ personalia, onSubmit }) => {
         </Greeting>
         <Greeting>Frontend expert</Greeting>
         <Meta>
-          {personalia.city} region - NL - {personalia.dateOfBirth}
+          {personalia.city} region - NL - {getFormattedDate(personalia.dateOfBirth)}
         </Meta>
       </LeftSection>
       <Avatar

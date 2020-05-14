@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import ActionButtons from "./ActionButtons";
+import { getFormattedDate } from "../../utils/getFormattedDate";
 
 const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) => {
   return (
@@ -10,7 +11,8 @@ const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) =>
       </p>
       <p>{educationEntry.institute}</p>
       <p>
-        {educationEntry.startDate} - {educationEntry.endDate}
+        {getFormattedDate(educationEntry.startDate)} -{" "}
+        {getFormattedDate(educationEntry.endDate)}
       </p>
       <ActionButtons
         className={`edit-button-${educationEntry.id}`}

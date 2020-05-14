@@ -9,6 +9,7 @@ import { FormField } from "../FormComponents";
 import { Input, Textarea } from "@rebass/forms";
 import { Button, Flex } from "rebass";
 import { useForm } from "react-hook-form";
+import { getFormattedDate } from "../../utils/getFormattedDate";
 
 const Experience = ({
   type,
@@ -44,7 +45,7 @@ const Experience = ({
           <TopSection>
             <h3> {e.role}</h3>
             <h3>
-              {e.startDate} - {e.endDate}
+              {getFormattedDate(e.startDate)} - {getFormattedDate(e.endDate)}
             </h3>
           </TopSection>
           <Description>{e.description}</Description>

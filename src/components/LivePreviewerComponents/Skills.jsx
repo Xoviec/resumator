@@ -95,7 +95,7 @@ const StyledCard = styled(Card)`
 `;
 
 const Badge = styled.img`
-  width: 22%;
+  max-width: 100px;
 `;
 
 const Title = styled.h2`
