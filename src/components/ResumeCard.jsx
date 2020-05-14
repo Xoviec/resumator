@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button, Box, Heading, Text, Image } from "rebass";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 
 const Card = styled(Box)`
@@ -44,20 +42,7 @@ const ResumeCard = ({ avatar, name, city, id }) => {
           onClick={() => goTo(`./live/${id}`)}
         >
           View
-          {/*<Icon icon={faPencilAlt} />*/}
         </FooterButton>
-        {/*<FooterButton*/}
-        {/*  variant="outline"*/}
-        {/*  mr="1rem"*/}
-        {/*  onClick={() => goTo(`./creator/${id}`)}*/}
-        {/*>*/}
-        {/*  Edit&nbsp;&nbsp;*/}
-        {/*  <Icon icon={faPencilAlt} />*/}
-        {/*</FooterButton>*/}
-        {/*<FooterButton onClick={() => goTo(`./previewer/${id}`)}>*/}
-        {/*  View&nbsp;&nbsp;*/}
-        {/*  <Icon icon={faExternalLinkAlt} />*/}
-        {/*</FooterButton>*/}
       </footer>
     </Card>
   );

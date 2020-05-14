@@ -56,6 +56,7 @@ const LivePreviewerTemplate = ({ data }) => {
   };
 
   const onSubmitSection = (sectionKey, values) => {
+    console.log(sectionKey, values);
     setDataState((prevState) => ({
       ...prevState,
       [sectionKey]: values,
@@ -75,7 +76,9 @@ const LivePreviewerTemplate = ({ data }) => {
             onSubmit={onSubmitSection}
           />
         )}
-        {data.skills && <Skills skills={data.skills} />}
+        {dataState.skills && (
+          <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
+        )}
         {dataState.education && (
           <Education
             education={dataState.education}

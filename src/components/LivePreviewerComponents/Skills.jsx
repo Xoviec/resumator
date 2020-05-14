@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import angularBadge from "../../assets/images/angularBadge.png";
 import nodeBadge from "../../assets/images/nodeBadge.png";
 import cssBadge from "../../assets/images/cssBadge.png";
-import { Flex } from "rebass";
+import { Button, Flex } from "rebass";
 import Card from "../Card";
+import { useForm } from "react-hook-form";
+import { FormField } from "../FormComponents";
+import EditModalWrapper from "./ModalWrapper";
+import { Input } from "@rebass/forms";
+import EditIcon from "./EditIcon";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const Skills = ({ skills }) => {
+const Skills = ({ skills, onSubmit }) => {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const methods = useForm({
+    defaultValues: { skills },
+  });
+
+  const register = methods.register;
+
+  useEffect(() => {
+    methods.reset({ skills });
+  }, [skills]);
+
+  const reset = () => {
+    methods.reset({ skills });
+  };
   return (
-    <Card>
+    <StyledCard>
       <Title>Skills</Title>
+      <EditIcon
+        className="add-new-button"
+        onClick={() => setIsEditing((prevState) => !prevState)}
+        icon={faPlus}
+      />
       <Flex alignItems="center" justifyContent="space-around">
         <Badge src={angularBadge} />
         <Badge src={nodeBadge} />
@@ -21,9 +47,52 @@ const Skills = ({ skills }) => {
           <li key={s.name}>{s.name}</li>
         ))}
       </ul>
-    </Card>
+
+      <EditModalWrapper
+        isOpen={isEditing}
+        onRequestClose={() => setIsEditing(false)}
+        methods={methods}
+        contentLabel="Edit skills"
+        heading="Skills"
+      >
+        <FormField name="skill">
+          <Input name="skill" ref={register()} />
+        </FormField>
+        <Flex justifyContent="flex-end">
+          <Button
+            onClick={() => {
+              reset();
+              setIsEditing(false);
+            }}
+            mr={4}
+            variant="outline"
+            type="button"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              onSubmit("skills", [...skills, { name: methods.getValues().skill }]);
+              setIsEditing(false);
+            }}
+            variant="primary"
+            type="button"
+          >
+            Save
+          </Button>
+        </Flex>
+      </EditModalWrapper>
+    </StyledCard>
   );
 };
+
+const StyledCard = styled(Card)`
+  &:hover {
+    .add-new-button {
+      visibility: visible;
+    }
+  }
+`;
 
 const Badge = styled.img`
   width: 22%;
