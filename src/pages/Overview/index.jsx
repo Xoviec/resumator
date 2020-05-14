@@ -104,6 +104,7 @@ const Home = ({ searchText }) => {
             {
               title: "Status",
               field: "active",
+              type: "boolean",
               render: (rowData) => {
                 return rowData.active ? (
                   <span>

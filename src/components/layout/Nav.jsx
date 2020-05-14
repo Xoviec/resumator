@@ -1,22 +1,23 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import {
+  AppBar,
+  Badge,
+  Drawer,
+  IconButton,
+  InputBase,
+  List,
+  ListItem,
+  Menu,
+  MenuItem,
+  Toolbar,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import Drawer from "@material-ui/core/Drawer";
-import ListItem from "@material-ui/core/ListItem";
 import PeopleIcon from "@material-ui/icons/People";
-import List from "@material-ui/core/List";
 import WebIcon from "@material-ui/icons/Web";
 import { throttle } from "throttle-debounce";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  navContainer: {
+    display: "flex",
   },
   title: {
     display: "none",
@@ -108,8 +112,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ profile, handleSearch }) => {
-  // const { firstName, lastName } = profile;
+const Nav = ({ handleSearch }) => {
   const history = useHistory();
   const goTo = (path) => history.push(path);
   const location = useLocation();
@@ -148,7 +151,7 @@ const Nav = ({ profile, handleSearch }) => {
   );
 
   return (
-    <Fragment>
+    <div className={classes.navContainer}>
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
@@ -161,14 +164,6 @@ const Nav = ({ profile, handleSearch }) => {
               <MenuIcon />
             </IconButton>
             <img className={classes.logo} src={frontmenLogo} alt="logo" />
-            {profile && (
-              <Typography className={classes.title} variant="h6" noWrap>
-                &nbsp;
-                {profile.firstName}
-                &nbsp;
-                {profile.lastName}
-              </Typography>
-            )}
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -233,7 +228,7 @@ const Nav = ({ profile, handleSearch }) => {
           </ListItem>
         </List>
       </Drawer>
-    </Fragment>
+    </div>
   );
 };
 

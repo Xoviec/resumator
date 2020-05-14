@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
 
-import Overview from "./pages/Overview/Overview";
+import Overview from "./pages/Overview";
 import Home from "./pages/Home";
 import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";

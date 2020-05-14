@@ -10,13 +10,6 @@ html, body {
   height: 100%;
 }
 
-@font-face {
-  font-family: 'Roboto';
-  src: url(../fonts/Roboto/Roboto-Regular.ttf) format("ttf");
-  font-weight: 500;
-  font-style: normal;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
