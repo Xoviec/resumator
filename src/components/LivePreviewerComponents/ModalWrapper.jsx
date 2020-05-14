@@ -16,7 +16,7 @@ const EditModalWrapper = ({
   onSecondaryActionClicked,
 }) => {
   return (
-    <StyledModal
+    <Modal
       open={isOpen}
       onClose={() => onRequestClose(false)}
       aria-labelledby="modal"
@@ -36,7 +36,7 @@ const EditModalWrapper = ({
           </StyledForm>
         </FormContext>
       </ModalContent>
-    </StyledModal>
+    </Modal>
   );
 };
 
@@ -45,13 +45,14 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-const StyledModal = styled(Modal)``;
-
 const ModalContent = styled.div`
   background-color: white;
   margin: 32px auto;
   padding: 32px;
   max-width: 1440px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default EditModalWrapper;

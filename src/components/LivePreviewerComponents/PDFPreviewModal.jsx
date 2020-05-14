@@ -2,36 +2,36 @@ import React from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import { PDFDocument } from "../../pages/PdfPreviewer";
 import styled from "@emotion/styled";
-import Modal from "react-modal";
+import Modal from "@material-ui/core/Modal";
 
 const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
   if (showPDFModal && data) {
     return (
-      <StyledModal
-        isOpen={showPDFModal}
-        onRequestClose={() => setShowPDFModal(false)}
-        contentLabel="PDF preview"
-        ariaHideApp={false}
+      <Modal
+        open={showPDFModal}
+        onClose={() => setShowPDFModal(false)}
+        aria-labelledby="PDF Preview"
+        aria-describedby="PDF Preview"
       >
         <ModalContent>
           <PDFViewer width={"100%"} height={"100%"}>
             <PDFDocument resume={data} />
           </PDFViewer>
         </ModalContent>
-      </StyledModal>
+      </Modal>
     );
   }
   return null;
 };
 
-const StyledModal = styled(Modal)`
-  margin: 32px;
+const ModalContent = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
   padding: 32px;
   height: 100%;
-`;
-
-const ModalContent = styled.div`
-  height: 100%;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default PDFPreviewModal;
