@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -148,7 +148,7 @@ const Nav = ({ profile, handleSearch }) => {
   );
 
   return (
-    <div>
+    <Fragment>
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
@@ -233,7 +233,7 @@ const Nav = ({ profile, handleSearch }) => {
           </ListItem>
         </List>
       </Drawer>
-    </div>
+    </Fragment>
   );
 };
 
