@@ -5,10 +5,13 @@ import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { FormField, InputWrapper, StyledLabel } from "../FormComponents";
-import { Checkbox, Input } from "@rebass/forms";
-import { Button, Flex } from "rebass";
+import { Flex } from "rebass";
 import EducationItem from "./EducationItem";
+import { TextField } from "@material-ui/core";
+import Input from "../Input";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Button from "@material-ui/core/Button";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,9 +29,9 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
   return (
     <EducationContainer>
       <Title>Education</Title>
-      {education.map((e) => (
+      {education.map((e, i) => (
         <EducationItem
-          key={e.id}
+          key={i}
           {...e}
           onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
           onDeleteHandler={onDeleteHandler}
@@ -52,33 +55,45 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         contentLabel="Add education details"
         heading="Add new education"
       >
-        <FormField name="name" label="Name">
-          <Input name="name" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="name"
+          label="Name"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="institute" label="Institute">
-          <Input name="institute" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="institute"
+          label="Institute"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="startDate" label="Start Date">
-          <Input name="startDate" type="date" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="startDate"
+          label="Start Date"
+          control={methods.control}
+          defaultValue=""
+          type="date"
+        />
+        <Input
+          as={TextField}
+          name="endDate"
+          label="End Date"
+          control={methods.control}
+          defaultValue=""
+          type="date"
+        />
 
-        <FormField name="endDate" label="End Date">
-          <Input name="endDate" type="date" ref={register()} />
-        </FormField>
-
-        <InputWrapper>
-          <StyledLabel>
-            <Checkbox
-              as="input"
-              type="checkbox"
-              name={`certificate`}
-              ref={register()}
-            />
-            Certificate
-          </StyledLabel>
-        </InputWrapper>
+        <FormControlLabel
+          control={
+            <Checkbox name="certificate" color="primary" inputRef={register} />
+          }
+          label={<p>Certificate</p>}
+        />
 
         <Flex justifyContent="flex-end">
           <Button
@@ -87,8 +102,7 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
               setIsEditing(false);
               setCurrentItemId(null);
             }}
-            mr={4}
-            variant="outline"
+            variant="contained"
             type="button"
           >
             Cancel
@@ -103,7 +117,7 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
               setCurrentItemId(null);
               setIsEditing(false);
             }}
-            variant="primary"
+            variant="contained"
             type="button"
           >
             Save
@@ -116,7 +130,6 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
 
 const Title = styled.h2`
   margin: 0 0 16px;
-  color: ${({ theme }) => theme.colors.primary};
   text-transform: uppercase;
 `;
 

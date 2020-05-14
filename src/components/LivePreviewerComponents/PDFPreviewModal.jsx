@@ -28,12 +28,10 @@ const StyledModal = styled(Modal)`
   margin: 32px;
   padding: 32px;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const ModalContent = styled.div`
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export default PDFPreviewModal;

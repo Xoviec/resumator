@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 import angularBadge from "../../assets/images/angularBadge.png";
 import nodeBadge from "../../assets/images/nodeBadge.png";
 import cssBadge from "../../assets/images/cssBadge.png";
-import { Button, Flex } from "rebass";
+import { Flex } from "rebass";
 import Card from "../Card";
 import { useForm } from "react-hook-form";
-import { FormField } from "../FormComponents";
 import EditModalWrapper from "./ModalWrapper";
-import { Input } from "@rebass/forms";
 import EditIcon from "./EditIcon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Button, TextField } from "@material-ui/core";
+import Input from "../Input";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -18,8 +18,6 @@ const Skills = ({ skills, onSubmit }) => {
   const methods = useForm({
     defaultValues: { skills },
   });
-
-  const register = methods.register;
 
   useEffect(() => {
     methods.reset({ skills });
@@ -53,11 +51,15 @@ const Skills = ({ skills, onSubmit }) => {
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
         contentLabel="Edit skills"
-        heading="Skills"
+        heading="New skill"
       >
-        <FormField name="skill">
-          <Input name="skill" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="skill"
+          label="New skill"
+          control={methods.control}
+          defaultValue=""
+        />
         <Flex justifyContent="flex-end">
           <Button
             onClick={() => {
@@ -65,7 +67,7 @@ const Skills = ({ skills, onSubmit }) => {
               setIsEditing(false);
             }}
             mr={4}
-            variant="outline"
+            variant="contained"
             type="button"
           >
             Cancel
@@ -75,7 +77,7 @@ const Skills = ({ skills, onSubmit }) => {
               onSubmit("skills", [...skills, { name: methods.getValues().skill }]);
               setIsEditing(false);
             }}
-            variant="primary"
+            variant="contained"
             type="button"
           >
             Save

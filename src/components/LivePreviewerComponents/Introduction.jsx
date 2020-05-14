@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
-import { Textarea } from "@rebass/forms";
 import Card from "../Card";
 import EditIcon from "./EditIcon";
-import { Button, Flex } from "rebass";
-import { FormField } from "../FormComponents";
+import { Flex } from "rebass";
 import EditModalWrapper from "./ModalWrapper";
+import { Button, TextField } from "@material-ui/core";
+import Input from "../Input";
 
 const Introduction = ({ introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,8 +14,6 @@ const Introduction = ({ introduction, onSubmit }) => {
   const methods = useForm({
     defaultValues: { introduction },
   });
-
-  const register = methods.register;
 
   useEffect(() => {
     methods.reset({ introduction });
@@ -39,19 +37,25 @@ const Introduction = ({ introduction, onSubmit }) => {
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
         contentLabel="Edit introduction"
-        heading="introduction"
       >
-        <FormField name="introduction">
-          <StyledTextArea name="introduction" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          type="text-area"
+          name="introduction"
+          label="Introduction"
+          multiline
+          rows={4}
+          control={methods.control}
+          defaultValue=""
+        />
+
         <Flex justifyContent="flex-end">
           <Button
             onClick={() => {
               reset();
               setIsEditing(false);
             }}
-            mr={4}
-            variant="outline"
+            variant="contained"
             type="button"
           >
             Cancel
@@ -61,7 +65,7 @@ const Introduction = ({ introduction, onSubmit }) => {
               onSubmit("introduction", methods.getValues().introduction);
               setIsEditing(false);
             }}
-            variant="primary"
+            variant="contained"
             type="button"
           >
             Save
@@ -71,10 +75,6 @@ const Introduction = ({ introduction, onSubmit }) => {
     </DescriptionContainer>
   );
 };
-
-const StyledTextArea = styled(Textarea)`
-  height: 280px;
-`;
 
 const DescriptionContainer = styled(Card)`
   font-size: 14px;

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
@@ -36,20 +36,18 @@ const firebaseConfig = {
 function App() {
   return (
     <FirebaseAppContextProvider config={firebaseConfig}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={HomePageWrapper} />
-            <Route exact path="/overview" component={OverviewWrapper} />
-            <Route exact path="/creator" component={PdfCreatorWrapper} />
-            <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
-            <Route exact path="/live/:id" component={LivePreviewer} />
-            <Route exact path="/previewer/:id" component={PdfPreviewer} />
-            <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
-            <Route exact path="/pdf-previewer" component={PdfPreviewer} />
-          </Switch>
-        </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={HomePageWrapper} />
+          <Route exact path="/overview" component={OverviewWrapper} />
+          <Route exact path="/creator" component={PdfCreatorWrapper} />
+          <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
+          <Route exact path="/live/:id" component={LivePreviewerWrapper} />
+          <Route exact path="/previewer/:id" component={PdfPreviewer} />
+          <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
+          <Route exact path="/pdf-previewer" component={PdfPreviewer} />
+        </Switch>
+      </BrowserRouter>
     </FirebaseAppContextProvider>
   );
 }
@@ -69,6 +67,12 @@ const PdfCreatorWrapper = (props) => (
 const OverviewWrapper = (props) => (
   <MainLayout>
     <Overview {...props} />
+  </MainLayout>
+);
+
+const LivePreviewerWrapper = (props) => (
+  <MainLayout>
+    <LivePreviewer {...props} />
   </MainLayout>
 );
 

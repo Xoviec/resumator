@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Button } from "rebass";
+import Button from "@material-ui/core/Button";
 
 const PreviewControls = ({ setShowPDFModal, goTo }) => {
   return (
@@ -8,7 +8,7 @@ const PreviewControls = ({ setShowPDFModal, goTo }) => {
       <div>
         <StyledButton
           onClick={() => goTo(`/overview`)}
-          variant="secondary"
+          variant="contained"
           type="button"
         >
           Back to overview
@@ -16,23 +16,23 @@ const PreviewControls = ({ setShowPDFModal, goTo }) => {
       </div>
 
       <div>
-        <StyledButton variant="secondary" type="button">
+        <StyledButton variant="contained" type="button">
           Download
         </StyledButton>
         <StyledButton
           onClick={() => {
             setShowPDFModal(true);
           }}
-          variant="secondary"
+          variant="contained"
           type="button"
         >
           Preview
         </StyledButton>
 
-        <StyledButton variant="secondary" type="button">
+        <StyledButton variant="contained" type="button">
           Share
         </StyledButton>
-        <StyledButton variant="primary" type="button">
+        <StyledButton variant="contained" type="button">
           Save
         </StyledButton>
       </div>

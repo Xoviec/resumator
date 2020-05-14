@@ -1,47 +1,46 @@
 import React from "react";
 import { FormContext } from "react-hook-form";
-import { Heading } from "rebass";
 import styled from "@emotion/styled";
-import Modal from "react-modal";
+import { Modal } from "@material-ui/core";
 
 const EditModalWrapper = ({
   isOpen,
   onRequestClose,
   methods,
-  contentLabel,
   heading,
   children,
 }) => {
   return (
     <StyledModal
-      isOpen={isOpen}
-      onRequestClose={() => onRequestClose(false)}
-      contentLabel={contentLabel}
-      ariaHideApp={false}
+      open={isOpen}
+      onClose={() => onRequestClose(false)}
+      aria-labelledby="modal"
+      aria-describedby="modal"
     >
       <ModalContent>
         <FormContext {...methods}>
-          <form>
-            <Heading as="legend" color="white" pb={4}>
-              {heading}
-            </Heading>
+          <StyledForm>
+            {heading && <h1>{heading}</h1>}
             {children}
-          </form>
+          </StyledForm>
         </FormContext>
       </ModalContent>
     </StyledModal>
   );
 };
 
-const StyledModal = styled(Modal)`
-  margin: 32px auto;
-  padding: 32px;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  max-width: 1440px;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
+const StyledModal = styled(Modal)``;
+
 const ModalContent = styled.div`
-  background-color: ${({ theme }) => theme.colors.secondary};
+  background-color: white;
+  margin: 32px auto;
+  padding: 32px;
+  max-width: 1440px;
 `;
 
 export default EditModalWrapper;

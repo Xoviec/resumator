@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import avatars from "../../assets/images/avatars";
 import { useForm } from "react-hook-form";
-import { Button, Flex } from "rebass";
-import { Input } from "@rebass/forms";
+import { Flex } from "rebass";
 import Card from "../Card";
 import EditIcon from "./EditIcon";
-import { FormField } from "../FormComponents";
 import EditModalWrapper from "./ModalWrapper";
 import { getFormattedDate } from "../../utils/getFormattedDate";
+import { Button, TextField } from "@material-ui/core";
+import Input from "../Input";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,8 +16,6 @@ const TopSection = ({ personalia, onSubmit }) => {
   const methods = useForm({
     defaultValues: { ...personalia },
   });
-
-  const register = methods.register;
 
   useEffect(() => {
     methods.reset(personalia);
@@ -54,33 +52,46 @@ const TopSection = ({ personalia, onSubmit }) => {
         contentLabel="Edit personal details"
         heading="Personal details"
       >
-        <FormField name="email" label="Email">
-          <Input name="email" type="email" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="email"
+          label="Email"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="firstName" label="First Name">
-          <Input name="firstName" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="firstName"
+          label="First Name"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="lastName" label="Last name">
-          <Input name="lastName" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="lastName"
+          label="Last name"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="dateOfBirth" label="Birth date">
-          <Input name="dateOfBirth" type="date" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          type="date"
+          name="dateOfBirth"
+          label="Birth date"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="city" label="City">
-          <Input name="city" ref={register()} />
-        </FormField>
         <Flex justifyContent="flex-end">
           <Button
             onClick={() => {
               reset();
               setIsEditing(false);
             }}
-            mr={4}
-            variant="outline"
+            variant="contained"
             type="button"
           >
             Cancel
@@ -90,7 +101,7 @@ const TopSection = ({ personalia, onSubmit }) => {
               onSubmit("personalia", methods.getValues());
               setIsEditing(false);
             }}
-            variant="primary"
+            variant="contained"
             type="button"
           >
             Save
@@ -122,7 +133,6 @@ const Greeting = styled.h1`
 
 const Meta = styled.h3`
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.primary};
   font-weight: 500;
   letter-spacing: 1.6px;
 `;
@@ -130,7 +140,6 @@ const Meta = styled.h3`
 const TopSectionContainer = styled(Card)`
   position: relative;
   display: flex;
-  background-color: ${({ theme }) => theme.colors.gray};
 
   justify-content: space-between;
   &:hover {

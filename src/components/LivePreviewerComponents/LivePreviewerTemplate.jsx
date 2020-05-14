@@ -120,6 +120,6 @@ const LivePreviewerTemplate = ({ data }) => {
 const Content = styled.div``;
 
 const LivePreviewerTemplateContainer = styled.div`
-  background-color: white;
+  //background-color: white;
 `;
 export default LivePreviewerTemplate;

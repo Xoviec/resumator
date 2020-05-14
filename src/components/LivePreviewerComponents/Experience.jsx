@@ -5,11 +5,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActionButtons from "./ActionButtons";
 import EditModalWrapper from "./ModalWrapper";
-import { FormField } from "../FormComponents";
-import { Input, Textarea } from "@rebass/forms";
 import { Button, Flex } from "rebass";
 import { useForm } from "react-hook-form";
 import { getFormattedDate } from "../../utils/getFormattedDate";
+import Input from "../Input";
+import { TextField } from "@material-ui/core";
 
 const Experience = ({
   type,
@@ -23,7 +23,6 @@ const Experience = ({
   const [currentItemId, setCurrentItemId] = useState(null);
 
   const methods = useForm({});
-  const register = methods.register;
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
@@ -40,8 +39,8 @@ const Experience = ({
         onClick={() => setIsEditing((prevState) => !prevState)}
         icon={faPlus}
       />
-      {experience.map((e) => (
-        <ExperienceItem key={e.id} id={e.id}>
+      {experience.map((e, i) => (
+        <ExperienceItem key={i} id={e.id}>
           <TopSection>
             <h3> {e.role}</h3>
             <h3>
@@ -74,30 +73,51 @@ const Experience = ({
         contentLabel="Add education details"
         heading="Add new education"
       >
-        <FormField name="company" label="Company">
-          <Input name="company" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="company"
+          label="Company"
+          control={methods.control}
+          defaultValue=""
+        />
+        <Input
+          as={TextField}
+          name="role"
+          label="Role"
+          control={methods.control}
+          defaultValue=""
+        />
 
-        <FormField name="role" label="Role">
-          <Input name="role" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="description"
+          label="Description"
+          control={methods.control}
+          defaultValue=""
+          multiline
+          rows={4}
+        />
 
-        <FormField name="description">
-          <StyledTextArea name="description" ref={register()} />
-        </FormField>
-
-        <FormField name="startDate" label="Start Date">
-          <Input name="startDate" type="date" ref={register()} />
-        </FormField>
-
-        <FormField name="endDate" label="End Date">
-          <Input name="endDate" type="date" ref={register()} />
-        </FormField>
+        <Input
+          as={TextField}
+          name="startDate"
+          label="Start Date"
+          control={methods.control}
+          defaultValue=""
+          type="date"
+        />
+        <Input
+          as={TextField}
+          name="endDate"
+          label="End Date"
+          control={methods.control}
+          defaultValue=""
+          type="date"
+        />
 
         <Flex justifyContent="flex-end">
           <Button
             onClick={() => {
-              // reset();
               setIsEditing(false);
             }}
             mr={4}
@@ -127,10 +147,6 @@ const Experience = ({
   );
 };
 
-const StyledTextArea = styled(Textarea)`
-  height: 280px;
-`;
-
 const AddNew = styled(FontAwesomeIcon)`
   position: absolute;
   right: 32px;
@@ -141,20 +157,17 @@ const TopSection = styled.div`
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  font-family: Stratum;
 `;
 
 const Techniques = styled.div`
   padding: 4px;
   margin: 0;
   font-size: 13px;
-  background-color: ${({ theme }) => theme.colors.gray};
 `;
 const Description = styled.p`
   font-size: 14px;
 `;
 const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.primary};
   text-transform: uppercase;
 `;
 
