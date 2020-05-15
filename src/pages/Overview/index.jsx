@@ -132,7 +132,7 @@ const Home = ({ searchText }) => {
             {
               icon: tableIcons.Edit,
               tooltip: "edit User",
-              onClick: (event, rowData) => goTo(`./creator/${rowData.id}`),
+              onClick: (event, rowData) => goTo(`./live/${rowData.id}`),
             },
             {
               icon: tableIcons.GetAppIcon,

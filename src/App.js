@@ -10,6 +10,7 @@ import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
+import LivePreviewer from "./pages/LivePreviewer";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/overview" component={OverviewWrapper} />
           <Route exact path="/creator" component={PdfCreatorWrapper} />
           <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
+          <Route exact path="/live/:id" component={LivePreviewerWrapper} />
           <Route exact path="/previewer/:id" component={PdfPreviewer} />
           <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
           <Route exact path="/pdf-previewer" component={PdfPreviewer} />
@@ -63,6 +65,12 @@ const PdfCreatorWrapper = (props) => (
 const OverviewWrapper = (props) => (
   <MainLayout>
     <Overview {...props} />
+  </MainLayout>
+);
+
+const LivePreviewerWrapper = (props) => (
+  <MainLayout>
+    <LivePreviewer {...props} />
   </MainLayout>
 );
 

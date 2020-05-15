@@ -48,7 +48,12 @@ const Plain = styled.Text`
 `;
 
 const renderStack = ({ stackAndTechniques }) => {
-  const arrayCount = stackAndTechniques.length - 1;
+  const arrayCount = stackAndTechniques ? stackAndTechniques.length - 1 : 0;
+
+  if (arrayCount === 0) {
+    return null;
+  }
+
   return stackAndTechniques.map((project, index) => {
     return index < arrayCount ? (
       <React.Fragment key={project.name}>

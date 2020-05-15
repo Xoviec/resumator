@@ -30,7 +30,7 @@ const Flex = styled.View`
   flex-direction: row;
 `;
 
-const PDFDocument = ({ resume }) => {
+export const PDFDocument = ({ resume }) => {
   return (
     <Document>
       <Wrapper size="A4">
