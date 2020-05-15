@@ -8,6 +8,8 @@ import Skills from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
 import PreviewControls from "./PreviewControls";
 import Experience from "./Experience";
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 const deleteEntry = (section, values, state) => {
   return state[section].filter((s) => s.id !== values.id);
@@ -63,57 +65,66 @@ const LivePreviewerTemplate = ({ data }) => {
   };
 
   return (
-    <LivePreviewerTemplateContainer>
-      <PreviewControls goTo={goTo} setShowPDFModal={setShowPDFModal} />
-      <Content>
-        {dataState.personalia && (
-          <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
-        )}
-        {dataState.introduction && (
-          <Introduction
-            introduction={dataState.introduction}
-            onSubmit={onSubmitSection}
-          />
-        )}
-        {dataState.skills && (
-          <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
-        )}
-        {dataState.education && (
-          <Education
-            education={dataState.education}
-            onSubmit={(values) => onAddNewItemForSectionHandler("education", values)}
-            onUpdateEducation={(values) => onEditHandler("education", values)}
-            onDeleteHandler={(values) => deleteHandler("education", values)}
-          />
-        )}
-        {dataState.projects && (
-          <Experience
-            onEditHandler={(values) => onEditHandler("projects", values)}
-            onDeleteHandler={(values) => deleteHandler("projects", values)}
-            onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
-            type="Projects"
-            experience={dataState.projects}
-          />
-        )}
-        {dataState.experience && (
-          <Experience
-            type="Work Experience"
-            onEditHandler={(values) => onEditHandler("experience", values)}
-            onDeleteHandler={(values) => deleteHandler("experience", values)}
-            onSubmit={(values) =>
-              onAddNewItemForSectionHandler("experience", values)
-            }
-            experience={dataState.experience}
-          />
-        )}
-      </Content>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <LivePreviewerTemplateContainer>
+        <PreviewControls goTo={goTo} setShowPDFModal={setShowPDFModal} />
+        <Content>
+          {dataState.personalia && (
+            <TopSection
+              personalia={dataState.personalia}
+              onSubmit={onSubmitSection}
+            />
+          )}
+          {dataState.introduction && (
+            <Introduction
+              introduction={dataState.introduction}
+              onSubmit={onSubmitSection}
+            />
+          )}
+          {dataState.skills && (
+            <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
+          )}
+          {dataState.education && (
+            <Education
+              education={dataState.education}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("education", values)
+              }
+              onUpdateEducation={(values) => onEditHandler("education", values)}
+              onDeleteHandler={(values) => deleteHandler("education", values)}
+            />
+          )}
+          {dataState.projects && (
+            <Experience
+              onEditHandler={(values) => onEditHandler("projects", values)}
+              onDeleteHandler={(values) => deleteHandler("projects", values)}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("projects", values)
+              }
+              type="Projects"
+              experience={dataState.projects}
+            />
+          )}
+          {dataState.experience && (
+            <Experience
+              type="Work Experience"
+              onEditHandler={(values) => onEditHandler("experience", values)}
+              onDeleteHandler={(values) => deleteHandler("experience", values)}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("experience", values)
+              }
+              experience={dataState.experience}
+            />
+          )}
+        </Content>
 
-      <PDFPreviewModal
-        data={dataState}
-        setShowPDFModal={setShowPDFModal}
-        showPDFModal={showPDFModal}
-      />
-    </LivePreviewerTemplateContainer>
+        <PDFPreviewModal
+          data={dataState}
+          setShowPDFModal={setShowPDFModal}
+          showPDFModal={showPDFModal}
+        />
+      </LivePreviewerTemplateContainer>
+    </MuiPickersUtilsProvider>
   );
 };
 
