@@ -11,8 +11,6 @@ import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
-import { ThemeProvider } from "emotion-theming";
-import theme from "./config/theme";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
