@@ -13,13 +13,15 @@ import {
   MenuItem,
   Toolbar,
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import PeopleIcon from "@material-ui/icons/People";
-import WebIcon from "@material-ui/icons/Web";
+import {
+  AccountCircle,
+  AddCircle,
+  Menu as MenuIcon,
+  Notifications,
+  People,
+  Search,
+  Web,
+} from "@material-ui/icons";
 import { throttle } from "throttle-debounce";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 
@@ -168,7 +170,7 @@ const Nav = ({ handleSearch }) => {
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
             <div className={classes.search}>
               <div className={classes.searchIcon}>
-                <SearchIcon />
+                <Search />
               </div>
               <InputBase
                 placeholder="Search…"
@@ -184,7 +186,7 @@ const Nav = ({ handleSearch }) => {
             <div className={classes.sectionDesktop}>
               <IconButton aria-label="show 17 new notifications" color="inherit">
                 <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
+                  <Notifications />
                 </Badge>
               </IconButton>
               <IconButton
@@ -219,7 +221,7 @@ const Nav = ({ handleSearch }) => {
             selected={location.pathname === "/creator"}
           >
             <IconButton aria-label="creator" onClick={() => goTo("/creator")}>
-              <AddCircleIcon />
+              <AddCircle />
             </IconButton>
           </ListItem>
           <ListItem
@@ -229,12 +231,12 @@ const Nav = ({ handleSearch }) => {
             selected={location.pathname === "/overview"}
           >
             <IconButton aria-label="overview" onClick={() => goTo("/overview")}>
-              <PeopleIcon />
+              <People />
             </IconButton>
           </ListItem>
           <ListItem button key={"preview"} className={classes.listItem}>
             <IconButton aria-label="preview" onClick={() => goTo("/")}>
-              <WebIcon />
+              <Web />
             </IconButton>
           </ListItem>
         </List>

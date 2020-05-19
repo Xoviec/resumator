@@ -84,13 +84,13 @@ const LivePreviewerTemplate = ({ data }) => {
   };
 
   return (
-    <LivePreviewerTemplateContainer>
+    <>
       <PreviewControls
         onSaveClicked={() => onSubmit()}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
       />
-      <Content>
+      <>
         {dataState.personalia && (
           <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
         )}
@@ -131,18 +131,15 @@ const LivePreviewerTemplate = ({ data }) => {
             experience={dataState.experience}
           />
         )}
-      </Content>
+      </>
 
       <PDFPreviewModal
         data={dataState}
         setShowPDFModal={setShowPDFModal}
         showPDFModal={showPDFModal}
       />
-    </LivePreviewerTemplateContainer>
+    </>
   );
 };
 
-const Content = styled.div``;
-
-const LivePreviewerTemplateContainer = styled.div``;
 export default LivePreviewerTemplate;
