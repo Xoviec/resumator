@@ -6,7 +6,6 @@ import MainLayout from "./layouts/Main";
 
 import Overview from "./pages/Overview";
 import Home from "./pages/Home";
-import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
