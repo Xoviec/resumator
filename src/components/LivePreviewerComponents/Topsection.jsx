@@ -8,6 +8,7 @@ import EditModalWrapper from "./ModalWrapper";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
+import AvatarSelector from "../FormComponents/AvatarSelector";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -88,6 +89,14 @@ const TopSection = ({ personalia, onSubmit }) => {
           type="date"
           name="dateOfBirth"
           label="Birth date"
+          control={methods.control}
+          defaultValue=""
+        />
+
+        <Input
+          as={AvatarSelector}
+          name="avatar"
+          label="Avatar"
           control={methods.control}
           defaultValue=""
         />
