@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import TopSection from "./Topsection";
 import Introduction from "./Introduction";
 import Education from "./Education";
-import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
 import Skills from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
