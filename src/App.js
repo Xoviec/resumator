@@ -39,8 +39,6 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePageWrapper} />
           <Route exact path="/overview" component={OverviewWrapper} />
-          {/*<Route exact path="/creator" component={PdfCreatorWrapper} />*/}
-          <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
           <Route exact path="/live/:id" component={LivePreviewerWrapper} />
           <Route exact path="/creator" component={CreatorWrapper} />
           <Route exact path="/previewer/:id" component={PdfPreviewer} />
@@ -56,12 +54,6 @@ const HomePageWrapper = (props) => (
   <LoginLayout>
     <Home {...props} />
   </LoginLayout>
-);
-
-const PdfCreatorWrapper = (props) => (
-  <MainLayout>
-    <PdfCreator {...props} />
-  </MainLayout>
 );
 
 const OverviewWrapper = (props) => (
