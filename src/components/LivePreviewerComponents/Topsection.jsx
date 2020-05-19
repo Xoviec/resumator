@@ -8,6 +8,7 @@ import EditModalWrapper from "./ModalWrapper";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
+import isEqual from "lodash/isEqual";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,13 +17,14 @@ const TopSection = ({ personalia, onSubmit }) => {
     defaultValues: { ...personalia },
   });
 
-  useEffect(() => {
-    methods.reset(personalia);
-  }, [personalia]);
+  const reset = methods.reset;
+  const getValues = methods.getValues;
 
-  const reset = () => {
-    methods.reset(personalia);
-  };
+  useEffect(() => {
+    if (!isEqual(personalia, getValues())) {
+      reset(personalia);
+    }
+  }, [personalia, getValues, reset]);
 
   return (
     <TopSectionContainer>
@@ -79,6 +81,14 @@ const TopSection = ({ personalia, onSubmit }) => {
           as={TextField}
           name="lastName"
           label="Last name"
+          control={methods.control}
+          defaultValue=""
+        />
+
+        <Input
+          as={TextField}
+          name="city"
+          label="City"
           control={methods.control}
           defaultValue=""
         />

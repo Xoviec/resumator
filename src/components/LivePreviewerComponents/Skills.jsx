@@ -17,16 +17,15 @@ import { skillsConstants } from "../../config/skills.constants";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-
   const methods = useForm({});
 
-  useEffect(() => {
-    methods.reset({});
-  }, [skills]);
+  const reset = methods.reset;
+  const getValues = methods.getValues;
 
-  const reset = () => {
-    methods.reset({});
-  };
+  useEffect(() => {
+    reset({});
+  }, [skills, getValues, reset]);
+
   return (
     <StyledCard>
       <Title>Skills</Title>
@@ -58,7 +57,7 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
-          reset();
+          reset({});
           setIsEditing(false);
         }}
       >

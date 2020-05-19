@@ -14,6 +14,7 @@ import {
   Toolbar,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -211,6 +212,16 @@ const Nav = ({ handleSearch }) => {
       >
         <div className={classes.toolbar} />
         <List className={classes.iconList}>
+          <ListItem
+            button
+            key={"create"}
+            className={classes.listItem}
+            selected={location.pathname === "/creator"}
+          >
+            <IconButton aria-label="creator" onClick={() => goTo("/creator")}>
+              <AddCircleIcon />
+            </IconButton>
+          </ListItem>
           <ListItem
             button
             key={"overview"}

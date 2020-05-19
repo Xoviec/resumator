@@ -6,6 +6,7 @@ import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
+import isEqual from "lodash/isEqual";
 
 const Introduction = ({ introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,13 +15,14 @@ const Introduction = ({ introduction, onSubmit }) => {
     defaultValues: { introduction },
   });
 
-  useEffect(() => {
-    methods.reset({ introduction });
-  }, [introduction]);
+  const reset = methods.reset;
+  const getValues = methods.getValues;
 
-  const reset = () => {
-    methods.reset({ introduction });
-  };
+  useEffect(() => {
+    if (!isEqual(introduction, getValues())) {
+      reset({ introduction });
+    }
+  }, [introduction, getValues, reset]);
 
   return (
     <DescriptionContainer>

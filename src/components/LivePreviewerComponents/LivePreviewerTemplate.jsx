@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TopSection from "./Topsection";
 import Introduction from "./Introduction";
 import Education from "./Education";
@@ -8,6 +8,8 @@ import Skills from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
 import PreviewControls from "./PreviewControls";
 import Experience from "./Experience";
+import { FirebaseAppContext } from "../../context/FirebaseContext";
+import { v4 as uuidv4 } from "uuid";
 
 const deleteEntry = (section, values, state) => {
   return state[section].filter((s) => s.id !== values.id);
@@ -15,7 +17,7 @@ const deleteEntry = (section, values, state) => {
 
 const addEntry = (section, values, state) => {
   const newState = state[section];
-  newState.push(values);
+  newState.push({ ...values, id: uuidv4() });
   return newState;
 };
 
@@ -30,6 +32,18 @@ const LivePreviewerTemplate = ({ data }) => {
   const [dataState, setDataState] = useState(data);
   const history = useHistory();
   const goTo = (path) => history.push(path);
+  const { firebase } = useContext(FirebaseAppContext);
+
+  const onSubmit = async (data) => {
+    //TODO: logic for when you are editing an existing user
+    try {
+      const resumesRef = firebase.firestore().collection("resumes").doc();
+      await resumesRef.set(data);
+      history.push("./overview");
+    } catch (e) {
+      alert(`Error writing document. ${e.message}`);
+    }
+  };
 
   const onEditHandler = (section, values) => {
     const newState = updateEntry(section, values, dataState);
@@ -64,7 +78,11 @@ const LivePreviewerTemplate = ({ data }) => {
 
   return (
     <LivePreviewerTemplateContainer>
-      <PreviewControls goTo={goTo} setShowPDFModal={setShowPDFModal} />
+      <PreviewControls
+        onSaveClicked={() => onSubmit(dataState)}
+        goTo={goTo}
+        setShowPDFModal={setShowPDFModal}
+      />
       <Content>
         {dataState.personalia && (
           <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
@@ -119,7 +137,5 @@ const LivePreviewerTemplate = ({ data }) => {
 
 const Content = styled.div``;
 
-const LivePreviewerTemplateContainer = styled.div`
-  //background-color: white;
-`;
+const LivePreviewerTemplateContainer = styled.div``;
 export default LivePreviewerTemplate;
