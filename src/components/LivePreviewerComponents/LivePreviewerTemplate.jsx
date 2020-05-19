@@ -34,12 +34,19 @@ const LivePreviewerTemplate = ({ data }) => {
   const goTo = (path) => history.push(path);
   const { firebase } = useContext(FirebaseAppContext);
 
-  const onSubmit = async (data) => {
-    //TODO: logic for when you are editing an existing user
+  const onSubmit = async () => {
     try {
-      const resumesRef = firebase.firestore().collection("resumes").doc();
-      await resumesRef.set(data);
-      history.push("./overview");
+      if (dataState.id) {
+        const resumesRef = firebase
+          .firestore()
+          .collection("resumes")
+          .doc(dataState.id);
+        await resumesRef.update(dataState);
+      } else {
+        const resumesRef = firebase.firestore().collection("resumes").doc();
+        await resumesRef.set(dataState);
+      }
+      history.push("/overview");
     } catch (e) {
       alert(`Error writing document. ${e.message}`);
     }
@@ -79,7 +86,7 @@ const LivePreviewerTemplate = ({ data }) => {
   return (
     <LivePreviewerTemplateContainer>
       <PreviewControls
-        onSaveClicked={() => onSubmit(dataState)}
+        onSaveClicked={() => onSubmit()}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
       />
