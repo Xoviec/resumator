@@ -11,6 +11,8 @@ const Creator = () => {
     personalia: {},
     projects: [],
     skills: [],
+    openSourceWork: [],
+    publications: [],
   };
   return (
     <LivePreviewContainer>
