@@ -4,7 +4,7 @@ import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/cor
 import { makeStyles } from "@material-ui/core/styles";
 import { colors } from "../../config/theme";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     "&:hover": {
       backgroundColor: "transparent",
@@ -53,16 +53,18 @@ const StyledRadio = (props) => {
   );
 };
 
-const AvatarSelector = ({ name, label }) => {
+const AvatarSelector = ({ name, label, onChange, value }) => {
   return (
     <>
       <FormLabel>{label}</FormLabel>
-      <RadioGroup row defaultValue="1" aria-label="avatar" name={name}>
+      <RadioGroup row aria-label="avatar" name={name} onChange={onChange}>
         {avatars.map((avatar, i) => (
           <FormControlLabel
             key={i}
             value={avatar.name}
-            control={<StyledRadio avatar={avatar.img} />}
+            control={
+              <StyledRadio avatar={avatar.img} checked={value === avatar.name} />
+            }
           />
         ))}
       </RadioGroup>

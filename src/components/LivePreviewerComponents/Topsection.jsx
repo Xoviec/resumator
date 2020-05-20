@@ -98,7 +98,6 @@ const TopSection = ({ personalia, onSubmit }) => {
           name="avatar"
           label="Avatar"
           control={methods.control}
-          defaultValue=""
         />
       </EditModalWrapper>
     </TopSectionContainer>
