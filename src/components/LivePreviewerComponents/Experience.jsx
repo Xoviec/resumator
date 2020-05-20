@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import Input from "../Input";
 import { TextField } from "@material-ui/core";
 import ExperienceItem from "./ExperienceItem";
+import { DatePicker } from "@material-ui/pickers";
 
 const Experience = ({
   type,
@@ -94,20 +95,26 @@ const Experience = ({
         />
 
         <Input
-          as={TextField}
+          as={DatePicker}
+          control={methods.control}
+          rules={{ required: true }}
+          onChange={([selected]) => {
+            return selected;
+          }}
           name="startDate"
           label="Start Date"
-          control={methods.control}
-          defaultValue=""
-          type="date"
+          format="dd/MM/yyyy"
         />
         <Input
-          as={TextField}
+          as={DatePicker}
+          control={methods.control}
+          rules={{ required: true }}
+          onChange={([selected]) => {
+            return selected;
+          }}
           name="endDate"
           label="End Date"
-          control={methods.control}
-          defaultValue=""
-          type="date"
+          format="dd/MM/yyyy"
         />
       </EditModalWrapper>
     </Card>

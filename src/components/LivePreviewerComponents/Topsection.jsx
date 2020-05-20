@@ -9,6 +9,8 @@ import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";
+import { DatePicker } from "@material-ui/pickers";
+import isEqual from "lodash/isEqual";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -17,13 +19,14 @@ const TopSection = ({ personalia, onSubmit }) => {
     defaultValues: { ...personalia },
   });
 
-  useEffect(() => {
-    methods.reset(personalia);
-  }, [personalia]);
+  const reset = methods.reset;
+  const getValues = methods.getValues;
 
-  const reset = () => {
-    methods.reset(personalia);
-  };
+  useEffect(() => {
+    if (!isEqual(personalia, getValues())) {
+      reset(personalia);
+    }
+  }, [personalia, getValues, reset]);
 
   return (
     <TopSectionContainer>
@@ -86,11 +89,22 @@ const TopSection = ({ personalia, onSubmit }) => {
 
         <Input
           as={TextField}
-          type="date"
-          name="dateOfBirth"
-          label="Birth date"
+          name="city"
+          label="City"
           control={methods.control}
           defaultValue=""
+        />
+
+        <Input
+          as={DatePicker}
+          control={methods.control}
+          rules={{ required: true }}
+          onChange={([selected]) => {
+            return selected;
+          }}
+          name="dateOfBirth"
+          label="Date of birth"
+          format="dd/MM/yyyy"
         />
 
         <Input

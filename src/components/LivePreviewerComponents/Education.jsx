@@ -10,6 +10,7 @@ import { TextField } from "@material-ui/core";
 import Input from "../Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { DatePicker } from "@material-ui/pickers";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -84,20 +85,26 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         />
 
         <Input
-          as={TextField}
+          as={DatePicker}
+          control={methods.control}
+          rules={{ required: true }}
+          onChange={([selected]) => {
+            return selected;
+          }}
           name="startDate"
           label="Start Date"
-          control={methods.control}
-          defaultValue=""
-          type="date"
+          format="dd/MM/yyyy"
         />
         <Input
-          as={TextField}
+          as={DatePicker}
+          control={methods.control}
+          rules={{ required: true }}
+          onChange={([selected]) => {
+            return selected;
+          }}
           name="endDate"
           label="End Date"
-          control={methods.control}
-          defaultValue=""
-          type="date"
+          format="dd/MM/yyyy"
         />
 
         <FormControlLabel
