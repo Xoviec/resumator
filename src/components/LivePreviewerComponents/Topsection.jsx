@@ -9,6 +9,7 @@ import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
 import { DatePicker } from "@material-ui/pickers";
+import isEqual from "lodash/isEqual";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);

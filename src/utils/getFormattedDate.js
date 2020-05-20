@@ -5,7 +5,7 @@ export const getFormattedDate = (date) => {
     if (date.seconds) {
       return format(new Date(date.seconds), "yyyy-MM-dd");
     } else {
-      return date;
+      return format(new Date(date.toString()), "yyyy-MM-dd");
     }
   }
 };
