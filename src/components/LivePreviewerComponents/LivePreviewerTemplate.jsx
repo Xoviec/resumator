@@ -9,19 +9,25 @@ import PreviewControls from "./PreviewControls";
 import Experience from "./Experience";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { v4 as uuidv4 } from "uuid";
+import SideProjects from "./SideProjects";
+import _ from "lodash";
 
 const deleteEntry = (section, values, state) => {
-  return state[section].filter((s) => s.id !== values.id);
+  const clonedState = _.cloneDeep(state);
+  const newSectionState = clonedState[section];
+  return newSectionState.filter((s) => s.id !== values.id);
 };
 
 const addEntry = (section, values, state) => {
-  const newState = state[section];
-  newState.push({ ...values, id: uuidv4() });
-  return newState;
+  const clonedState = _.cloneDeep(state);
+  const newSectionState = clonedState[section];
+  newSectionState.push({ ...values, id: uuidv4() });
+  return newSectionState;
 };
 
 const updateEntry = (section, values, state) => {
-  const stateWithoutEntry = state[section].filter((s) => s.id !== values.id);
+  const clonedState = _.cloneDeep(state);
+  const stateWithoutEntry = clonedState[section].filter((s) => s.id !== values.id);
   stateWithoutEntry.push(values);
   return stateWithoutEntry;
 };
@@ -51,22 +57,6 @@ const LivePreviewerTemplate = ({ data }) => {
     }
   };
 
-  const onEditHandler = (section, values) => {
-    const newState = updateEntry(section, values, dataState);
-    setDataState((prevState) => ({
-      ...prevState,
-      [section]: newState,
-    }));
-  };
-
-  const deleteHandler = (section, values) => {
-    const newStateForSection = deleteEntry(section, values.id, dataState);
-    setDataState((prevState) => ({
-      ...prevState,
-      [section]: newStateForSection,
-    }));
-  };
-
   const onAddNewItemForSectionHandler = (section, values) => {
     const updatedSection = addEntry(section, values, dataState);
     setDataState((prevState) => ({
@@ -79,6 +69,22 @@ const LivePreviewerTemplate = ({ data }) => {
     setDataState((prevState) => ({
       ...prevState,
       [sectionKey]: values,
+    }));
+  };
+
+  const onEditSectionItem = (section, values) => {
+    const newState = updateEntry(section, values, dataState);
+    setDataState((prevState) => ({
+      ...prevState,
+      [section]: newState,
+    }));
+  };
+
+  const onDeleteSectionItem = (section, values) => {
+    const newStateForSection = deleteEntry(section, values, dataState);
+    setDataState((prevState) => ({
+      ...prevState,
+      [section]: newStateForSection,
     }));
   };
 
@@ -106,14 +112,14 @@ const LivePreviewerTemplate = ({ data }) => {
           <Education
             education={dataState.education}
             onSubmit={(values) => onAddNewItemForSectionHandler("education", values)}
-            onUpdateEducation={(values) => onEditHandler("education", values)}
-            onDeleteHandler={(values) => deleteHandler("education", values)}
+            onUpdateEducation={(values) => onEditSectionItem("education", values)}
+            onDeleteHandler={(values) => onDeleteSectionItem("education", values)}
           />
         )}
         {dataState.projects && (
           <Experience
-            onEditHandler={(values) => onEditHandler("projects", values)}
-            onDeleteHandler={(values) => deleteHandler("projects", values)}
+            onEditHandler={(values) => onEditSectionItem("projects", values)}
+            onDeleteHandler={(values) => onDeleteSectionItem("projects", values)}
             onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
             type="Projects"
             experience={dataState.projects}
@@ -122,12 +128,37 @@ const LivePreviewerTemplate = ({ data }) => {
         {dataState.experience && (
           <Experience
             type="Work Experience"
-            onEditHandler={(values) => onEditHandler("experience", values)}
-            onDeleteHandler={(values) => deleteHandler("experience", values)}
+            onEditHandler={(values) => onEditSectionItem("experience", values)}
+            onDeleteHandler={(values) => onDeleteSectionItem("experience", values)}
             onSubmit={(values) =>
               onAddNewItemForSectionHandler("experience", values)
             }
             experience={dataState.experience}
+          />
+        )}
+        {dataState.openSourceWork && (
+          <SideProjects
+            type="Open Source work"
+            onEditHandler={(values) => onEditSectionItem("openSourceWork", values)}
+            onDeleteHandler={(values) =>
+              onDeleteSectionItem("openSourceWork", values)
+            }
+            onSubmit={(values) =>
+              onAddNewItemForSectionHandler("openSourceWork", values)
+            }
+            projects={dataState.openSourceWork}
+          />
+        )}
+
+        {dataState.publications && (
+          <SideProjects
+            type="Publications"
+            onEditHandler={(values) => onEditSectionItem("publications", values)}
+            onDeleteHandler={(values) => onDeleteSectionItem("publications", values)}
+            onSubmit={(values) =>
+              onAddNewItemForSectionHandler("publications", values)
+            }
+            projects={dataState.publications}
           />
         )}
       </>

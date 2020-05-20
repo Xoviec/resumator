@@ -7,11 +7,11 @@ import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
 import Input from "../Input";
 import { TextField } from "@material-ui/core";
-import ExperienceItem from "./ExperienceItem";
+import SideProjectItem from "./SideProjectItem";
 
-const Experience = ({
+const SideProjects = ({
   type,
-  experience,
+  projects,
   onSubmit,
   onEditHandler,
   onDeleteHandler,
@@ -37,9 +37,9 @@ const Experience = ({
         onClick={() => setIsEditing((prevState) => !prevState)}
         icon={faPlus}
       />
-      {experience.map((e, i) => (
-        <ExperienceItem
-          experienceItem={e}
+      {projects.map((e, i) => (
+        <SideProjectItem
+          projectItem={e}
           key={i}
           onDeleteHandler={onDeleteHandler}
           onClickEdit={onClickEdit}
@@ -53,8 +53,8 @@ const Experience = ({
           setIsEditing(false);
         }}
         methods={methods}
-        contentLabel={`Add ${type} details`}
-        heading={`Add ${type} details`}
+        contentLabel="Add education details"
+        heading="Add new education"
         onPrimaryActionClicked={() => {
           if (editingExisting) {
             onEditHandler({ ...methods.getValues(), id: currentItemId });
@@ -70,44 +70,25 @@ const Experience = ({
       >
         <Input
           as={TextField}
-          name="company"
-          label="Company"
+          name="title"
+          label="Title"
           control={methods.control}
           defaultValue=""
         />
-        <Input
-          as={TextField}
-          name="role"
-          label="Role"
-          control={methods.control}
-          defaultValue=""
-        />
-
         <Input
           as={TextField}
           name="description"
           label="Description"
           control={methods.control}
           defaultValue=""
-          multiline
-          rows={4}
         />
 
         <Input
           as={TextField}
-          name="startDate"
-          label="Start Date"
+          name="link"
+          label="Link"
           control={methods.control}
           defaultValue=""
-          type="date"
-        />
-        <Input
-          as={TextField}
-          name="endDate"
-          label="End Date"
-          control={methods.control}
-          defaultValue=""
-          type="date"
         />
       </EditModalWrapper>
     </Card>
@@ -124,4 +105,4 @@ const Title = styled.h2`
   text-transform: uppercase;
 `;
 
-export default Experience;
+export default SideProjects;
