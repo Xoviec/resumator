@@ -53,8 +53,8 @@ const SideProjects = ({
           setIsEditing(false);
         }}
         methods={methods}
-        contentLabel="Add education details"
-        heading="Add new education"
+        contentLabel={`Add ${type} details`}
+        heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
           if (editingExisting) {
             onEditHandler({ ...methods.getValues(), id: currentItemId });
