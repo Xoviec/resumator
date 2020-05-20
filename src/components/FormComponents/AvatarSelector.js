@@ -1,6 +1,6 @@
 import React from "react";
 import avatars from "../../assets/images/avatars";
-import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
+import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { colors } from "../../config/theme";
 
@@ -53,16 +53,16 @@ const StyledRadio = (props) => {
   );
 };
 
-const AvatarSelector = ({ name }) => {
+const AvatarSelector = ({ name, label }) => {
   return (
     <>
+      <FormLabel>{label}</FormLabel>
       <RadioGroup row defaultValue="1" aria-label="avatar" name={name}>
         {avatars.map((avatar, i) => (
           <FormControlLabel
             key={i}
             value={avatar.name}
             control={<StyledRadio avatar={avatar.img} />}
-            label={avatar.name}
           />
         ))}
       </RadioGroup>
