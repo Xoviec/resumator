@@ -13,15 +13,7 @@ import {
   MenuItem,
   Toolbar,
 } from "@material-ui/core";
-import {
-  AccountCircle,
-  AddCircle,
-  Menu as MenuIcon,
-  Notifications,
-  People,
-  Search,
-  Web,
-} from "@material-ui/icons";
+import { AccountCircle, AddCircle, Menu as MenuIcon, Notifications, People, Search, Web, } from "@material-ui/icons";
 import { throttle } from "throttle-debounce";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 
