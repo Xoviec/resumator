@@ -6,11 +6,11 @@ import MainLayout from "./layouts/Main";
 
 import Overview from "./pages/Overview";
 import Home from "./pages/Home";
-import PdfCreator from "./pages/PdfCreator";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
+import Creator from "./pages/Creator";
 
 const {
   REACT_APP_FIREBASE_API_KEY: apiKey,
@@ -38,9 +38,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePageWrapper} />
           <Route exact path="/overview" component={OverviewWrapper} />
-          <Route exact path="/creator" component={PdfCreatorWrapper} />
-          <Route exact path="/creator/:id" component={PdfCreatorWrapper} />
           <Route exact path="/live/:id" component={LivePreviewerWrapper} />
+          <Route exact path="/creator" component={CreatorWrapper} />
           <Route exact path="/previewer/:id" component={PdfPreviewer} />
           <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
           <Route exact path="/pdf-previewer" component={PdfPreviewer} />
@@ -56,12 +55,6 @@ const HomePageWrapper = (props) => (
   </LoginLayout>
 );
 
-const PdfCreatorWrapper = (props) => (
-  <MainLayout>
-    <PdfCreator {...props} />
-  </MainLayout>
-);
-
 const OverviewWrapper = (props) => (
   <MainLayout>
     <Overview {...props} />
@@ -74,6 +67,11 @@ const LivePreviewerWrapper = (props) => (
   </MainLayout>
 );
 
+const CreatorWrapper = (props) => (
+  <MainLayout>
+    <Creator {...props} />
+  </MainLayout>
+);
 const HTMLPreviewerWrapper = (props) => (
   <LoginLayout>
     <HTMLPreviewer {...props} />

@@ -10,22 +10,22 @@ import EditModalWrapper from "./ModalWrapper";
 import EditIcon from "./EditIcon";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { TextField } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+
 import Input from "../Input";
+import { skillsConstants } from "../../config/skills.constants";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const methods = useForm({});
 
-  const methods = useForm({
-    defaultValues: { skills },
-  });
+  const reset = methods.reset;
+  const getValues = methods.getValues;
 
   useEffect(() => {
-    methods.reset({ skills });
-  }, [skills]);
+    reset({});
+  }, [skills, getValues, reset]);
 
-  const reset = () => {
-    methods.reset({ skills });
-  };
   return (
     <StyledCard>
       <Title>Skills</Title>
@@ -57,16 +57,27 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
-          reset();
+          reset({});
           setIsEditing(false);
         }}
       >
-        <Input
-          as={TextField}
-          name="skill"
-          label="New skill"
-          control={methods.control}
-          defaultValue=""
+        <Autocomplete
+          id="skill"
+          options={skillsConstants}
+          getOptionLabel={(option) => option}
+          style={{ width: 300 }}
+          onChange={(data, newValue) => {
+            methods.setValue("skill", newValue);
+          }}
+          renderInput={(params) => (
+            <Input
+              {...params}
+              as={TextField}
+              name="skill"
+              label="New skill"
+              control={methods.control}
+            />
+          )}
         />
       </EditModalWrapper>
     </StyledCard>

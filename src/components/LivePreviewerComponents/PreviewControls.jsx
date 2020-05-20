@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 
-const PreviewControls = ({ setShowPDFModal, goTo }) => {
+const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked }) => {
   return (
     <TopSide>
       <div>
@@ -32,7 +32,12 @@ const PreviewControls = ({ setShowPDFModal, goTo }) => {
         <StyledButton variant="contained" type="button">
           Share
         </StyledButton>
-        <StyledButton variant="contained" type="button" color="primary">
+        <StyledButton
+          onClick={onSaveClicked}
+          variant="contained"
+          type="button"
+          color="primary"
+        >
           Save
         </StyledButton>
       </div>

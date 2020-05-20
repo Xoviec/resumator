@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -29,21 +29,21 @@ jobs:
     - run: npm run build --if-present
     # - run: npm run test
     #   env:
-    #     CI: true   
+    #     CI: true
 
     # Check out the repository
-    - uses: actions/checkout@v1
-
-    # Install Node.js
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-
-    # Install your dependencies
-    - run: npm ci
+#    - uses: actions/checkout@v1
+#
+#    # Install Node.js
+#    - uses: actions/setup-node@v1
+#      with:
+#        node-version: 12
+#
+#    # Install your dependencies
+#    - run: npm ci
 
     # Run ESLint
     - uses: eslint/github-action@v0
-  
+
 
 

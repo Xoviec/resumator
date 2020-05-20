@@ -1,0 +1,15 @@
+export const skillsConstants = [
+  "Reactjs",
+  "Angularjs",
+  "Angular",
+  "Vue",
+  "Firebase",
+  "AWS",
+  "Google cloud",
+  "Javascript",
+  "HTML",
+  "CSS",
+  "Nextjs",
+  "Gatsby",
+  "Redux",
+];
