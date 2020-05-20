@@ -9,7 +9,9 @@ const SideProjectItem = ({ projectItem, onClickEdit, onDeleteHandler }) => {
         <h3> {projectItem.title}</h3>
       </TopSection>
       <Description>{projectItem.description}</Description>
-      <a href={projectItem.link}>{projectItem.link}</a>
+      <a rel="noreferrer noopener" target="_blank" href={projectItem.link}>
+        {projectItem.link}
+      </a>
       <ActionButtons
         className={`edit-button-${projectItem.id}`}
         onEditClick={() => onClickEdit(projectItem)}
