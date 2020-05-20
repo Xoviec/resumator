@@ -8,6 +8,7 @@ import EditModalWrapper from "./ModalWrapper";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
+import { DatePicker } from "@material-ui/pickers";
 import isEqual from "lodash/isEqual";
 
 const TopSection = ({ personalia, onSubmit }) => {
@@ -94,12 +95,15 @@ const TopSection = ({ personalia, onSubmit }) => {
         />
 
         <Input
-          as={TextField}
-          type="date"
-          name="dateOfBirth"
-          label="Birth date"
+          as={DatePicker}
           control={methods.control}
-          defaultValue=""
+          rules={{ required: true }}
+          onChange={([selected]) => {
+            return selected;
+          }}
+          name="dateOfBirth"
+          label="Date of birth"
+          format="dd/MM/yyyy"
         />
       </EditModalWrapper>
     </TopSectionContainer>
