@@ -6,6 +6,7 @@ import MaterialTable from "material-table";
 import tableIcons from "./constants/tableIcons";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles } from "@material-ui/core/styles";
+import avatars from "../../assets/images/avatars";
 
 const useStyles = makeStyles(() => ({
   activeIcon: {
@@ -15,6 +16,10 @@ const useStyles = makeStyles(() => ({
   },
   inlineList: {
     display: "inline",
+  },
+  miniAvatar: {
+    width: 22,
+    height: 40,
   },
   skillList: {
     margin: 0,
@@ -73,11 +78,15 @@ const Home = ({ searchText }) => {
             {
               title: "",
               field: "avatar",
+              width: 40,
               render: (rowData) => (
                 <img
                   alt={"avatar"}
-                  src={rowData.avatar}
-                  style={{ width: 40, borderRadius: "50%" }}
+                  src={
+                    (avatars.find((x) => x.name === rowData.avatar) || avatars[6])
+                      .img
+                  }
+                  className={classes.miniAvatar}
                 />
               ),
             },
