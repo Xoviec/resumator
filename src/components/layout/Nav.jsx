@@ -129,10 +129,6 @@ const Nav = ({ handleSearch }) => {
     setAnchorEl(null);
   };
 
-  const handleChange = (searchVals) => {
-    handleSearch(searchVals);
-  };
-
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -173,7 +169,7 @@ const Nav = ({ handleSearch }) => {
                 getOptionLabel={(option) => option}
                 freeSolo
                 onChange={(data, newValue) => {
-                  handleChange(newValue);
+                  handleSearch(newValue);
                 }}
                 className={classes.autocomplete}
                 renderInput={(params) => (

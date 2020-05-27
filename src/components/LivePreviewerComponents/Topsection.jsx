@@ -8,6 +8,7 @@ import EditModalWrapper from "./ModalWrapper";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import { TextField } from "@material-ui/core";
 import Input from "../Input";
+import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DatePicker } from "@material-ui/pickers";
 import isEqual from "lodash/isEqual";
 
@@ -104,6 +105,13 @@ const TopSection = ({ personalia, onSubmit }) => {
           name="dateOfBirth"
           label="Date of birth"
           format="dd/MM/yyyy"
+        />
+
+        <Input
+          as={AvatarSelector}
+          name="avatar"
+          label="Avatar"
+          control={methods.control}
         />
       </EditModalWrapper>
     </TopSectionContainer>

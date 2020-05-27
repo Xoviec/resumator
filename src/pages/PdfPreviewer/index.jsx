@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
+import { Document, Font, PDFViewer, View } from "@react-pdf/renderer";
 import {
+  PDFEducation,
   PDFHeader,
   PDFIntroduction,
-  PDFSkills,
-  PDFEducation,
   PDFProjects,
+  PDFSkills,
   PDFWorkExperience,
 } from "../../components/PDFBuilderComponents";
 import styled from "@react-pdf/styled-components";
@@ -13,6 +13,7 @@ import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Regular.ttf";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
+import { PDFSideProjects } from "../../components/PDFBuilderComponents/PDFSideProjects";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
@@ -44,6 +45,11 @@ export const PDFDocument = ({ resume }) => {
             <PDFIntroduction introduction={resume.introduction} />
             <PDFSkills skills={resume.skills} />
             <PDFEducation education={resume.education} />
+            <PDFSideProjects
+              type="openSource"
+              sideProjects={resume.openSourceWork}
+            />
+            <PDFSideProjects sideProjects={resume.publications} />
             <View style={{ width: "200px", height: "100vh" }}></View>
           </View>
           <View>
