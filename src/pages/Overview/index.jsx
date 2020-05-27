@@ -50,7 +50,9 @@ const Home = ({ searchText }) => {
   };
 
   if (searchText && data && readyToRender) {
-    filterInputHandler(searchText);
+    searchText.forEach((searchTerm) => {
+      filterInputHandler(searchTerm);
+    });
   }
 
   // Todo: make notification
