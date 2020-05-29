@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Document, PDFViewer, Font, View } from "@react-pdf/renderer";
+import { Document, Font, PDFViewer, View } from "@react-pdf/renderer";
 import {
+  PDFEducation,
   PDFHeader,
   PDFIntroduction,
-  PDFSkills,
-  PDFEducation,
   PDFProjects,
+  PDFSkills,
   PDFWorkExperience,
 } from "../../components/PDFBuilderComponents";
 import styled from "@react-pdf/styled-components";
