@@ -149,10 +149,7 @@ const Experience = ({
     </Card>
   );
 };
-const SkillsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-`;
+
 const AddNew = styled(FontAwesomeIcon)`
   position: absolute;
   right: 32px;
