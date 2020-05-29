@@ -11,7 +11,7 @@ import EmptyNotice from "./EmptyNotice";
 import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 
 const Skills = ({ skills, onSubmit }) => {
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = React.useState(
     skills.length > 0 ? skills.map((s) => s.name) : []
   );
