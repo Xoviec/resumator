@@ -8,6 +8,7 @@ import Input from "../Input";
 import { TextField, Typography } from "@material-ui/core";
 import SideProjectItem from "./SideProjectItem";
 import Card from "../Card";
+import EmptyNotice from "./EmptyNotice";
 
 const SideProjects = ({
   type,
@@ -47,6 +48,8 @@ const SideProjects = ({
           onClickEdit={onClickEdit}
         />
       ))}
+
+      <EmptyNotice items={projects} />
 
       <EditModalWrapper
         isOpen={isEditing}
