@@ -95,6 +95,7 @@ const LivePreviewerTemplate = ({ data }) => {
         onSaveClicked={() => onSubmit()}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
+        id={dataState.id}
       />
       <>
         {dataState.personalia && (
