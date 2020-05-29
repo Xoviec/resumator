@@ -2,7 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 
-const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked }) => {
+const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
+  console.log(id);
   return (
     <TopSide>
       <>
@@ -16,7 +17,11 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked }) => {
       </>
 
       <div>
-        <StyledButton variant="contained" type="button">
+        <StyledButton
+          variant="contained"
+          type="button"
+          href={`https://cryptic-ridge-60305.herokuapp.com/create?resume=${id}`}
+        >
           Download
         </StyledButton>
         <StyledButton
