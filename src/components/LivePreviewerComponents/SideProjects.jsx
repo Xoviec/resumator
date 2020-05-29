@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import Card from "../Card";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
 import Input from "../Input";
-import { TextField } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import SideProjectItem from "./SideProjectItem";
+import Card from "../Card";
 
 const SideProjects = ({
   type,
@@ -31,7 +31,9 @@ const SideProjects = ({
 
   return (
     <Card>
-      <Title>{type}</Title>
+      <Typography gutterBottom variant="h4">
+        {type}
+      </Typography>
       <AddNew
         className="add-new-button"
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -45,6 +47,7 @@ const SideProjects = ({
           onClickEdit={onClickEdit}
         />
       ))}
+
       <EditModalWrapper
         isOpen={isEditing}
         onRequestClose={() => {
@@ -99,10 +102,6 @@ const AddNew = styled(FontAwesomeIcon)`
   position: absolute;
   right: 32px;
   top: 48px;
-`;
-
-const Title = styled.h2`
-  text-transform: uppercase;
 `;
 
 export default SideProjects;

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import angularBadge from "../../assets/images/angularBadge.png";
-import nodeBadge from "../../assets/images/nodeBadge.png";
-import cssBadge from "../../assets/images/cssBadge.png";
-import { Flex } from "rebass";
 import Card from "../Card";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
 import EditIcon from "./EditIcon";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { TextField } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-
-import Input from "../Input";
-import { skillsConstants } from "../../config/skills.constants";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { Typography } from "@material-ui/core";
+import CustomChip from "./CustomChip";
+import EmptyNotice from "./EmptyNotice";
+import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [skillsState, setSkillsState] = React.useState(
+    skills.length > 0 ? skills.map((s) => s.name) : []
+  );
   const methods = useForm({});
 
   const reset = methods.reset;
@@ -28,32 +26,38 @@ const Skills = ({ skills, onSubmit }) => {
 
   return (
     <StyledCard>
-      <Title>Skills</Title>
+      <Typography gutterBottom variant="h4">
+        Skills
+      </Typography>
       <EditIcon
         className="add-new-button"
         onClick={() => setIsEditing((prevState) => !prevState)}
-        icon={faPlus}
+        icon={faPen}
       />
-      <Flex alignItems="center" justifyContent="space-around">
-        <Badge src={angularBadge} />
-        <Badge src={nodeBadge} />
-        <Badge src={cssBadge} />
-      </Flex>
-      <Subtitle>Languages - frameworks - libraries</Subtitle>
-      <ul>
+      <SkillsContainer>
         {skills.map((s) => (
-          <li key={s.name}>{s.name}</li>
+          <CustomChip
+            key={s.name}
+            size="small"
+            variant="outlined"
+            label={s.name}
+            color="secondary"
+          />
         ))}
-      </ul>
+
+        <EmptyNotice items={skills}>
+          Click on the pen icon to add new skills
+        </EmptyNotice>
+      </SkillsContainer>
 
       <EditModalWrapper
         isOpen={isEditing}
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
         contentLabel="Edit skills"
-        heading="New skill"
+        heading="Skills"
         onPrimaryActionClicked={() => {
-          onSubmit("skills", [...skills, { name: methods.getValues().skill }]);
+          onSubmit("skills", createSkillObjects(skillsState));
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
@@ -61,24 +65,7 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <Autocomplete
-          id="skill"
-          options={skillsConstants}
-          getOptionLabel={(option) => option}
-          style={{ width: 300 }}
-          onChange={(data, newValue) => {
-            methods.setValue("skill", newValue);
-          }}
-          renderInput={(params) => (
-            <Input
-              {...params}
-              as={TextField}
-              name="skill"
-              label="New skill"
-              control={methods.control}
-            />
-          )}
-        />
+        <SkillsSelect skills={skillsState} setSkills={setSkillsState} />
       </EditModalWrapper>
     </StyledCard>
   );
@@ -92,19 +79,10 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const Badge = styled.img`
-  max-width: 100px;
-`;
-
-const Title = styled.h2`
-  margin: 0 0 16px;
-  text-transform: uppercase;
-`;
-
-const Subtitle = styled.p`
-  text-transform: uppercase;
-  font-size: 13px;
-  text-align: center;
+const SkillsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 8px;
 `;
 
 export default Skills;

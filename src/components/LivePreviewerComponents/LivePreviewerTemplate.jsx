@@ -11,6 +11,7 @@ import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { v4 as uuidv4 } from "uuid";
 import SideProjects from "./SideProjects";
 import _ from "lodash";
+import styled from "@emotion/styled";
 
 const deleteEntry = (section, values, state) => {
   const clonedState = _.cloneDeep(state);
@@ -99,23 +100,26 @@ const LivePreviewerTemplate = ({ data }) => {
         {dataState.personalia && (
           <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
         )}
-        {dataState.introduction && (
-          <Introduction
-            introduction={dataState.introduction}
-            onSubmit={onSubmitSection}
-          />
-        )}
-        {dataState.skills && (
-          <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
-        )}
-        {dataState.education && (
-          <Education
-            education={dataState.education}
-            onSubmit={(values) => onAddNewItemForSectionHandler("education", values)}
-            onUpdateEducation={(values) => onEditSectionItem("education", values)}
-            onDeleteHandler={(values) => onDeleteSectionItem("education", values)}
-          />
-        )}
+
+        <Introduction
+          introduction={dataState.introduction}
+          onSubmit={onSubmitSection}
+        />
+        <ColumnContainer>
+          {dataState.skills && (
+            <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
+          )}
+          {dataState.education && (
+            <Education
+              education={dataState.education}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("education", values)
+              }
+              onUpdateEducation={(values) => onEditSectionItem("education", values)}
+              onDeleteHandler={(values) => onDeleteSectionItem("education", values)}
+            />
+          )}
+        </ColumnContainer>
         {dataState.projects && (
           <Experience
             onEditHandler={(values) => onEditSectionItem("projects", values)}
@@ -171,5 +175,11 @@ const LivePreviewerTemplate = ({ data }) => {
     </>
   );
 };
+
+const ColumnContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 8px;
+`;
 
 export default LivePreviewerTemplate;

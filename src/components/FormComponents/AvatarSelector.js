@@ -39,13 +39,19 @@ const StyledRadio = (props) => {
       checkedIcon={
         <span
           className={[classes.icon, classes.checkedIcon].join(" ")}
-          style={{ backgroundImage: `url(${props.avatar})` }}
+          style={{
+            backgroundImage: `url(${props.avatar})`,
+            backgroundRepeat: "no-repeat",
+          }}
         />
       }
       icon={
         <span
           className={classes.icon}
-          style={{ backgroundImage: `url(${props.avatar})` }}
+          style={{
+            backgroundImage: `url(${props.avatar})`,
+            backgroundRepeat: "no-repeat",
+          }}
         />
       }
       {...props}

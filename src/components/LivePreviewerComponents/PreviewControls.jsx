@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked }) => {
   return (
     <TopSide>
-      <div>
+      <>
         <StyledButton
           onClick={() => goTo(`/overview`)}
           variant="contained"
@@ -13,7 +13,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked }) => {
         >
           Back to overview
         </StyledButton>
-      </div>
+      </>
 
       <div>
         <StyledButton variant="contained" type="button">
