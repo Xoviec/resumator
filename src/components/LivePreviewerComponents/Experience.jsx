@@ -35,7 +35,7 @@ const Experience = ({
     } else {
       setSkillsState([]);
     }
-  }, [currentItemId]);
+  }, [experience, currentItemId]);
 
   const methods = useForm({});
 

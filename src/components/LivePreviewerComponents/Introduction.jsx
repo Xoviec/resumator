@@ -69,10 +69,6 @@ const Introduction = ({ introduction, onSubmit }) => {
   );
 };
 
-const Title = styled.h2`
-  text-transform: uppercase;
-`;
-
 const DescriptionContainer = styled(Card)`
   font-size: 14px;
   &:hover {
