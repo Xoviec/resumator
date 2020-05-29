@@ -6,11 +6,12 @@ import EditModalWrapper from "./ModalWrapper";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import EducationItem from "./EducationItem";
-import { TextField } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import Input from "../Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { DatePicker } from "@material-ui/pickers";
+import EmptyNotice from "./EmptyNotice";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +28,9 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
   };
   return (
     <EducationContainer>
-      <Title>Education</Title>
+      <Typography gutterBottom variant="h4">
+        Education
+      </Typography>
       {education.map((e, i) => (
         <EducationItem
           key={i}
@@ -36,6 +39,8 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           onDeleteHandler={onDeleteHandler}
         />
       ))}
+      <EmptyNotice items={education} />
+
       <EditIcon
         icon={faPlus}
         className="edit-button"
@@ -117,11 +122,6 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
     </EducationContainer>
   );
 };
-
-const Title = styled.h2`
-  margin: 0 0 16px;
-  text-transform: uppercase;
-`;
 
 const EducationContainer = styled(Card)`
   &:hover {

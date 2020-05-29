@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Card from "../Card";
 import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
-import { TextField } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import Input from "../Input";
 import isEqual from "lodash/isEqual";
 
@@ -26,7 +26,14 @@ const Introduction = ({ introduction, onSubmit }) => {
 
   return (
     <DescriptionContainer>
-      <p>{introduction}</p>
+      <Typography gutterBottom variant="h4">
+        Introduction
+      </Typography>
+      <Typography variant="body1" color={introduction ? "primary" : "secondary"}>
+        {introduction
+          ? introduction
+          : "Click on the pen icon to edit the introduction"}
+      </Typography>
       <EditIcon
         className="edit-button"
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -62,9 +69,12 @@ const Introduction = ({ introduction, onSubmit }) => {
   );
 };
 
+const Title = styled.h2`
+  text-transform: uppercase;
+`;
+
 const DescriptionContainer = styled(Card)`
   font-size: 14px;
-  max-height: 200px;
   &:hover {
     .edit-button {
       visibility: visible;

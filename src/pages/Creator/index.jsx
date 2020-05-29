@@ -7,7 +7,7 @@ const Creator = () => {
     avatar: "1",
     education: [],
     experience: [],
-    introduction: "test",
+    introduction: "",
     personalia: {},
     projects: [],
     skills: [],

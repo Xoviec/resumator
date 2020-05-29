@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Card from "../Card";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
 import Input from "../Input";
-import { TextField } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import ExperienceItem from "./ExperienceItem";
 import { DatePicker } from "@material-ui/pickers";
+import EmptyNotice from "./EmptyNotice";
+import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 
 const Experience = ({
   type,
@@ -20,6 +22,20 @@ const Experience = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
+  const [skillsState, setSkillsState] = React.useState(
+    experience.skills && experience.skills.length > 0
+      ? experience.skills.map((s) => s.name)
+      : []
+  );
+
+  useEffect(() => {
+    if (currentItemId) {
+      const currentSkills = experience.find((e) => e.id === currentItemId).skills;
+      setSkillsState(currentSkills.map((s) => s.name));
+    } else {
+      setSkillsState([]);
+    }
+  }, [currentItemId]);
 
   const methods = useForm({});
 
@@ -32,7 +48,9 @@ const Experience = ({
 
   return (
     <Card>
-      <Title>{type}</Title>
+      <Typography gutterBottom variant="h4">
+        {type}
+      </Typography>
       <AddNew
         className="add-new-button"
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -46,6 +64,8 @@ const Experience = ({
           onClickEdit={onClickEdit}
         />
       ))}
+      <EmptyNotice items={experience} />
+
       <EditModalWrapper
         isOpen={isEditing}
         onRequestClose={() => {
@@ -58,7 +78,11 @@ const Experience = ({
         heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
           if (editingExisting) {
-            onEditHandler({ ...methods.getValues(), id: currentItemId });
+            onEditHandler({
+              ...methods.getValues(),
+              id: currentItemId,
+              skills: createSkillObjects(skillsState),
+            });
           } else {
             onSubmit(methods.getValues());
           }
@@ -116,19 +140,23 @@ const Experience = ({
           label="End Date"
           format="dd/MM/yyyy"
         />
+        <SkillsSelect
+          label="Skills"
+          skills={skillsState}
+          setSkills={setSkillsState}
+        />
       </EditModalWrapper>
     </Card>
   );
 };
-
+const SkillsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+`;
 const AddNew = styled(FontAwesomeIcon)`
   position: absolute;
   right: 32px;
   top: 48px;
-`;
-
-const Title = styled.h2`
-  text-transform: uppercase;
 `;
 
 export default Experience;

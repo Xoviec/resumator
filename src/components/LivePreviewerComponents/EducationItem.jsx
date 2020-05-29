@@ -2,23 +2,29 @@ import React from "react";
 import styled from "@emotion/styled";
 import ActionButtons from "./ActionButtons";
 import { getFormattedDate } from "../../utils/getFormattedDate";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Box from "@material-ui/core/Box";
 
 const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) => {
   return (
     <EducationItemContainer id={educationEntry.id}>
-      <p>
-        <b>{educationEntry.name}</b>
-      </p>
-      <p>{educationEntry.institute}</p>
-      <p>
+      <Typography variant={"h6"}>{educationEntry.name}</Typography>
+      <Typography variant="subtitle1" color={"secondary"}>
+        {educationEntry.institute}
+      </Typography>
+      <Typography variant="body1">
         {getFormattedDate(educationEntry.startDate)} -{" "}
         {getFormattedDate(educationEntry.endDate)}
-      </p>
+      </Typography>
       <ActionButtons
         className={`edit-button-${educationEntry.id}`}
         onEditClick={() => onEditHandler(educationEntry)}
         onDeleteClick={() => onDeleteHandler(educationEntry)}
       />
+      <Box mt={2}>
+        <Divider />
+      </Box>
     </EducationItemContainer>
   );
 };

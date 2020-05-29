@@ -1,42 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import ActionButtons from "./ActionButtons";
 import styled from "@emotion/styled";
+import { Typography } from "@material-ui/core";
+import Link from "@material-ui/core/Link";
+import Divider from "@material-ui/core/Divider";
+import CustomChip from "./CustomChip";
+import Box from "@material-ui/core/Box";
 
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <ExperienceItemContainer id={experienceItem.id}>
       <TopSection>
-        <h3> {experienceItem.role}</h3>
-        <h3>
-          {getFormattedDate(experienceItem.startDate)} -{" "}
+        <Typography variant="h6">{experienceItem.role}</Typography>
+        <Typography variant="subtitle1">{experienceItem.company}</Typography>
+        <Typography gutterBottom variant="body1">
+          {getFormattedDate(experienceItem.startDate)} -
           {getFormattedDate(experienceItem.endDate)}
-        </h3>
+        </Typography>
       </TopSection>
-      <Description>{experienceItem.description}</Description>
+      <Typography variant="body1">
+        {isOpen
+          ? experienceItem.description
+          : experienceItem.description.substring(0, 140) + "..."}
+      </Typography>
+      <Link
+        color="secondary"
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen((prevState) => !prevState);
+        }}
+      >
+        {isOpen ? "Read less" : "Read more"}
+      </Link>
       <Techniques>
-        <span>
-          Techniques:{" "}
-          {experienceItem.stackAndTechniques &&
-            experienceItem.stackAndTechniques.map((t) => (
-              <span key={t.name}>{t.name} </span>
-            ))}
-        </span>
+        <Typography variant="subtitle2">Skills:</Typography>
+        {experienceItem.skills &&
+          experienceItem.skills.map(({ name }) => (
+            <ChipContainer key={name}>
+              <CustomChip
+                size="small"
+                variant="outlined"
+                label={name}
+                color="secondary"
+              />
+            </ChipContainer>
+          ))}
       </Techniques>
       <ActionButtons
         className={`edit-button-${experienceItem.id}`}
         onEditClick={() => onClickEdit(experienceItem)}
         onDeleteClick={() => onDeleteHandler(experienceItem)}
       />
+      <Box mt={2}>
+        <Divider />
+      </Box>
     </ExperienceItemContainer>
   );
 };
 
-const Description = styled.p`
-  font-size: 14px;
+const ChipContainer = styled.div`
+  margin: 0 8px;
 `;
 
 const Techniques = styled.div`
+  display: flex;
+  align-items: center;
   padding: 4px;
   margin: 0;
   font-size: 13px;
@@ -52,12 +83,8 @@ const TopSection = styled.div`
 const ExperienceItemContainer = styled.div`
   position: relative;
   margin: 24px 0;
-  padding: 16px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   &:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-
     .edit-button {
       visibility: visible;
     }

@@ -1,16 +1,19 @@
 import React from "react";
 import styled from "@emotion/styled";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
-const Card = ({ children, ...props }) => {
-  return <CardContainer {...props}>{children}</CardContainer>;
+const InternCard = ({ children, ...props }) => {
+  return (
+    <CardContainer {...props}>
+      <CardContent>{children}</CardContent>
+    </CardContainer>
+  );
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled(Card)`
   position: relative;
-  background-color: white;
-  padding: 24px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  margin: 24px 16px;
+  margin: 24px 0;
 `;
 
-export default Card;
+export default InternCard;
