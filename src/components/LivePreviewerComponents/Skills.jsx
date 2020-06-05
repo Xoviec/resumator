@@ -1,58 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Card from "../Card";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
 import EditIcon from "./EditIcon";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { Typography, TextField } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
-import { skillsConstants } from "../../config/skills.constants";
+import { Typography } from "@material-ui/core";
 import CustomChip from "./CustomChip";
 import EmptyNotice from "./EmptyNotice";
-import { createSkillObjects } from "./SkillsSelect";
-
-function SkillsEditor({ skills, onSkillsChanged }) {
-  // This is necessary because this value shouldn't change
-  // so MUI doesn't throw warnings
-  const { current: defaultValue } = useRef(skills);
-  const renderSelectedSkills = (currentSkills, getTagProps) =>
-    currentSkills.map((skill, index) => (
-      <CustomChip
-        key={skill}
-        label={skill}
-        size="small"
-        variant="outlined"
-        color="secondary"
-        {...getTagProps({ index })}
-      />
-    ));
-
-  const renderInput = (params) => (
-    <TextField
-      {...params}
-      variant="outlined"
-      placeholder="Add frameworks, libraries, technologies..."
-    />
-  );
-
-  const onChange = (event, skills) => onSkillsChanged(skills);
-
-  return (
-    <Autocomplete
-      multiple
-      freeSolo
-      fullWidth
-      disableClearable
-      disableCloseOnSelect
-      options={skillsConstants}
-      defaultValue={defaultValue}
-      renderTags={renderSelectedSkills}
-      renderInput={renderInput}
-      onChange={onChange}
-    />
-  );
-}
+import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -109,7 +65,11 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <SkillsEditor onSkillsChanged={setSkillsState} skills={skillsState} />
+        <SkillsSelect
+          onSkillsChanged={setSkillsState}
+          skills={skillsState}
+          label="Skills"
+        />
       </EditModalWrapper>
     </StyledCard>
   );
