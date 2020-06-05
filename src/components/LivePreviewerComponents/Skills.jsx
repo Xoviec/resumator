@@ -5,18 +5,58 @@ import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
 import EditIcon from "./EditIcon";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { Typography } from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
+import { skillsConstants } from "../../config/skills.constants";
 import CustomChip from "./CustomChip";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
+import { createSkillObjects } from "./SkillsSelect";
+
+function SkillsEditor({ skills, onNewSkillAdded }) {
+  const renderSelectedSkills = (currentSkills, getTagProps) =>
+    currentSkills.map((skill, index) => (
+      <CustomChip
+        key={skill}
+        size="small"
+        variant="outlined"
+        label={skill}
+        color="secondary"
+        {...getTagProps({ index })}
+      />
+    ));
+
+  const renderInput = (params) => (
+    <TextField
+      {...params}
+      variant="outlined"
+      placeholder="Add frameworks, libraries, technologies..."
+    />
+  );
+
+  return (
+    <Autocomplete
+      multiple
+      freeSolo
+      fullWidth
+      disableClearable
+      disableCloseOnSelect
+      options={skillsConstants}
+      defaultValue={skills}
+      renderTags={renderSelectedSkills}
+      renderInput={renderInput}
+    />
+  );
+}
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = React.useState(
     skills.length > 0 ? skills.map((s) => s.name) : []
   );
-  const methods = useForm({});
+  const onNewSkillAdded = (skill) =>
+    setSkillsState((currentSkillsState) => [...currentSkillsState, skill]);
 
+  const methods = useForm({});
   const reset = methods.reset;
   const getValues = methods.getValues;
 
@@ -65,7 +105,7 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <SkillsSelect skills={skillsState} setSkills={setSkillsState} />
+        <SkillsEditor onNewSkillAdded={onNewSkillAdded} skills={skillsState} />
       </EditModalWrapper>
     </StyledCard>
   );
