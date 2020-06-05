@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Card from "../Card";
 import { useForm } from "react-hook-form";
@@ -12,14 +12,17 @@ import CustomChip from "./CustomChip";
 import EmptyNotice from "./EmptyNotice";
 import { createSkillObjects } from "./SkillsSelect";
 
-function SkillsEditor({ skills, onNewSkillAdded }) {
+function SkillsEditor({ skills, onSkillsChanged }) {
+  // This is necessary because this value shouldn't change
+  // so MUI doesn't throw warnings
+  const { current: defaultValue } = useRef(skills);
   const renderSelectedSkills = (currentSkills, getTagProps) =>
     currentSkills.map((skill, index) => (
       <CustomChip
         key={skill}
+        label={skill}
         size="small"
         variant="outlined"
-        label={skill}
         color="secondary"
         {...getTagProps({ index })}
       />
@@ -33,6 +36,8 @@ function SkillsEditor({ skills, onNewSkillAdded }) {
     />
   );
 
+  const onChange = (event, skills) => onSkillsChanged(skills);
+
   return (
     <Autocomplete
       multiple
@@ -41,9 +46,10 @@ function SkillsEditor({ skills, onNewSkillAdded }) {
       disableClearable
       disableCloseOnSelect
       options={skillsConstants}
-      defaultValue={skills}
+      defaultValue={defaultValue}
       renderTags={renderSelectedSkills}
       renderInput={renderInput}
+      onChange={onChange}
     />
   );
 }
@@ -53,8 +59,6 @@ const Skills = ({ skills, onSubmit }) => {
   const [skillsState, setSkillsState] = React.useState(
     skills.length > 0 ? skills.map((s) => s.name) : []
   );
-  const onNewSkillAdded = (skill) =>
-    setSkillsState((currentSkillsState) => [...currentSkillsState, skill]);
 
   const methods = useForm({});
   const reset = methods.reset;
@@ -105,7 +109,7 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <SkillsEditor onNewSkillAdded={onNewSkillAdded} skills={skillsState} />
+        <SkillsEditor onSkillsChanged={setSkillsState} skills={skillsState} />
       </EditModalWrapper>
     </StyledCard>
   );
