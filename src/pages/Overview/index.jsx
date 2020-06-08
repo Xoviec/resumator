@@ -70,7 +70,9 @@ const Home = ({ searchText }) => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <StyledButton href="/creator" variant="contained" color="primary">Add Resume</StyledButton>
+        <StyledButton href="/creator" variant="contained" color="primary">
+          Add Resume
+        </StyledButton>
       </Grid>
       {readyToRender && data && (
         <Grid item xs={12}>
@@ -163,7 +165,7 @@ const Home = ({ searchText }) => {
               },
             }}
           />
-      </Grid>
+        </Grid>
       )}
     </Grid>
   );
