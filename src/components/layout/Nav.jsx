@@ -229,16 +229,6 @@ const Nav = ({ handleSearch }) => {
         <List className={classes.iconList}>
           <ListItem
             button
-            key={"create"}
-            className={classes.listItem}
-            selected={location.pathname === "/creator"}
-          >
-            <IconButton aria-label="creator" onClick={() => goTo("/creator")}>
-              <AddCircle />
-            </IconButton>
-          </ListItem>
-          <ListItem
-            button
             key={"overview"}
             className={classes.listItem}
             selected={location.pathname === "/overview"}
