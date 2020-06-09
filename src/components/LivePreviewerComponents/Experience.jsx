@@ -141,9 +141,9 @@ const Experience = ({
           format="dd/MM/yyyy"
         />
         <SkillsSelect
-          label="Skills"
+          onSkillsChanged={setSkillsState}
           skills={skillsState}
-          setSkills={setSkillsState}
+          label="Skills"
         />
       </EditModalWrapper>
     </Card>
