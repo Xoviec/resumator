@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Card from "../Card";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
-import EditIcon from "./EditIcon";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "@material-ui/core";
 import CustomChip from "./CustomChip";
+import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
+import EditIcon from "./EditIcon";
 import SkillsSelectFormField from "./SkillsSelectFormField";
 
 const Skills = ({ skills, onSubmit }) => {
@@ -85,9 +85,8 @@ const StyledCard = styled(Card)`
 `;
 
 const SkillsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export default Skills;

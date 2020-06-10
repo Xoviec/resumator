@@ -10,17 +10,19 @@ const SkillsSelectFormField = ({
   formRules,
   name,
 }) => {
+  const onChange = ([value]) => {
+    onSkillsChanged(value);
+
+    return value;
+  };
+
   return (
     <Controller
       as={(props) => <SkillsSelect {...props} label={label} />}
       control={formControl}
       rules={formRules}
       name={name}
-      onChange={([value]) => {
-        onSkillsChanged(value);
-
-        return value;
-      }}
+      onChange={onChange}
       defaultValue={skills}
     />
   );

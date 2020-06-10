@@ -123,10 +123,10 @@ const LivePreviewerTemplate = ({ data }) => {
         </ColumnContainer>
         {dataState.projects && (
           <Experience
+            type="Projects"
             onEditHandler={(values) => onEditSectionItem("projects", values)}
             onDeleteHandler={(values) => onDeleteSectionItem("projects", values)}
             onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
-            type="Projects"
             experience={dataState.projects}
           />
         )}

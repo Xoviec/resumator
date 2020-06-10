@@ -1,13 +1,13 @@
 import React from "react";
-import CustomChip from "./CustomChip";
-import { skillsConstants } from "../../config/skills.constants";
 import { TextField, InputLabel } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import Chip from "@material-ui/core/Chip";
+import { skillsConstants } from "../../config/skills.constants";
 
 const SkillsSelect = ({ value, onChange, label }) => {
   const renderSelectedSkills = (currentSkills, getTagProps) =>
     currentSkills.map(({ name }, index) => (
-      <CustomChip
+      <Chip
         key={name}
         label={name}
         size="small"

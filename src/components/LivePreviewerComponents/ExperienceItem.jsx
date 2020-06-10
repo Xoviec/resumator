@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { getFormattedDate } from "../../utils/getFormattedDate";
-import ActionButtons from "./ActionButtons";
 import styled from "@emotion/styled";
 import { Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider";
-import CustomChip from "./CustomChip";
 import Box from "@material-ui/core/Box";
+import { getFormattedDate } from "../../utils/getFormattedDate";
+import ActionButtons from "./ActionButtons";
+import CustomChip from "./CustomChip";
 
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +62,8 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
 };
 
 const ChipContainer = styled.div`
-  margin: 0 8px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Techniques = styled.div`
