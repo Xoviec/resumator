@@ -115,7 +115,7 @@ const Experience = ({
           defaultValue=""
         />
 
-        <RichTextEditor value={descriptionState} onChange={setDescriptionState(value)} />
+        <RichTextEditor value={descriptionState} onChange={setDescriptionState} />
 
         <Input
           as={DatePicker}
