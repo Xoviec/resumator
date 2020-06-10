@@ -10,7 +10,10 @@ const RichTextEditor = (props) => {
   const editorRef = React.useRef();
 
   const [editorState, setEditorState] = React.useState(() =>
-  !!props.value ? EditorState.createWithContent(stateFromHTML(props.value)) : EditorState.createEmpty());
+    !!props.value
+      ? EditorState.createWithContent(stateFromHTML(props.value))
+      : EditorState.createEmpty()
+  );
 
   const onChange = (newEditorState) => {
     props.onChange(stateToHTML(newEditorState.getCurrentContent()));

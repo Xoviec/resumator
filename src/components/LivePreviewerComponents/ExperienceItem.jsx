@@ -20,7 +20,7 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
           {getFormattedDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
-      <div dangerouslySetInnerHTML={{__html: experienceItem.description }} />
+      <div dangerouslySetInnerHTML={{ __html: experienceItem.description }} />
       <Link
         color="secondary"
         href="#"
