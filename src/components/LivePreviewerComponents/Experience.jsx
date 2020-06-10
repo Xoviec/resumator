@@ -11,6 +11,7 @@ import ExperienceItem from "./ExperienceItem";
 import { DatePicker } from "@material-ui/pickers";
 import EmptyNotice from "./EmptyNotice";
 import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
+import RichTextEditor from "./RichTextEditor";
 
 const Experience = ({
   type,
@@ -27,6 +28,7 @@ const Experience = ({
       ? experience.skills.map((s) => s.name)
       : []
   );
+  const [descriptionState, setDescriptionState] = React.useState();
 
   useEffect(() => {
     if (currentItemId) {
@@ -41,6 +43,7 @@ const Experience = ({
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
+    setDescriptionState(experienceEntry.description);
     setIsEditingExisting(true);
     methods.reset(experienceEntry);
     setIsEditing(true);
@@ -82,9 +85,13 @@ const Experience = ({
               ...methods.getValues(),
               id: currentItemId,
               skills: createSkillObjects(skillsState),
+              description: descriptionState,
             });
           } else {
-            onSubmit(methods.getValues());
+            onSubmit({
+              ...methods.getValues(),
+              description: descriptionState,
+            });
           }
           setCurrentItemId(null);
           setIsEditing(false);
@@ -108,15 +115,7 @@ const Experience = ({
           defaultValue=""
         />
 
-        <Input
-          as={TextField}
-          name="description"
-          label="Description"
-          control={methods.control}
-          defaultValue=""
-          multiline
-          rows={4}
-        />
+        <RichTextEditor value={descriptionState} onChange={setDescriptionState(value)} />
 
         <Input
           as={DatePicker}

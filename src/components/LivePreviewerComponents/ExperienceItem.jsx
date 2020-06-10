@@ -20,11 +20,7 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
           {getFormattedDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
-      <Typography variant="body1">
-        {isOpen
-          ? experienceItem.description
-          : experienceItem.description.substring(0, 140) + "..."}
-      </Typography>
+      <div dangerouslySetInnerHTML={{__html: experienceItem.description }} />
       <Link
         color="secondary"
         href="#"
