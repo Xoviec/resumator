@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "@material-ui/core";
-import CustomChip from "./CustomChip";
 import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
 import EditIcon from "./EditIcon";
 import SkillsSelectFormField from "./SkillsSelectFormField";
+import Chip from "@material-ui/core/Chip";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -84,9 +84,17 @@ const StyledCard = styled(Card)`
   }
 `;
 
+const CHIP_GUTTER = 8;
 const SkillsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-top: -${CHIP_GUTTER}px;
+  margin-left: -${CHIP_GUTTER}px;
+`;
+
+const CustomChip = styled(Chip)`
+  margin-left: ${CHIP_GUTTER}px;
+  margin-top: ${CHIP_GUTTER}px;
 `;
 
 export default Skills;
