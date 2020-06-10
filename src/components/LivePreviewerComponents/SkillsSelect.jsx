@@ -1,22 +1,15 @@
-import React, { useRef } from "react";
+import React from "react";
 import CustomChip from "./CustomChip";
 import { skillsConstants } from "../../config/skills.constants";
 import { TextField, InputLabel } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 
-export const createSkillObjects = (skillStrings) => {
-  return skillStrings.map((s) => ({ name: s }));
-};
-
 const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
-  // This is necessary because this value shouldn't change
-  // so MUI doesn't throw warnings
-  const { current: defaultValue } = useRef(skills);
   const renderSelectedSkills = (currentSkills, getTagProps) =>
-    currentSkills.map((skill, index) => (
+    currentSkills.map(({ name }, index) => (
       <CustomChip
-        key={skill}
-        label={skill}
+        key={name}
+        label={name}
         size="small"
         variant="outlined"
         color="secondary"
@@ -32,7 +25,14 @@ const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
     />
   );
 
-  const onChange = (event, skills) => onSkillsChanged(skills);
+  const onChange = (event, inputValue) => {
+    const skills = [...inputValue];
+    const addedSkill = skills.pop();
+
+    skills.push({ name: addedSkill });
+
+    onSkillsChanged(skills);
+  };
 
   return (
     <>
@@ -46,7 +46,7 @@ const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
         disableClearable
         disableCloseOnSelect
         options={skillsConstants}
-        defaultValue={defaultValue}
+        value={skills}
         renderTags={renderSelectedSkills}
         renderInput={renderInput}
         onChange={onChange}

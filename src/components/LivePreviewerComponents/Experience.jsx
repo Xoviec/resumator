@@ -9,7 +9,7 @@ import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
+import SkillsSelect from "./SkillsSelect";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 
@@ -23,11 +23,7 @@ const Experience = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
-  const [skillsState, setSkillsState] = React.useState(
-    experience.skills && experience.skills.length > 0
-      ? experience.skills.map((s) => s.name)
-      : []
-  );
+  const [skillsState, setSkillsState] = React.useState(experience.skills || []);
 
   useEffect(() => {
     if (currentItemId) {
@@ -82,7 +78,7 @@ const Experience = ({
             onEditHandler({
               ...methods.getValues(),
               id: currentItemId,
-              skills: createSkillObjects(skillsState),
+              skills: skillsState,
             });
           } else {
             onSubmit(methods.getValues());
@@ -108,7 +104,6 @@ const Experience = ({
           control={methods.control}
           defaultValue=""
         />
-
         <Input
           as={TextField}
           name="description"
@@ -118,7 +113,6 @@ const Experience = ({
           multiline
           rows={4}
         />
-
         <Input
           as={DatePicker}
           control={methods.control}
@@ -143,6 +137,7 @@ const Experience = ({
           format="dd/MM/yyyy"
           defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
+
         <SkillsSelect
           onSkillsChanged={setSkillsState}
           skills={skillsState}

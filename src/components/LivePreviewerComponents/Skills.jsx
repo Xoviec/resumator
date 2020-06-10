@@ -8,17 +8,13 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "@material-ui/core";
 import CustomChip from "./CustomChip";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
+import SkillsSelect from "./SkillsSelect";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [skillsState, setSkillsState] = React.useState(
-    skills.length > 0 ? skills.map((s) => s.name) : []
-  );
-
+  const [skillsState, setSkillsState] = React.useState(skills || []);
   const methods = useForm({});
-  const reset = methods.reset;
-  const getValues = methods.getValues;
+  const { reset, getValues } = methods;
 
   useEffect(() => {
     reset({});
@@ -35,12 +31,12 @@ const Skills = ({ skills, onSubmit }) => {
         icon={faPen}
       />
       <SkillsContainer>
-        {skills.map((s) => (
+        {skills.map((skill) => (
           <CustomChip
-            key={s.name}
+            key={skill.name}
             size="small"
             variant="outlined"
-            label={s.name}
+            label={skill.name}
             color="secondary"
           />
         ))}
@@ -57,7 +53,7 @@ const Skills = ({ skills, onSubmit }) => {
         contentLabel="Edit skills"
         heading="Skills"
         onPrimaryActionClicked={() => {
-          onSubmit("skills", createSkillObjects(skillsState));
+          onSubmit("skills", skillsState);
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
