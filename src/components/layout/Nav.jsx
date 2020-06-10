@@ -13,7 +13,7 @@ import {
   TextField,
   Toolbar,
 } from "@material-ui/core";
-import { AccountCircle, AddCircle, Menu as MenuIcon, Notifications, People, Search, Web, } from "@material-ui/icons";
+import { AccountCircle, Menu as MenuIcon, Notifications, People, Search, Web, } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
@@ -227,16 +227,6 @@ const Nav = ({ handleSearch }) => {
       >
         <div className={classes.toolbar} />
         <List className={classes.iconList}>
-          <ListItem
-            button
-            key={"create"}
-            className={classes.listItem}
-            selected={location.pathname === "/creator"}
-          >
-            <IconButton aria-label="creator" onClick={() => goTo("/creator")}>
-              <AddCircle />
-            </IconButton>
-          </ListItem>
           <ListItem
             button
             key={"overview"}
