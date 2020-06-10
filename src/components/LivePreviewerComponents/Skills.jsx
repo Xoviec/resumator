@@ -8,13 +8,15 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "@material-ui/core";
 import CustomChip from "./CustomChip";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect from "./SkillsSelect";
+import SkillsSelectFormField from "./SkillsSelectFormField";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = React.useState(skills || []);
   const methods = useForm({});
-  const { reset, getValues } = methods;
+  const { reset, getValues, control } = methods;
+
+  console.log("This must be populated:", getValues());
 
   useEffect(() => {
     reset({});
@@ -61,10 +63,13 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <SkillsSelect
+        <SkillsSelectFormField
           onSkillsChanged={setSkillsState}
           skills={skillsState}
           label="Skills"
+          formControl={control}
+          formRules={{ required: true }}
+          name="skills"
         />
       </EditModalWrapper>
     </StyledCard>

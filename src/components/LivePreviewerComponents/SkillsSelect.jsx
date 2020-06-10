@@ -4,7 +4,7 @@ import { skillsConstants } from "../../config/skills.constants";
 import { TextField, InputLabel } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 
-const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
+const SkillsSelect = ({ value, onChange, label }) => {
   const renderSelectedSkills = (currentSkills, getTagProps) =>
     currentSkills.map(({ name }, index) => (
       <CustomChip
@@ -25,13 +25,14 @@ const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
     />
   );
 
-  const onChange = (event, inputValue) => {
+  const onAutocompleteChange = (event, inputValue) => {
     const skills = [...inputValue];
     const addedSkill = skills.pop();
 
     skills.push({ name: addedSkill });
+    onChange(skills);
 
-    onSkillsChanged(skills);
+    return skills;
   };
 
   return (
@@ -46,10 +47,10 @@ const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
         disableClearable
         disableCloseOnSelect
         options={skillsConstants}
-        value={skills}
+        value={value}
         renderTags={renderSelectedSkills}
         renderInput={renderInput}
-        onChange={onChange}
+        onChange={onAutocompleteChange}
       />
     </>
   );
