@@ -26,6 +26,14 @@ const SkillsSelect = ({ value, onChange, label }) => {
   );
 
   const onAutocompleteChange = (event, inputValue) => {
+    const wasSkillRemoved = inputValue.length < value.length;
+
+    if (wasSkillRemoved) {
+      onChange(inputValue);
+
+      return inputValue;
+    }
+
     const skills = [...inputValue];
     const addedSkill = skills.pop();
 
