@@ -14,13 +14,11 @@ const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = React.useState(skills || []);
   const methods = useForm({});
-  const { reset, getValues, control } = methods;
-
-  console.log("This must be populated:", getValues());
+  const { reset, control } = methods;
 
   useEffect(() => {
     reset({});
-  }, [skills, getValues, reset]);
+  }, [skills, reset]);
 
   return (
     <StyledCard>

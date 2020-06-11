@@ -43,6 +43,8 @@ const SkillsSelect = ({ value, onChange, label }) => {
     return skills;
   };
 
+  const getOptionSelected = (option, skill) => option === skill.name;
+
   return (
     <>
       {label && <InputLabel id="skill-label">{label}</InputLabel>}
@@ -59,6 +61,7 @@ const SkillsSelect = ({ value, onChange, label }) => {
         renderTags={renderSelectedSkills}
         renderInput={renderInput}
         onChange={onAutocompleteChange}
+        getOptionSelected={getOptionSelected}
       />
     </>
   );
