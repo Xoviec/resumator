@@ -20,7 +20,7 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
           {getFormattedDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
-      <Grid style={{ overflowY: 'hidden', maxHeight: isOpen ? null : 70 }}>
+      <Grid style={{ overflowY: 'hidden', maxHeight: isOpen ? null : 50 }}>
         <div dangerouslySetInnerHTML={{ __html: experienceItem.description }} />
       </Grid>
       <Link
