@@ -4,6 +4,12 @@ import { Autocomplete } from "@material-ui/lab";
 import Chip from "@material-ui/core/Chip";
 import { skillsConstants } from "../../config/skills.constants";
 
+const AUTOCOMPLETE_REASONS = {
+  ADD: "select-option", // Added via dropdown/select options
+  CREATE: "create-option", // Added via typing
+  REMOVE: "remove-option",
+};
+
 const SkillsSelect = ({ value, onChange, label }) => {
   const renderSelectedSkills = (currentSkills, getTagProps) =>
     currentSkills.map(({ name }, index) => (
@@ -25,22 +31,27 @@ const SkillsSelect = ({ value, onChange, label }) => {
     />
   );
 
-  const onAutocompleteChange = (event, inputValue) => {
-    const wasSkillRemoved = inputValue.length < value.length;
-
-    if (wasSkillRemoved) {
+  const onAutocompleteChange = (event, inputValue, reason) => {
+    if (reason === AUTOCOMPLETE_REASONS.REMOVE) {
       onChange(inputValue);
 
       return inputValue;
     }
 
-    const skills = [...inputValue];
-    const addedSkill = skills.pop();
+    if (
+      reason === AUTOCOMPLETE_REASONS.ADD ||
+      reason === AUTOCOMPLETE_REASONS.CREATE
+    ) {
+      const skills = [...inputValue];
+      const addedSkill = skills.pop();
 
-    skills.push({ name: addedSkill });
-    onChange(skills);
+      skills.push({ name: addedSkill });
+      onChange(skills);
 
-    return skills;
+      return skills;
+    }
+
+    return inputValue;
   };
 
   const getOptionSelected = (option, skill) => option === skill.name;
