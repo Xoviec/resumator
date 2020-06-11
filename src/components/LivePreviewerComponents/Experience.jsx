@@ -74,14 +74,15 @@ const Experience = ({
         contentLabel={`Add ${type} details`}
         heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
+          const values = getValues();
+
           if (editingExisting) {
             onEditHandler({
-              ...getValues(),
+              ...values,
               id: currentItemId,
-              skills: skillsState,
             });
           } else {
-            onSubmit(getValues());
+            onSubmit(values);
           }
           setCurrentItemId(null);
           setIsEditing(false);

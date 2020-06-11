@@ -13,8 +13,8 @@ import Chip from "@material-ui/core/Chip";
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = React.useState(skills || []);
-  const methods = useForm({});
-  const { reset, control } = methods;
+  const methods = useForm();
+  const { reset, control, getValues } = methods;
 
   useEffect(() => {
     reset({});
@@ -53,7 +53,9 @@ const Skills = ({ skills, onSubmit }) => {
         contentLabel="Edit skills"
         heading="Skills"
         onPrimaryActionClicked={() => {
-          onSubmit("skills", skillsState);
+          const { skills } = getValues();
+
+          onSubmit("skills", skills);
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
