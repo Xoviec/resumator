@@ -40,11 +40,11 @@ const Skills = ({ skills, onSubmit }) => {
             color="secondary"
           />
         ))}
-
-        <EmptyNotice items={skills}>
-          Click on the pen icon to add new skills
-        </EmptyNotice>
       </SkillsContainer>
+
+      <EmptyNotice items={skills}>
+        Click on the pen icon to add new skills
+      </EmptyNotice>
 
       <EditModalWrapper
         isOpen={isEditing}
