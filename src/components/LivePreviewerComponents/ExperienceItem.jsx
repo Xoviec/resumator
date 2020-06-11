@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import ActionButtons from "./ActionButtons";
 import styled from "@emotion/styled";
-import { Typography } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider";
 import CustomChip from "./CustomChip";
@@ -20,7 +20,9 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
           {getFormattedDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
-      <div dangerouslySetInnerHTML={{ __html: experienceItem.description }} />
+      <Grid style={{ overflowY: 'hidden', maxHeight: isOpen ? null : 70 }}>
+        <div dangerouslySetInnerHTML={{ __html: experienceItem.description }} />
+      </Grid>
       <Link
         color="secondary"
         href="#"
