@@ -20,7 +20,10 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
           {getFormattedDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
-      <Grid className={ !isOpen ? "container": ""} style={{ maxHeight: isOpen ? null : 45 }}>
+      <Grid
+        className={!isOpen ? "container" : ""}
+        style={{ maxHeight: isOpen ? null : 45 }}
+      >
         <div dangerouslySetInnerHTML={{ __html: experienceItem.description }} />
       </Grid>
       <Link
