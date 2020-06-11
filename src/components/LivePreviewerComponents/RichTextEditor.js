@@ -1,22 +1,30 @@
 import React from "react";
 
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from "draft-js";
-
-import { stateToHTML } from "draft-js-export-html";
-import { stateFromHTML } from "draft-js-import-html";
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  getDefaultKeyBinding,
+  convertFromRaw,
+  convertToRaw,
+} from "draft-js";
 import "draft-js/dist/Draft.css";
 
 const RichTextEditor = (props) => {
   const editorRef = React.useRef();
+  let editor;
 
+  try {
+    editor = convertFromRaw(JSON.parse(props.value));
+  } catch (e) {
+    editor = null;
+  }
   const [editorState, setEditorState] = React.useState(() =>
-    !!props.value
-      ? EditorState.createWithContent(stateFromHTML(props.value))
-      : EditorState.createEmpty()
+    !!editor ? EditorState.createWithContent(editor) : EditorState.createEmpty()
   );
 
   const onChange = (newEditorState) => {
-    props.onChange(stateToHTML(newEditorState.getCurrentContent()));
+    props.onChange(JSON.stringify(convertToRaw(newEditorState.getCurrentContent())));
     setEditorState(newEditorState);
   };
 
@@ -99,6 +107,7 @@ function getBlockStyle(block) {
 const StyleButton = (props) => {
   const onToggle = (e) => {
     e.preventDefault();
+    console.log("props.style : ", props.style);
     props.onToggle(props.style);
   };
 
@@ -121,10 +130,8 @@ const BLOCK_TYPES = [
   { label: "H4", style: "header-four" },
   { label: "H5", style: "header-five" },
   { label: "H6", style: "header-six" },
-  { label: "Blockquote", style: "blockquote" },
   { label: "UL", style: "unordered-list-item" },
   { label: "OL", style: "ordered-list-item" },
-  { label: "Code Block", style: "code-block" },
 ];
 
 const BlockStyleControls = (props) => {
@@ -154,7 +161,6 @@ const INLINE_STYLES = [
   { label: "Bold", style: "BOLD" },
   { label: "Italic", style: "ITALIC" },
   { label: "Underline", style: "UNDERLINE" },
-  { label: "Monospace", style: "CODE" },
 ];
 
 const InlineStyleControls = (props) => {

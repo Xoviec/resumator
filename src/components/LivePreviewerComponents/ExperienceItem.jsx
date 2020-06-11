@@ -7,9 +7,20 @@ import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider";
 import CustomChip from "./CustomChip";
 import Box from "@material-ui/core/Box";
+import { convertFromRaw, EditorState } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
+
 
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
+  let editor;
+  try{
+    editor =  convertFromRaw(JSON.parse(experienceItem.description))
+    editor = EditorState.createWithContent(editor)
+    editor = stateToHTML(editor.getCurrentContent())
+  } catch(e){
+    editor= null
+  }
   return (
     <ExperienceItemContainer id={experienceItem.id}>
       <TopSection>
@@ -24,7 +35,9 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
         className={!isOpen ? "container" : ""}
         style={{ maxHeight: isOpen ? null : 45 }}
       >
-        <div dangerouslySetInnerHTML={{ __html: experienceItem.description }} />
+        {
+          editor ?  <div dangerouslySetInnerHTML={{ __html: editor }} /> : experienceItem.description
+        }
       </Grid>
       <Link
         color="secondary"
