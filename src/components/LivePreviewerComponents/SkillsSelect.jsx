@@ -1,22 +1,21 @@
-import React, { useRef } from "react";
-import CustomChip from "./CustomChip";
-import { skillsConstants } from "../../config/skills.constants";
+import React from "react";
 import { TextField, InputLabel } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import Chip from "@material-ui/core/Chip";
+import { skillsConstants } from "../../config/skills.constants";
 
-export const createSkillObjects = (skillStrings) => {
-  return skillStrings.map((s) => ({ name: s }));
+const AUTOCOMPLETE_REASONS = {
+  ADD: "select-option", // Added via dropdown/select options
+  CREATE: "create-option", // Added via typing
+  REMOVE: "remove-option",
 };
 
-const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
-  // This is necessary because this value shouldn't change
-  // so MUI doesn't throw warnings
-  const { current: defaultValue } = useRef(skills);
+const SkillsSelect = ({ value, onChange, label }) => {
   const renderSelectedSkills = (currentSkills, getTagProps) =>
-    currentSkills.map((skill, index) => (
-      <CustomChip
-        key={skill}
-        label={skill}
+    currentSkills.map(({ name }, index) => (
+      <Chip
+        key={name}
+        label={name}
         size="small"
         variant="outlined"
         color="secondary"
@@ -32,7 +31,30 @@ const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
     />
   );
 
-  const onChange = (event, skills) => onSkillsChanged(skills);
+  const onAutocompleteChange = (event, inputValue, reason) => {
+    if (reason === AUTOCOMPLETE_REASONS.REMOVE) {
+      onChange(inputValue);
+
+      return inputValue;
+    }
+
+    if (
+      reason === AUTOCOMPLETE_REASONS.ADD ||
+      reason === AUTOCOMPLETE_REASONS.CREATE
+    ) {
+      const skills = [...inputValue];
+      const addedSkill = skills.pop();
+
+      skills.push({ name: addedSkill });
+      onChange(skills);
+
+      return skills;
+    }
+
+    return inputValue;
+  };
+
+  const getOptionSelected = (option, skill) => option === skill.name;
 
   return (
     <>
@@ -46,10 +68,11 @@ const SkillsSelect = ({ skills, onSkillsChanged, label }) => {
         disableClearable
         disableCloseOnSelect
         options={skillsConstants}
-        defaultValue={defaultValue}
+        value={value}
         renderTags={renderSelectedSkills}
         renderInput={renderInput}
-        onChange={onChange}
+        onChange={onAutocompleteChange}
+        getOptionSelected={getOptionSelected}
       />
     </>
   );

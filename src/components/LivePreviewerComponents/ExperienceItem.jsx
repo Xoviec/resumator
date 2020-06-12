@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { getFormattedDate } from "../../utils/getFormattedDate";
-import ActionButtons from "./ActionButtons";
 import styled from "@emotion/styled";
 import { Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider";
-import CustomChip from "./CustomChip";
 import Box from "@material-ui/core/Box";
+import { getFormattedDate } from "../../utils/getFormattedDate";
+import ActionButtons from "./ActionButtons";
+import Chip from "@material-ui/core/Chip";
 
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,17 +37,18 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
       </Link>
       <Techniques>
         <Typography variant="subtitle2">Skills:</Typography>
-        {experienceItem.skills &&
-          experienceItem.skills.map(({ name }) => (
-            <ChipContainer key={name}>
+        <SkillsContainer>
+          {experienceItem.skills &&
+            experienceItem.skills.map(({ name }) => (
               <CustomChip
+                key={name}
                 size="small"
                 variant="outlined"
                 label={name}
                 color="secondary"
               />
-            </ChipContainer>
-          ))}
+            ))}
+        </SkillsContainer>
       </Techniques>
       <ActionButtons
         className={`edit-button-${experienceItem.id}`}
@@ -61,13 +62,21 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   );
 };
 
-const ChipContainer = styled.div`
-  margin: 0 8px;
+const CHIP_GUTTER = 8;
+const SkillsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: -${CHIP_GUTTER}px;
+`;
+
+const CustomChip = styled(Chip)`
+  margin-left: ${CHIP_GUTTER}px;
+  margin-top: ${CHIP_GUTTER}px;
 `;
 
 const Techniques = styled.div`
   display: flex;
-  align-items: center;
   padding: 4px;
   margin: 0;
   font-size: 13px;

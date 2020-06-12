@@ -9,9 +9,9 @@ import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
+import SkillsSelectFormField from "./SkillsSelectFormField";
 
 const Experience = ({
   type,
@@ -23,11 +23,7 @@ const Experience = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
-  const [skillsState, setSkillsState] = React.useState(
-    experience.skills && experience.skills.length > 0
-      ? experience.skills.map((s) => s.name)
-      : []
-  );
+  const [skillsState, setSkillsState] = React.useState(experience.skills || []);
 
   useEffect(() => {
     if (currentItemId) {
@@ -37,13 +33,13 @@ const Experience = ({
       setSkillsState([]);
     }
   }, [experience, currentItemId]);
-
   const methods = useForm({});
+  const { control, getValues, reset } = methods;
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
     setIsEditingExisting(true);
-    methods.reset(experienceEntry);
+    reset(experienceEntry);
     setIsEditing(true);
   };
 
@@ -71,21 +67,22 @@ const Experience = ({
         isOpen={isEditing}
         onRequestClose={() => {
           setIsEditingExisting(false);
-          methods.reset({});
+          reset({});
           setIsEditing(false);
         }}
         methods={methods}
         contentLabel={`Add ${type} details`}
         heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
+          const values = getValues();
+
           if (editingExisting) {
             onEditHandler({
-              ...methods.getValues(),
+              ...values,
               id: currentItemId,
-              skills: createSkillObjects(skillsState),
             });
           } else {
-            onSubmit(methods.getValues());
+            onSubmit(values);
           }
           setCurrentItemId(null);
           setIsEditing(false);
@@ -98,30 +95,28 @@ const Experience = ({
           as={TextField}
           name="company"
           label="Company"
-          control={methods.control}
+          control={control}
           defaultValue=""
         />
         <Input
           as={TextField}
           name="role"
           label="Role"
-          control={methods.control}
+          control={control}
           defaultValue=""
         />
-
         <Input
           as={TextField}
           name="description"
           label="Description"
-          control={methods.control}
+          control={control}
           defaultValue=""
           multiline
           rows={4}
         />
-
         <Input
           as={DatePicker}
-          control={methods.control}
+          control={control}
           rules={{ required: true }}
           onChange={([selected]) => {
             return selected;
@@ -133,7 +128,7 @@ const Experience = ({
         />
         <Input
           as={DatePicker}
-          control={methods.control}
+          control={control}
           rules={{ required: true }}
           onChange={([selected]) => {
             return selected;
@@ -143,10 +138,14 @@ const Experience = ({
           format="dd/MM/yyyy"
           defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
-        <SkillsSelect
+
+        <SkillsSelectFormField
           onSkillsChanged={setSkillsState}
           skills={skillsState}
           label="Skills"
+          formControl={control}
+          formRules={{ required: true }}
+          name="skills"
         />
       </EditModalWrapper>
     </Card>
