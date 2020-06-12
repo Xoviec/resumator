@@ -107,7 +107,6 @@ function getBlockStyle(block) {
 const StyleButton = (props) => {
   const onToggle = (e) => {
     e.preventDefault();
-    console.log("props.style : ", props.style);
     props.onToggle(props.style);
   };
 

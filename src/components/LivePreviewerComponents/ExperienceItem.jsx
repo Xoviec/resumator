@@ -10,16 +10,15 @@ import Box from "@material-ui/core/Box";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 
-
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
   let editor;
-  try{
-    editor =  convertFromRaw(JSON.parse(experienceItem.description))
-    editor = EditorState.createWithContent(editor)
-    editor = stateToHTML(editor.getCurrentContent())
-  } catch(e){
-    editor= null
+  try {
+    editor = convertFromRaw(JSON.parse(experienceItem.description));
+    editor = EditorState.createWithContent(editor);
+    editor = stateToHTML(editor.getCurrentContent());
+  } catch (e) {
+    editor = null;
   }
   return (
     <ExperienceItemContainer id={experienceItem.id}>
@@ -33,11 +32,13 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
       </TopSection>
       <Grid
         className={!isOpen ? "container" : ""}
-        style={{ maxHeight: isOpen ? null : 45 }}
+        style={{ maxHeight: isOpen ? null : 60 }}
       >
-        {
-          editor ?  <div dangerouslySetInnerHTML={{ __html: editor }} /> : experienceItem.description
-        }
+        {editor ? (
+          <div dangerouslySetInnerHTML={{ __html: editor }} />
+        ) : (
+          experienceItem.description
+        )}
       </Grid>
       <Link
         color="secondary"
