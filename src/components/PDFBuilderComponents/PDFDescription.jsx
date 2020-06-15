@@ -45,7 +45,11 @@ const generateInlineStyle = (block) => {
   const text = block.text;
   let nestedTexts = [];
   let offset = 0;
-  if (inlineStyleRanges.length === 0) return block.text;
+
+  if (inlineStyleRanges.length === 0) {
+    return block.text;
+  }
+
   for (let i = 0; i < inlineStyleRanges.length; i++) {
     const inlineStyle = inlineStyleRanges[i];
     const extractUnstyledText = text.slice(offset, inlineStyle.offset);
@@ -53,8 +57,10 @@ const generateInlineStyle = (block) => {
       inlineStyle.offset,
       inlineStyle.offset + inlineStyle.length
     );
+
     offset = inlineStyle.offset + inlineStyle.length;
     nestedTexts.push(<Text>{extractUnstyledText}</Text>);
+
     let styledText = "";
     switch (inlineStyle.style) {
       case "UNDERLINE":
@@ -70,8 +76,10 @@ const generateInlineStyle = (block) => {
         styledText = <Text></Text>;
         break;
     }
+
     nestedTexts.push(styledText);
   }
+
   return nestedTexts;
 };
 

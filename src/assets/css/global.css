@@ -13,14 +13,18 @@ html, body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-.container{
+.container {
   position: relative;
   overflow: hidden;
 }
 
-.container:after{
+.container:after {
   content: "";
-  position: absolute; top: 0; bottom: 0; left: -15px; right: -15px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -15px;
+  right: -15px;
   box-shadow: inset white 0 -15px 10px;
 }
 

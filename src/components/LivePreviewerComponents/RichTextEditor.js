@@ -96,12 +96,10 @@ const styleMap = {
 };
 
 function getBlockStyle(block) {
-  switch (block.getType()) {
-    case "blockquote":
-      return "RichEditor-blockquote";
-    default:
-      return null;
+  if (block.getType() === "blockquote") {
+    return "RichEditor-blockquote";
   }
+  return null;
 }
 
 const StyleButton = (props) => {
