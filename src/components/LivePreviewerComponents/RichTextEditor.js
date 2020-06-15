@@ -140,7 +140,7 @@ const BlockStyleControls = (props) => {
     .getType();
 
   return (
-    <div className="RichEditor-controls">
+    <>
       {BLOCK_TYPES.map((type) => (
         <StyleButton
           key={type.label}
@@ -150,7 +150,7 @@ const BlockStyleControls = (props) => {
           style={type.style}
         />
       ))}
-    </div>
+    </>
   );
 };
 
@@ -164,7 +164,7 @@ const InlineStyleControls = (props) => {
   const currentStyle = props.editorState.getCurrentInlineStyle();
 
   return (
-    <div className="RichEditor-controls">
+    <>
       {INLINE_STYLES.map((type) => (
         <StyleButton
           key={type.label}
@@ -174,7 +174,7 @@ const InlineStyleControls = (props) => {
           style={type.style}
         />
       ))}
-    </div>
+    </>
   );
 };
 
