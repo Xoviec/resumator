@@ -9,7 +9,6 @@ import {
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
-import { Grid } from "@material-ui/core";
 
 const RichTextEditor = (props) => {
   const editorRef = React.useRef();
