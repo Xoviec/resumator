@@ -1,61 +1,80 @@
 import React from "react";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import CustomChip from "./CustomChip";
+import { TextField, InputLabel } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
+import Chip from "@material-ui/core/Chip";
 import { skillsConstants } from "../../config/skills.constants";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
 
-export const createSkillObjects = (skillStrings) => {
-  return skillStrings.map((s) => ({ name: s }));
+const AUTOCOMPLETE_REASONS = {
+  ADD: "select-option", // Added via dropdown/select options
+  CREATE: "create-option", // Added via typing
+  REMOVE: "remove-option",
 };
 
-const SkillsSelect = ({ skills, setSkills, label }) => {
-  const handleChange = (e) => {
-    setSkills(e.target.value);
+const SkillsSelect = ({ value, onChange, label }) => {
+  const renderSelectedSkills = (currentSkills, getTagProps) =>
+    currentSkills.map(({ name }, index) => (
+      <Chip
+        key={name}
+        label={name}
+        size="small"
+        variant="outlined"
+        color="secondary"
+        {...getTagProps({ index })}
+      />
+    ));
+
+  const renderInput = (params) => (
+    <TextField
+      {...params}
+      variant="outlined"
+      placeholder="Add frameworks, libraries, technologies..."
+    />
+  );
+
+  const onAutocompleteChange = (event, inputValue, reason) => {
+    if (reason === AUTOCOMPLETE_REASONS.REMOVE) {
+      onChange(inputValue);
+
+      return inputValue;
+    }
+
+    if (
+      reason === AUTOCOMPLETE_REASONS.ADD ||
+      reason === AUTOCOMPLETE_REASONS.CREATE
+    ) {
+      const skills = [...inputValue];
+      const addedSkill = skills.pop();
+
+      skills.push({ name: addedSkill });
+      onChange(skills);
+
+      return skills;
+    }
+
+    return inputValue;
   };
 
-  const handleDelete = (skillName) => {
-    const newSkills = skills.filter((s) => s !== skillName);
-    setSkills(newSkills);
-  };
+  const getOptionSelected = (option, skill) => option === skill.name;
+
   return (
-    <FormControl>
+    <>
       {label && <InputLabel id="skill-label">{label}</InputLabel>}
 
-      <Select
-        labelId="skill-label"
-        id="skill"
+      <Autocomplete
+        id="skill-list-autocomplete"
         multiple
-        value={skills}
-        onChange={handleChange}
-        renderValue={(selectedSkills) => {
-          return (
-            <>
-              {selectedSkills.map((skill) => (
-                <CustomChip
-                  size="small"
-                  variant="outlined"
-                  color="secondary"
-                  onMouseDown={(event) => {
-                    event.stopPropagation();
-                  }}
-                  key={skill}
-                  label={skill}
-                  onDelete={() => handleDelete(skill)}
-                />
-              ))}
-            </>
-          );
-        }}
-      >
-        {skillsConstants.map((name) => (
-          <MenuItem key={name} value={name}>
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+        freeSolo
+        fullWidth
+        disableClearable
+        disableCloseOnSelect
+        options={skillsConstants}
+        value={value}
+        renderTags={renderSelectedSkills}
+        renderInput={renderInput}
+        onChange={onAutocompleteChange}
+        getOptionSelected={getOptionSelected}
+      />
+    </>
   );
 };
 

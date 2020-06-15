@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Card from "../Card";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
-import EditIcon from "./EditIcon";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "@material-ui/core";
-import CustomChip from "./CustomChip";
+import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
+import EditIcon from "./EditIcon";
+import SkillsSelectFormField from "./SkillsSelectFormField";
+import Chip from "@material-ui/core/Chip";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [skillsState, setSkillsState] = React.useState(
-    skills.length > 0 ? skills.map((s) => s.name) : []
-  );
-  const methods = useForm({});
-
-  const reset = methods.reset;
-  const getValues = methods.getValues;
+  const [skillsState, setSkillsState] = React.useState(skills || []);
+  const methods = useForm();
+  const { reset, control, getValues } = methods;
 
   useEffect(() => {
     reset({});
-  }, [skills, getValues, reset]);
+  }, [skills, reset]);
 
   return (
     <StyledCard>
@@ -35,20 +31,20 @@ const Skills = ({ skills, onSubmit }) => {
         icon={faPen}
       />
       <SkillsContainer>
-        {skills.map((s) => (
+        {skills.map((skill) => (
           <CustomChip
-            key={s.name}
+            key={skill.name}
             size="small"
             variant="outlined"
-            label={s.name}
+            label={skill.name}
             color="secondary"
           />
         ))}
-
-        <EmptyNotice items={skills}>
-          Click on the pen icon to add new skills
-        </EmptyNotice>
       </SkillsContainer>
+
+      <EmptyNotice items={skills}>
+        Click on the pen icon to add new skills
+      </EmptyNotice>
 
       <EditModalWrapper
         isOpen={isEditing}
@@ -57,7 +53,9 @@ const Skills = ({ skills, onSubmit }) => {
         contentLabel="Edit skills"
         heading="Skills"
         onPrimaryActionClicked={() => {
-          onSubmit("skills", createSkillObjects(skillsState));
+          const { skills } = getValues();
+
+          onSubmit("skills", skills);
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
@@ -65,7 +63,14 @@ const Skills = ({ skills, onSubmit }) => {
           setIsEditing(false);
         }}
       >
-        <SkillsSelect skills={skillsState} setSkills={setSkillsState} />
+        <SkillsSelectFormField
+          onSkillsChanged={setSkillsState}
+          skills={skillsState}
+          label="Skills"
+          formControl={control}
+          formRules={{ required: true }}
+          name="skills"
+        />
       </EditModalWrapper>
     </StyledCard>
   );
@@ -79,10 +84,17 @@ const StyledCard = styled(Card)`
   }
 `;
 
+const CHIP_GUTTER = 8;
 const SkillsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -${CHIP_GUTTER}px;
+  margin-left: -${CHIP_GUTTER}px;
+`;
+
+const CustomChip = styled(Chip)`
+  margin-left: ${CHIP_GUTTER}px;
+  margin-top: ${CHIP_GUTTER}px;
 `;
 
 export default Skills;

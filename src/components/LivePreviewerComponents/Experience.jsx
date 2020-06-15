@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import Card from "../Card";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
-import Input from "../Input";
 import { TextField, Typography } from "@material-ui/core";
-import ExperienceItem from "./ExperienceItem";
 import { DatePicker } from "@material-ui/pickers";
+import Card from "../Card";
+import Input from "../Input";
+import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
 import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 import RichTextEditor from "./RichTextEditor";
+import ExperienceItem from "./ExperienceItem";
+import EditModalWrapper from "./ModalWrapper";
+import SkillsSelectFormField from "./SkillsSelectFormField";
 
 const Experience = ({
   type,
@@ -23,11 +25,7 @@ const Experience = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
-  const [skillsState, setSkillsState] = React.useState(
-    experience.skills && experience.skills.length > 0
-      ? experience.skills.map((s) => s.name)
-      : []
-  );
+  const [skillsState, setSkillsState] = React.useState(experience.skills || []);
   const [descriptionState, setDescriptionState] = React.useState();
 
   useEffect(() => {
@@ -38,14 +36,14 @@ const Experience = ({
       setSkillsState([]);
     }
   }, [experience, currentItemId]);
-
   const methods = useForm({});
+  const { control, getValues, reset } = methods;
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
     setDescriptionState(experienceEntry.description);
     setIsEditingExisting(true);
-    methods.reset(experienceEntry);
+    reset(experienceEntry);
     setIsEditing(true);
   };
 
@@ -73,25 +71,23 @@ const Experience = ({
         isOpen={isEditing}
         onRequestClose={() => {
           setIsEditingExisting(false);
-          methods.reset({});
+          reset({});
           setIsEditing(false);
         }}
         methods={methods}
         contentLabel={`Add ${type} details`}
         heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
+          const values = getValues();
+
           if (editingExisting) {
             onEditHandler({
-              ...methods.getValues(),
+              ...values,
               id: currentItemId,
-              skills: createSkillObjects(skillsState),
               description: descriptionState,
             });
           } else {
-            onSubmit({
-              ...methods.getValues(),
-              description: descriptionState,
-            });
+            onSubmit(values);
           }
           setCurrentItemId(null);
           setIsEditing(false);
@@ -104,14 +100,14 @@ const Experience = ({
           as={TextField}
           name="company"
           label="Company"
-          control={methods.control}
+          control={control}
           defaultValue=""
         />
         <Input
           as={TextField}
           name="role"
           label="Role"
-          control={methods.control}
+          control={control}
           defaultValue=""
         />
 
@@ -119,7 +115,7 @@ const Experience = ({
 
         <Input
           as={DatePicker}
-          control={methods.control}
+          control={control}
           rules={{ required: true }}
           onChange={([selected]) => {
             return selected;
@@ -127,10 +123,11 @@ const Experience = ({
           name="startDate"
           label="Start Date"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
         <Input
           as={DatePicker}
-          control={methods.control}
+          control={control}
           rules={{ required: true }}
           onChange={([selected]) => {
             return selected;
@@ -138,11 +135,16 @@ const Experience = ({
           name="endDate"
           label="End Date"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
-        <SkillsSelect
-          label="Skills"
+
+        <SkillsSelectFormField
+          onSkillsChanged={setSkillsState}
           skills={skillsState}
-          setSkills={setSkillsState}
+          label="Skills"
+          formControl={control}
+          formRules={{ required: true }}
+          name="skills"
         />
       </EditModalWrapper>
     </Card>

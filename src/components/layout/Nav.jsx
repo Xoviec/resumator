@@ -13,10 +13,13 @@ import {
   TextField,
   Toolbar,
 } from "@material-ui/core";
-import { AccountCircle, AddCircle, Menu as MenuIcon, Notifications, People, Search, Web, } from "@material-ui/icons";
+import { AccountCircle, Menu as MenuIcon, Notifications, People, Search, Web, ExitToApp, } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
@@ -145,6 +148,18 @@ const Nav = ({ handleSearch }) => {
     </Menu>
   );
 
+  const signOutUser = async function () {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        goTo("/");
+      })
+      .catch(function () {
+        console.log("logout failed");
+      });
+  };
+
   return (
     <div className={classes.navContainer}>
       <div className={classes.grow}>
@@ -229,16 +244,6 @@ const Nav = ({ handleSearch }) => {
         <List className={classes.iconList}>
           <ListItem
             button
-            key={"create"}
-            className={classes.listItem}
-            selected={location.pathname === "/creator"}
-          >
-            <IconButton aria-label="creator" onClick={() => goTo("/creator")}>
-              <AddCircle />
-            </IconButton>
-          </ListItem>
-          <ListItem
-            button
             key={"overview"}
             className={classes.listItem}
             selected={location.pathname === "/overview"}
@@ -250,6 +255,14 @@ const Nav = ({ handleSearch }) => {
           <ListItem button key={"preview"} className={classes.listItem}>
             <IconButton aria-label="preview" onClick={() => goTo("/")}>
               <Web />
+            </IconButton>
+          </ListItem>
+          <ListItem
+            button
+            key={"logout"}
+          >
+            <IconButton aria-label="logout" onClick={() => signOutUser()}>
+              <ExitToApp />
             </IconButton>
           </ListItem>
         </List>
