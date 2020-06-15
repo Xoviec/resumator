@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Typography } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
+import { convertFromRaw, EditorState } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import ActionButtons from "./ActionButtons";
 import Chip from "@material-ui/core/Chip";
 
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
+  let editor;
+  try {
+    editor = convertFromRaw(JSON.parse(experienceItem.description));
+    editor = EditorState.createWithContent(editor);
+    editor = stateToHTML(editor.getCurrentContent());
+  } catch (e) {
+    editor = null;
+  }
   return (
     <ExperienceItemContainer id={experienceItem.id}>
       <TopSection>
@@ -20,11 +30,16 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
           {getFormattedDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
-      <Typography variant="body1">
-        {isOpen
-          ? experienceItem.description
-          : experienceItem.description.substring(0, 140) + "..."}
-      </Typography>
+      <Grid
+        className={!isOpen ? "container" : ""}
+        style={{ maxHeight: isOpen ? null : 60 }}
+      >
+        {editor ? (
+          <div dangerouslySetInnerHTML={{ __html: editor }} />
+        ) : (
+          experienceItem.description
+        )}
+      </Grid>
       <Link
         color="secondary"
         href="#"

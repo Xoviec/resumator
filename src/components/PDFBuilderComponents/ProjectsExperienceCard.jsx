@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
+import PDFDescription from "./PDFDescription";
 
 const Root = styled.View`
   margin-bottom: 20px;
@@ -22,12 +23,6 @@ const Flex = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 300px;
-`;
-
-const TextArea = styled.Text`
-  font-size: 8px;
-  width: 280px;
-  margin-top: 6px;
 `;
 
 const TechniquesWrapper = styled.View`
@@ -75,7 +70,7 @@ export function ProjectsExperienceCard({ project }) {
         <SubText>{company}</SubText>
         <SubText>March 2016 - December 2018</SubText>
       </Flex>
-      <TextArea>{description}</TextArea>
+      <PDFDescription description={description} />
       <TechniquesWrapper>
         <Plain>Techniques:</Plain>
         {project ? renderStack(project) : null}

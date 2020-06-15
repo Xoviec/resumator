@@ -9,6 +9,7 @@ import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
+import RichTextEditor from "./RichTextEditor";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 import SkillsSelectFormField from "./SkillsSelectFormField";
@@ -24,6 +25,7 @@ const Experience = ({
   const [editingExisting, setIsEditingExisting] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
   const [skillsState, setSkillsState] = React.useState(experience.skills || []);
+  const [descriptionState, setDescriptionState] = React.useState();
 
   useEffect(() => {
     if (currentItemId) {
@@ -38,6 +40,7 @@ const Experience = ({
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
+    setDescriptionState(experienceEntry.description);
     setIsEditingExisting(true);
     reset(experienceEntry);
     setIsEditing(true);
@@ -80,6 +83,7 @@ const Experience = ({
             onEditHandler({
               ...values,
               id: currentItemId,
+              description: descriptionState,
             });
           } else {
             onSubmit(values);
@@ -105,15 +109,9 @@ const Experience = ({
           control={control}
           defaultValue=""
         />
-        <Input
-          as={TextField}
-          name="description"
-          label="Description"
-          control={control}
-          defaultValue=""
-          multiline
-          rows={4}
-        />
+
+        <RichTextEditor value={descriptionState} onChange={setDescriptionState} />
+
         <Input
           as={DatePicker}
           control={control}
