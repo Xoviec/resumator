@@ -9,6 +9,7 @@ import {
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
+import { Grid } from "@material-ui/core";
 
 const RichTextEditor = (props) => {
   const editorRef = React.useRef();
@@ -140,7 +141,7 @@ const BlockStyleControls = (props) => {
     .getType();
 
   return (
-    <div className="RichEditor-controls">
+    <>
       {BLOCK_TYPES.map((type) => (
         <StyleButton
           key={type.label}
@@ -150,7 +151,7 @@ const BlockStyleControls = (props) => {
           style={type.style}
         />
       ))}
-    </div>
+    </>
   );
 };
 
@@ -164,7 +165,7 @@ const InlineStyleControls = (props) => {
   const currentStyle = props.editorState.getCurrentInlineStyle();
 
   return (
-    <div className="RichEditor-controls">
+    <>
       {INLINE_STYLES.map((type) => (
         <StyleButton
           key={type.label}
@@ -174,7 +175,7 @@ const InlineStyleControls = (props) => {
           style={type.style}
         />
       ))}
-    </div>
+    </>
   );
 };
 
