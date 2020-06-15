@@ -9,7 +9,6 @@ import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
-import SkillsSelect, { createSkillObjects } from "./SkillsSelect";
 import RichTextEditor from "./RichTextEditor";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
