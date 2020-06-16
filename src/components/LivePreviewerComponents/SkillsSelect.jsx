@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { TextField } from "@material-ui/core";
 import styled from "@emotion/styled";
@@ -14,6 +14,8 @@ const AUTOCOMPLETE_REASONS = {
 
 // TODO: Deprecate label prop
 const SkillsSelect = ({ value, onChange, label }) => {
+  const skillsWrapperRef = useRef();
+  const oldValueLength = useRef(value.length);
   const renderInput = (params) => (
     <TextField {...params} placeholder="Add a library, framework, skill..." />
   );
@@ -60,11 +62,31 @@ const SkillsSelect = ({ value, onChange, label }) => {
 
   const onSkillDelete = (index) => onChange(value.filter((skill, i) => index !== i));
 
+  const handleSkillsWrapperRef = (droppableRefHandler) => (ref) => {
+    droppableRefHandler(ref);
+    skillsWrapperRef.current = ref;
+  };
+
+  useEffect(() => {
+    if (value.length > oldValueLength.current) {
+      const { current: skillsWrapper } = skillsWrapperRef;
+      skillsWrapper.scrollTo({
+        left: skillsWrapper.scrollWidth,
+        behavior: "smooth",
+      });
+    }
+
+    oldValueLength.current = value.length;
+  }, [value]);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable" direction="horizontal">
         {(provided) => (
-          <SkillsWrapper ref={provided.innerRef} {...provided.droppableProps}>
+          <SkillsWrapper
+            ref={handleSkillsWrapperRef(provided.innerRef)}
+            {...provided.droppableProps}
+          >
             {value.map(({ name }, index) => (
               <Draggable key={name} draggableId={name} index={index}>
                 {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
@@ -125,7 +147,7 @@ const SkillsWrapper = styled.div`
   &::after {
     content: "";
     display: block;
-    width: 30px;
+    width: 8px;
     height: 100%;
     flex: 1 0 auto;
   }
