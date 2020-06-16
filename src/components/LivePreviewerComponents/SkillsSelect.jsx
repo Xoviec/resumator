@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { Autocomplete } from "@material-ui/lab";
 import Chip from "@material-ui/core/Chip";
 import { skillsConstants } from "../../config/skills.constants";
+import EmptyNotice from "./EmptyNotice";
 
 const AUTOCOMPLETE_REASONS = {
   ADD: "select-option", // Added via dropdown/select options
@@ -105,6 +106,11 @@ const SkillsSelect = ({ value, onChange, label }) => {
                 )}
               </Draggable>
             ))}
+
+            <CustomEmptyNotice items={value}>
+              Use the text field below to add skills
+            </CustomEmptyNotice>
+
             {provided.placeholder}
           </SkillsWrapper>
         )}
@@ -151,6 +157,11 @@ const SkillsWrapper = styled.div`
     height: 100%;
     flex: 1 0 auto;
   }
+`;
+
+const CustomEmptyNotice = styled(EmptyNotice)`
+  opacity: 0.6;
+  font-size: 13px;
 `;
 
 export default SkillsSelect;
