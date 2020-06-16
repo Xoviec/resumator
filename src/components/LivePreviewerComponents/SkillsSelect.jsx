@@ -52,6 +52,8 @@ const SkillsSelect = ({ value, onChange, label }) => {
     onChange(skillList);
   };
 
+  const onSkillDelete = (index) => onChange(value.filter((skill, i) => index !== i));
+
   return (
     <DragDropContext
       onDragEnd={({ source, destination }) =>
@@ -72,7 +74,7 @@ const SkillsSelect = ({ value, onChange, label }) => {
                     ref={innerRef}
                     style={draggableProps.style}
                     isDragging={isDragging}
-                    onDelete={() => {}}
+                    onDelete={() => onSkillDelete(index)}
                     {...draggableProps}
                     {...dragHandleProps}
                   />
