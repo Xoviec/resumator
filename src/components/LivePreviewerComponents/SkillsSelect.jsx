@@ -52,14 +52,16 @@ const SkillsSelect = ({ value, onChange, label }) => {
     onChange(skillList);
   };
 
+  const onDragEnd = ({ source, destination }) => {
+    if (source && destination) {
+      reorderSkills(source.index, destination.index);
+    }
+  };
+
   const onSkillDelete = (index) => onChange(value.filter((skill, i) => index !== i));
 
   return (
-    <DragDropContext
-      onDragEnd={({ source, destination }) =>
-        reorderSkills(source.index, destination.index)
-      }
-    >
+    <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable" direction="horizontal">
         {(provided) => (
           <SkillsWrapper ref={provided.innerRef} {...provided.droppableProps}>
@@ -81,6 +83,7 @@ const SkillsSelect = ({ value, onChange, label }) => {
                 )}
               </Draggable>
             ))}
+            {provided.placeholder}
           </SkillsWrapper>
         )}
       </Droppable>
