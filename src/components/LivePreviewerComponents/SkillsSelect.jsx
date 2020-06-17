@@ -89,7 +89,7 @@ const SkillsSelect = ({ value, onChange }) => {
           >
             {value.map(({ name }, index) => (
               <Draggable key={name} draggableId={name} index={index}>
-                {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
+                {({ draggableProps, dragHandleProps, innerRef }) => (
                   <CustomChip
                     label={name}
                     size="small"
@@ -97,7 +97,6 @@ const SkillsSelect = ({ value, onChange }) => {
                     color="secondary"
                     ref={innerRef}
                     style={draggableProps.style}
-                    isDragging={isDragging}
                     onDelete={() => onSkillDelete(index)}
                     {...draggableProps}
                     {...dragHandleProps}
