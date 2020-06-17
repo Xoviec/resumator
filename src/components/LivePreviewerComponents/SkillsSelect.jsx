@@ -13,8 +13,7 @@ const AUTOCOMPLETE_REASONS = {
   REMOVE: "remove-option",
 };
 
-// TODO: Deprecate label prop
-const SkillsSelect = ({ value, onChange, label }) => {
+const SkillsSelect = ({ value, onChange }) => {
   const skillsWrapperRef = useRef();
   const oldValueLength = useRef(value.length);
   const renderInput = (params) => (

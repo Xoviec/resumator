@@ -140,7 +140,6 @@ const Experience = ({
         <SkillsSelectFormField
           onSkillsChanged={setSkillsState}
           skills={skillsState}
-          label="Skills"
           formControl={control}
           formRules={{ required: true }}
           name="skills"
