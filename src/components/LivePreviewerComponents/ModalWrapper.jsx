@@ -27,7 +27,8 @@ const EditModalWrapper = ({
           <StyledForm>
             {heading && <h1>{heading}</h1>}
             {children}
-            <ModalActionButtons
+
+            <CustomModalActionButtons
               primaryText={primaryText}
               secondaryText={secondaryText}
               onPrimaryActionClicked={onPrimaryActionClicked}
@@ -46,13 +47,17 @@ const StyledForm = styled.form`
 `;
 
 const ModalContent = styled.div`
-  background-color: white;
+  background-color: #fff;
   margin: 32px auto;
   padding: 32px;
   max-width: 1440px;
   &:focus {
     outline: none;
   }
+`;
+
+const CustomModalActionButtons = styled(ModalActionButtons)`
+  margin-top: 24px;
 `;
 
 export default EditModalWrapper;
