@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
-import Card from "../Card";
-import EditIcon from "./EditIcon";
-import EditModalWrapper from "./ModalWrapper";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { TextField, Typography } from "@material-ui/core";
-import Input from "../Input";
 import isEqual from "lodash/isEqual";
+import Card from "../Card";
+import Input from "../Input";
+import ActionIcon from "./ActionIcon";
+import EditModalWrapper from "./ModalWrapper";
 
 const Introduction = ({ introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,19 +27,24 @@ const Introduction = ({ introduction, onSubmit }) => {
 
   return (
     <DescriptionContainer>
-      <Typography gutterBottom variant="h4">
-        Introduction
-      </Typography>
+      <TopWrapper>
+        <Typography gutterBottom variant="h4">
+          Introduction
+        </Typography>
+
+        <ActionIcon
+          onClick={() => setIsEditing((prevState) => !prevState)}
+          isEditing={isEditing}
+          icon={faPen}
+          tooltipText="Edit introduction"
+        />
+      </TopWrapper>
+
       <Typography variant="body1" color={introduction ? "primary" : "secondary"}>
         {introduction
           ? introduction
           : "Click on the pen icon to edit the introduction"}
       </Typography>
-      <EditIcon
-        className="edit-button"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-        isEditing={isEditing}
-      />
 
       <EditModalWrapper
         isOpen={isEditing}
@@ -71,10 +77,11 @@ const Introduction = ({ introduction, onSubmit }) => {
 
 const DescriptionContainer = styled(Card)`
   font-size: 14px;
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
-  }
 `;
+
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export default Introduction;

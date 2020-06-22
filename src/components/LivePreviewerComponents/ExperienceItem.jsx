@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Typography, Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
-import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { getFormattedDate } from "../../utils/getFormattedDate";
@@ -13,6 +11,7 @@ import Chip from "@material-ui/core/Chip";
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
   let editor;
+
   try {
     editor = convertFromRaw(JSON.parse(experienceItem.description));
     editor = EditorState.createWithContent(editor);
@@ -20,6 +19,7 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   } catch (e) {
     editor = null;
   }
+
   return (
     <ExperienceItemContainer id={experienceItem.id}>
       <TopSection>

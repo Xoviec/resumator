@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import { TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
@@ -13,8 +14,7 @@ import RichTextEditor from "./RichTextEditor";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 import SkillsSelectFormField from "./SkillsSelectFormField";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
+import ActionIcon from "./ActionIcon";
 
 const Experience = ({
   type,
@@ -30,6 +30,8 @@ const Experience = ({
   const [descriptionState, setDescriptionState] = React.useState();
   const methods = useForm({});
   const { control, getValues, reset } = methods;
+  const typeLabel = type.toLowerCase();
+  const tooltipText = `Add ${typeLabel}`;
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
@@ -41,14 +43,18 @@ const Experience = ({
 
   return (
     <Card>
-      <Typography gutterBottom variant="h4">
-        {type}
-      </Typography>
-      <AddNew
-        className="add-new-button"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-        icon={faPlus}
-      />
+      <TopWrapper>
+        <Typography gutterBottom variant="h4">
+          {type}
+        </Typography>
+
+        <ActionIcon
+          onClick={() => setIsEditing((prevState) => !prevState)}
+          icon={faPlus}
+          tooltipText={tooltipText}
+        />
+      </TopWrapper>
+
       {experience.map((e, i) => (
         <>
           <ExperienceItem
@@ -150,10 +156,9 @@ const Experience = ({
   );
 };
 
-const AddNew = styled(FontAwesomeIcon)`
-  position: absolute;
-  right: 32px;
-  top: 48px;
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default Experience;

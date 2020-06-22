@@ -9,7 +9,6 @@ import { DatePicker } from "@material-ui/pickers";
 import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
-import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
@@ -30,11 +29,21 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
     methods.reset(educationEntry);
     setIsEditing(true);
   };
+
   return (
-    <EducationContainer>
-      <Typography gutterBottom variant="h4">
-        Education
-      </Typography>
+    <Card>
+      <TopWrapper>
+        <Typography gutterBottom variant="h4">
+          Education
+        </Typography>
+
+        <ActionIcon
+          onClick={() => setIsEditing((prevState) => !prevState)}
+          tooltipText="Add education"
+          icon={faPlus}
+        />
+      </TopWrapper>
+
       {education.map((e, i) => (
         <>
           <EducationItem
@@ -51,13 +60,6 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         </>
       ))}
       <EmptyNotice items={education} />
-
-      <EditIcon
-        icon={faPlus}
-        className="edit-button"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-        isEditing={isEditing}
-      />
 
       <EditModalWrapper
         isOpen={isEditing}
@@ -131,15 +133,13 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           label={<p>Certificate</p>}
         />
       </EditModalWrapper>
-    </EducationContainer>
+    </Card>
   );
 };
 
-const EducationContainer = styled(Card)`
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
-  }
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
+
 export default Education;

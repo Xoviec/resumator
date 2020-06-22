@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import ActionButtons from "./ActionButtons";
 import { getFormattedDate } from "../../utils/getFormattedDate";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
 
 const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) => {
   return (

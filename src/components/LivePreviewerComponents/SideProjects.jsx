@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
 import Input from "../Input";
@@ -9,6 +8,7 @@ import { TextField, Typography } from "@material-ui/core";
 import SideProjectItem from "./SideProjectItem";
 import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
+import ActionIcon from "./ActionIcon";
 
 const SideProjects = ({
   type,
@@ -20,8 +20,9 @@ const SideProjects = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(null);
-
   const methods = useForm({});
+  const typeLabel = type.toLowerCase();
+  const tooltipText = `Add ${typeLabel}`;
 
   const onClickEdit = (experienceEntry) => {
     setCurrentItemId(experienceEntry.id);
@@ -32,14 +33,18 @@ const SideProjects = ({
 
   return (
     <Card>
-      <Typography gutterBottom variant="h4">
-        {type}
-      </Typography>
-      <AddNew
-        className="add-new-button"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-        icon={faPlus}
-      />
+      <TopWrapper>
+        <Typography gutterBottom variant="h4">
+          {type}
+        </Typography>
+
+        <ActionIcon
+          onClick={() => setIsEditing((prevState) => !prevState)}
+          icon={faPlus}
+          tooltipText={tooltipText}
+        />
+      </TopWrapper>
+
       {projects.map((e, i) => (
         <SideProjectItem
           projectItem={e}
@@ -101,10 +106,9 @@ const SideProjects = ({
   );
 };
 
-const AddNew = styled(FontAwesomeIcon)`
-  position: absolute;
-  right: 32px;
-  top: 48px;
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default SideProjects;

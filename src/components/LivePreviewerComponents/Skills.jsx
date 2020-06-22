@@ -6,7 +6,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Typography } from "@material-ui/core";
 import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
-import EditIcon from "./EditIcon";
+import ActionIcon from "./ActionIcon";
 import SkillsSelectFormField from "./SkillsSelectFormField";
 import Chip from "@material-ui/core/Chip";
 
@@ -22,14 +22,18 @@ const Skills = ({ skills, onSubmit }) => {
 
   return (
     <StyledCard>
-      <Typography gutterBottom variant="h4">
-        Skills
-      </Typography>
-      <EditIcon
-        className="add-new-button"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-        icon={faPen}
-      />
+      <TopWrapper>
+        <Typography gutterBottom variant="h4">
+          Skills
+        </Typography>
+
+        <ActionIcon
+          onClick={() => setIsEditing((prevState) => !prevState)}
+          icon={faPen}
+          tooltipText="Edit skills"
+        />
+      </TopWrapper>
+
       <SkillsContainer>
         {skills.map((skill) => (
           <CustomChip
@@ -94,6 +98,11 @@ const SkillsContainer = styled.div`
 const CustomChip = styled(Chip)`
   margin-left: ${CHIP_GUTTER}px;
   margin-top: ${CHIP_GUTTER}px;
+`;
+
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default Skills;
