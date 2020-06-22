@@ -24,11 +24,12 @@ import {
   ExitToApp,
 } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
-import { skillsConstants } from "../../config/skills.constants";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import styled from "@emotion/styled";
+import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
+import { skillsConstants } from "../../config/skills.constants";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 const drawerWidth = 80;
@@ -230,8 +231,8 @@ const Nav = ({ handleSearch }) => {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 17 new notifications" color="inherit">
-                <Badge badgeContent={17} color="secondary">
+              <IconButton aria-label="show new notifications" color="inherit">
+                <Badge badgeContent={0} color="secondary">
                   <Notifications />
                 </Badge>
               </IconButton>
@@ -265,25 +266,37 @@ const Nav = ({ handleSearch }) => {
             key={"overview"}
             className={classes.listItem}
             selected={location.pathname === "/overview"}
+            onClick={() => goTo("/overview")}
           >
-            <IconButton aria-label="overview" onClick={() => goTo("/overview")}>
+            <CustomIconButton aria-label="overview" disableRipple>
               <People />
-            </IconButton>
+            </CustomIconButton>
           </ListItem>
-          <ListItem button key={"preview"} className={classes.listItem}>
-            <IconButton aria-label="preview" onClick={() => goTo("/")}>
+          <ListItem
+            button
+            key={"preview"}
+            className={classes.listItem}
+            onClick={() => goTo("/")}
+          >
+            <CustomIconButton aria-label="preview" disableRipple>
               <Web />
-            </IconButton>
+            </CustomIconButton>
           </ListItem>
-          <ListItem button key={"logout"}>
-            <IconButton aria-label="logout" onClick={() => signOutUser()}>
+          <ListItem button key={"logout"} onClick={() => signOutUser()}>
+            <CustomIconButton aria-label="logout" disableRipple>
               <ExitToApp />
-            </IconButton>
+            </CustomIconButton>
           </ListItem>
         </List>
       </Drawer>
     </div>
   );
 };
+
+const CustomIconButton = styled(IconButton)`
+  &:hover {
+    background-color: transparent;
+  }
+`;
 
 export default Nav;
