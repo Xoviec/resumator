@@ -70,9 +70,6 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
         onEditClick={() => onClickEdit(experienceItem)}
         onDeleteClick={() => onDeleteHandler(experienceItem)}
       />
-      <Box mt={2}>
-        <Divider />
-      </Box>
     </ExperienceItemContainer>
   );
 };

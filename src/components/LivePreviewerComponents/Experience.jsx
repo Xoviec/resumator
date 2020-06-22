@@ -13,6 +13,8 @@ import RichTextEditor from "./RichTextEditor";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 import SkillsSelectFormField from "./SkillsSelectFormField";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 
 const Experience = ({
   type,
@@ -48,12 +50,20 @@ const Experience = ({
         icon={faPlus}
       />
       {experience.map((e, i) => (
-        <ExperienceItem
-          experienceItem={e}
-          key={i}
-          onDeleteHandler={onDeleteHandler}
-          onClickEdit={onClickEdit}
-        />
+        <>
+          <ExperienceItem
+            experienceItem={e}
+            key={i}
+            onDeleteHandler={onDeleteHandler}
+            onClickEdit={onClickEdit}
+          />
+
+          {i < experience.length - 1 && (
+            <Box mt={2}>
+              <Divider />
+            </Box>
+          )}
+        </>
       ))}
       <EmptyNotice items={experience} />
 

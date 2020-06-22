@@ -22,9 +22,6 @@ const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) =>
         onEditClick={() => onEditHandler(educationEntry)}
         onDeleteClick={() => onDeleteHandler(educationEntry)}
       />
-      <Box mt={2}>
-        <Divider />
-      </Box>
     </EducationItemContainer>
   );
 };

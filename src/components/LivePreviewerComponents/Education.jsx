@@ -13,6 +13,9 @@ import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
+import ActionIcon from "./ActionIcon";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -33,12 +36,19 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         Education
       </Typography>
       {education.map((e, i) => (
-        <EducationItem
-          key={i}
-          {...e}
-          onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
-          onDeleteHandler={onDeleteHandler}
-        />
+        <>
+          <EducationItem
+            key={i}
+            {...e}
+            onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
+            onDeleteHandler={onDeleteHandler}
+          />
+          {i < education.length - 1 && (
+            <Box mt={2}>
+              <Divider />
+            </Box>
+          )}
+        </>
       ))}
       <EmptyNotice items={education} />
 
