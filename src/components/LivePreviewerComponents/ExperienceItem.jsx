@@ -65,11 +65,14 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
             ))}
         </SkillsContainer>
       </Techniques>
-      <ActionButtons
-        className={`edit-button-${experienceItem.id}`}
-        onEditClick={() => onClickEdit(experienceItem)}
-        onDeleteClick={() => onDeleteHandler(experienceItem)}
-      />
+
+      <ActionButtonsWrapper className="action-buttons">
+        <ActionButtons
+          onEditClick={() => onClickEdit(experienceItem)}
+          onDeleteClick={() => onDeleteHandler(experienceItem)}
+          tooltipTextLabel="experience"
+        />
+      </ActionButtonsWrapper>
     </ExperienceItemContainer>
   );
 };
@@ -101,22 +104,22 @@ const TopSection = styled.div`
   font-weight: bold;
 `;
 
+const ActionButtonsWrapper = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  opacity: 0;
+  transform: translateX(3px);
+  transition: opacity 225ms ease-out, transform 225ms ease-out;
+`;
+
 const ExperienceItemContainer = styled.div`
   position: relative;
   margin: 24px 0;
 
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
-  }
-
-  &:hover {
-    ${({ id }) => `
-    .edit-button-${id} {
-      visibility: visible;
-     }
-    `}
+  &:hover .action-buttons {
+    opacity: 1;
+    transform: translateX(0);
   }
 `;
 

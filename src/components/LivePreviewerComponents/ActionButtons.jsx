@@ -1,29 +1,34 @@
 import React from "react";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import styled from "@emotion/styled";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Flex, Box } from "rebass";
+import ActionIcon from "./ActionIcon";
 
-const ActionButtons = ({ onEditClick, onDeleteClick, className }) => {
+const ActionButtons = ({
+  onEditClick,
+  onDeleteClick,
+  className,
+  tooltipTextLabel = "",
+}) => {
   return (
-    <ActionButtonsContainer className={className ? className : "action-buttons"}>
+    <div className={className}>
       <Flex>
         <Box mx={2}>
-          <FontAwesomeIcon onClick={onEditClick} icon={faPen} />
+          <ActionIcon
+            tooltipText={`Edit ${tooltipTextLabel} item`}
+            icon={faPen}
+            onClick={onEditClick}
+          />
         </Box>
         <Box mx={2}>
-          <FontAwesomeIcon onClick={onDeleteClick} icon={faTrash} />
+          <ActionIcon
+            tooltipText={`Remove ${tooltipTextLabel} item`}
+            onClick={onDeleteClick}
+            icon={faTrash}
+          />
         </Box>
       </Flex>
-    </ActionButtonsContainer>
+    </div>
   );
 };
-
-const ActionButtonsContainer = styled.div`
-  visibility: hidden;
-  position: absolute;
-  right: 16px;
-  top: 16px;
-`;
 
 export default ActionButtons;

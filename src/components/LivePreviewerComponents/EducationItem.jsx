@@ -15,11 +15,14 @@ const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) =>
         {getFormattedDate(educationEntry.startDate)} -{" "}
         {getFormattedDate(educationEntry.endDate)}
       </Typography>
-      <ActionButtons
-        className={`edit-button-${educationEntry.id}`}
-        onEditClick={() => onEditHandler(educationEntry)}
-        onDeleteClick={() => onDeleteHandler(educationEntry)}
-      />
+
+      <ActionButtonsWrapper className="action-buttons">
+        <ActionButtons
+          onEditClick={() => onEditHandler(educationEntry)}
+          onDeleteClick={() => onDeleteHandler(educationEntry)}
+          tooltipTextLabel="education"
+        />
+      </ActionButtonsWrapper>
     </EducationItemContainer>
   );
 };
@@ -28,12 +31,19 @@ const EducationItemContainer = styled.div`
   position: relative;
   margin: 16px 0;
 
-  &:hover {
-    ${({ id }) => `
-    .edit-button-${id} {
-      visibility: visible;
-     }
-    `}
+  &:hover .action-buttons {
+    opacity: 1;
+    transform: translateX(0);
   }
 `;
+
+const ActionButtonsWrapper = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  opacity: 0;
+  transform: translateX(3px);
+  transition: opacity 225ms ease-out, transform 225ms ease-out;
+`;
+
 export default EducationItem;

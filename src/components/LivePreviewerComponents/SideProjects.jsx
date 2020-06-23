@@ -9,6 +9,8 @@ import SideProjectItem from "./SideProjectItem";
 import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
 import ActionIcon from "./ActionIcon";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 
 const SideProjects = ({
   type,
@@ -46,12 +48,19 @@ const SideProjects = ({
       </TopWrapper>
 
       {projects.map((e, i) => (
-        <SideProjectItem
-          projectItem={e}
-          key={i}
-          onDeleteHandler={onDeleteHandler}
-          onClickEdit={onClickEdit}
-        />
+        <>
+          <SideProjectItem
+            projectItem={e}
+            key={i}
+            onDeleteHandler={onDeleteHandler}
+            onClickEdit={onClickEdit}
+          />
+          {i > projects.length - 1 && (
+            <Box mt={2}>
+              <Divider />
+            </Box>
+          )}
+        </>
       ))}
 
       <EmptyNotice items={projects} />
