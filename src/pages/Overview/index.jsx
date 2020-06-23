@@ -158,12 +158,12 @@ const Home = ({ searchText }) => {
             actions={[
               {
                 icon: tableIcons.Edit,
-                tooltip: "edit User",
+                tooltip: "Edit resume",
                 onClick: (event, rowData) => goTo(`./live/${rowData.id}`),
               },
               {
                 icon: tableIcons.GetAppIcon,
-                tooltip: "download resume",
+                tooltip: "Download resume",
                 onClick: (event, rowData) => goTo(`./creator/${rowData.id}`),
               },
             ]}

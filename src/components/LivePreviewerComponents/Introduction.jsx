@@ -47,6 +47,7 @@ const Introduction = ({ introduction, onSubmit }) => {
       </Typography>
 
       <EditModalWrapper
+        heading="Introduction text"
         isOpen={isEditing}
         onRequestClose={() => setIsEditing(false)}
         methods={methods}

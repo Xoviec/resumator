@@ -12,6 +12,7 @@ import {
   MenuItem,
   TextField,
   Toolbar,
+  Tooltip,
   Avatar,
 } from "@material-ui/core";
 import {
@@ -268,24 +269,32 @@ const Nav = ({ handleSearch }) => {
             selected={location.pathname === "/overview"}
             onClick={() => goTo("/overview")}
           >
-            <CustomIconButton aria-label="overview" disableRipple>
-              <People />
-            </CustomIconButton>
+            <Tooltip title="Overview" aria-label="Overview">
+              <CustomIconButton aria-label="overview" disableRipple>
+                <People />
+              </CustomIconButton>
+            </Tooltip>
           </ListItem>
+
           <ListItem
             button
             key={"preview"}
             className={classes.listItem}
             onClick={() => goTo("/")}
           >
-            <CustomIconButton aria-label="preview" disableRipple>
-              <Web />
-            </CustomIconButton>
+            <Tooltip title="Resume List" aria-label="Resume List">
+              <CustomIconButton aria-label="preview" disableRipple>
+                <Web />
+              </CustomIconButton>
+            </Tooltip>
           </ListItem>
+
           <ListItem button key={"logout"} onClick={() => signOutUser()}>
-            <CustomIconButton aria-label="logout" disableRipple>
-              <ExitToApp />
-            </CustomIconButton>
+            <Tooltip title="Logout" aria-label="Logout">
+              <CustomIconButton aria-label="logout" disableRipple>
+                <ExitToApp />
+              </CustomIconButton>
+            </Tooltip>
           </ListItem>
         </List>
       </Drawer>
