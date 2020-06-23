@@ -24,7 +24,7 @@ const EditModalWrapper = ({
     >
       <ModalContent>
         <FormContext {...methods}>
-          <StyledForm>
+          <StyledForm onSubmit={methods.handleSubmit(onPrimaryActionClicked)}>
             {heading && <h1>{heading}</h1>}
             {children}
             <ModalActionButtons

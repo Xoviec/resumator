@@ -17,9 +17,8 @@ const ModalActionButtons = ({
       </Box>
       <Box mx={2}>
         <Button
-          onClick={onPrimaryActionClicked}
           variant="contained"
-          type="button"
+          type="submit"
           color="primary"
         >
           {primaryText ? primaryText : "Save"}
