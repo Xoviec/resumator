@@ -1,7 +1,7 @@
 import React from "react";
 import { FormContext } from "react-hook-form";
 import styled from "@emotion/styled";
-import { Modal } from "@material-ui/core";
+import { Modal, Fade } from "@material-ui/core";
 import ModalActionButtons from "./ModalActionButtons";
 
 const EditModalWrapper = ({
@@ -14,50 +14,81 @@ const EditModalWrapper = ({
   secondaryText,
   onPrimaryActionClicked,
   onSecondaryActionClicked,
+  fullWidth = true,
 }) => {
   return (
-    <Modal
+    <CustomModal
       open={isOpen}
       onClose={() => onRequestClose(false)}
       aria-labelledby="modal"
       aria-describedby="modal"
     >
-      <ModalContent>
-        <FormContext {...methods}>
-          <StyledForm>
-            {heading && <h1>{heading}</h1>}
-            {children}
+      <Fade in={isOpen}>
+        <ModalContent fullWidth={fullWidth}>
+          <FormContext {...methods}>
+            <StyledForm>
+              <ScrollableWrapper>
+                {heading && <h1>{heading}</h1>}
+                {children}
+              </ScrollableWrapper>
 
-            <CustomModalActionButtons
-              primaryText={primaryText}
-              secondaryText={secondaryText}
-              onPrimaryActionClicked={onPrimaryActionClicked}
-              onSecondaryActionClicked={onSecondaryActionClicked}
-            />
-          </StyledForm>
-        </FormContext>
-      </ModalContent>
-    </Modal>
+              <CustomModalActionButtons
+                primaryText={primaryText}
+                secondaryText={secondaryText}
+                onPrimaryActionClicked={onPrimaryActionClicked}
+                onSecondaryActionClicked={onSecondaryActionClicked}
+              />
+            </StyledForm>
+          </FormContext>
+        </ModalContent>
+      </Fade>
+    </CustomModal>
   );
 };
+
+const MODAL_MARGIN = 24;
+
+const CustomModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - ${MODAL_MARGIN * 2}px);
 `;
 
 const ModalContent = styled.div`
   background-color: #fff;
-  margin: 32px auto;
-  padding: 32px;
-  max-width: 1440px;
+  border-radius: 6px;
+  margin: ${MODAL_MARGIN * 2}px;
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
+
   &:focus {
     outline: none;
   }
 `;
 
+const ScrollableWrapper = styled.div`
+  overflow: auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const CustomModalActionButtons = styled(ModalActionButtons)`
-  margin-top: 24px;
+  position: sticky;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 16px;
+  height: 64px;
+  flex: 0 0 auto;
 `;
 
 export default EditModalWrapper;
