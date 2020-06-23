@@ -80,7 +80,7 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         <Input
           as={TextField}
           rules={{ required: "name is required" }}
-          name="nameInput"
+          name="name"
           label="Name"
           control={methods.control}
           errors={methods.errors}
