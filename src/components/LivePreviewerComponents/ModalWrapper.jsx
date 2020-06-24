@@ -29,6 +29,7 @@ const EditModalWrapper = ({
       BackdropComponent={BackdropComponent}
       aria-labelledby="modal"
       aria-describedby="modal"
+      onSubmit={methods.handleSubmit(onPrimaryActionClicked)}
     >
       <Fade in={isOpen}>
         <ModalContent fullWidth={fullWidth}>

@@ -30,6 +30,8 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
     setIsEditing(true);
   };
 
+  const minDate = (endDate) => endDate > methods.getValues().startDate;
+
   return (
     <Card>
       <TopWrapper>
@@ -88,9 +90,11 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
       >
         <Input
           as={TextField}
+          rules={{ required: "name is required" }}
           name="name"
           label="Name"
           control={methods.control}
+          errors={methods.errors}
           defaultValue=""
         />
 
@@ -98,32 +102,37 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           as={TextField}
           name="institute"
           label="Institute"
+          rules={{ required: "institute is required" }}
           control={methods.control}
+          errors={methods.errors}
           defaultValue=""
         />
 
         <Input
           as={DatePicker}
           control={methods.control}
-          rules={{ required: true }}
+          rules={{ required: "start date is required" }}
+          errors={methods.errors}
           onChange={([selected]) => {
             return selected;
           }}
           name="startDate"
           label="Start Date"
           format="dd/MM/yyyy"
+          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
         <Input
           as={DatePicker}
           control={methods.control}
-          rules={{ required: true }}
+          errorMessage="end date should greater then the start date"
+          rules={{ validate: minDate }}
+          errors={methods.errors}
           onChange={([selected]) => {
             return selected;
           }}
           name="endDate"
           label="End Date"
           format="dd/MM/yyyy"
-          defaultValue={DATE_FIELD_DEFAULT_VALUE}
         />
 
         <FormControlLabel
