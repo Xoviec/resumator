@@ -1,19 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
+import initialData from "../../config/initialData";
 
 const Creator = () => {
-  const initialData = {
-    avatar: "1",
-    education: [],
-    experience: [],
-    introduction: "",
-    personalia: {},
-    projects: [],
-    skills: [],
-    openSourceWork: [],
-    publications: [],
-  };
   return (
     <LivePreviewContainer>
       <LivePreviewerTemplate data={{ ...initialData }} />

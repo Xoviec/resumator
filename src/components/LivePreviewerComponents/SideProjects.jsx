@@ -48,7 +48,7 @@ const SideProjects = ({
       </TopWrapper>
 
       {projects.map((e, i) => (
-        <>
+        <React.Fragment key={e.id}>
           <SideProjectItem
             projectItem={e}
             key={i}
@@ -60,7 +60,7 @@ const SideProjects = ({
               <Divider />
             </Box>
           )}
-        </>
+        </React.Fragment>
       ))}
 
       <EmptyNotice items={projects} />

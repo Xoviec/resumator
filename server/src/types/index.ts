@@ -17,7 +17,7 @@ export interface Resume {
   introduction: string;
   avatar: string;
   skills: { name: string }[];
-  openSourceWork: { id: string; link: string; description: string }[];
+  sideProjects: { id: string; link: string; description: string }[];
   publications: [{ id: string; link: string; description: string }];
   experience: [
     {
