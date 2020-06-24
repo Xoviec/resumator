@@ -1,8 +1,14 @@
 import React from "react";
 import { FormContext } from "react-hook-form";
 import styled from "@emotion/styled";
-import { Modal, Fade } from "@material-ui/core";
+import { Modal, Fade, Backdrop } from "@material-ui/core";
 import ModalActionButtons from "./ModalActionButtons";
+
+const BackdropComponent = ({ open, ...backdropProps }) => (
+  <Fade in={open}>
+    <Backdrop {...backdropProps} />
+  </Fade>
+);
 
 const EditModalWrapper = ({
   isOpen,
@@ -20,6 +26,7 @@ const EditModalWrapper = ({
     <CustomModal
       open={isOpen}
       onClose={() => onRequestClose(false)}
+      BackdropComponent={BackdropComponent}
       aria-labelledby="modal"
       aria-describedby="modal"
     >
