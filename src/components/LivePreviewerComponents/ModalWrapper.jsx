@@ -64,6 +64,7 @@ const ModalContent = styled.div`
   background-color: #fff;
   border-radius: 6px;
   margin: ${MODAL_MARGIN * 2}px;
+  max-width: 1200px;
   width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
 
   &:focus {
