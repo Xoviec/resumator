@@ -87,12 +87,11 @@ const RichTextEditor = (props) => {
             ? JSON.stringify(convertToRaw(editorState.getCurrentContent()))
             : ""
         }
-        style={{ display: "none" }}
         name="description"
         ref={props.methods.register({ required: true })}
       />
       {props.methods?.errors?.description && (
-        <StyledError style={{ color: "red" }}>description is required</StyledError>
+        <StyledError>description is required</StyledError>
       )}
     </div>
   );
