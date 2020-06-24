@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import { TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
 import avatars from "../../assets/images/avatars";
 import { getFormattedDate } from "../../utils/getFormattedDate";
@@ -11,7 +12,7 @@ import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
-import EditIcon from "./EditIcon";
+import ActionIcon from "./ActionIcon";
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -40,13 +41,15 @@ const TopSection = ({ personalia, onSubmit }) => {
           {personalia.city} region - NL - {getFormattedDate(personalia.dateOfBirth)}
         </Typography>
       </LeftSection>
+
       <Avatar
         src={(avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img}
       />
-      <EditIcon
-        className="edit-button"
+
+      <CustomActionIcon
         onClick={() => setIsEditing((prevState) => !prevState)}
-        isEditing={isEditing}
+        icon={faPen}
+        tooltipText="Edit personal information"
       />
 
       <EditModalWrapper
@@ -134,12 +137,12 @@ const Avatar = styled.img`
 
 const TopSectionContainer = styled(Card)`
   display: flex;
+`;
 
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
-  }
+const CustomActionIcon = styled(ActionIcon)`
+  position: absolute;
+  top: 16px;
+  right: 16px;
 `;
 
 export default TopSection;

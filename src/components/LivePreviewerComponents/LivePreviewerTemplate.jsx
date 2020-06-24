@@ -106,6 +106,7 @@ const LivePreviewerTemplate = ({ data }) => {
           introduction={dataState.introduction}
           onSubmit={onSubmitSection}
         />
+
         <ColumnContainer>
           {dataState.skills && (
             <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
