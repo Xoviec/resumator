@@ -9,6 +9,7 @@ import {
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
+import styled from "@emotion/styled";
 
 const RichTextEditor = (props) => {
   const editorRef = React.useRef();
@@ -24,7 +25,6 @@ const RichTextEditor = (props) => {
   );
 
   const onChange = (newEditorState) => {
-    props.onChange(JSON.stringify(convertToRaw(newEditorState.getCurrentContent())));
     setEditorState(newEditorState);
   };
 
@@ -64,7 +64,6 @@ const RichTextEditor = (props) => {
       className += " RichEditor-hidePlaceholder";
     }
   }
-
   return (
     <div className="RichEditor-root">
       <BlockStyleControls editorState={editorState} onToggle={_toggleBlockType} />
@@ -82,6 +81,19 @@ const RichTextEditor = (props) => {
           spellCheck={true}
         />
       </div>
+      <HiddenInput
+        value={
+          editorState.getCurrentContent().hasText()
+            ? JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+            : ""
+        }
+        style={{ display: "none" }}
+        name="description"
+        ref={props.methods.register({ required: true })}
+      />
+      {props.methods?.errors?.description && (
+        <StyledError style={{ color: "red" }}>description is required</StyledError>
+      )}
     </div>
   );
 };
@@ -178,4 +190,10 @@ const InlineStyleControls = (props) => {
   );
 };
 
+const HiddenInput = styled.input`
+  display: none;
+`;
+const StyledError = styled.span`
+  color: red;
+`;
 export default RichTextEditor;

@@ -92,6 +92,8 @@ const SideProjects = ({
           as={TextField}
           name="title"
           label="Title"
+          rules={{ required: "title is required" }}
+          errors={methods.errors}
           control={methods.control}
           defaultValue=""
         />
@@ -99,6 +101,8 @@ const SideProjects = ({
           as={TextField}
           name="description"
           label="Description"
+          rules={{ required: "description is required" }}
+          errors={methods.errors}
           control={methods.control}
           defaultValue=""
         />
@@ -107,6 +111,8 @@ const SideProjects = ({
           as={TextField}
           name="link"
           label="Link"
+          rules={{ required: type === "Publications" ? "link is required" : false }}
+          errors={methods.errors}
           control={methods.control}
           defaultValue=""
         />

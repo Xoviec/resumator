@@ -90,7 +90,6 @@ const Experience = ({
             onEditHandler({
               ...values,
               id: currentItemId,
-              description: descriptionState,
             });
           } else {
             onSubmit(values);
@@ -107,25 +106,30 @@ const Experience = ({
           name="company"
           label="Company"
           control={control}
+          rules={{ required: "company is required" }}
+          errors={methods.errors}
           defaultValue=""
         />
         <Input
           as={TextField}
           name="role"
           label="Role"
+          rules={{ required: "role is required" }}
+          errors={methods.errors}
           control={control}
           defaultValue=""
         />
 
-        <RichTextEditor value={descriptionState} onChange={setDescriptionState} />
+        <RichTextEditor methods={methods} value={descriptionState} />
 
         <Input
           as={DatePicker}
           control={control}
-          rules={{ required: true }}
           onChange={([selected]) => {
             return selected;
           }}
+          rules={{ required: "start date is required" }}
+          errors={methods.errors}
           name="startDate"
           label="Start Date"
           format="dd/MM/yyyy"
@@ -134,7 +138,7 @@ const Experience = ({
         <Input
           as={DatePicker}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           onChange={([selected]) => {
             return selected;
           }}
