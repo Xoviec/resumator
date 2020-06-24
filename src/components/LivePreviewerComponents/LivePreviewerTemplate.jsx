@@ -101,12 +101,10 @@ const LivePreviewerTemplate = ({ data }) => {
         {dataState.personalia && (
           <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
         )}
-
         <Introduction
           introduction={dataState.introduction}
           onSubmit={onSubmitSection}
         />
-
         <ColumnContainer>
           {dataState.skills && (
             <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
@@ -144,7 +142,7 @@ const LivePreviewerTemplate = ({ data }) => {
         )}
         {dataState.openSourceWork && (
           <SideProjects
-            type="Open Source work"
+            type="Side projects"
             onEditHandler={(values) => onEditSectionItem("openSourceWork", values)}
             onDeleteHandler={(values) =>
               onDeleteSectionItem("openSourceWork", values)
@@ -155,7 +153,6 @@ const LivePreviewerTemplate = ({ data }) => {
             projects={dataState.openSourceWork}
           />
         )}
-
         {dataState.publications && (
           <SideProjects
             type="Publications"
