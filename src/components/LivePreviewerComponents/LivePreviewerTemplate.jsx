@@ -140,17 +140,15 @@ const LivePreviewerTemplate = ({ data }) => {
             experience={dataState.experience}
           />
         )}
-        {dataState.openSourceWork && (
+        {dataState.sideProjects && (
           <SideProjects
             type="Side projects"
-            onEditHandler={(values) => onEditSectionItem("openSourceWork", values)}
-            onDeleteHandler={(values) =>
-              onDeleteSectionItem("openSourceWork", values)
-            }
+            onEditHandler={(values) => onEditSectionItem("sideProjects", values)}
+            onDeleteHandler={(values) => onDeleteSectionItem("sideProjects", values)}
             onSubmit={(values) =>
-              onAddNewItemForSectionHandler("openSourceWork", values)
+              onAddNewItemForSectionHandler("sideProjects", values)
             }
-            projects={dataState.openSourceWork}
+            projects={dataState.sideProjects}
           />
         )}
         {dataState.publications && (

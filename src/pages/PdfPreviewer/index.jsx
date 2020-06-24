@@ -47,7 +47,7 @@ export const PDFDocument = ({ resume }) => {
             <PDFEducation education={resume.education} />
             <PDFSideProjects
               type="openSource"
-              sideProjects={resume.openSourceWork}
+              sideProjects={resume.sideProjects}
             />
             <PDFSideProjects sideProjects={resume.publications} />
             <View style={{ width: "200px", height: "100vh" }}></View>

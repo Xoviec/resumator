@@ -6,6 +6,6 @@ export default {
   personalia: {},
   projects: [],
   skills: [],
-  openSourceWork: [],
+  sideProjects: [],
   publications: [],
 };
