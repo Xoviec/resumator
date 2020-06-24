@@ -9,10 +9,12 @@ import { DatePicker } from "@material-ui/pickers";
 import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
-import EditIcon from "./EditIcon";
 import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
+import ActionIcon from "./ActionIcon";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -31,26 +33,35 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
   const minDate = (endDate) => endDate > methods.getValues().startDate;
 
   return (
-    <EducationContainer>
-      <Typography gutterBottom variant="h4">
-        Education
-      </Typography>
-      {education.map((e, i) => (
-        <EducationItem
-          key={i}
-          {...e}
-          onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
-          onDeleteHandler={onDeleteHandler}
+    <Card>
+      <TopWrapper>
+        <Typography gutterBottom variant="h4">
+          Education
+        </Typography>
+
+        <ActionIcon
+          onClick={() => setIsEditing((prevState) => !prevState)}
+          tooltipText="Add education"
+          icon={faPlus}
         />
+      </TopWrapper>
+
+      {education.map((e, i) => (
+        <>
+          <EducationItem
+            key={i}
+            {...e}
+            onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
+            onDeleteHandler={onDeleteHandler}
+          />
+          {i < education.length - 1 && (
+            <Box mt={2}>
+              <Divider />
+            </Box>
+          )}
+        </>
       ))}
       <EmptyNotice items={education} />
-
-      <EditIcon
-        icon={faPlus}
-        className="edit-button"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-        isEditing={isEditing}
-      />
 
       <EditModalWrapper
         isOpen={isEditing}
@@ -131,15 +142,13 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           label={<p>Certificate</p>}
         />
       </EditModalWrapper>
-    </EducationContainer>
+    </Card>
   );
 };
 
-const EducationContainer = styled(Card)`
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
-  }
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
+
 export default Education;

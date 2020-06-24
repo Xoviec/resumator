@@ -9,9 +9,7 @@ const Input = (props) => {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <StyledController {...props} />
       {props.errors?.[props.name] && (
-        <StyledError style={{ color: "red" }}>
-          {props.errors[props.name].message}
-        </StyledError>
+        <StyledError>{props.errors[props.name].message}</StyledError>
       )}
       {props.errors?.[props.name]?.type === "validate" && (
         <StyledError> {props.errorMessage}</StyledError>

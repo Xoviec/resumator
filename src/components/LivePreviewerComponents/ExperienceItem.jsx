@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Typography, Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
-import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { getFormattedDate } from "../../utils/getFormattedDate";
@@ -13,6 +11,7 @@ import Chip from "@material-ui/core/Chip";
 const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
   let editor;
+
   try {
     editor = convertFromRaw(JSON.parse(experienceItem.description));
     editor = EditorState.createWithContent(editor);
@@ -20,6 +19,7 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
   } catch (e) {
     editor = null;
   }
+
   return (
     <ExperienceItemContainer id={experienceItem.id}>
       <TopSection>
@@ -65,14 +65,14 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
             ))}
         </SkillsContainer>
       </Techniques>
-      <ActionButtons
-        className={`edit-button-${experienceItem.id}`}
-        onEditClick={() => onClickEdit(experienceItem)}
-        onDeleteClick={() => onDeleteHandler(experienceItem)}
-      />
-      <Box mt={2}>
-        <Divider />
-      </Box>
+
+      <ActionButtonsWrapper className="action-buttons">
+        <ActionButtons
+          onEditClick={() => onClickEdit(experienceItem)}
+          onDeleteClick={() => onDeleteHandler(experienceItem)}
+          tooltipTextLabel="experience"
+        />
+      </ActionButtonsWrapper>
     </ExperienceItemContainer>
   );
 };
@@ -104,22 +104,22 @@ const TopSection = styled.div`
   font-weight: bold;
 `;
 
+const ActionButtonsWrapper = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  opacity: 0;
+  transform: translateX(3px);
+  transition: opacity 225ms ease-out, transform 225ms ease-out;
+`;
+
 const ExperienceItemContainer = styled.div`
   position: relative;
   margin: 24px 0;
 
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
-  }
-
-  &:hover {
-    ${({ id }) => `
-    .edit-button-${id} {
-      visibility: visible;
-     }
-    `}
+  &:hover .action-buttons {
+    opacity: 1;
+    transform: translateX(0);
   }
 `;
 

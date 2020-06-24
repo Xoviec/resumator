@@ -7,9 +7,10 @@ const ModalActionButtons = ({
   secondaryText,
   onPrimaryActionClicked,
   onSecondaryActionClicked,
+  className,
 }) => {
   return (
-    <Flex justifyContent="flex-end">
+    <Flex justifyContent="flex-end" className={className}>
       <Box mx={2}>
         <Button onClick={onSecondaryActionClicked} variant="contained" type="button">
           {secondaryText ? secondaryText : "Cancel"}

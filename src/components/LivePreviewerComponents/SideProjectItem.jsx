@@ -1,10 +1,8 @@
 import React from "react";
-import ActionButtons from "./ActionButtons";
 import styled from "@emotion/styled";
-import Divider from "@material-ui/core/Divider";
 import { Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
+import ActionButtons from "./ActionButtons";
 
 const SideProjectItem = ({ projectItem, onClickEdit, onDeleteHandler }) => {
   return (
@@ -22,14 +20,14 @@ const SideProjectItem = ({ projectItem, onClickEdit, onDeleteHandler }) => {
       >
         {projectItem.link}
       </Link>
-      <ActionButtons
-        className={`edit-button-${projectItem.id}`}
-        onEditClick={() => onClickEdit(projectItem)}
-        onDeleteClick={() => onDeleteHandler(projectItem)}
-      />
-      <Box mt={2}>
-        <Divider />
-      </Box>
+
+      <ActionButtonsWrapper className="action-buttons">
+        <ActionButtons
+          onEditClick={() => onClickEdit(projectItem)}
+          onDeleteClick={() => onDeleteHandler(projectItem)}
+          tooltipTextLabel="side project"
+        />
+      </ActionButtonsWrapper>
     </ExperienceItemContainer>
   );
 };
@@ -38,19 +36,19 @@ const ExperienceItemContainer = styled.div`
   position: relative;
   margin: 24px 0;
 
-  &:hover {
-    .edit-button {
-      visibility: visible;
-    }
+  &:hover .action-buttons {
+    opacity: 1;
+    transform: translateX(0);
   }
+`;
 
-  &:hover {
-    ${({ id }) => `
-    .edit-button-${id} {
-      visibility: visible;
-     }
-    `}
-  }
+const ActionButtonsWrapper = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  opacity: 0;
+  transform: translateX(3px);
+  transition: opacity 225ms ease-out, transform 225ms ease-out;
 `;
 
 export default SideProjectItem;
