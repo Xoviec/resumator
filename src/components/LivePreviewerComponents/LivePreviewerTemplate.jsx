@@ -184,6 +184,10 @@ const ColumnContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 8px;
+
+  @media (max-width: 970px) {
+    display: block;
+  }
 `;
 
 export default LivePreviewerTemplate;
