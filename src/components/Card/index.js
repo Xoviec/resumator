@@ -14,6 +14,10 @@ const InternCard = ({ children, className, ...props }) => {
 const CardContainer = styled(Card)`
   position: relative;
   margin: 24px 0;
+
+  .MuiCardContent-root {
+    padding-bottom: 16px;
+  }
 `;
 
 export default InternCard;
