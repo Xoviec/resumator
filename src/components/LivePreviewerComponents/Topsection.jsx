@@ -13,6 +13,10 @@ import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import ActionIcon from "./ActionIcon";
+import EmptyNotice from "./EmptyNotice";
+
+const isInfoEmpty = ({ firstName, lastName, email, city }) =>
+  !(firstName || lastName || email || city);
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -30,21 +34,43 @@ const TopSection = ({ personalia, onSubmit }) => {
     }
   }, [personalia, getValues, reset]);
 
+  const { city, dateOfBirth } = personalia;
+
+  const renderInfo = () => {
+    if (isInfoEmpty(personalia)) {
+      return <EmptyNotice show icon={faPen} />;
+    }
+
+    return (
+      <>
+        <AvatarWrapper>
+          <AvatarImg
+            src={
+              (avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img
+            }
+            alt="Avatar"
+          />
+        </AvatarWrapper>
+
+        <MainInfo>
+          <Typography variant="h2">
+            {personalia.firstName} {personalia.lastName}
+          </Typography>
+
+          <Typography variant="h5">{personalia.email}</Typography>
+        </MainInfo>
+
+        <OtherInfo variant="h7">
+          {city} {city && dateOfBirth && <Separator />}{" "}
+          {getFormattedDate(dateOfBirth)}
+        </OtherInfo>
+      </>
+    );
+  };
+
   return (
     <TopSectionContainer>
-      <LeftSection>
-        <Typography variant="h4">
-          Hi, I am &nbsp; <b> {personalia.firstName}</b>
-        </Typography>
-        <Typography variant="h4">Frontend expert</Typography>
-        <Typography variant="h5">
-          {personalia.city} region - NL - {getFormattedDate(personalia.dateOfBirth)}
-        </Typography>
-      </LeftSection>
-
-      <Avatar
-        src={(avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img}
-      />
+      {renderInfo()}
 
       <CustomActionIcon
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -123,20 +149,53 @@ const TopSection = ({ personalia, onSubmit }) => {
   );
 };
 
-const LeftSection = styled.div`
-  padding: 24px;
-`;
-
-const Avatar = styled.img`
-  margin-right: 20px;
-  height: 150px;
-  position: absolute;
-  right: 0;
-  top: 70px;
-`;
-
 const TopSectionContainer = styled(Card)`
+  &,
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const AVATAR_SIZE = 200;
+const AvatarWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: ${AVATAR_SIZE}px;
+  width: ${AVATAR_SIZE}px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(0, 0, 0, 0.7);
+`;
+
+const AvatarImg = styled.img`
+  width: 60%;
+  margin-top: 50%;
+  margin-left: 10%;
+`;
+
+const MainInfo = styled.div`
+  margin-top: 8px;
+  text-align: center;
+`;
+
+const OtherInfo = styled(Typography)`
+  display: flex;
+  margin-top: 16px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Separator = styled.div`
+  width: 20px;
+  height: 1px;
+  background-color: currentColor;
+  margin: 0 8px;
+  opacity: 0.75;
 `;
 
 const CustomActionIcon = styled(ActionIcon)`

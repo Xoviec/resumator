@@ -98,13 +98,20 @@ const LivePreviewerTemplate = ({ data }) => {
         id={dataState.id}
       />
       <>
-        {dataState.personalia && (
-          <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
-        )}
-        <Introduction
-          introduction={dataState.introduction}
-          onSubmit={onSubmitSection}
-        />
+        <ColumnContainer>
+          {dataState.personalia && (
+            <TopSection
+              personalia={dataState.personalia}
+              onSubmit={onSubmitSection}
+            />
+          )}
+
+          <Introduction
+            introduction={dataState.introduction}
+            onSubmit={onSubmitSection}
+          />
+        </ColumnContainer>
+
         <ColumnContainer>
           {dataState.skills && (
             <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
@@ -177,6 +184,10 @@ const ColumnContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 8px;
+
+  @media (max-width: 970px) {
+    display: block;
+  }
 `;
 
 export default LivePreviewerTemplate;

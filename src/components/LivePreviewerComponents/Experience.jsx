@@ -71,7 +71,8 @@ const Experience = ({
           )}
         </>
       ))}
-      <EmptyNotice items={experience} />
+
+      <EmptyNotice show={experience.length === 0} icon={faPlus} />
 
       <EditModalWrapper
         isOpen={isEditing}
