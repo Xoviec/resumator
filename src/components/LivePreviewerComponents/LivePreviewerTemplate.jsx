@@ -98,13 +98,20 @@ const LivePreviewerTemplate = ({ data }) => {
         id={dataState.id}
       />
       <>
-        {dataState.personalia && (
-          <TopSection personalia={dataState.personalia} onSubmit={onSubmitSection} />
-        )}
-        <Introduction
-          introduction={dataState.introduction}
-          onSubmit={onSubmitSection}
-        />
+        <ColumnContainer>
+          {dataState.personalia && (
+            <TopSection
+              personalia={dataState.personalia}
+              onSubmit={onSubmitSection}
+            />
+          )}
+
+          <Introduction
+            introduction={dataState.introduction}
+            onSubmit={onSubmitSection}
+          />
+        </ColumnContainer>
+
         <ColumnContainer>
           {dataState.skills && (
             <Skills skills={dataState.skills} onSubmit={onSubmitSection} />

@@ -32,19 +32,24 @@ const TopSection = ({ personalia, onSubmit }) => {
 
   return (
     <TopSectionContainer>
-      <LeftSection>
-        <Typography variant="h4">
-          Hi, I am &nbsp; <b> {personalia.firstName}</b>
-        </Typography>
-        <Typography variant="h4">Frontend expert</Typography>
-        <Typography variant="h5">
-          {personalia.city} region - NL - {getFormattedDate(personalia.dateOfBirth)}
-        </Typography>
-      </LeftSection>
+      <AvatarWrapper>
+        <AvatarImg
+          src={(avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img}
+          alt="Avatar"
+        />
+      </AvatarWrapper>
 
-      <Avatar
-        src={(avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img}
-      />
+      <MainInfo>
+        <Typography variant="h2">
+          {personalia.firstName} {personalia.lastName}
+        </Typography>
+
+        <Typography variant="h5">{personalia.email}</Typography>
+      </MainInfo>
+
+      <OtherInfo variant="h7">
+        {personalia.city} <Separator /> {getFormattedDate(personalia.dateOfBirth)}
+      </OtherInfo>
 
       <CustomActionIcon
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -123,20 +128,53 @@ const TopSection = ({ personalia, onSubmit }) => {
   );
 };
 
-const LeftSection = styled.div`
-  padding: 24px;
-`;
-
-const Avatar = styled.img`
-  margin-right: 20px;
-  height: 150px;
-  position: absolute;
-  right: 0;
-  top: 70px;
-`;
-
 const TopSectionContainer = styled(Card)`
+  &,
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const AVATAR_SIZE = 200;
+const AvatarWrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: ${AVATAR_SIZE}px;
+  width: ${AVATAR_SIZE}px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(0, 0, 0, 0.7);
+`;
+
+const AvatarImg = styled.img`
+  width: 60%;
+  margin-top: 50%;
+  margin-left: 10%;
+`;
+
+const MainInfo = styled.div`
+  margin-top: 8px;
+  text-align: center;
+`;
+
+const OtherInfo = styled(Typography)`
+  display: flex;
+  margin-top: 16px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Separator = styled.div`
+  width: 20px;
+  height: 1px;
+  background-color: currentColor;
+  margin: 0 8px;
+  opacity: 0.75;
 `;
 
 const CustomActionIcon = styled(ActionIcon)`
