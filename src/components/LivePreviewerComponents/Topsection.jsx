@@ -13,6 +13,10 @@ import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import ActionIcon from "./ActionIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const isInfoEmpty = ({ firstName, lastName, email, city }) =>
+  !(firstName || lastName || email || city);
 
 const TopSection = ({ personalia, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -30,26 +34,47 @@ const TopSection = ({ personalia, onSubmit }) => {
     }
   }, [personalia, getValues, reset]);
 
+  const { city, dateOfBirth } = personalia;
+
+  const renderInfo = () => {
+    if (isInfoEmpty(personalia)) {
+      return (
+        <Typography color="secondary" variant="body1">
+          Click the <EmptyIcon icon={faPen} /> icon to add your personal information
+        </Typography>
+      );
+    }
+
+    return (
+      <>
+        <AvatarWrapper>
+          <AvatarImg
+            src={
+              (avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img
+            }
+            alt="Avatar"
+          />
+        </AvatarWrapper>
+
+        <MainInfo>
+          <Typography variant="h2">
+            {personalia.firstName} {personalia.lastName}
+          </Typography>
+
+          <Typography variant="h5">{personalia.email}</Typography>
+        </MainInfo>
+
+        <OtherInfo variant="h7">
+          {city} {city && dateOfBirth && <Separator />}{" "}
+          {getFormattedDate(dateOfBirth)}
+        </OtherInfo>
+      </>
+    );
+  };
+
   return (
     <TopSectionContainer>
-      <AvatarWrapper>
-        <AvatarImg
-          src={(avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img}
-          alt="Avatar"
-        />
-      </AvatarWrapper>
-
-      <MainInfo>
-        <Typography variant="h2">
-          {personalia.firstName} {personalia.lastName}
-        </Typography>
-
-        <Typography variant="h5">{personalia.email}</Typography>
-      </MainInfo>
-
-      <OtherInfo variant="h7">
-        {personalia.city} <Separator /> {getFormattedDate(personalia.dateOfBirth)}
-      </OtherInfo>
+      {renderInfo()}
 
       <CustomActionIcon
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -181,6 +206,13 @@ const CustomActionIcon = styled(ActionIcon)`
   position: absolute;
   top: 16px;
   right: 16px;
+`;
+
+const EmptyIcon = styled(FontAwesomeIcon)`
+  position: relative;
+  top: -1px;
+  font-size: 11px;
+  opacity: 0.7;
 `;
 
 export default TopSection;
