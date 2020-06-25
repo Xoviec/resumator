@@ -46,9 +46,7 @@ const Skills = ({ skills, onSubmit }) => {
         ))}
       </SkillsContainer>
 
-      <EmptyNotice items={skills}>
-        Click on the pen icon to add new skills
-      </EmptyNotice>
+      <EmptyNotice show={skills.length === 0} icon={faPen} />
 
       <EditModalWrapper
         isOpen={isEditing}

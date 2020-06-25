@@ -105,7 +105,7 @@ const SkillsSelect = ({ value, onChange }) => {
               </Draggable>
             ))}
 
-            <CustomEmptyNotice items={value}>
+            <CustomEmptyNotice show={value.length === 0}>
               Use the text field below to add skills
             </CustomEmptyNotice>
 

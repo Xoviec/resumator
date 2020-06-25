@@ -13,7 +13,7 @@ import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import ActionIcon from "./ActionIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EmptyNotice from "./EmptyNotice";
 
 const isInfoEmpty = ({ firstName, lastName, email, city }) =>
   !(firstName || lastName || email || city);
@@ -38,11 +38,7 @@ const TopSection = ({ personalia, onSubmit }) => {
 
   const renderInfo = () => {
     if (isInfoEmpty(personalia)) {
-      return (
-        <Typography color="secondary" variant="body1">
-          Click the <EmptyIcon icon={faPen} /> icon to add your personal information
-        </Typography>
-      );
+      return <EmptyNotice show icon={faPen} />;
     }
 
     return (
@@ -206,13 +202,6 @@ const CustomActionIcon = styled(ActionIcon)`
   position: absolute;
   top: 16px;
   right: 16px;
-`;
-
-const EmptyIcon = styled(FontAwesomeIcon)`
-  position: relative;
-  top: -1px;
-  font-size: 11px;
-  opacity: 0.7;
 `;
 
 export default TopSection;

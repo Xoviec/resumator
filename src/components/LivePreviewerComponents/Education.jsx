@@ -6,6 +6,8 @@ import { TextField, Typography } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { DatePicker } from "@material-ui/pickers";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
@@ -13,8 +15,6 @@ import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
 import ActionIcon from "./ActionIcon";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
 
 const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -61,7 +61,7 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
           )}
         </>
       ))}
-      <EmptyNotice items={education} />
+      <EmptyNotice show={education.length === 0} icon={faPlus} />
 
       <EditModalWrapper
         isOpen={isEditing}

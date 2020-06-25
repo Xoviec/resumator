@@ -63,7 +63,7 @@ const SideProjects = ({
         </React.Fragment>
       ))}
 
-      <EmptyNotice items={projects} />
+      <EmptyNotice show={projects.length === 0} icon={faPlus} />
 
       <EditModalWrapper
         isOpen={isEditing}
