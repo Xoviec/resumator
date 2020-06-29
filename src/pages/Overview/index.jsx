@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
     display: "inline",
   },
   miniAvatar: {
-    width: 22,
     height: 40,
   },
   skillList: {
@@ -28,6 +27,62 @@ const useStyles = makeStyles(() => ({
     padding: 0,
   },
 }));
+
+const getColumns = (classes) => [
+  {
+    title: "",
+    field: "avatar",
+    width: 40,
+    render: (rowData) => (
+      <img
+        alt="avatar"
+        src={
+          (avatars.find((x) => x.name === rowData.personalia.avatar) || avatars[6])
+            .img
+        }
+        className={classes.miniAvatar}
+      />
+    ),
+  },
+  {
+    title: "Name",
+    field: "personalia.lastName",
+    render: (rowData) => {
+      return `${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
+    },
+  },
+  { title: "City", field: "personalia.city" },
+  {
+    title: "Skills",
+    field: "skills",
+    render: (rowData) => {
+      const skills = rowData.skills.map(({ id, name }, i) => (
+        <li className={classes.inlineList} key={id + i}>
+          {(i ? ", " : "") + name}
+        </li>
+      ));
+      return <ul className={classes.skillList}>{skills}</ul>;
+    },
+  },
+  {
+    title: "Status",
+    field: "active",
+    type: "boolean",
+    render: (rowData) => {
+      return rowData.active ? (
+        <span>
+          <FiberManualRecordIcon color="primary" className={classes.activeIcon} />
+          Active
+        </span>
+      ) : (
+        <span style={{ color: "gray" }}>
+          <FiberManualRecordIcon color="disabled" className={classes.activeIcon} />
+          Inactive
+        </span>
+      );
+    },
+  },
+];
 
 const Home = ({ searchText }) => {
   const classes = useStyles();
@@ -82,6 +137,7 @@ const Home = ({ searchText }) => {
           Add Resume
         </StyledButton>
       </Grid>
+
       {readyToRender && data && (
         <Grid item xs={12}>
           <MaterialTable
@@ -92,67 +148,7 @@ const Home = ({ searchText }) => {
               pageSizeOptions: [10, 15, 25, 50],
             }}
             icons={tableIcons}
-            columns={[
-              {
-                title: "",
-                field: "avatar",
-                width: 40,
-                render: (rowData) => (
-                  <img
-                    alt={"avatar"}
-                    src={
-                      (avatars.find((x) => x.name === rowData.avatar) || avatars[6])
-                        .img
-                    }
-                    className={classes.miniAvatar}
-                  />
-                ),
-              },
-              {
-                title: "Name",
-                field: "personalia.lastName",
-                render: (rowData) => {
-                  return `${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
-                },
-              },
-              { title: "City", field: "personalia.city" },
-              {
-                title: "Skills",
-                field: "skills",
-                render: (rowData) => {
-                  const skills = rowData.skills.map(({ id, name }, i) => (
-                    <li className={classes.inlineList} key={id + i}>
-                      {(i ? ", " : "") + name}
-                    </li>
-                  ));
-                  return <ul className={classes.skillList}>{skills}</ul>;
-                },
-              },
-              {
-                title: "Status",
-                field: "active",
-                type: "boolean",
-                render: (rowData) => {
-                  return rowData.active ? (
-                    <span>
-                      <FiberManualRecordIcon
-                        color="primary"
-                        className={classes.activeIcon}
-                      />
-                      Active
-                    </span>
-                  ) : (
-                    <span style={{ color: "gray" }}>
-                      <FiberManualRecordIcon
-                        color="disabled"
-                        className={classes.activeIcon}
-                      />
-                      Inactive
-                    </span>
-                  );
-                },
-              },
-            ]}
+            columns={getColumns(classes)}
             data={data}
             title="Resumes Overview"
             actions={[
