@@ -69,6 +69,8 @@ const Introduction = ({ introduction, onSubmit }) => {
           multiline
           rows={4}
           control={methods.control}
+          rules={{ required: "introduction is required" }}
+          errors={methods.errors}
           defaultValue=""
         />
       </EditModalWrapper>
