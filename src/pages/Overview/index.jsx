@@ -26,6 +26,11 @@ const useStyles = makeStyles(() => ({
     margin: 0,
     padding: 0,
   },
+  emptyNotice: {
+    fontSize: 12,
+    fontStyle: "italic",
+    opacity: 0.8,
+  },
 }));
 
 const getColumns = (classes) => [
@@ -55,13 +60,21 @@ const getColumns = (classes) => [
   {
     title: "Skills",
     field: "skills",
-    render: (rowData) => {
-      const skills = rowData.skills.map(({ id, name }, i) => (
+    render: ({ skills }) => {
+      if (skills.length === 0) {
+        return (
+          <span className={classes.emptyNotice}>
+            No skills have been supplied yet
+          </span>
+        );
+      }
+
+      const skillList = skills.map(({ id, name }, i) => (
         <li className={classes.inlineList} key={id + i}>
           {(i ? ", " : "") + name}
         </li>
       ));
-      return <ul className={classes.skillList}>{skills}</ul>;
+      return <ul className={classes.skillList}>{skillList}</ul>;
     },
   },
   {
