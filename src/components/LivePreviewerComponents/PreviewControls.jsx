@@ -48,9 +48,6 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
           Preview
         </StyledButton>
 
-        <StyledButton variant="contained" type="button">
-          Share
-        </StyledButton>
         <StyledButton
           onClick={onSaveClicked}
           variant="contained"
