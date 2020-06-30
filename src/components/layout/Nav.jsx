@@ -3,7 +3,6 @@ import { useHistory, useLocation } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
-  Badge,
   Drawer,
   IconButton,
   List,
@@ -15,15 +14,7 @@ import {
   Tooltip,
   Avatar,
 } from "@material-ui/core";
-import {
-  AccountCircle,
-  Menu as MenuIcon,
-  Notifications,
-  People,
-  Search,
-  Web,
-  ExitToApp,
-} from "@material-ui/icons";
+import { AccountCircle, People, Search, ExitToApp } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -144,22 +135,6 @@ const Nav = ({ handleSearch }) => {
     setAnchorEl(null);
   };
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={() => goTo("/")}>Sign out</MenuItem>
-    </Menu>
-  );
-
   const signOutUser = async function () {
     firebase
       .auth()
@@ -171,6 +146,21 @@ const Nav = ({ handleSearch }) => {
         console.log("logout failed");
       });
   };
+
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={() => goTo("/")}>Sign out</MenuItem>
+    </Menu>
+  );
 
   const { user } = useContext(FirebaseAppContext);
   const avatarComponent =
@@ -185,14 +175,6 @@ const Nav = ({ handleSearch }) => {
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
             <img className={classes.logo} src={frontmenLogo} alt="logo" />
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
             <div className={classes.search}>
@@ -232,11 +214,6 @@ const Nav = ({ handleSearch }) => {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show new notifications" color="inherit">
-                <Badge badgeContent={0} color="secondary">
-                  <Notifications />
-                </Badge>
-              </IconButton>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -276,20 +253,7 @@ const Nav = ({ handleSearch }) => {
             </Tooltip>
           </ListItem>
 
-          <ListItem
-            button
-            key={"preview"}
-            className={classes.listItem}
-            onClick={() => goTo("/")}
-          >
-            <Tooltip title="Resume List" aria-label="Resume List">
-              <CustomIconButton aria-label="preview" disableRipple>
-                <Web />
-              </CustomIconButton>
-            </Tooltip>
-          </ListItem>
-
-          <ListItem button key={"logout"} onClick={() => signOutUser()}>
+          <ListItem button key={"logout"} onClick={signOutUser}>
             <Tooltip title="Logout" aria-label="Logout">
               <CustomIconButton aria-label="logout" disableRipple>
                 <ExitToApp />
