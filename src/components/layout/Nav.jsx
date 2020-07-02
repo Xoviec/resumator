@@ -241,7 +241,7 @@ const Nav = ({ handleSearch }) => {
         <List className={classes.iconList}>
           <ListItem
             button
-            key={"overview"}
+            key="overview"
             className={classes.listItem}
             selected={location.pathname === "/overview"}
             onClick={() => goTo("/overview")}
@@ -253,7 +253,7 @@ const Nav = ({ handleSearch }) => {
             </Tooltip>
           </ListItem>
 
-          <ListItem button key={"logout"} onClick={signOutUser}>
+          <ListItem button key="logout" onClick={signOutUser}>
             <Tooltip title="Logout" aria-label="Logout">
               <CustomIconButton aria-label="logout" disableRipple>
                 <ExitToApp />

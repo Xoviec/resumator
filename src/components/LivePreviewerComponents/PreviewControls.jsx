@@ -39,9 +39,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
           onClick={onClickDropdown}
         />
         <StyledButton
-          onClick={() => {
-            setShowPDFModal(true);
-          }}
+          onClick={() => setShowPDFModal(true)}
           variant="contained"
           type="button"
         >
