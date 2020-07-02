@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
+import _ from "lodash";
+import styled from "@emotion/styled";
+import { useHistory } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { FirebaseAppContext } from "../../context/FirebaseContext";
 import TopSection from "./Topsection";
 import Introduction from "./Introduction";
 import Education from "./Education";
-import { useHistory } from "react-router-dom";
 import Skills from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
 import PreviewControls from "./PreviewControls";
 import Experience from "./Experience";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
-import { v4 as uuidv4 } from "uuid";
 import SideProjects from "./SideProjects";
-import _ from "lodash";
-import styled from "@emotion/styled";
 
 const deleteEntry = (section, values, state) => {
   const clonedState = _.cloneDeep(state);
@@ -92,7 +92,7 @@ const LivePreviewerTemplate = ({ data }) => {
   return (
     <>
       <PreviewControls
-        onSaveClicked={() => onSubmit()}
+        onSaveClicked={onSubmit}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
         id={dataState.id}

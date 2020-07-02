@@ -1,8 +1,8 @@
 import React from "react";
 import { PDFViewer } from "@react-pdf/renderer";
-import { PDFDocument } from "../../pages/PdfPreviewer";
 import styled from "@emotion/styled";
 import Modal from "@material-ui/core/Modal";
+import { PDFDocument } from "../../pages/PdfPreviewer";
 
 const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
   if (showPDFModal && data) {
@@ -14,7 +14,7 @@ const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
         aria-describedby="PDF Preview"
       >
         <ModalContent>
-          <PDFViewer width={"100%"} height={"100%"}>
+          <PDFViewer width="100%" height="100%">
             <PDFDocument resume={data} />
           </PDFViewer>
         </ModalContent>

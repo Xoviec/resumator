@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Document, Font, PDFViewer, View } from "@react-pdf/renderer";
+import styled from "@react-pdf/styled-components";
 import {
   PDFEducation,
   PDFHeader,
@@ -8,7 +9,6 @@ import {
   PDFSkills,
   PDFWorkExperience,
 } from "../../components/PDFBuilderComponents";
-import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Regular.ttf";
 import { useDocument } from "react-firebase-hooks/firestore";
@@ -45,10 +45,7 @@ export const PDFDocument = ({ resume }) => {
             <PDFIntroduction introduction={resume.introduction} />
             <PDFSkills skills={resume.skills} />
             <PDFEducation education={resume.education} />
-            <PDFSideProjects
-              type="openSource"
-              sideProjects={resume.sideProjects}
-            />
+            <PDFSideProjects type="openSource" sideProjects={resume.sideProjects} />
             <PDFSideProjects sideProjects={resume.publications} />
             <View style={{ width: "200px", height: "100vh" }}></View>
           </View>
@@ -74,7 +71,7 @@ const PdfPreviewer = (props) => {
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Document: Loading...</span>}
       {value && (
-        <PDFViewer width={"100%"} height={"100%"}>
+        <PDFViewer width="100%" height="100%">
           <PDFDocument resume={value.data()} />
         </PDFViewer>
       )}
