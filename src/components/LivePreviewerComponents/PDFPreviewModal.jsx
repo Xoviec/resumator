@@ -2,7 +2,7 @@ import React from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import styled from "@emotion/styled";
 import Modal from "@material-ui/core/Modal";
-import { PDFDocument } from "../../pages/PdfPreviewer";
+import PDFTemplate from "../PDFTemplate/PDFTemplate";
 
 const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
   if (showPDFModal && data) {
@@ -15,7 +15,7 @@ const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
       >
         <ModalContent>
           <PDFViewer width="100%" height="100%">
-            <PDFDocument resume={data} />
+            <PDFTemplate resume={data} />
           </PDFViewer>
         </ModalContent>
       </Modal>
@@ -29,6 +29,7 @@ const ModalContent = styled.div`
   margin: 0 auto;
   padding: 32px;
   height: 100%;
+
   &:focus {
     outline: none;
   }
