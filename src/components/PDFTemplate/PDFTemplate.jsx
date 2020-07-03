@@ -40,6 +40,7 @@ const PDFTemplate = React.memo(
             city={resume.personalia.city}
             dateOfBirth={resume.personalia.dateOfBirth}
           />
+
           <FlexView>
             <View>
               <PDFIntroduction introduction={resume.introduction} />
@@ -52,6 +53,7 @@ const PDFTemplate = React.memo(
               <PDFSideProjects sideProjects={resume.publications} />
               <View style={{ width: "200px", height: "100vh" }}></View>
             </View>
+
             <View>
               <PDFProjects projects={resume.projects} />
               <PDFWorkExperience experience={resume.experience} />

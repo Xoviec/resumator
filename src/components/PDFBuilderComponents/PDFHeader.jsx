@@ -1,68 +1,82 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
-import { Font, View } from "@react-pdf/renderer";
+import { View, Text, Image, Font } from "@react-pdf/renderer";
+import { format } from "date-fns";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import avatars from "../../assets/images/avatars";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 
-const Root = styled.View`
+const Root = styled(View)`
+  width: 100%;
   background-color: #e0e0e0;
-  height: 120px;
-  padding: 20px 0 0 20px;
-  font-family: "Helvetica";
+  height: 145px;
+  padding: 0 0 0 20px;
+  font-family: "Titillium Web";
+  font-weight: 300;
   margin-bottom: 10px;
 `;
 
-const Heading = styled.Text`
-  font-size: 24px;
-`;
-const HeadingName = styled.Text`
-  font-family: "Stratum";
-  font-size: 24px;
-  font-weight: 800;
+const Heading = styled(Text)`
+  font-size: 36px;
 `;
 
-const SubHeading = styled.Text`
-  font-size: 12px;
+const HeadingName = styled(Text)`
+  font-family: "Stratum";
+  font-size: 36px;
+  font-weight: 800;
+  position: relative;
+  top: 9px;
+`;
+
+const PersonalInfoText = styled(View)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+`;
+
+const SubHeading = styled(Text)`
+  font-size: 10px;
   color: #ff450d;
 `;
 
-const Flex = styled.View`
+const HeaderBlockTop = styled(View)`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  line-height: 1.2;
 `;
 
-const HeaderBlockTop = styled.View`
-  display: flex;
-  flex-direction: row;
+const Avatar = styled(Image)`
+  position: absolute;
+  right: 40px;
+  bottom: 0;
+  width: 65px;
 `;
 
-const Avatar = styled.Image`
-  margin-right: 20px;
-`;
+export function PDFHeader({ avatar, name, city, dateOfBirth }) {
+  const date = new Date(new Date(dateOfBirth.seconds));
+  const month = format(date, "MMMM").toUpperCase();
+  const year = format(date, "yyyy");
 
-const HeaderBlockBottom = styled.View`
-  margin-bottom: 10px;
-`;
-
-export function PDFHeader({ avatar, name, city }) {
   return (
     <Root>
-      <Flex>
+      <PersonalInfoText>
+        <HeaderBlockTop>
+          <Heading>Hi, I am </Heading>
+          <HeadingName>{name}</HeadingName>
+        </HeaderBlockTop>
+
         <View>
-          <HeaderBlockTop>
-            <Heading>Hi, I am </Heading>
-            <HeadingName>{name}</HeadingName>
-          </HeaderBlockTop>
-          <HeaderBlockBottom>
-            <Heading>Frontend expert</Heading>
-          </HeaderBlockBottom>
-          <SubHeading>{city.toUpperCase()} REGION - NL - OCTOBER 1982</SubHeading>
+          <Heading>Frontend expert</Heading>
         </View>
-        <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[6]).img} />
-      </Flex>
+
+        <SubHeading>
+          {city.toUpperCase()} REGION - NL - {month} {year}
+        </SubHeading>
+      </PersonalInfoText>
+
+      <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[6]).img} />
     </Root>
   );
 }
