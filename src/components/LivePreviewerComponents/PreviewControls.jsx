@@ -4,12 +4,10 @@ import Button from "@material-ui/core/Button";
 import DropdownButton from "./DropdownButton";
 
 const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
-  console.log(id);
-
   const onClickDropdown = (action) => {
     switch (action) {
       case "PDF": {
-        window.open(`https://cryptic-ridge-60305.herokuapp.com/create?resume=${id}`);
+        goTo(`/pdf-download/${id}`);
         return;
       }
       case "DOCX": {
@@ -20,6 +18,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
         return;
     }
   };
+
   return (
     <TopSide>
       <>
@@ -38,6 +37,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
           actions={["PDF", "DOCX"]}
           onClick={onClickDropdown}
         />
+
         <StyledButton
           onClick={() => setShowPDFModal(true)}
           variant="contained"
