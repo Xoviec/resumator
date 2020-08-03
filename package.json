@@ -26,7 +26,7 @@
     "draft-js-import-html": "^1.4.1",
     "emotion-theming": "^10.0.27",
     "firebase": "^7.13.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-table": "^1.57.2",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
