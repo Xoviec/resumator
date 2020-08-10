@@ -74,7 +74,7 @@ export default async function importDocx(path: string): Promise<PartialResume> {
           ...resume,
           ...sectionData
         }
-      }, {} as PartialResume);
+      }, { isImport: true } as PartialResume);
     })
 }
 
