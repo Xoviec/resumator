@@ -41,11 +41,13 @@ export interface Project {
 export interface Publication { 
   id: string; 
   link: string; 
+  title?: string;
   description: string 
 }
 export interface SideProject { 
   id: string;
-  link?: string; 
+  link?: string;
+  title?: string;
   description: string 
 }
 export interface Skill {
@@ -53,6 +55,7 @@ export interface Skill {
 }
 
 export interface Resume {
+  isImport?: Boolean,
   personalia: Personalia
   education: Education[];
   introduction: string;
