@@ -1,7 +1,7 @@
 import { readdirSync } from "fs";
 import { extname, join as joinPath } from "path";
 
-import * as firebase from "firebase/app";
+import * as firebase from "firebase-admin";
 import "firebase/firestore";
 
 import importDocx from "./importDocx";
@@ -15,10 +15,11 @@ const FLAGS = [ "dir"];
 let options: Options = {};
 
 const RESUME_COLLECTION = "resumes";
-const db = initFirestore();
+let db: FirebaseFirestore.Firestore;
 
 try {
   options = initOptions();
+  db = initFirestore();
 } catch(e) {
   console.error(e);
   process.exit(0); // Easily recoverable error, no need to be -1 about it
@@ -42,14 +43,21 @@ Promise.all(promises)
     process.exit(-1);
   });
 
+
 function initFirestore() {
-  firebase.initializeApp({
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    projectId:  process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL
-  });
+  try {
+    firebase.initializeApp({
+      credential: firebase.credential.cert(require("../../credentials.json")),
+      projectId:  process.env.REACT_APP_FIREBASE_PROJECT_ID,
+      databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    });
+  } catch(e) {
+    throw new Error(      
+      "Missing credentials in root project folder. Get service account credentials here: " +
+      "https://console.firebase.google.com/project/fm-resume/settings/serviceaccounts/adminsdk\n"
+    )
+  }
+
   return firebase.firestore();  
 }
 
