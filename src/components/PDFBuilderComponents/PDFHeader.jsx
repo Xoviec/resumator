@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Font } from "@react-pdf/renderer";
-import { format } from "date-fns";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import avatars from "../../assets/images/avatars";
+import { getFormattedDate } from "../../utils/getFormattedDate";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 
@@ -55,9 +55,8 @@ const Avatar = styled(Image)`
 `;
 
 export function PDFHeader({ avatar, name, city, dateOfBirth }) {
-  const date = new Date(new Date(dateOfBirth.seconds));
-  const month = format(date, "MMMM").toUpperCase();
-  const year = format(date, "yyyy");
+  const month = getFormattedDate(dateOfBirth, "MMMM").toUpperCase();
+  const year = getFormattedDate(dateOfBirth, "yyyy");
 
   return (
     <Root>

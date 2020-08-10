@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
 import PDFDescription from "./PDFDescription";
+import { getFormattedDate } from "../../utils/getFormattedDate";
 
 const Root = styled.View`
   margin-bottom: 20px;
@@ -42,7 +43,7 @@ const Plain = styled.Text`
   margin-left: 3px;
 `;
 
-const renderStack = ({ stackAndTechniques }) => {
+const renderStack = (stackAndTechniques) => {
   const arrayCount = stackAndTechniques ? stackAndTechniques.length - 1 : 0;
 
   if (arrayCount === 0) {
@@ -62,18 +63,21 @@ const renderStack = ({ stackAndTechniques }) => {
 };
 
 export function ProjectsExperienceCard({ project }) {
-  const { role, company, description } = project;
+  const { role, company, description, skills, startDate, endDate } = project;
   return (
     <Root wrap={false}>
       <Header>{role}</Header>
       <Flex>
         <SubText>{company}</SubText>
-        <SubText>March 2016 - December 2018</SubText>
+        <SubText>
+          {getFormattedDate(startDate, "MMMM yyyy")} -
+          {getFormattedDate(endDate, "MMMM yyyy")}
+        </SubText>
       </Flex>
       <PDFDescription description={description} />
       <TechniquesWrapper>
         <Plain>Techniques:</Plain>
-        {project ? renderStack(project) : null}
+        {project ? renderStack(skills) : null}
       </TechniquesWrapper>
     </Root>
   );
