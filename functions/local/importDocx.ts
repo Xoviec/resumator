@@ -164,7 +164,7 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
 
 function parseEducation(lines: string[]): Education[] {
   return lines.slice(1, lines.length)
-    .filter(line => line !== '')
+    .filter(notEmpty)
     .reduce((acc, line) => {
       let entry = acc[acc.length - 1];
       if (entry.name === undefined) {
@@ -185,7 +185,7 @@ function parseEducation(lines: string[]): Education[] {
 
 function parseExperience(lines: string[]): Partial<Experience>[] {
   return lines.slice(1, lines.length)
-    .filter(line => line !== '')
+    .filter(notEmpty)
     .reduce((acc, line, index, lines) => {
       let lastEntry = acc.pop() as Partial<Experience>;
       let newEntry;
@@ -237,45 +237,62 @@ function parseProjects(lines: string[]): Partial<Project>[] {
 
 function parsePublications(lines: string[]): Partial<Publication>[] {
   return lines.slice(1, lines.length)
-    .filter(line => line !== '')
+    .filter(notEmpty)
     .reduce((acc, line, index) => {
       let lastEntry = acc.pop() as Partial<Publication>;
+      let newEntry;
       if (index % 2) {
         lastEntry.description = line;
         lastEntry.title = line;
       } else {
-        lastEntry.link = line;
+        lastEntry.link = line;   
+        newEntry = {}
       }
       return [
         ...acc,
-        lastEntry
+        lastEntry,
+        ...(newEntry ? [ newEntry ] : []) // Add new entry at the end only when set
       ];
     }, [{}]);
 }
 
 function parseSideProjects(lines: string[]): Partial<SideProject>[] {
   return lines.slice(1, lines.length)
-  .filter(line => line !== '')
-  .reduce((acc, line, index) => {
-    let lastEntry = acc.pop() as Partial<Publication>;
-    if (index % 2) {
-      lastEntry.title = line;
-      lastEntry.description = line;
-    } else if(line.match(/^http(s):\/\//)) {
-      lastEntry.link = line;
-    } else {
-      lastEntry.description = line;
-    }
-    return [
-      ...acc,
-      lastEntry
-    ];
-  }, [{}]);
+    .filter(notEmpty)
+    .reduce((acc, line, index) => {
+      let lastEntry = acc.pop() as Partial<Publication>;
+      let newEntry;
+      if (index === 0) {
+        newEntry = {
+          title: line,
+          description: line,
+        }
+      } else if (line.split(" ").length < 5) {
+        newEntry = {
+          title: line,
+          description: line,
+        }
+      } else {
+        if(line.match(/^http(s):\/\//)) {
+          lastEntry.link = line;
+        } else {
+          lastEntry.description = line;
+        }
+      }
+      console.log(acc, lastEntry)
+      return [
+        ...acc,
+        lastEntry,
+        ...(newEntry ? [ newEntry ] : []) // Add new entry at the end only when set
+      ];
+    }, [{}])
 }
 
 function parseSkills(lines: string[]): Skill[] {
   return lines.slice(1, lines.length)
-    .filter(line => !line.match(/^\s*$/))
+    .filter(line => line !== "Languages – Frameworks - Libraries") // remove heading
+    .filter(notEmpty) // remove lines with only whitespace
+    .reduce((lines, line) => ([...lines, ...line.split('/')]), [] as string[]) // split single line lists
     .map(name => ({ name }))
 }
 
@@ -284,4 +301,8 @@ function getDateRange(line: string):  [string, string] {
   const matches = line.match(dateRangeRegex) || [];
   // 1 full hit and 6 capture groups, 1 (start) and 4 (end) are full match of date RegExp
   return [matches[1] || "", matches[4] || ""]
+}
+
+function notEmpty(line: string) {
+  return (!line.match(/^\s*$/)) // remove lines with only whitespace
 }
