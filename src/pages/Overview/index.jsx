@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import avatars from "../../assets/images/avatars";
 import { Button, Grid } from "@material-ui/core";
 import styled from "@emotion/styled";
+import PDFDownloadButton from "../../components/PDFDownloadButton";
 
 const useStyles = makeStyles(() => ({
   activeIcon: {
@@ -170,11 +171,9 @@ const Home = ({ searchText }) => {
                 tooltip: "Edit resume",
                 onClick: (event, rowData) => goTo(`./live/${rowData.id}`),
               },
-              {
-                icon: tableIcons.GetAppIcon,
-                tooltip: "Download resume",
-                onClick: (event, rowData) => goTo(`./creator/${rowData.id}`),
-              },
+              (rowData) => ({
+                icon: () => <PDFDownloadButton resume={rowData} />,
+              }),
             ]}
             localization={{
               header: {
