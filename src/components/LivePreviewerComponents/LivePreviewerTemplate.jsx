@@ -47,7 +47,10 @@ const LivePreviewerTemplate = ({ data }) => {
           .firestore()
           .collection("resumes")
           .doc(dataState.id);
-        await resumesRef.update(dataState);
+        await resumesRef.update({
+          ...dataState,
+          isImport: false, // explicitly remove database import flag, but only when saving to firestore
+        });
       } else {
         const resumesRef = firebase.firestore().collection("resumes").doc();
         await resumesRef.set(dataState);
