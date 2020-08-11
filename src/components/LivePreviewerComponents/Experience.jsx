@@ -56,10 +56,9 @@ const Experience = ({
       </TopWrapper>
 
       {experience.map((e, i) => (
-        <>
+        <React.Fragment key={i}>
           <ExperienceItem
             experienceItem={e}
-            key={i}
             onDeleteHandler={onDeleteHandler}
             onClickEdit={onClickEdit}
           />
@@ -69,7 +68,7 @@ const Experience = ({
               <Divider />
             </Box>
           )}
-        </>
+        </React.Fragment>
       ))}
 
       <EmptyNotice show={experience.length === 0} icon={faPlus} />
