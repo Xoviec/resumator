@@ -42,21 +42,21 @@ export interface Publication {
   id: string; 
   link: string; 
   title?: string;
-  description: string 
+  description: string;
 }
 export interface SideProject { 
   id: string;
   link?: string;
   title?: string;
-  description: string 
+  description: string;
 }
 export interface Skill {
-  name: string
+  name: string;
 }
 
 export interface Resume {
-  isImport?: Boolean,
-  personalia: Personalia
+  isImport?: Boolean;
+  personalia: Personalia;
   education: Education[];
   introduction: string;
   avatar: string;
@@ -67,7 +67,7 @@ export interface Resume {
   projects: Project[];
 }
 
-export type PartialResume = RecursivePartial<Resume>
+export type PartialResume = RecursivePartial<Resume>;
 
 export type Opts = {
   centered?: boolean;
