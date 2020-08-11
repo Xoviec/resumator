@@ -60,7 +60,7 @@ const TopSection = ({ personalia, onSubmit }) => {
           <Typography variant="h5">{personalia.email}</Typography>
         </MainInfo>
 
-        <OtherInfo variant="h7">
+        <OtherInfo variant="subtitle1">
           {city} {city && dateOfBirth && <Separator />}{" "}
           {getFormattedDate(dateOfBirth)}
         </OtherInfo>
