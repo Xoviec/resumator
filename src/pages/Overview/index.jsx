@@ -72,7 +72,7 @@ const getColumns = (classes) => [
       }
 
       const skillList = skills.map(({ id, name }, i) => (
-        <li className={classes.inlineList} key={id + i}>
+        <li className={classes.inlineList} key={`${id}-${i}`}>
           {(i ? ", " : "") + name}
         </li>
       ));
