@@ -11,16 +11,16 @@ const SideProjectItem = ({ projectItem, onClickEdit, onDeleteHandler }) => {
       <Typography gutterBottom variant="body1">
         {projectItem.description}
       </Typography>
-
-      <Link
-        rel="noreferrer noopener"
-        target="_blank"
-        color="secondary"
-        href={projectItem.link}
-      >
-        {projectItem.link}
-      </Link>
-
+      {projectItem.link && 
+        <Link
+          rel="noreferrer noopener"
+          target="_blank"
+          color="secondary"
+          href={projectItem.link}
+        >
+          {projectItem.link}
+        </Link>
+      }
       <ActionButtonsWrapper className="action-buttons">
         <ActionButtons
           onEditClick={() => onClickEdit(projectItem)}
