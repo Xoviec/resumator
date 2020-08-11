@@ -1,80 +1,34 @@
 import React, { useContext } from "react";
-import { Document, Font, PDFViewer, View } from "@react-pdf/renderer";
-import styled from "@react-pdf/styled-components";
-import {
-  PDFEducation,
-  PDFHeader,
-  PDFIntroduction,
-  PDFProjects,
-  PDFSkills,
-  PDFWorkExperience,
-} from "../../components/PDFBuilderComponents";
-import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
-import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Regular.ttf";
+import { PDFViewer } from "@react-pdf/renderer";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
-import { PDFSideProjects } from "../../components/PDFBuilderComponents/PDFSideProjects";
+import PDFTemplate from "../../components/PDFTemplate/PDFTemplate";
 
-Font.register({ family: "Stratum", src: Stratum1 });
-Font.register({
-  family: "Titillium Web",
-  format: "truetype",
-  src: Tillium,
-});
+const PDFTemplateWrapper = React.memo(
+  ({ resume }) => {
+    return (
+      <PDFViewer width="100%" height="100%">
+        <PDFTemplate resume={resume} />
+      </PDFViewer>
+    );
+  },
+  () => true // This fixes a weird lib bug -> https://github.com/diegomura/react-pdf/issues/420
+);
 
-const Wrapper = styled.Page`
-  padding: 20px;
-`;
-
-const Flex = styled.View`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const PDFDocument = ({ resume }) => {
-  return (
-    <Document>
-      <Wrapper size="A4">
-        <PDFHeader
-          avatar={resume.avatar}
-          name={resume.personalia.firstName}
-          city={resume.personalia.city}
-        />
-        <Flex>
-          <View>
-            <PDFIntroduction introduction={resume.introduction} />
-            <PDFSkills skills={resume.skills} />
-            <PDFEducation education={resume.education} />
-            <PDFSideProjects type="openSource" sideProjects={resume.sideProjects} />
-            <PDFSideProjects sideProjects={resume.publications} />
-            <View style={{ width: "200px", height: "100vh" }}></View>
-          </View>
-          <View>
-            <PDFProjects projects={resume.projects} />
-            <PDFWorkExperience experience={resume.experience} />
-          </View>
-        </Flex>
-      </Wrapper>
-    </Document>
-  );
-};
+PDFTemplateWrapper.displayName = "PDFTemplateWrapper";
 
 const PdfPreviewer = (props) => {
   const { firebase } = useContext(FirebaseAppContext);
-  const uuid = props.match.params.id;
-  const [value, loading, error] = useDocument(
-    firebase.firestore().doc(`resumes/${uuid}`)
+  const resumeId = props.match.params.id;
+  const [resumeData, loading, error] = useDocument(
+    firebase.firestore().doc(`resumes/${resumeId}`)
   );
 
   return (
     <>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Document: Loading...</span>}
-      {value && (
-        <PDFViewer width="100%" height="100%">
-          <PDFDocument resume={value.data()} />
-        </PDFViewer>
-      )}
+      {resumeData && <PDFTemplateWrapper resume={resumeData.data()} />}
     </>
   );
 };
