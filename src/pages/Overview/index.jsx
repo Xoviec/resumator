@@ -54,7 +54,8 @@ const getColumns = (classes) => [
     title: "Name",
     field: "personalia.lastName",
     render: (rowData) => {
-      return `${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
+      return `${rowData.isImport ? "* " : ""}
+        ${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
     },
   },
   { title: "City", field: "personalia.city" },
