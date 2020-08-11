@@ -52,7 +52,6 @@ export default async function importDocx(path: string): Promise<PartialResume> {
     .then(({ value }) => value)
     .then(correctSpacing)
     .then(extractSections)
-    // .then(s => {console.log(s); return s})
     .then(sections => {
       const parsers: CollectionBySection<Function> = {
         education: parseEducation,
@@ -166,20 +165,27 @@ function parseEducation(lines: string[]): Education[] {
   return lines.slice(1, lines.length)
     .filter(notEmpty)
     .reduce((acc, line) => {
-      let entry = acc[acc.length - 1];
-      if (entry.name === undefined) {
-        entry.name = line;
-      } else if (entry.institute === undefined) {
-        entry.institute = line
-      } else if(entry.startDate === undefined) {
-        const [ startDate, endDate ] = getDateRange(line);
-        entry.startDate = startDate;
-        entry.endDate = endDate;
+      let lastEntry = acc.pop() as Partial<Education>;
+      let newEntry;
 
-        // Probably done
-        acc.push({ id: '' }) as Partial<Experience>;
+      if (lastEntry.name === undefined) {
+        lastEntry.name = line;
+      } else if (lastEntry.institute === undefined) {
+        lastEntry.institute = line
+      } else if(lastEntry.startDate === undefined) {
+        const [ startDate, endDate ] = getDateRange(line);
+        lastEntry.startDate = startDate;
+        lastEntry.endDate = endDate;
+      } else {
+        newEntry = {
+          name: line
+        }
       }
-      return acc;
+      return [
+        ...acc,
+        lastEntry,
+        ...(newEntry ? [ newEntry ] : []) // Add new entry at the end only when set
+      ];
     }, [{}] as Partial<Education>[]);
 }
 
@@ -213,7 +219,10 @@ function parseExperience(lines: string[]): Partial<Experience>[] {
         }
       } else if (line.indexOf(' – ') !== -1) {
         // If there is a line of techniques (separated by ' - '), it is always the last line
-        lastEntry.stackAndTechniques = line.replace(/Techniques:\s*/, '').split(' - ').map(v => ({ name: v }));
+        lastEntry.stackAndTechniques = line
+          .replace(/Techniques:\s*/, "")
+          .replace(/\s*[–-]\s*/g, " - ") // normalize divider
+          .split(" - ").map(v => ({ name: v })); // split on divider
         newEntry = {};
       } else if (lastEntry.role) {
         lastEntry.description = (lastEntry.description) 
@@ -241,12 +250,18 @@ function parsePublications(lines: string[]): Partial<Publication>[] {
     .reduce((acc, line, index) => {
       let lastEntry = acc.pop() as Partial<Publication>;
       let newEntry;
-      if (index % 2) {
-        lastEntry.description = line;
-        lastEntry.title = line;
+      if (index === 0) {
+        lastEntry = {
+          title: line,
+          description: line,
+        }
+      } else if (index % 2) {
+        newEntry = {
+          title: line,
+          description: line,
+        }
       } else {
         lastEntry.link = line;   
-        newEntry = {}
       }
       return [
         ...acc,
@@ -263,23 +278,20 @@ function parseSideProjects(lines: string[]): Partial<SideProject>[] {
       let lastEntry = acc.pop() as Partial<Publication>;
       let newEntry;
       if (index === 0) {
-        newEntry = {
-          title: line,
-          description: line,
+        lastEntry = {
+          title: line
         }
       } else if (line.split(" ").length < 5) {
         newEntry = {
-          title: line,
-          description: line,
+          title: line
         }
       } else {
         if(line.match(/^http(s):\/\//)) {
           lastEntry.link = line;
         } else {
-          lastEntry.description = line;
+          lastEntry.description = `${lastEntry.description ? lastEntry.description + "\n" : ""}${line}`;
         }
       }
-      console.log(acc, lastEntry)
       return [
         ...acc,
         lastEntry,
