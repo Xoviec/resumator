@@ -1,61 +1,54 @@
-import { Resume } from "../types";
 import * as firebase from "firebase";
 
+import {
+  Education,
+  Experience,
+  Personalia,
+  Project,
+  Publication,
+  Resume,
+  SideProject,
+  Skill,
+} from "../types";
+import { format } from "date-fns";
+
 export default class ResumeModel {
-  firstName: string;
+  personalia: Personalia;
+  education: Education[];
   introduction: string;
-  skills: { skillName: string }[];
-  education: { educationName: string; institute: string }[];
   avatar: string;
-  publications?: { id: string; link: string; description: string }[];
-  experience?: {
-    id: string;
-    role: string;
-    company: string;
-    stackAndTechniques: [{ name: string }];
-    startDate: string;
-    endDate: string;
-  }[];
-  projects: {
-    id: string;
-    role: string;
-    company: string;
-    stackAndTechniques: [{ name: string }];
-    startDate: string;
-    endDate: string;
-  }[];
+  skills: Skill[];
+  sideProjects: SideProject[] = [];
+  publications: Publication[];
+  experience: Experience[];
+  projects: Project[];
+
   constructor(data: firebase.firestore.DocumentData | Resume) {
-    this.firstName = data.personalia.firstName;
+    this.personalia = data.personalia;
+    this.personalia.dateOfBirth = this.formatTimestamp(this.personalia.dateOfBirth);
     this.introduction = data.introduction;
     this.avatar = data.avatar;
-    this.publications = data.publications.map(
-      (publication: { link: string; description: string }) => {
-        return {
-          publicationLink: publication.link,
-          publicationDescription: publication.description,
-        };
-      }
-    );
-    this.skills = data.skills.map((skill: { name: string }) => {
-      return { skillName: skill.name };
-    });
-    this.education = data.education.map((education: any) => {
+    this.publications = data.publications;
+    this.skills = data.skills;
+    this.education = data.education.map((education: Education) => {
       return {
-        educationName: education.name,
+        name: education.name,
         institute: education.institute,
       };
     });
-    this.experience = data.experience.map((experience: any) => {
+    this.experience = data.experience.map((experience: Experience) => {
       return {
-        experienceRole: experience.role,
-        experienceCompany: experience.company,
+        role: experience.role,
+        company: experience.company,
+        description: experience.description,
       };
     });
-    this.projects = data.projects.map((projects: any) => {
-      return {
-        projectRole: projects.role,
-        projectCompany: projects.company,
-      };
+    this.projects = data.projects.map((project: Project) => {
+      project.startDate = this.formatTimestamp(project.startDate);
     });
+  }
+
+  formatTimestamp(timestamp: any, dateFormat = "MMMM yyyy") {
+    return format(timestamp.seconds * 1000, dateFormat).toUpperCase();
   }
 }

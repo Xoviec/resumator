@@ -1,16 +1,17 @@
 type RecursivePartial<T> = {
-  [P in keyof T]?:
-    T[P] extends (infer U)[] ? RecursivePartial<U>[] :
-    T[P] extends object ? RecursivePartial<T[P]> :
-    T[P];
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? RecursivePartial<U>[]
+    : T[P] extends object
+    ? RecursivePartial<T[P]>
+    : T[P];
 };
 
 export interface Personalia {
-    firstName: string;
-    lastName: string;
-    email: string;
-    dateOfBirth: Date;
-    city: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: any;
+  city: string;
 }
 export interface Education {
   id?: string;
@@ -33,18 +34,18 @@ export interface Project {
   id: string;
   role: string;
   company: string;
-  description: string,
+  description: string;
   stackAndTechniques: Skill[];
   startDate: Date;
   endDate: Date;
 }
-export interface Publication { 
-  id: string; 
-  link: string; 
+export interface Publication {
+  id: string;
+  link: string;
   title?: string;
   description: string;
 }
-export interface SideProject { 
+export interface SideProject {
   id: string;
   link?: string;
   title?: string;

@@ -62,11 +62,13 @@ export const createDocx = functions.https.onRequest(async (req: Request, res) =>
   const doc = await new DocxTemplater().attachModule(imageModule).loadZip(zip);
 
   doc.setData({
-    first_name: resume.firstName,
+    first_name: resume.personalia.firstName,
     introduction: resume.introduction,
+    city: resume.personalia.city,
     skills: resume.skills,
     education: resume.education,
     projects: resume.projects,
+    dob: resume.personalia.dateOfBirth,
     image: resume.avatar,
   });
 
