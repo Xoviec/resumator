@@ -70,12 +70,6 @@ export interface Resume {
 
 export type PartialResume = RecursivePartial<Resume>;
 
-export type Opts = {
-  centered?: boolean;
-  getImage?: any;
-  getSize?: (img: string, tagValue: string, tagName: string) => number[];
-};
-
 export interface ParsedQs {
   [key: string]: string | string[] | ParsedQs | ParsedQs[];
 }

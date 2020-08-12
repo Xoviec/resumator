@@ -2,11 +2,11 @@ import * as functions from "firebase-functions";
 import { Request } from "firebase-functions/lib/providers/https";
 import { Bucket } from "@google-cloud/storage";
 
-import * as ImageModule from "docxtemplater-image-module";
+/// <reference path="./types/docxtemplater/index.d.ts" />
 import * as DocxTemplater from "docxtemplater";
+import * as ImageModule from "docxtemplater-image-module";
 import * as PizZip from "pizzip";
 
-import { Opts } from "./types";
 import ResumeModel from "./models/ResumeModel";
 
 import { getResume } from "./api/getResume";
@@ -48,10 +48,11 @@ export const createDocx = functions.https.onRequest(async (req: Request, res) =>
   }
 
   // Set up avatar options
-  const opts: Opts = {};
-  opts.centered = false;
-  opts.getImage = (tagValue: string) => avatars.get(tagValue);
-  opts.getSize = () => [80, 200];
+  const opts = {
+    getImage : (tagValue: string) => avatars.get(tagValue),
+    centered : false,
+    getSize : () => [80, 200],
+  };
   const imageModule = new ImageModule(opts);
 
   // Load the input.docx file as a binary
@@ -59,7 +60,7 @@ export const createDocx = functions.https.onRequest(async (req: Request, res) =>
 
   // rename opts to image options
   const zip = new PizZip(resumeTemplate);
-  const doc = await new DocxTemplater().attachModule(imageModule).loadZip(zip);
+  const doc = await new DocxTemplater(zip, { modules: [imageModule]});
 
   doc.setData({
     first_name: resume.personalia.firstName,
@@ -89,5 +90,5 @@ export const createDocx = functions.https.onRequest(async (req: Request, res) =>
 
   res.setHeader("Content-Transfer-Encoding", "binary");
 
-  res.status(200).send(buffer);
+  res.status(200).send(buffer).end();
 });
