@@ -48,7 +48,7 @@ const SideProjects = ({
       </TopWrapper>
 
       {projects.map((e, i) => (
-        <React.Fragment key={e.id}>
+        <React.Fragment key={i}>
           <SideProjectItem
             projectItem={e}
             key={i}

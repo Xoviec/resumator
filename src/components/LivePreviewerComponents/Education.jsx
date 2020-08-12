@@ -47,9 +47,8 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
       </TopWrapper>
 
       {education.map((e, i) => (
-        <>
+        <React.Fragment key={i}>
           <EducationItem
-            key={i}
             {...e}
             onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
             onDeleteHandler={onDeleteHandler}
@@ -59,7 +58,7 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
               <Divider />
             </Box>
           )}
-        </>
+        </React.Fragment>
       ))}
       <EmptyNotice show={education.length === 0} icon={faPlus} />
 
