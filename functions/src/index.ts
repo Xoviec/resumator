@@ -4,9 +4,9 @@ import * as functions from "firebase-functions";
 import { createUser } from "./createUser";
 import createDocx from "./createDocx";
 
-import ResumeModel from "./models/ResumeModel";
-
 import { getResume } from "./api/getResume";
+
+const TEMPLATE_PATH = "template.docx";
 
 admin.initializeApp();
 
@@ -20,30 +20,30 @@ exports.createDocx = functions.https.onRequest(async (req, res) => {;
     return;
   }
 
-  const data = await getResume(req.query.resume as string);
-  if (!data) {
+  const resume = await getResume(req.query.resume as string);
+  if (!resume) {
     const message = "Could not find resume with provided id";
     console.log(message);
     res.status(404).send(message);
     return;
   }
 
-  const template = await getBucketFile("input.docx");
+  const template = await getBucketFile(TEMPLATE_PATH);
   if (!template) {
-    const message = "Could not find docx template 'input.docx'";
+    const message = `Could not find docx template "${TEMPLATE_PATH}" on Firebase Storage`;
     console.log(message);
     res.status(500).send(message);
     return;
   }
 
-  // const resume = new ResumeModel(data);
-  const resume = data;
   const avatar = await getBucketFile(`avatars/${resume.avatar}.png`);
   const output = await createDocx(resume, template, avatar)
 
+  const { firstName, lastName } = resume.personalia;
+  const filename = `resume=${firstName}-${lastName}.docx`
   res.setHeader(
     "Content-Disposition",
-    `attachment; filename=${data.personalia.firstName}-${data.personalia.lastName}-resume.docx`
+    `attachment; filename=${filename}`
   );
 
   res.setHeader(
