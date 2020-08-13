@@ -1,94 +1,29 @@
-import * as functions from "firebase-functions";
-import { Request } from "firebase-functions/lib/providers/https";
-import { Bucket } from "@google-cloud/storage";
-
 /// <reference path="./types/docxtemplater/index.d.ts" />
 import * as DocxTemplater from "docxtemplater";
 import * as ImageModule from "docxtemplater-image-module";
 import * as PizZip from "pizzip";
 
-import ResumeModel from "./models/ResumeModel";
+import { Resume } from "./types";
 
-import { getResume } from "./api/getResume";
-
-const admin = require("firebase-admin");
-
-const resumeTemplatePath = "input.docx";
-
-const getBucketFile = async (filename: string): Promise<Buffer> => {
-  const bucket: Bucket = admin.storage().bucket();
-  const buffers = await bucket.file(filename).download();
-  return buffers[0];
-};
-
-const avatars = new Map<String, Buffer>();
-
-export const createDocx = functions.https.onRequest(async (req: Request, res) => {
-  if (!req.query.resume) {
-    const message = "no resume param provided";
-    console.log(message);
-    res.status(400).send(message);
-    return;
-  }
-
-  const data = await getResume(req.query.resume as string);
-  if (!data) {
-    const message = "could not find resume with provided id";
-    console.log(message);
-    res.status(404).send(message);
-    return;
-  }
-
-  const resume = new ResumeModel(data);
-
-  // load avatar if not loaded yet (function beyond won't work async)
-  if (!avatars.has(resume.avatar)) {
-    const avatarName = `avatars/${resume.avatar}.png`;
-    avatars.set(resume.avatar, await getBucketFile(avatarName));
-  }
-
-  // Set up avatar options
-  const opts = {
-    getImage : (tagValue: string) => avatars.get(tagValue),
-    centered : false,
-    getSize : () => [80, 200],
-  };
-  const imageModule = new ImageModule(opts);
-
-  // Load the input.docx file as a binary
-  const resumeTemplate: Buffer = await getBucketFile(resumeTemplatePath);
-
-  // rename opts to image options
-  const zip = new PizZip(resumeTemplate);
-  const doc = await new DocxTemplater(zip, { modules: [imageModule]});
-
-  doc.setData({
-    first_name: resume.personalia.firstName,
-    introduction: resume.introduction,
-    city: resume.personalia.city,
-    skills: resume.skills,
-    education: resume.education,
-    projects: resume.projects,
-    dob: resume.personalia.dateOfBirth,
-    image: resume.avatar,
+export default async function createDocx(resume: Resume, template: Buffer, avatar?: Buffer) {
+  const imageModule = new ImageModule({
+    centered: false,
+    getImage: (tagValue: string) => avatar,
+    getSize: () => [80, 200],    
   });
+
+  const zip = new PizZip(template);
+  const options = { modules: [ imageModule ]} ;
+  const doc = await new DocxTemplater(zip, options);
+
+  const tags = {
+    ...resume,
+    ...resume.personalia,
+  };
+  doc.setData(tags);
 
   // The render function replaces the placeholder text from the input.docx with the  data
   doc.render();
 
-  const buffer = doc.getZip().generate({ type: "nodebuffer" });
-
-  res.setHeader(
-    "Content-Disposition",
-    `attachment; filename=${data.personalia.firstName}-${data.personalia.lastName}-resume.docx`
-  );
-
-  res.setHeader(
-    "Content-type",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml"
-  );
-
-  res.setHeader("Content-Transfer-Encoding", "binary");
-
-  res.status(200).send(buffer).end();
-});
+  return doc.getZip().generate({ type: "nodebuffer" });
+}
