@@ -136,11 +136,11 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
   const firstName = headingMatch[1] || "";
   const lastName = filename.substring( filename.indexOf(firstName) + firstName.length );
 
-  const { city, dateOfBirth, introduction }  = lines.reduce((acc, line) => {
+  const { city = "", dateOfBirth = "", introduction = "" }  = lines.reduce((acc, line) => {
     const cityAndDateMatch = line.match(new RegExp(`^(\\w+)\\sregion\\s–\\s[A-Z]{2}\\s–\\s(${dateRegex.source})`)) || [];
     if (cityAndDateMatch.length) {
-      acc.city = cityAndDateMatch[1];
-      acc.dateOfBirth = cityAndDateMatch[2];
+      acc.city = cityAndDateMatch[1] || "";
+      acc.dateOfBirth = cityAndDateMatch[2] || "";
     } else if (acc.city) {
       // Everything after region and date of birth is considered introduction
       acc.introduction = (acc.introduction)
@@ -200,11 +200,13 @@ function parseExperience(lines: string[]): Partial<Experience>[] {
       if (line.search(dateRegex) !== -1) {
         // If there is a line with a date, the previous line would have been a role. 
         const previousLine = lines[index - 1];
-        const [ startDate, endDate ] = getDateRange(line);
+        const [ startDateString, endDateString ] = getDateRange(line);
+        const startDate = dateFromPartial(startDateString);
+        const endDate = dateFromPartial(endDateString);
         const entry = {
-          startDate: dateFromPartial(startDate),
-          endDate: dateFromPartial(endDate),
-          company: line.substring(0, line.indexOf(startDate)).trim(),
+          ...(isDate(startDate)) ? { startDate } : {},
+          ...(isDate(endDate)) ? { endDate } : {},
+          company: line.substring(0, line.indexOf(startDateString)).trim(),
           role: previousLine,
         }
         // If we were already adding found lines to the description, we have to revert that
@@ -322,5 +324,11 @@ function notEmpty(line: string) {
 function dateFromPartial(partialDate: string, defaults?: { day?: number, month?: number }): Date {
   const { day: defaultDay = 1, month: defaultMonth = 1} = defaults || {};
   const [year, month = defaultMonth, day = defaultDay] = partialDate.split(" ").reverse();
-  return new Date(`${day} ${month} ${year} UTC`);
+  const date = new Date(`${day} ${month} ${year} UTC`);
+  return date
+}
+
+function isDate(date: Date) {
+   // Invalid date would return NaN as ms since UNIX epoch
+  return !isNaN(date.valueOf());
 }
