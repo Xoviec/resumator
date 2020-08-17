@@ -139,8 +139,8 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
   const { city, dateOfBirth, introduction }  = lines.reduce((acc, line) => {
     const cityAndDateMatch = line.match(new RegExp(`^(\\w+)\\sregion\\s–\\s[A-Z]{2}\\s–\\s(${dateRegex.source})`)) || [];
     if (cityAndDateMatch.length) {
-      acc.city = cityAndDateMatch[1] || "";
-      acc.dateOfBirth = (cityAndDateMatch[2]) ? `1 ${cityAndDateMatch[2]} UTC` : ''
+      acc.city = cityAndDateMatch[1];
+      acc.dateOfBirth = cityAndDateMatch[2];
     } else if (acc.city) {
       // Everything after region and date of birth is considered introduction
       acc.introduction = (acc.introduction)
@@ -154,7 +154,7 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
       firstName,
       lastName,
       email: "",
-      dateOfBirth: new Date(dateOfBirth),
+      dateOfBirth: dateFromPartial(dateOfBirth),
       city,
     },
     introduction,
@@ -174,8 +174,8 @@ function parseEducation(lines: string[]): Education[] {
         lastEntry.institute = line
       } else if(lastEntry.startDate === undefined) {
         const [ startDate, endDate ] = getDateRange(line);
-        lastEntry.startDate = startDate;
-        lastEntry.endDate = endDate;
+        lastEntry.startDate = dateFromPartial(startDate, { month: 9 });
+        lastEntry.endDate = dateFromPartial(endDate, { month: 9 });
       } else {
         newEntry = {
           name: line
@@ -202,8 +202,8 @@ function parseExperience(lines: string[]): Partial<Experience>[] {
         const previousLine = lines[index - 1];
         const [ startDate, endDate ] = getDateRange(line);
         const entry = {
-          startDate,
-          endDate,
+          startDate: dateFromPartial(startDate),
+          endDate: dateFromPartial(endDate),
           company: line.substring(0, line.indexOf(startDate)).trim(),
           role: previousLine,
         }
@@ -317,4 +317,10 @@ function getDateRange(line: string):  [string, string] {
 
 function notEmpty(line: string) {
   return (!line.match(/^\s*$/)) // remove lines with only whitespace
+}
+
+function dateFromPartial(partialDate: string, defaults?: { day?: number, month?: number }): Date {
+  const { day: defaultDay = 1, month: defaultMonth = 1} = defaults || {};
+  const [year, month = defaultMonth, day = defaultDay] = partialDate.split(" ").reverse();
+  return new Date(`${day} ${month} ${year} UTC`);
 }
