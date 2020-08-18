@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
 import { useDocument } from "react-firebase-hooks/firestore";
 import initialData from "../config/initialData";
+import { castDatesInObject } from "./date";
 
 const useResume = (id) => {
   const { firebase } = useContext(FirebaseAppContext);
@@ -13,7 +14,7 @@ const useResume = (id) => {
 
   useEffect(() => {
     if (value) {
-      setData({ ...initialData, ...value.data() });
+      setData({ ...initialData, ...castDatesInObject(value.data()) });
     }
   }, [value]);
 
