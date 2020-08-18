@@ -1,15 +1,13 @@
 import { format } from "date-fns";
 
 export function castDate(timestamp) {
-  return (timestamp && timestamp.seconds)
-    ? (new Date(timestamp.seconds * 1000))
+  return timestamp && timestamp.seconds
+    ? new Date(timestamp.seconds * 1000)
     : timestamp;
 }
 
 export function formatDate(timestamp, dateformat = "yyyy-MM-dd") {
-  return (timestamp)
-    ? format(castDate(timestamp), dateformat)
-    : timestamp
+  return timestamp ? format(castDate(timestamp), dateformat) : timestamp;
 }
 
 /**
@@ -20,7 +18,7 @@ export function formatDate(timestamp, dateformat = "yyyy-MM-dd") {
  * @returns
  */
 export function castDatesInObject(object) {
-  return walkObject(object, castDate)
+  return walkObject(object, castDate);
 }
 
 /**
@@ -30,7 +28,7 @@ export function castDatesInObject(object) {
  * @returns
  */
 export function formatDatesInObject(object, format = "yyyy-MM-dd") {
-  return walkObject(object, (prop, format) => castDate(prop, format))
+  return walkObject(object, (prop, format) => castDate(prop, format));
 }
 
 function walkObject(object, callback) {
@@ -38,9 +36,9 @@ function walkObject(object, callback) {
     let prop = object[key];
     if (typeof prop === "object") {
       if (prop.seconds || prop instanceof Date) {
-        object[key] = callback(prop)
+        object[key] = callback(prop);
       } else {
-        object[key] = walkObject(prop, callback)
+        object[key] = walkObject(prop, callback);
       }
     }
   }
