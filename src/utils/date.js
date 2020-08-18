@@ -28,7 +28,7 @@ export function castDatesInObject(object) {
  * @returns
  */
 export function formatDatesInObject(object, format = "yyyy-MM-dd") {
-  return walkObject(object, (prop, format) => castDate(prop, format));
+  return walkObject(object, (prop, format) => formatDate(prop, format));
 }
 
 function walkObject(object, callback) {
