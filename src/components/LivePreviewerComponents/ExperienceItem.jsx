@@ -4,7 +4,7 @@ import { Typography, Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { getFormattedDate } from "../../utils/getFormattedDate";
+import { formatDate } from "../../utils/date";
 import ActionButtons from "./ActionButtons";
 import Chip from "@material-ui/core/Chip";
 
@@ -26,8 +26,8 @@ const ExperienceItem = ({ experienceItem, onClickEdit, onDeleteHandler }) => {
         <Typography variant="h6">{experienceItem.role}</Typography>
         <Typography variant="subtitle1">{experienceItem.company}</Typography>
         <Typography gutterBottom variant="body1">
-          {getFormattedDate(experienceItem.startDate)} -
-          {getFormattedDate(experienceItem.endDate)}
+          {formatDate(experienceItem.startDate)} -
+          {formatDate(experienceItem.endDate)}
         </Typography>
       </TopSection>
       <Grid
