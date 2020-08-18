@@ -36,7 +36,9 @@ exports.createDocx = functions.https.onRequest(async (req, res) => {;
     return;
   }
 
-  const avatar = await getBucketFile(`avatars/${resume.avatar}.png`);
+  const avatar = resume.avatar
+    ? await getBucketFile(`avatars/${resume.avatar}.png`)
+    : undefined;
   const output = await createDocx(resume, template, avatar)
 
   const { firstName, lastName } = resume.personalia;
