@@ -6,7 +6,7 @@ import { DatePicker } from "@material-ui/pickers";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
 import avatars from "../../assets/images/avatars";
-import { getFormattedDate } from "../../utils/getFormattedDate";
+import { formatDate } from "../../utils/date";
 import Card from "../Card";
 import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";
@@ -62,7 +62,7 @@ const TopSection = ({ personalia, onSubmit }) => {
 
         <OtherInfo variant="subtitle1">
           {city} {city && dateOfBirth && <Separator />}{" "}
-          {getFormattedDate(dateOfBirth)}
+          {formatDate(dateOfBirth)}
         </OtherInfo>
       </>
     );

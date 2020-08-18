@@ -17,8 +17,8 @@ export interface Education {
   certificate?: boolean;
   institute?: string;
   name?: string;
-  startDate?: string;
-  endDate?: string;
+  startDate?: Date;
+  endDate?: Date;
 }
 export interface Experience {
   id: string;
@@ -26,8 +26,8 @@ export interface Experience {
   company: string;
   description: string;
   stackAndTechniques: Skill[];
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
 export interface Project {
   id: string;
@@ -35,8 +35,8 @@ export interface Project {
   company: string;
   description: string,
   stackAndTechniques: Skill[];
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
 export interface Publication { 
   id: string; 

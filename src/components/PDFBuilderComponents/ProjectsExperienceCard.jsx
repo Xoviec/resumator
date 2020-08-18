@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
 import PDFDescription from "./PDFDescription";
-import { getFormattedDate } from "../../utils/getFormattedDate";
+import { formatDate } from "../../utils/date";
 
 const Root = styled.View`
   margin-bottom: 20px;
@@ -70,8 +70,8 @@ export function ProjectsExperienceCard({ project }) {
       <Flex>
         <SubText>{company}</SubText>
         <SubText>
-          {getFormattedDate(startDate, "MMMM yyyy")} -
-          {getFormattedDate(endDate, "MMMM yyyy")}
+          {formatDate(startDate, "MMMM yyyy")} -
+          {formatDate(endDate, "MMMM yyyy")}
         </SubText>
       </Flex>
       <PDFDescription description={description} />

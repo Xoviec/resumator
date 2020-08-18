@@ -93,5 +93,6 @@ function flagToOption(arg: string) {
 }
 
 async function addToDB(collection: string, resumePromise: Promise<any>) {
-  return db.collection(RESUME_COLLECTION).doc().set(await resumePromise);
+  const resume = await resumePromise;
+  return db.collection(collection).doc().set(resume);
 }

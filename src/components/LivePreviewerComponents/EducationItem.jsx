@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import ActionButtons from "./ActionButtons";
-import { getFormattedDate } from "../../utils/getFormattedDate";
+import { formatDate } from "../../utils/date";
 import Typography from "@material-ui/core/Typography";
 
 const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) => {
@@ -12,8 +12,8 @@ const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) =>
         {educationEntry.institute}
       </Typography>
       <Typography variant="body1">
-        {getFormattedDate(educationEntry.startDate)} -{" "}
-        {getFormattedDate(educationEntry.endDate)}
+        {formatDate(educationEntry.startDate)} -{" "}
+        {formatDate(educationEntry.endDate)}
       </Typography>
 
       <ActionButtonsWrapper className="action-buttons">
