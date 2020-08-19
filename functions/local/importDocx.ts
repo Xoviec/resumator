@@ -1,7 +1,8 @@
 /// <reference path="./types/mammoth/index.d.ts"/>
 import { basename } from "path";
+import slugify from "slugify";
 import * as mammoth from "mammoth";
-import { 
+import {
   Education,
   Experience,
   Personalia,
@@ -68,7 +69,7 @@ export default async function importDocx(path: string): Promise<PartialResume> {
         let sectionData = (section.type == "intro")
         ? parseIntro(section.lines, filename)
         : { [section.type]: parser(section.lines) }
-        
+
         return {
           ...resume,
           ...sectionData
@@ -135,7 +136,7 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
   const headingMatch = lines[0].match(headingRegexes.intro) || [];
   const firstName = headingMatch[1] || "";
   const lastName = filename.substring( filename.indexOf(firstName) + firstName.length );
-
+  const email = `${slugify(firstName.toLowerCase())}.${slugify(lastName).toLowerCase()}@frontmen.nl`;
   const { city = "", dateOfBirth = "", introduction = "" }  = lines.reduce((acc, line) => {
     const cityAndDateMatch = line.match(new RegExp(`^(\\w+)\\sregion\\s–\\s[A-Z]{2}\\s–\\s(${dateRegex.source})`)) || [];
     if (cityAndDateMatch.length) {
@@ -153,7 +154,7 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
     personalia: {
       firstName,
       lastName,
-      email: "",
+      email,
       dateOfBirth: dateFromPartial(dateOfBirth),
       city,
     },
@@ -198,7 +199,7 @@ function parseExperience(lines: string[]): Partial<Experience>[] {
 
       // Try to guess what type of data the current line holds
       if (line.search(dateRegex) !== -1) {
-        // If there is a line with a date, the previous line would have been a role. 
+        // If there is a line with a date, the previous line would have been a role.
         const previousLine = lines[index - 1];
         const [ startDateString, endDateString ] = getDateRange(line);
         const startDate = dateFromPartial(startDateString);
@@ -227,13 +228,13 @@ function parseExperience(lines: string[]): Partial<Experience>[] {
           .split(" - ").map(v => ({ name: v })); // split on divider
         newEntry = {};
       } else if (lastEntry.role) {
-        lastEntry.description = (lastEntry.description) 
-          ? `${lastEntry.description}\n${line}` 
+        lastEntry.description = (lastEntry.description)
+          ? `${lastEntry.description}\n${line}`
           : line
       } else {
         lastEntry.role = line
       }
-      
+
       return [
         ...acc,
         lastEntry,
@@ -263,7 +264,7 @@ function parsePublications(lines: string[]): Partial<Publication>[] {
           description: line,
         }
       } else {
-        lastEntry.link = line;   
+        lastEntry.link = line;
       }
       return [
         ...acc,
