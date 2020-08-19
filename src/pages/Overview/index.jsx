@@ -104,7 +104,7 @@ const Home = ({ searchText }) => {
   const { firebase, user } = useContext(FirebaseAppContext);
 
   let query = firebase.firestore().collection("resumes");
-  if (user && user.userRec.isManager !== true) {
+  if (user && user.userRec && user.userRec.isManager !== true) {
     query = query.where("personalia.email", "==", user.email);
   }
 
