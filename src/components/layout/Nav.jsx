@@ -1,30 +1,23 @@
 import React, { useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
-  Drawer,
   IconButton,
-  List,
-  ListItem,
   Menu,
   MenuItem,
   TextField,
   Toolbar,
-  Tooltip,
   Avatar,
 } from "@material-ui/core";
-import { AccountCircle, People, Search, ExitToApp } from "@material-ui/icons";
+import { AccountCircle, Search } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import styled from "@emotion/styled";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 
-const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -32,13 +25,6 @@ const useStyles = makeStyles((theme) => ({
   autocomplete: {
     paddingLeft: 50,
     width: "100%",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
   },
   grow: {
     flexGrow: 1,
@@ -82,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
+    marginLeft: theme.spacing(2),
     width: "100%",
     [theme.breakpoints.up("md")]: {
       marginLeft: theme.spacing(3),
@@ -101,12 +87,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     left: 0,
   },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
-  },
   toolbar: {
     display: "flex",
     alignItems: "center",
@@ -120,7 +100,6 @@ const useStyles = makeStyles((theme) => ({
 const Nav = ({ handleSearch }) => {
   const history = useHistory();
   const goTo = (path) => history.push(path);
-  const location = useLocation();
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -133,18 +112,6 @@ const Nav = ({ handleSearch }) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const signOutUser = async function () {
-    firebase
-      .auth()
-      .signOut()
-      .then(function () {
-        goTo("/");
-      })
-      .catch(function () {
-        console.log("logout failed");
-      });
   };
 
   const menuId = "primary-search-account-menu";
@@ -175,7 +142,9 @@ const Nav = ({ handleSearch }) => {
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <img className={classes.logo} src={frontmenLogo} alt="logo" />
+            <a href="/overview" title="Back to overview">
+              <img className={classes.logo} src={frontmenLogo} alt="logo" />
+            </a>
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
             <div className={classes.search}>
               <Autocomplete
@@ -213,7 +182,6 @@ const Nav = ({ handleSearch }) => {
               />
             </div>
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -224,52 +192,12 @@ const Nav = ({ handleSearch }) => {
               >
                 {avatarComponent}
               </IconButton>
-            </div>
           </Toolbar>
         </AppBar>
       </div>
       {renderMenu}
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar} />
-        <List className={classes.iconList}>
-          <ListItem
-            button
-            key="overview"
-            className={classes.listItem}
-            selected={location.pathname === "/overview"}
-            onClick={() => goTo("/overview")}
-          >
-            <Tooltip title="Overview" aria-label="Overview">
-              <CustomIconButton aria-label="overview" disableRipple>
-                <People />
-              </CustomIconButton>
-            </Tooltip>
-          </ListItem>
-
-          <ListItem button key="logout" onClick={signOutUser}>
-            <Tooltip title="Logout" aria-label="Logout">
-              <CustomIconButton aria-label="logout" disableRipple>
-                <ExitToApp />
-              </CustomIconButton>
-            </Tooltip>
-          </ListItem>
-        </List>
-      </Drawer>
     </div>
   );
 };
-
-const CustomIconButton = styled(IconButton)`
-  &:hover {
-    background-color: transparent;
-  }
-`;
 
 export default Nav;
