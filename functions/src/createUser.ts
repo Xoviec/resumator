@@ -1,24 +1,43 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { PartialResume } from "./types/index";
+
+const RESUME_COLLECTION = "resumes";
+const USER_COLLECTION = "users";
 
 export const createUser = functions.auth.user().onCreate(async (user) => {
+  const { email}  = user;
   try {
-    const userRef = admin.firestore().collection("users");
+    const userCollection = admin.firestore().collection(USER_COLLECTION);
+    const resumeCollection = admin.firestore().collection(RESUME_COLLECTION);
 
-    const snap = await userRef.where("email", "==", user.email).get();
+    const userSnapshot = await userCollection.where("email", "==", email).get();
+    const resumeSnapshot = await resumeCollection.where("email", "==", email).get();
 
     let userData: {} = { registered: true };
-    // Write new user if it doesn't exist
-    if (snap.empty) {
+    let userPromise;
+    let resumePromise;
+    // Create resume if none exist for user
+    if (resumeSnapshot.empty) {
+      const resume: PartialResume = {
+        personalia: {
+          email: email
+        }
+      }
+      resumePromise = resumeCollection.doc().set(resume);
+    }
+
+    // Write new user if none exist
+    if (userSnapshot.empty) {
       userData = {
         name: user.displayName,
-        email: user.email,
+        email: email,
         ...userData,
       };
     } else {
       let userDoc = {};
 
-      snap.forEach((doc) => {
+      userSnapshot.forEach((doc) => {
         userDoc = doc.data();
         doc.ref.delete().catch(() => {
           console.log("error deleting reference ");
@@ -31,7 +50,8 @@ export const createUser = functions.auth.user().onCreate(async (user) => {
       };
     }
 
-    return admin.firestore().collection("users").doc(user.uid).set(userData);
+    userPromise = userCollection.doc(user.uid).set(userData);
+    return Promise.all([ resumePromise, userPromise ]);
   } catch (err) {
     throw new functions.https.HttpsError("failed-precondition", err.message);
   }
