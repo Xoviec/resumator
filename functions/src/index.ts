@@ -15,7 +15,6 @@ exports.createDocx = functions.https.onRequest(async (req, res) => {;
 
   if (!req.query.resume) {
     const message = "No resume param provided";
-    console.log(message);
     res.status(400).send(message);
     return;
   }
@@ -23,7 +22,6 @@ exports.createDocx = functions.https.onRequest(async (req, res) => {;
   const resume = await getResume(req.query.resume as string);
   if (!resume) {
     const message = "Could not find resume with provided id";
-    console.log(message);
     res.status(404).send(message);
     return;
   }
@@ -31,7 +29,6 @@ exports.createDocx = functions.https.onRequest(async (req, res) => {;
   const template = await getBucketFile(TEMPLATE_PATH);
   if (!template) {
     const message = `Could not find docx template "${TEMPLATE_PATH}" on Firebase Storage`;
-    console.log(message);
     res.status(500).send(message);
     return;
   }
