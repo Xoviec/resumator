@@ -6,7 +6,7 @@ declare class Docxtemplater {
   constructor(zip?: PizZip, options?: Docxtemplater.Options);
 
   setData(tags: {[key: string]: any }): this;
-  
+
   render(): this;
 
   getZip(): PizZip;
