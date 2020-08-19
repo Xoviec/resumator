@@ -3,7 +3,6 @@ import { useHistory, useLocation } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
-  Drawer,
   IconButton,
   List,
   ListItem,
@@ -24,7 +23,6 @@ import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 
-const drawerWidth = 80;
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -32,13 +30,6 @@ const useStyles = makeStyles((theme) => ({
   autocomplete: {
     paddingLeft: 50,
     width: "100%",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
   },
   grow: {
     flexGrow: 1,
@@ -82,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
+    marginLeft: theme.spacing(2),
     width: "100%",
     [theme.breakpoints.up("md")]: {
       marginLeft: theme.spacing(3),
@@ -100,12 +91,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     left: 0,
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
   },
   toolbar: {
     display: "flex",
@@ -213,7 +198,6 @@ const Nav = ({ handleSearch }) => {
               />
             </div>
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -224,44 +208,10 @@ const Nav = ({ handleSearch }) => {
               >
                 {avatarComponent}
               </IconButton>
-            </div>
           </Toolbar>
         </AppBar>
       </div>
       {renderMenu}
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar} />
-        <List className={classes.iconList}>
-          <ListItem
-            button
-            key="overview"
-            className={classes.listItem}
-            selected={location.pathname === "/overview"}
-            onClick={() => goTo("/overview")}
-          >
-            <Tooltip title="Overview" aria-label="Overview">
-              <CustomIconButton aria-label="overview" disableRipple>
-                <People />
-              </CustomIconButton>
-            </Tooltip>
-          </ListItem>
-
-          <ListItem button key="logout" onClick={signOutUser}>
-            <Tooltip title="Logout" aria-label="Logout">
-              <CustomIconButton aria-label="logout" disableRipple>
-                <ExitToApp />
-              </CustomIconButton>
-            </Tooltip>
-          </ListItem>
-        </List>
-      </Drawer>
     </div>
   );
 };
