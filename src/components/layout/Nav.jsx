@@ -1,24 +1,19 @@
 import React, { useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   IconButton,
-  List,
-  ListItem,
   Menu,
   MenuItem,
   TextField,
   Toolbar,
-  Tooltip,
   Avatar,
 } from "@material-ui/core";
-import { AccountCircle, People, Search, ExitToApp } from "@material-ui/icons";
+import { AccountCircle, Search } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import styled from "@emotion/styled";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { skillsConstants } from "../../config/skills.constants";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
@@ -105,7 +100,6 @@ const useStyles = makeStyles((theme) => ({
 const Nav = ({ handleSearch }) => {
   const history = useHistory();
   const goTo = (path) => history.push(path);
-  const location = useLocation();
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -118,18 +112,6 @@ const Nav = ({ handleSearch }) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const signOutUser = async function () {
-    firebase
-      .auth()
-      .signOut()
-      .then(function () {
-        goTo("/");
-      })
-      .catch(function () {
-        console.log("logout failed");
-      });
   };
 
   const menuId = "primary-search-account-menu";
@@ -217,11 +199,5 @@ const Nav = ({ handleSearch }) => {
     </div>
   );
 };
-
-const CustomIconButton = styled(IconButton)`
-  &:hover {
-    background-color: transparent;
-  }
-`;
 
 export default Nav;
