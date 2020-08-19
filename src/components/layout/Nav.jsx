@@ -160,7 +160,9 @@ const Nav = ({ handleSearch }) => {
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <img className={classes.logo} src={frontmenLogo} alt="logo" />
+            <a href="/overview" title="Back to overview">
+              <img className={classes.logo} src={frontmenLogo} alt="logo" />
+            </a>
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
             <div className={classes.search}>
               <Autocomplete
