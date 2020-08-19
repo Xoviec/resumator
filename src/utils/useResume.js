@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
 import { useDocument } from "react-firebase-hooks/firestore";
 import initialData from "../config/initialData";
-import { castDatesInObject } from "./date";
+import { castDatesInObject } from "@local/date";
 
 const useResume = (id) => {
   const { firebase } = useContext(FirebaseAppContext);
