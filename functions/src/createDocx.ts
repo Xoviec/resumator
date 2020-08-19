@@ -5,11 +5,12 @@ import * as PizZip from "pizzip";
 
 import { Resume } from "./types";
 
+import { formatDatesInObject } from "@local/date";
 export default async function createDocx(resume: Resume, template: Buffer, avatar?: Buffer) {
   const imageModule = new ImageModule({
     centered: false,
     getImage: (tagValue: string) => avatar,
-    getSize: () => [80, 200],    
+    getSize: () => [80, 200],
   });
 
   const zip = new PizZip(template);
@@ -20,9 +21,9 @@ export default async function createDocx(resume: Resume, template: Buffer, avata
     ...resume,
     ...resume.personalia,
   };
-  doc.setData(tags);
+  doc.setData(formatDatesInObject(tags, "MMMM y"));
 
-  // The render function replaces the placeholder text from the input.docx with the  data
+  // The render function replaces the placeholder text from the input.docx with the data
   doc.render();
 
   return doc.getZip().generate({ type: "nodebuffer" });
