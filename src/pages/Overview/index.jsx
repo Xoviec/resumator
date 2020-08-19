@@ -63,7 +63,7 @@ const getColumns = (classes) => [
     title: "Skills",
     field: "skills",
     render: ({ skills }) => {
-      if (skills.length === 0) {
+      if (!skills || skills.length === 0) {
         return (
           <span className={classes.emptyNotice}>
             No skills have been supplied yet
@@ -109,7 +109,6 @@ const Home = ({ searchText }) => {
   }
 
   const [val, loading, error] = useCollection(query);
-
   // id key isn't in the data by default, so merging it like this
   let data = val && val.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   const readyToRender = !loading && !error;
