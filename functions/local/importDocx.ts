@@ -136,7 +136,7 @@ function parseIntro(lines: string[], filename: string): { personalia: Personalia
   const headingMatch = lines[0].match(headingRegexes.intro) || [];
   const firstName = headingMatch[1] || "";
   const lastName = filename.substring( filename.indexOf(firstName) + firstName.length );
-  const email = `${slugify(firstName.toLowerCase())}.${slugify(lastName).toLowerCase()}@frontmen.nl`;
+  const email = `${slugify(firstName.toLowerCase(), '')}.${slugify(lastName.toLowerCase(), '')}@frontmen.nl`;
   const { city = "", dateOfBirth = "", introduction = "" }  = lines.reduce((acc, line) => {
     const cityAndDateMatch = line.match(new RegExp(`^(\\w+)\\sregion\\s–\\s[A-Z]{2}\\s–\\s(${dateRegex.source})`)) || [];
     if (cityAndDateMatch.length) {
