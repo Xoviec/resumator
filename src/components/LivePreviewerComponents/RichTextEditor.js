@@ -5,8 +5,10 @@ import {
   EditorState,
   RichUtils,
   getDefaultKeyBinding,
+  ContentState,
   convertFromRaw,
   convertToRaw,
+  convertFromHTML,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
 import styled from "@emotion/styled";
@@ -14,11 +16,13 @@ import styled from "@emotion/styled";
 const RichTextEditor = (props) => {
   const editorRef = React.useRef();
   let editor;
-
   try {
     editor = convertFromRaw(JSON.parse(props.value));
   } catch (e) {
-    editor = null;
+    // if parsing failed, try to treat it as a raw text string and parse it as HTML
+    const { contentBlocks, entityMap } = convertFromHTML(props.value || "");
+    editor = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    // editor = null;
   }
   const [editorState, setEditorState] = React.useState(() =>
     !!editor ? EditorState.createWithContent(editor) : EditorState.createEmpty()
