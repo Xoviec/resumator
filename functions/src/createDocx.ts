@@ -19,7 +19,7 @@ export default async function createDocx(resume: Resume, template: Buffer, avata
 
   const tags = {
     ...resume,
-    ...resume.personalia,
+    ...resume.personalia, // unnest names, city, date of birth for easier usage inside template
   };
   doc.setData(formatDatesInObject(tags, "MMMM y"));
 

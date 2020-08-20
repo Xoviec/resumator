@@ -1,0 +1,237 @@
+{
+  "isImport": true,
+  "sideProjects": [
+    {
+      "title": "Windoog Podcast",
+      "description": "Created a low effort website and podcast feed for an Architecture podcast. All data hosted on Firebase with hooks to rebuild Netlify when data changes."
+    },
+    {
+      "title": "Kitchen company tooling",
+      "description": "GSuite, Google AppScript, NodeJS,typescript, Jest…."
+    },
+    {
+      "title": "Arduino development",
+      "description": "Multiple C++ projects for controlling synthesizers. "
+    },
+    {
+      "title": "Aquaponics",
+      "description": "Automation for aquaculture build with a Rasberry Pi and NodeJS "
+    }
+  ],
+  "skills": [
+    {
+      "name": "VueJS"
+    },
+    {
+      "name": "Nuxt"
+    },
+    {
+      "name": "React"
+    },
+    {
+      "name": "Lit Element"
+    },
+    {
+      "name": "Web Components"
+    },
+    {
+      "name": "Serverless architecture"
+    },
+    {
+      "name": "Sass"
+    },
+    {
+      "name": "Less"
+    },
+    {
+      "name": "PostCSS"
+    },
+    {
+      "name": "Photoshop"
+    },
+    {
+      "name": "sketch"
+    },
+    {
+      "name": "illustrator"
+    },
+    {
+      "name": "Svelte"
+    },
+    {
+      "name": "Unit testing"
+    },
+    {
+      "name": "Ava"
+    },
+    {
+      "name": "Netlify"
+    },
+    {
+      "name": "C++"
+    }
+  ],
+  "experience": [
+    {
+      "role": "SENIOR frontend developer",
+      "startDate": { "seconds": 491356800 },
+      "endDate": { "seconds": 491356800 },
+      "company": "Stager",
+      "description": "Maintained and redesigned a Java-based (Play) web application. Ported some of the existing jQuery or React to LitElement (web components), developed some new functionality in LitElement to be usable within existing codebase.",
+      "stackAndTechniques": [
+        {
+          "name": "LitElement"
+        },
+        {
+          "name": "Web Components"
+        },
+        {
+          "name": "JavaScript"
+        },
+        {
+          "name": "React"
+        },
+        {
+          "name": "Sass"
+        },
+        {
+          "name": "Redux"
+        },
+        {
+          "name": "TypeScript"
+        }
+      ]
+    },
+    {
+      "role": "frontend developer",
+      "startDate": { "seconds": 491356800 },
+      "endDate": { "seconds": 491356800 },
+      "company": "De Voorhoede",
+      "description": "Inventoried client needs and proposed fitting solutions. Created and managed implementation. Worked on a large variety of projects, some of them are highlighted below.\nfrontend developer\nQuantum Inspire\nCreated an interface and client-side code parser for quantum computers.",
+      "stackAndTechniques": [
+        {
+          "name": "Nuxt"
+        },
+        {
+          "name": "Vue"
+        },
+        {
+          "name": "Ava"
+        },
+        {
+          "name": "Netlify"
+        },
+        {
+          "name": "PostCSS"
+        }
+      ]
+    },
+    {
+      "role": "frontend developer",
+      "description": "Tradus\nCreated a marketplace for used heavy machinery. Worked with a multitude of templating languages and backends such as C# and Razor, Drupal and Twig, and Nunjucks",
+      "stackAndTechniques": [
+        {
+          "name": "C#"
+        },
+        {
+          "name": "Drupal"
+        },
+        {
+          "name": "Twig"
+        },
+        {
+          "name": "Nunjucks"
+        },
+        {
+          "name": "Less"
+        }
+      ]
+    },
+    {
+      "role": "frontend developer",
+      "description": "PowerPeers\nDevelopment of their public website using Umbraco as CMS",
+      "stackAndTechniques": [
+        {
+          "name": "Umbraco"
+        },
+        {
+          "name": "Javascript"
+        },
+        {
+          "name": "Razor"
+        },
+        {
+          "name": "Sass"
+        }
+      ]
+    },
+    {
+      "role": "frontend developer",
+      "description": "ABN AMRO\nCreated a tool for calculating loans for customers.",
+      "stackAndTechniques": [
+        {
+          "name": "RiotJS"
+        },
+        {
+          "name": "CSS"
+        },
+        {
+          "name": "HTML"
+        }
+      ]
+    },
+    {
+      "role": "Interaction Prototyper",
+      "startDate": { "seconds": 491356800 },
+      "endDate": { "seconds": 491356800 },
+      "company": "TU Delft",
+      "description": "Pitched, designed and prototyped a new portal for students at the Delft\nUniversity of Technology, combining personalised study-related information from a plethora of different sources in a context-driven way. ",
+      "stackAndTechniques": [
+        {
+          "name": "HTML 5"
+        },
+        {
+          "name": "CSS 3"
+        },
+        {
+          "name": "JavaScript"
+        },
+        {
+          "name": "Visual Design"
+        },
+        {
+          "name": "UX"
+        }
+      ]
+    },
+    {
+      "role": "Student Assistant/educator",
+      "startDate": { "seconds": 491356800 },
+      "endDate": { "seconds": 491356800 },
+      "company": "TU Delft",
+      "description": "Taught Master's students how to build a digital portfolio for themselves with HTML and CSS."
+    }
+  ],
+  "personalia": {
+    "firstName": "Jurgen",
+    "lastName": " Beliën",
+    "email": "",
+    "dateOfBirth": { "seconds": 1000000 },
+    "city": "Rotterdam"
+  },
+  "introduction": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+  "education": [
+    {
+      "name": "Master of Science, Architecture",
+      "institute": "TU Delft",
+      "startDate": { "seconds": 491356800 },
+      "endDate": { "seconds": 491356800 }
+    },
+    {
+      "name": "Bachelor of Science, Architecture",
+      "institute": "TU Delft",
+      "startDate": { "seconds": 491356800 },
+      "endDate": { "seconds": 491356800 }
+    }
+  ]
+}
