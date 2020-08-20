@@ -39,6 +39,20 @@ const headingRegexes: CollectionBySection<RegExp> = {
 }
 const dateRegex = /(\b\w+)?\s*([1-9][0-9]{3})/;
 
+const months = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+]
 /**
  * Parse a resume from a docx at path
  *
@@ -85,20 +99,6 @@ export default async function importDocx(path: string): Promise<PartialResume> {
  * @returns {string}
  */
 function correctSpacing(string: string): string {
-  const months = [
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december",
-  ]
   return string
     .replace(new RegExp(`(\\w)(${months.join("|")})`, "gi"), `$1 $2`)
 }
@@ -324,7 +324,7 @@ function notEmpty(line: string) {
 
 function dateFromPartial(partialDate: string, defaults?: { day?: number, month?: number }): Date {
   const { day: defaultDay = 1, month: defaultMonth = 1} = defaults || {};
-  const [year, month = defaultMonth, day = defaultDay] = partialDate.split(" ").reverse();
+  const [year, month = months[defaultMonth - 1], day = defaultDay] = partialDate.split(" ").reverse();
   const date = new Date(`${day} ${month} ${year} UTC`);
   return date
 }
