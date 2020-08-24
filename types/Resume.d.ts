@@ -55,7 +55,7 @@ export interface Skill {
   name: string;
 }
 
-export interface Resume {
+export default interface Resume {
   isImport?: Boolean;
   personalia: Personalia;
   education: Education[];
