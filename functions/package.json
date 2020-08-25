@@ -16,6 +16,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "@local/date": "file:../shared/date",
     "@google-cloud/storage": "^5.1.1",
     "docxtemplater": "^3.17.6",
     "docxtemplater-image-module": "^3.1.0",

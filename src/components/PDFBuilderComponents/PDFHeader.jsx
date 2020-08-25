@@ -3,7 +3,7 @@ import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Font } from "@react-pdf/renderer";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import avatars from "../../assets/images/avatars";
-import { formatDate } from "../../utils/date";
+import { formatDate } from "@local/date";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 

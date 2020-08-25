@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
 import PDFDescription from "./PDFDescription";
-import { formatDate } from "../../utils/date";
+import { formatDate } from "@local/date";
 
 const Root = styled.View`
   margin-bottom: 20px;

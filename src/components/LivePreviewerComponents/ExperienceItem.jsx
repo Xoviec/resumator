@@ -4,7 +4,7 @@ import { Typography, Grid } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { formatDate } from "../../utils/date";
+import { formatDate } from "@local/date";
 import ActionButtons from "./ActionButtons";
 import Chip from "@material-ui/core/Chip";
 
