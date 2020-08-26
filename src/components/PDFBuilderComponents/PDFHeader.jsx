@@ -75,7 +75,7 @@ export function PDFHeader({ avatar, name, city, dateOfBirth }) {
         </SubHeading>
       </PersonalInfoText>
 
-      <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[6]).img} />
+      <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[0]).img} />
     </Root>
   );
 }

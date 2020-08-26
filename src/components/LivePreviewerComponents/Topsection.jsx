@@ -46,7 +46,7 @@ const TopSection = ({ personalia, onSubmit }) => {
         <AvatarWrapper>
           <AvatarImg
             src={
-              (avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img
+              (avatars.find((x) => x.name === personalia.avatar) || avatars[0]).img
             }
             alt="Avatar"
           />
