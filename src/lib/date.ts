@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 
-import { LooseObject } from "../../types/LooseObject";
+import LooseObject from "../../types/LooseObject";
 
 type DateOrTimestamp = Date | firebase.firestore.Timestamp;
 
