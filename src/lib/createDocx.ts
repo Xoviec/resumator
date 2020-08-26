@@ -8,11 +8,10 @@ import Resume from "../../types/Resume";
 import LooseObject from "../../types/LooseObject";
 import { formatDatesInObject } from "./date";
 
-
-export default async function createDocx(resume: Resume, template: ArrayBuffer, avatar: ArrayBuffer): Promise<ArrayBuffer> {
+export default async function createDocx(resume: Resume, template: ArrayBuffer, avatar: ArrayBuffer) {
   const imageModule = new ImageModule({
     centered: false,
-    getImage: (tagValue: string) => avatar,
+    getImage: (tagValue: string) => avatar, // return avatar regardless of tag value
     getSize: () => [80, 200],
   });
 
@@ -23,6 +22,7 @@ export default async function createDocx(resume: Resume, template: ArrayBuffer, 
   const tags = {
     ...formatDescriptionsInObject(resume),
     ...resume.personalia, // unnest names, city, date of birth for easier usage inside template
+    image: "avatar.png", // ImageModule won't load this file by name but needs it to import binary data correctly
   };
   doc.setData(formatDatesInObject(tags, "MMMM y"));
 
