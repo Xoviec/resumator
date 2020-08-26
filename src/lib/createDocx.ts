@@ -8,7 +8,7 @@ import LooseObject from "../../types/LooseObject";
 import { formatDatesInObject } from "./date";
 
 
-export default async function createDocx(resume: Resume, template: ArrayBuffer, avatar?: ArrayBuffer): Promise<ArrayBuffer> {
+export default async function createDocx(resume: Resume, template: ArrayBuffer, avatar: ArrayBuffer): Promise<ArrayBuffer> {
   const imageModule = new ImageModule({
     centered: false,
     getImage: (tagValue: string) => avatar,
@@ -16,7 +16,7 @@ export default async function createDocx(resume: Resume, template: ArrayBuffer, 
   });
 
   const zip = new PizZip(template);
-  const options = { modules: [ imageModule ]} ;
+  const options = { modules: [ imageModule ]};
   const doc = await new Docxtemplater(zip, options);
 
   const tags = {
