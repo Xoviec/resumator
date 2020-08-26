@@ -1,3 +1,4 @@
+/// <reference path="../../types/docxtemplater/index.d.ts" />
 /// <reference path="../../types/docxtemplater-image-module/index.d.ts" />
 import Docxtemplater from "docxtemplater";
 import ImageModule from "docxtemplater-image-module";
