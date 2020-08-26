@@ -12,7 +12,7 @@ const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) =>
         {educationEntry.institute}
       </Typography>
       <Typography variant="body1">
-        {formatDate(educationEntry.startDate)} -{" "}
+        {formatDate(educationEntry.startDate)} - {" "}
         {formatDate(educationEntry.endDate)}
       </Typography>
 
