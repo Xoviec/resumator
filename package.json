@@ -30,7 +30,7 @@
     "file-saver": "^2.0.2",
     "firebase": "^7.13.2",
     "lodash": "^4.17.19",
-    "material-table": "^1.69.0",
+    "material-table": "^1.57.2",
     "pizzip": "^3.0.6",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
