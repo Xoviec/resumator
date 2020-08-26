@@ -1,5 +1,5 @@
 import React from "react";
-import useResume from "../../utils/useResume";
+import useResume from "../../hooks/useResume";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import Skeleton from "@material-ui/lab/Skeleton";

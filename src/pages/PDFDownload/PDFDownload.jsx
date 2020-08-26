@@ -7,13 +7,13 @@ import { Button, CircularProgress } from "@material-ui/core";
 import GetApp from "@material-ui/icons/GetApp";
 import PDFTemplate from "../../components/PDFTemplate/PDFTemplate";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
-import { getCVFileName } from "../../utils/getCVFileName";
+import formatResumeFilename from "../../lib/formatResumeFilename";
 
 const PDFDownloadButton = React.memo(
   ({ resume, goBack }) => (
     <PDFDownloadLink
       document={<PDFTemplate resume={resume} />}
-      fileName={getCVFileName(
+      fileName={formatResumeFilename(
         resume.personalia.firstName,
         resume.personalia.lastName
       )}

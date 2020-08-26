@@ -6,13 +6,13 @@ import GetApp from "@material-ui/icons/GetApp";
 import ErrorIcon from "@material-ui/icons/Error";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import PDFTemplate from "../PDFTemplate/PDFTemplate";
-import { getCVFileName } from "../../utils/getCVFileName";
+import formatResumeFilename from "../../lib/formatResumeFilename";
 
 const DownloadButton = memo(
   ({ resume }) => (
     <PDFDownloadLink
       document={<PDFTemplate resume={resume} />}
-      fileName={getCVFileName(
+      fileName={formatResumeFilename(
         resume.personalia.firstName,
         resume.personalia.lastName
       )}

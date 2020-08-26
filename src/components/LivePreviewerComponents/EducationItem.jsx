@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import ActionButtons from "./ActionButtons";
-import { formatDate } from "@local/date";
+import { formatDate } from "../../lib/date";
 import Typography from "@material-ui/core/Typography";
 
 const EducationItem = ({ onEditHandler, onDeleteHandler, ...educationEntry }) => {

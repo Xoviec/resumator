@@ -6,7 +6,7 @@ import { DatePicker } from "@material-ui/pickers";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
 import avatars from "../../assets/images/avatars";
-import { formatDate } from "@local/date";
+import { formatDate } from "../../lib/date";
 import Card from "../Card";
 import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";

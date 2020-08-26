@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@local/date": "file:./shared/date",
     "@date-io/date-fns": "1.x",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
