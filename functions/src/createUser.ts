@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { PartialResume } from "./types/index";
+import { PartialResume } from "../../types/Resume";
 
 const RESUME_COLLECTION = "resumes";
 const USER_COLLECTION = "users";
