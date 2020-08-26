@@ -27,6 +27,7 @@
     "draft-js-export-html": "^1.4.1",
     "draft-js-import-html": "^1.4.1",
     "emotion-theming": "^10.0.27",
+    "file-saver": "^2.0.2",
     "firebase": "^7.13.2",
     "lodash": "^4.17.19",
     "material-table": "^1.69.0",

@@ -1,19 +1,31 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
+import saveAs from "file-saver";
+import avatars from "../../assets/images/avatars";
 import DropdownButton from "./DropdownButton";
+import createDocx from "../../lib/createDocx";
+import formatResumeFilename from "../../lib/formatResumeFilename";
 
-const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
-  const onClickDropdown = (action) => {
+const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
+  const onClickDropdown = async (action) => {
     switch (action) {
       case "PDF": {
-        goTo(`/pdf-download/${id}`);
+        goTo(`/pdf-download/${resume.id}`);
         return;
       }
       case "DOCX": {
-        window.open(
-          `https://us-central1-fm-resume.cloudfunctions.net/createDocx?resume=${id}`
-        );
+        const { firstName, lastName, avatar: avatarName } = resume.personalia;
+        const avatarDataUri = (avatars.find((x) => x.name === avatarName) || avatars[0]).img;
+        const [ template, avatar ] = await Promise.all([
+          fetch('/template.docx').then(res => res.arrayBuffer()),
+          fetch(avatarDataUri).then(res => res.arrayBuffer()),
+        ]);
+        const docx = await createDocx(resume, template, avatar);
+        const file = new Blob([ docx ], {
+          type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        });
+        saveAs(file, formatResumeFilename(firstName, lastName, "docx"));
         return;
       }
       default:
