@@ -21,13 +21,13 @@ const SideProjects = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
-  const [currentItemId, setCurrentItemId] = useState(null);
+  const [currentItemIndex, setCurrentItemIndex] = useState(null);
   const methods = useForm({});
   const typeLabel = type.toLowerCase();
   const tooltipText = `Add ${typeLabel}`;
 
-  const onClickEdit = (experienceEntry) => {
-    setCurrentItemId(experienceEntry.id);
+  const onClickEdit = (experienceEntry, index) => {
+    setCurrentItemIndex(index);
     setIsEditingExisting(true);
     methods.reset(experienceEntry);
     setIsEditing(true);
@@ -47,15 +47,15 @@ const SideProjects = ({
         />
       </TopWrapper>
 
-      {projects.map((e, i) => (
-        <React.Fragment key={i}>
+      {projects.map((entry, index) => (
+        <React.Fragment key={index}>
           <SideProjectItem
-            projectItem={e}
-            key={i}
-            onDeleteHandler={onDeleteHandler}
-            onClickEdit={onClickEdit}
+            projectItem={entry}
+            key={index}
+            onDeleteHandler={(values) => onDeleteHandler(values, index)}
+            onClickEdit={(values) => onClickEdit(values, index)}
           />
-          {i > projects.length - 1 && (
+          {index > projects.length - 1 && (
             <Box mt={2}>
               <Divider />
             </Box>
@@ -77,11 +77,11 @@ const SideProjects = ({
         heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
           if (editingExisting) {
-            onEditHandler({ ...methods.getValues(), id: currentItemId });
+            onEditHandler(methods.getValues(), currentItemIndex);
           } else {
             onSubmit(methods.getValues());
           }
-          setCurrentItemId(null);
+          setCurrentItemIndex(null);
           setIsEditing(false);
         }}
         onSecondaryActionClicked={() => {
