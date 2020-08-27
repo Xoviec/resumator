@@ -65,7 +65,7 @@ const Experience = ({
         <React.Fragment key={index}>
           <ExperienceItem
             experienceItem={entry}
-            onDeleteHandler={(values) => (values) => onDeleteHandler(values, index)}
+            onDeleteHandler={(values) => onDeleteHandler(values, index)}
             onClickEdit={(values) => onClickEdit(values, index)}
           />
 

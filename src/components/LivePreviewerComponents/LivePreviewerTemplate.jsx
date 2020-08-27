@@ -73,7 +73,7 @@ const LivePreviewerTemplate = ({ data }) => {
 
   // Delete item at index
   const onDeleteSectionItem = (sectionKey, values, indexToDelete) => {
-    const newSectionState = dataState[sectionKey].filter((_, index) => !index === indexToDelete);
+    const newSectionState = dataState[sectionKey].filter((_, index) => index !== indexToDelete);
     setDataState((prevState) => ({
       ...prevState,
       [sectionKey]: newSectionState,
