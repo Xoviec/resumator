@@ -40,6 +40,12 @@ const Experience = ({
     reset(experienceEntry);
     setIsEditing(true);
   };
+  const resetForm = () => {
+    setCurrentItemIndex(null);
+    setIsEditingExisting(false);
+    methods.reset({});
+    setIsEditing(false);
+  }
 
   return (
     <Card>
@@ -75,11 +81,7 @@ const Experience = ({
 
       <EditModalWrapper
         isOpen={isEditing}
-        onRequestClose={() => {
-          setIsEditingExisting(false);
-          reset({});
-          setIsEditing(false);
-        }}
+        onRequestClose={resetForm}
         methods={methods}
         contentLabel={`Add ${type} details`}
         heading={`Add ${type} details`}
@@ -90,12 +92,9 @@ const Experience = ({
           } else {
             onSubmit(values);
           }
-          setCurrentItemIndex(null);
-          setIsEditing(false);
+          resetForm();
         }}
-        onSecondaryActionClicked={() => {
-          setIsEditing(false);
-        }}
+        onSecondaryActionClicked={resetForm}
       >
         <Input
           as={TextField}

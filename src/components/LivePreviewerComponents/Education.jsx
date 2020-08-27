@@ -29,6 +29,12 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
     methods.reset(educationEntry);
     setIsEditing(true);
   };
+  const resetForm = () => {
+    setCurrentItemIndex(null);
+    setIsEditingExisting(false);
+    methods.reset({});
+    setIsEditing(false);
+  }
 
   const minDate = (endDate) => endDate > methods.getValues().startDate;
 
@@ -64,11 +70,7 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
 
       <EditModalWrapper
         isOpen={isEditing}
-        onRequestClose={() => {
-          setIsEditingExisting(false);
-          methods.reset({});
-          setIsEditing(false);
-        }}
+        onRequestClose={resetForm}
         methods={methods}
         contentLabel="Add education details"
         heading="Add new education"
@@ -78,14 +80,9 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
           } else {
             onSubmit(methods.getValues());
           }
-          setCurrentItemIndex(null);
-          setIsEditing(false);
+          resetForm();
         }}
-        onSecondaryActionClicked={() => {
-          setIsEditingExisting(false);
-          setIsEditing(false);
-          setCurrentItemIndex(null);
-        }}
+        onSecondaryActionClicked={resetForm}
       >
         <Input
           as={TextField}

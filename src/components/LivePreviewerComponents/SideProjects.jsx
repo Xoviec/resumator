@@ -32,6 +32,12 @@ const SideProjects = ({
     methods.reset(experienceEntry);
     setIsEditing(true);
   };
+  const resetForm = () => {
+    setCurrentItemIndex(null);
+    setIsEditingExisting(false);
+    methods.reset({});
+    setIsEditing(false);
+  }
 
   return (
     <Card>
@@ -67,11 +73,7 @@ const SideProjects = ({
 
       <EditModalWrapper
         isOpen={isEditing}
-        onRequestClose={() => {
-          setIsEditingExisting(false);
-          methods.reset({});
-          setIsEditing(false);
-        }}
+        onRequestClose={resetForm}
         methods={methods}
         contentLabel={`Add ${type} details`}
         heading={`Add ${type} details`}
@@ -81,12 +83,9 @@ const SideProjects = ({
           } else {
             onSubmit(methods.getValues());
           }
-          setCurrentItemIndex(null);
-          setIsEditing(false);
+          resetForm();
         }}
-        onSecondaryActionClicked={() => {
-          setIsEditing(false);
-        }}
+        onSecondaryActionClicked={resetForm}
       >
         <Input
           as={TextField}
