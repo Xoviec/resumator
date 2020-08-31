@@ -2,25 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import DropdownButton from "./DropdownButton";
+import downloadResume from "../../lib/downloadResume";
 
-const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
-  const onClickDropdown = (action) => {
-    switch (action) {
-      case "PDF": {
-        goTo(`/pdf-download/${id}`);
-        return;
-      }
-      case "DOCX": {
-        window.open(
-          `https://us-central1-fm-resume.cloudfunctions.net/createDocx?resume=${id}`
-        );
-        return;
-      }
-      default:
-        return;
-    }
-  };
-
+const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
   return (
     <TopSide>
       <>
@@ -37,7 +21,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, id }) => {
         <DropdownButton
           label="Download as.."
           actions={["PDF", "DOCX"]}
-          onClick={onClickDropdown}
+          onClick={(action) => downloadResume(resume, action)}
         />
 
         <StyledButton

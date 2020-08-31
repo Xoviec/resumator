@@ -3,7 +3,7 @@ import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Font } from "@react-pdf/renderer";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import avatars from "../../assets/images/avatars";
-import { formatDate } from "@local/date";
+import { formatDate } from "../../lib/date";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 
@@ -75,7 +75,7 @@ export function PDFHeader({ avatar, name, city, dateOfBirth }) {
         </SubHeading>
       </PersonalInfoText>
 
-      <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[6]).img} />
+      <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[0]).img} />
     </Root>
   );
 }

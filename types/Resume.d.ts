@@ -12,6 +12,7 @@ export interface Personalia {
   email: string;
   dateOfBirth: any;
   city: string;
+  avatar: string;
 }
 export interface Education {
   id?: string;
@@ -55,12 +56,11 @@ export interface Skill {
   name: string;
 }
 
-export interface Resume {
+export default interface Resume {
   isImport?: Boolean;
   personalia: Personalia;
   education: Education[];
   introduction: string;
-  avatar: string;
   skills: Skill[];
   sideProjects: SideProject[];
   publications: Publication[];

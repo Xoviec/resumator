@@ -6,10 +6,11 @@ import MaterialTable from "material-table";
 import tableIcons from "./constants/tableIcons";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles } from "@material-ui/core/styles";
-import avatars from "../../assets/images/avatars";
 import { Button, Grid } from "@material-ui/core";
 import styled from "@emotion/styled";
-import PDFDownloadButton from "../../components/PDFDownloadButton";
+import downloadResume from "../../lib/downloadResume";
+import getAvatarDataUri from "../../lib/getAvatarDataUri";
+
 
 const useStyles = makeStyles(() => ({
   activeIcon: {
@@ -42,10 +43,7 @@ const getColumns = (classes) => [
     render: (rowData) => (
       <img
         alt="avatar"
-        src={
-          (avatars.find((x) => x.name === rowData.personalia.avatar) || avatars[6])
-            .img
-        }
+        src={getAvatarDataUri(rowData.personalia.avatar)}
         className={classes.miniAvatar}
       />
     ),
@@ -171,10 +169,12 @@ const Home = ({ searchText }) => {
                 tooltip: "Edit resume",
                 onClick: (event, rowData) => goTo(`./live/${rowData.id}`),
               },
-              (rowData) => ({
-                icon: () => <PDFDownloadButton resume={rowData} />,
-              }),
-            ]}
+              {
+                icon: tableIcons.GetAppIcon,
+                tooltip: "Download PFD",
+                onClick: (event, rowData) => downloadResume(rowData),
+              },
+             ]}
             localization={{
               header: {
                 actions: "",

@@ -1,31 +1,34 @@
-/// <reference path="./types/docxtemplater/index.d.ts" />
-import * as DocxTemplater from "docxtemplater";
-import * as ImageModule from "docxtemplater-image-module";
-import * as PizZip from "pizzip";
+/// <reference path="../../types/docxtemplater/index.d.ts" />
+/// <reference path="../../types/docxtemplater-image-module/index.d.ts" />
+import Docxtemplater from "docxtemplater";
+import ImageModule from "docxtemplater-image-module";
+import PizZip from "pizzip";
 
-import { Resume , LooseObject } from "./types";
-import { formatDatesInObject } from "@local/date";
-export default async function createDocx(resume: Resume, template: Buffer, avatar?: Buffer) {
+import Resume from "../../types/Resume";
+import LooseObject from "../../types/LooseObject";
+import { formatDatesInObject } from "./date";
+
+export default async function createDocx(resume: Resume, template: ArrayBuffer, avatar: ArrayBuffer) {
   const imageModule = new ImageModule({
     centered: false,
-    getImage: (tagValue: string) => avatar,
+    getImage: (tagValue: string) => avatar, // return avatar regardless of tag value
     getSize: () => [80, 200],
   });
 
   const zip = new PizZip(template);
-  const options = { modules: [ imageModule ]} ;
-  const doc = await new DocxTemplater(zip, options);
+  const options = { modules: [ imageModule ]};
+  const doc = await new Docxtemplater(zip, options);
 
   const tags = {
     ...formatDescriptionsInObject(resume),
     ...resume.personalia, // unnest names, city, date of birth for easier usage inside template
+    image: "avatar.png", // ImageModule won't load this file by name but needs it to import binary data correctly
   };
   doc.setData(formatDatesInObject(tags, "MMMM y"));
 
-  // The render function replaces the placeholder text from the input.docx with the data
   doc.render();
 
-  return doc.getZip().generate({ type: "nodebuffer" });
+  return await doc.getZip().generate({ type: "uint8array" });
 }
 
 function formatDescriptionsInObject(object: LooseObject): LooseObject {

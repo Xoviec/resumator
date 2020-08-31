@@ -5,8 +5,7 @@ import { TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
-import avatars from "../../assets/images/avatars";
-import { formatDate } from "@local/date";
+import { formatDate } from "../../lib/date";
 import Card from "../Card";
 import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";
@@ -14,6 +13,7 @@ import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import ActionIcon from "./ActionIcon";
 import EmptyNotice from "./EmptyNotice";
+import getAvatarDataUri from "../../lib/getAvatarDataUri";
 
 const isInfoEmpty = ({ firstName, lastName, email, city }) =>
   !(firstName || lastName || email || city);
@@ -45,9 +45,7 @@ const TopSection = ({ personalia, onSubmit }) => {
       <>
         <AvatarWrapper>
           <AvatarImg
-            src={
-              (avatars.find((x) => x.name === personalia.avatar) || avatars[6]).img
-            }
+            src={getAvatarDataUri(personalia.avatar)}
             alt="Avatar"
           />
         </AvatarWrapper>
