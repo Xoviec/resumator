@@ -25,7 +25,7 @@ const Experience = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
-  const [currentItemId, setCurrentItemId] = useState(null);
+  const [currentItemIndex, setCurrentItemIndex] = useState(null);
   const [skillsState, setSkillsState] = React.useState(experience.skills || []);
   const [descriptionState, setDescriptionState] = React.useState();
   const methods = useForm({});
@@ -33,13 +33,19 @@ const Experience = ({
   const typeLabel = type.toLowerCase();
   const tooltipText = `Add ${typeLabel}`;
 
-  const onClickEdit = (experienceEntry) => {
-    setCurrentItemId(experienceEntry.id);
+  const onClickEdit = (experienceEntry, index) => {
+    setCurrentItemIndex(index);
     setDescriptionState(experienceEntry.description);
     setIsEditingExisting(true);
     reset(experienceEntry);
     setIsEditing(true);
   };
+  const resetForm = () => {
+    setCurrentItemIndex(null);
+    setIsEditingExisting(false);
+    methods.reset({});
+    setIsEditing(false);
+  }
 
   return (
     <Card>
@@ -55,15 +61,15 @@ const Experience = ({
         />
       </TopWrapper>
 
-      {experience.map((e, i) => (
-        <React.Fragment key={i}>
+      {experience.map((entry, index) => (
+        <React.Fragment key={index}>
           <ExperienceItem
-            experienceItem={e}
-            onDeleteHandler={onDeleteHandler}
-            onClickEdit={onClickEdit}
+            experienceItem={entry}
+            onDeleteHandler={(values) => onDeleteHandler(values, index)}
+            onClickEdit={(values) => onClickEdit(values, index)}
           />
 
-          {i < experience.length - 1 && (
+          {index < experience.length - 1 && (
             <Box mt={2}>
               <Divider />
             </Box>
@@ -75,31 +81,20 @@ const Experience = ({
 
       <EditModalWrapper
         isOpen={isEditing}
-        onRequestClose={() => {
-          setIsEditingExisting(false);
-          reset({});
-          setIsEditing(false);
-        }}
+        onRequestClose={resetForm}
         methods={methods}
         contentLabel={`Add ${type} details`}
         heading={`Add ${type} details`}
         onPrimaryActionClicked={() => {
           const values = getValues();
-
           if (editingExisting) {
-            onEditHandler({
-              ...values,
-              id: currentItemId,
-            });
+            onEditHandler(values, currentItemIndex);
           } else {
             onSubmit(values);
           }
-          setCurrentItemId(null);
-          setIsEditing(false);
+          resetForm();
         }}
-        onSecondaryActionClicked={() => {
-          setIsEditing(false);
-        }}
+        onSecondaryActionClicked={resetForm}
       >
         <Input
           as={TextField}

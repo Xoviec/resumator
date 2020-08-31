@@ -19,7 +19,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/file-saver": "^2.0.1",
     "axios": "^0.19.2",
     "date-fns": "^2.13.0",
     "docxtemplater": "3.17.9",
@@ -41,7 +40,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.3",
     "rebass": "^4.0.7",
-    "uuid": "^8.0.0",
     "yup": "^0.28.3"
   },
   "scripts": {
@@ -71,6 +69,7 @@
   },
   "devDependencies": {
     "@types/draft-js": "^0.10.43",
+    "@types/file-saver": "^2.0.1",
     "@types/jest": "^26.0.10",
     "@types/node": "^14.6.0",
     "@types/pizzip": "^3.0.1",

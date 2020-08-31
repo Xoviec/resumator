@@ -16,19 +16,25 @@ import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
 import ActionIcon from "./ActionIcon";
 
-const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) => {
+const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingExisting, setIsEditingExisting] = useState(false);
-  const [currentItemId, setCurrentItemId] = useState(null);
+  const [currentItemIndex, setCurrentItemIndex] = useState(null);
   const methods = useForm({});
   const register = methods.register;
 
-  const onEditHandler = (educationEntry) => {
-    setCurrentItemId(educationEntry.id);
+  const onClickEdit = (educationEntry, index) => {
+    setCurrentItemIndex(index);
     setIsEditingExisting(true);
     methods.reset(educationEntry);
     setIsEditing(true);
   };
+  const resetForm = () => {
+    setCurrentItemIndex(null);
+    setIsEditingExisting(false);
+    methods.reset({});
+    setIsEditing(false);
+  }
 
   const minDate = (endDate) => endDate > methods.getValues().startDate;
 
@@ -46,14 +52,14 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
         />
       </TopWrapper>
 
-      {education.map((e, i) => (
-        <React.Fragment key={i}>
+      {education.map((entry, index) => (
+        <React.Fragment key={index}>
           <EducationItem
-            {...e}
-            onEditHandler={(values) => onEditHandler({ ...values, id: e.id })}
-            onDeleteHandler={onDeleteHandler}
+            {...entry}
+            onDeleteHandler={(values) => onDeleteHandler(values, index)}
+            onEditHandler={(values) => onClickEdit(values, index)}
           />
-          {i < education.length - 1 && (
+          {index < education.length - 1 && (
             <Box mt={2}>
               <Divider />
             </Box>
@@ -64,28 +70,19 @@ const Education = ({ education, onSubmit, onUpdateEducation, onDeleteHandler }) 
 
       <EditModalWrapper
         isOpen={isEditing}
-        onRequestClose={() => {
-          setIsEditingExisting(false);
-          methods.reset({});
-          setIsEditing(false);
-        }}
+        onRequestClose={resetForm}
         methods={methods}
         contentLabel="Add education details"
         heading="Add new education"
         onPrimaryActionClicked={() => {
           if (editingExisting) {
-            onUpdateEducation({ ...methods.getValues(), id: currentItemId });
+            onEditHandler(methods.getValues(), currentItemIndex);
           } else {
             onSubmit(methods.getValues());
           }
-          setCurrentItemId(null);
-          setIsEditing(false);
+          resetForm();
         }}
-        onSecondaryActionClicked={() => {
-          setIsEditingExisting(false);
-          setIsEditing(false);
-          setCurrentItemId(null);
-        }}
+        onSecondaryActionClicked={resetForm}
       >
         <Input
           as={TextField}
