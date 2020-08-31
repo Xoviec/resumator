@@ -7,15 +7,15 @@ import LooseObject from "../../types/LooseObject";
 type DateOrTimestamp = Date | firebase.firestore.Timestamp;
 
 export function castDate(timestamp: DateOrTimestamp | undefined): Date | undefined {
-  return timestamp && "seconds" in timestamp
-    ? new Date(timestamp.seconds * 1000)
-    : timestamp;
+  return timestamp && typeof timestamp === "object" && "seconds" in timestamp
+    ? new Date(timestamp.seconds * 1000) as Date
+    : timestamp as Date | undefined;
 }
 
-export function formatDate(timestamp: DateOrTimestamp | undefined, dateformat = "yyyy-MM-dd"): string | undefined {
-  return timestamp
-    ? format(castDate(timestamp) as Date, dateformat)
-    : timestamp;
+export function formatDate(timestamp: DateOrTimestamp | string | undefined, dateformat = "yyyy-MM-dd"): string | undefined {
+  return timestamp && typeof timestamp === "object"
+    ? format(castDate(timestamp) as Date, dateformat) as string
+    : timestamp as string  | undefined;
 }
 
 /**
