@@ -22,8 +22,7 @@ function App() {
           <Route exact path="/overview" component={OverviewWrapper} />
           <Route exact path="/live/:id" component={LivePreviewerWrapper} />
           <Route exact path="/creator" component={CreatorWrapper} />
-          <Route exact path="/pdf-preview/:id" component={PdfPreviewer} />
-          <Route exact path="/download/:id" component={Download} />
+          <Route exact path="/pdf-preview/:id/" component={PdfPreviewer} />
           <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
         </Switch>
       </BrowserRouter>

@@ -3,35 +3,9 @@ import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import saveAs from "file-saver";
 import DropdownButton from "./DropdownButton";
-import createDocx from "../../lib/createDocx";
-import formatResumeFilename from "../../lib/formatResumeFilename";
-import getAvatarDataUri from "../../lib/getAvatarDataUri";
+import downloadResume from "../../lib/downloadResume";
 
 const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
-  const onClickDropdown = async (action) => {
-    switch (action) {
-      case "PDF": {
-        goTo(`/download/${resume.id}`);
-        return;
-      }
-      case "DOCX": {
-        const { firstName, lastName, avatar: avatarName } = resume.personalia;
-        const [ template, avatar ] = await Promise.all([
-          fetch('/template.docx').then(res => res.arrayBuffer()),
-          fetch(getAvatarDataUri(avatarName)).then(res => res.arrayBuffer()),
-        ]);
-        const docx = await createDocx(resume, template, avatar);
-        const file = new Blob([ docx ], {
-          type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        });
-        saveAs(file, formatResumeFilename(firstName, lastName, "docx"));
-        return;
-      }
-      default:
-        return;
-    }
-  };
-
   return (
     <TopSide>
       <>
@@ -48,7 +22,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
         <DropdownButton
           label="Download as.."
           actions={["PDF", "DOCX"]}
-          onClick={onClickDropdown}
+          onClick={(action) => downloadResume(resume, action)}
         />
 
         <StyledButton
