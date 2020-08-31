@@ -6,7 +6,6 @@ import MaterialTable from "material-table";
 import tableIcons from "./constants/tableIcons";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { makeStyles } from "@material-ui/core/styles";
-import avatars from "../../assets/images/avatars";
 import { Button, Grid } from "@material-ui/core";
 import styled from "@emotion/styled";
 import downloadResume from "../../lib/downloadResume";

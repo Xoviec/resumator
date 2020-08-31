@@ -11,7 +11,6 @@ import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
 import Creator from "./pages/Creator";
-import Download from "./pages/Download/Download";
 
 function App() {
   return (

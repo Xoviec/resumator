@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
-import saveAs from "file-saver";
 import DropdownButton from "./DropdownButton";
 import downloadResume from "../../lib/downloadResume";
 

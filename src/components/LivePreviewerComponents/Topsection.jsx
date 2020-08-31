@@ -5,7 +5,6 @@ import { TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
-import avatars from "../../assets/images/avatars";
 import { formatDate } from "../../lib/date";
 import Card from "../Card";
 import Input from "../Input";
