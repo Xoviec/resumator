@@ -11,7 +11,7 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
   const onClickDropdown = async (action) => {
     switch (action) {
       case "PDF": {
-        goTo(`/pdf-download/${resume.id}`);
+        goTo(`/download/${resume.id}`);
         return;
       }
       case "DOCX": {

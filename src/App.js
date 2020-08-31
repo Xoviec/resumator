@@ -11,7 +11,7 @@ import FirebaseAppContextProvider from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
 import Creator from "./pages/Creator";
-import PDFDownload from "./pages/PDFDownload/PDFDownload";
+import Download from "./pages/Download/Download";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/live/:id" component={LivePreviewerWrapper} />
           <Route exact path="/creator" component={CreatorWrapper} />
           <Route exact path="/pdf-preview/:id" component={PdfPreviewer} />
-          <Route exact path="/pdf-download/:id" component={PDFDownload} />
+          <Route exact path="/download/:id" component={Download} />
           <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
         </Switch>
       </BrowserRouter>
