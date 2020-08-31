@@ -14,6 +14,7 @@ import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import ActionIcon from "./ActionIcon";
 import EmptyNotice from "./EmptyNotice";
+import getAvatarDataUri from "../../lib/getAvatarDataUri";
 
 const isInfoEmpty = ({ firstName, lastName, email, city }) =>
   !(firstName || lastName || email || city);
@@ -45,9 +46,7 @@ const TopSection = ({ personalia, onSubmit }) => {
       <>
         <AvatarWrapper>
           <AvatarImg
-            src={
-              (avatars.find((x) => x.name === personalia.avatar) || avatars[0]).img
-            }
+            src={getAvatarDataUri(personalia.avatar)}
             alt="Avatar"
           />
         </AvatarWrapper>

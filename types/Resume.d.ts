@@ -12,6 +12,7 @@ export interface Personalia {
   email: string;
   dateOfBirth: any;
   city: string;
+  avatar: string;
 }
 export interface Education {
   id?: string;
@@ -60,7 +61,6 @@ export default interface Resume {
   personalia: Personalia;
   education: Education[];
   introduction: string;
-  avatar: string;
   skills: Skill[];
   sideProjects: SideProject[];
   publications: Publication[];

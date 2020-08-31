@@ -2,10 +2,10 @@ import React from "react";
 import styled from "@emotion/styled";
 import Button from "@material-ui/core/Button";
 import saveAs from "file-saver";
-import avatars from "../../assets/images/avatars";
 import DropdownButton from "./DropdownButton";
 import createDocx from "../../lib/createDocx";
 import formatResumeFilename from "../../lib/formatResumeFilename";
+import getAvatarDataUri from "../../lib/getAvatarDataUri";
 
 const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
   const onClickDropdown = async (action) => {
@@ -16,10 +16,9 @@ const PreviewControls = ({ setShowPDFModal, goTo, onSaveClicked, resume }) => {
       }
       case "DOCX": {
         const { firstName, lastName, avatar: avatarName } = resume.personalia;
-        const avatarDataUri = (avatars.find((x) => x.name === avatarName) || avatars[0]).img;
         const [ template, avatar ] = await Promise.all([
           fetch('/template.docx').then(res => res.arrayBuffer()),
-          fetch(avatarDataUri).then(res => res.arrayBuffer()),
+          fetch(getAvatarDataUri(avatarName)).then(res => res.arrayBuffer()),
         ]);
         const docx = await createDocx(resume, template, avatar);
         const file = new Blob([ docx ], {
