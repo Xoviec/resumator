@@ -98,6 +98,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Nav = ({ handleSearch }) => {
+  const { firebase, user } = useContext(FirebaseAppContext);
+
   const history = useHistory();
   const goTo = (path) => history.push(path);
 
@@ -114,6 +116,11 @@ const Nav = ({ handleSearch }) => {
     setAnchorEl(null);
   };
 
+  const signOut = async () => {
+    await firebase.auth().signOut();
+    goTo("/");
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -125,11 +132,10 @@ const Nav = ({ handleSearch }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => goTo("/")}>Sign out</MenuItem>
+      <MenuItem onClick={signOut}>Sign out</MenuItem>
     </Menu>
   );
 
-  const { user } = useContext(FirebaseAppContext);
   const avatarComponent =
     user && user.photoURL ? (
       <Avatar alt={user.displayName} src={user.photoURL} />
@@ -182,16 +188,16 @@ const Nav = ({ handleSearch }) => {
               />
             </div>
             <div className={classes.grow} />
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                {avatarComponent}
-              </IconButton>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              {avatarComponent}
+            </IconButton>
           </Toolbar>
         </AppBar>
       </div>
