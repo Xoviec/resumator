@@ -8,17 +8,13 @@ import Button from "@material-ui/core/Button";
 const Home = () => {
   const { firebase, provider } = React.useContext(FirebaseAppContext);
   const history = useHistory();
-  const login = () => {
-    console.log(
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((user) => {
-          console.log({ user });
-          history.push("/overview");
-        })
-    );
+
+  const login = async () => {
+    const user = await firebase.auth().signInWithPopup(provider);
+    console.log({ user });
+    history.push("/overview");
   };
+
   return (
     <Box width="100%" p="2rem" color="white" bg="white" textAlign="center">
       <Typography variant="h3" component="h1" gutterBottom color={"primary"}>
