@@ -23,6 +23,7 @@ const Home = () => {
       <Typography variant="h4" component="h2" gutterBottom color={"secondary"}>
         Welcome to the Frontmen Resumator, a tool to generate Resumes
       </Typography>
+      <Box marginTop={6} />
       <Button variant="contained" color="secondary" onClick={login}>
         Login with Frontmen account
       </Button>
