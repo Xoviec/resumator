@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { TextField } from "@material-ui/core";
-import styled from "@emotion/styled";
+import React from "react";
 import { Autocomplete } from "@material-ui/lab";
-import Chip from "@material-ui/core/Chip";
+import { Chip, TextField } from "@material-ui/core";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import styled from "@emotion/styled";
 import { skillsConstants } from "../../config/skills.constants";
-import EmptyNotice from "./EmptyNotice";
 
 const AUTOCOMPLETE_REASONS = {
   ADD: "select-option", // Added via dropdown/select options
@@ -14,152 +12,106 @@ const AUTOCOMPLETE_REASONS = {
 };
 
 const SkillsSelect = ({ value, onChange }) => {
-  const skillsWrapperRef = useRef();
-  const oldValueLength = useRef(value.length);
-  const renderInput = (params) => (
-    <TextField {...params} placeholder="Add a library, framework, skill..." />
-  );
-
-  const onAutocompleteChange = (event, inputValue, reason) => {
-    if (reason === AUTOCOMPLETE_REASONS.REMOVE) {
-      onChange(inputValue);
-
-      return inputValue;
-    }
-
-    if (
-      reason === AUTOCOMPLETE_REASONS.ADD ||
-      reason === AUTOCOMPLETE_REASONS.CREATE
-    ) {
-      const skills = [...inputValue];
-      const addedSkill = skills.pop();
-
-      skills.push({ name: addedSkill });
-      onChange(skills);
-
-      return skills;
-    }
-
-    return inputValue;
-  };
-
+  /**
+   * Check if the provided option is currently included in the skills.
+   */
   const getOptionSelected = (option, skill) => option === skill.name;
 
-  const reorderSkills = (from, to) => {
-    const skillList = [...value];
-
-    // Swap position
-    skillList.splice(to, 0, skillList.splice(from, 1)[0]);
-
-    onChange(skillList);
-  };
-
-  const onDragEnd = ({ source, destination }) => {
-    if (source && destination) {
-      reorderSkills(source.index, destination.index);
-    }
-  };
-
-  const onSkillDelete = (index) => onChange(value.filter((skill, i) => index !== i));
-
-  const handleSkillsWrapperRef = (droppableRefHandler) => (ref) => {
-    droppableRefHandler(ref);
-    skillsWrapperRef.current = ref;
-  };
-
-  useEffect(() => {
-    if (value.length > oldValueLength.current) {
-      const { current: skillsWrapper } = skillsWrapperRef;
-      skillsWrapper.scrollTo({
-        left: skillsWrapper.scrollWidth,
-        behavior: "smooth",
-      });
+  /**
+   * Handle adding or deleting a skill through the autocomplete input.
+   */
+  const handleSkillChange = (event, inputValue, reason) => {
+    if (reason === AUTOCOMPLETE_REASONS.ADD || reason === AUTOCOMPLETE_REASONS.CREATE) {
+      // Not a full copy, but as we don't edit skills that should be okay.
+      const skills = [...inputValue];
+      skills.push({ name: skills.pop() });
+      onChange(skills);
     }
 
-    oldValueLength.current = value.length;
-  }, [value]);
+    if (reason === AUTOCOMPLETE_REASONS.REMOVE) {
+      onChange(inputValue);
+    }
+  }
+
+  /**
+   * Handle deleting a skill by clicking the x on the chip.
+   */
+  const handleSkillDelete = (index) => onChange(value.filter((skill, i) => index !== i));
+
+  /**
+   * Handle when a skill is being dropped in a new position.
+   */
+  const handleDragEnd = ({ source, destination }) => {
+    if (!source || !destination) return;
+
+    // Not a full copy, but as we don't edit skills that should be okay.
+    const skills = [...value];
+    skills.splice(destination.index, 0, skills.splice(source.index, 1)[0]);
+
+    onChange(skills);
+  }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable" direction="horizontal">
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <Droppable droppableId="skill-list-droppable" direction="horizontal">
         {(provided) => (
-          <SkillsWrapper
-            ref={handleSkillsWrapperRef(provided.innerRef)}
-            {...provided.droppableProps}
-          >
-            {value.map(({ name }, index) => (
-              <Draggable key={name} draggableId={name} index={index}>
-                {({ draggableProps, dragHandleProps, innerRef }) => (
-                  <CustomChip
-                    label={name}
-                    size="small"
-                    variant="outlined"
-                    color="secondary"
-                    ref={innerRef}
-                    style={draggableProps.style}
-                    onDelete={() => onSkillDelete(index)}
-                    {...draggableProps}
-                    {...dragHandleProps}
-                  />
-                )}
-              </Draggable>
-            ))}
-
-            <CustomEmptyNotice show={value.length === 0}>
-              Use the text field below to add skills
-            </CustomEmptyNotice>
-
-            {provided.placeholder}
-          </SkillsWrapper>
+          <div>
+            <StyledAutocomplete
+              multiple
+              freeSolo
+              disableClearable
+              disableCloseOnSelect
+              id="skill-list-autocomplete"
+              ref={provided.innerRef}
+              value={value}
+              options={skillsConstants}
+              onChange={handleSkillChange}
+              getOptionSelected={getOptionSelected}
+              renderInput={(params) => (
+                <TextField
+                  // variant="outlined"
+                  placeholder="Add a library, framework, skill..."
+                  {...params}
+                />
+              )}
+              renderTags={(value) => value.map((skill, index) => (
+                // Add a chip for each skill.
+                <Draggable draggableId={skill.name} index={index} key={skill.name}>
+                  {(provided) => (
+                    <StyledChip
+                      ref={provided.innerRef}
+                      label={skill.name}
+                      size="small"
+                      variant="outlined"
+                      color="secondary"
+                      onDelete={() => handleSkillDelete(index)}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    />
+                  )}
+                </Draggable>
+              ))}
+            />
+            {/* Wrap the placeholder in a div to hide it as it messes with the layout */}
+            <div style={{ display: "none" }}>{provided.placeholder}</div>
+          </div>
         )}
       </Droppable>
-
-      <Autocomplete
-        id="skill-list-autocomplete"
-        multiple
-        freeSolo
-        disableClearable
-        disableCloseOnSelect
-        fullWidth
-        value={value}
-        options={skillsConstants}
-        renderInput={renderInput}
-        onChange={onAutocompleteChange}
-        getOptionSelected={getOptionSelected}
-        renderTags={() => null}
-      />
     </DragDropContext>
   );
 };
 
-const CustomChip = styled(Chip)`
-  margin-right: 8px;
-  background-color: #fff;
-`;
-
-const SkillsWrapper = styled.div`
-  display: flex;
-  height: 50px;
-  flex: 1 1 auto;
-  overflow: auto;
-  align-items: center;
-  border-radius: 4px;
-  border: 1px solid #c4c4c4;
-  padding: 0 8px;
-  margin-bottom: 8px;
-
-  &::after {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 100%;
-    flex: 1 0 auto;
+// Style the autocomplete so that the input is placed below the chips.
+const StyledAutocomplete = styled(Autocomplete)`
+  .MuiAutocomplete-input {
+    width: inherit;
   }
 `;
 
-const CustomEmptyNotice = styled(EmptyNotice)`
-  opacity: 0.6;
-  font-size: 13px;
+// Make the chips have some space around them.
+const StyledChip = styled(Chip)`
+  margin: 0 8px 8px 0;
+  background-color: #fff;
 `;
 
 export default SkillsSelect;
