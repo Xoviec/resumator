@@ -1,9 +1,11 @@
 import React from "react";
 import { Autocomplete } from "@material-ui/lab";
-import { Chip, TextField } from "@material-ui/core";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { TextField } from "@material-ui/core";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import styled from "@emotion/styled";
 import { skillsConstants } from "../../config/skills.constants";
+import SkillsSelectChip from "./SkillsSelectChip";
 
 const AUTOCOMPLETE_REASONS = {
   ADD: "select-option", // Added via dropdown/select options
@@ -41,63 +43,45 @@ const SkillsSelect = ({ value, onChange }) => {
   /**
    * Handle when a skill is being dropped in a new position.
    */
-  const handleDragEnd = ({ source, destination }) => {
-    if (!source || !destination) return;
-
+  const handleDrag = (sourceIndex, destinationIndex) => {
     // Not a full copy, but as we don't edit skills that should be okay.
     const skills = [...value];
-    skills.splice(destination.index, 0, skills.splice(source.index, 1)[0]);
+    skills.splice(destinationIndex, 0, skills.splice(sourceIndex, 1)[0]);
 
     onChange(skills);
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="skill-list-droppable" direction="horizontal">
-        {(provided) => (
-          <div>
-            <StyledAutocomplete
-              multiple
-              freeSolo
-              disableClearable
-              disableCloseOnSelect
-              id="skill-list-autocomplete"
-              ref={provided.innerRef}
-              value={value}
-              options={skillsConstants}
-              onChange={handleSkillChange}
-              getOptionSelected={getOptionSelected}
-              renderInput={(params) => (
-                <TextField
-                  // variant="outlined"
-                  placeholder="Add a library, framework, skill..."
-                  {...params}
-                />
-              )}
-              renderTags={(value) => value.map((skill, index) => (
-                // Add a chip for each skill.
-                <Draggable draggableId={skill.name} index={index} key={skill.name}>
-                  {(provided) => (
-                    <StyledChip
-                      ref={provided.innerRef}
-                      label={skill.name}
-                      size="small"
-                      variant="outlined"
-                      color="secondary"
-                      onDelete={() => handleSkillDelete(index)}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    />
-                  )}
-                </Draggable>
-              ))}
-            />
-            {/* Wrap the placeholder in a div to hide it as it messes with the layout */}
-            <div style={{ display: "none" }}>{provided.placeholder}</div>
-          </div>
+    <DndProvider backend={HTML5Backend}>
+      <StyledAutocomplete
+        multiple
+        freeSolo
+        disableClearable
+        disableCloseOnSelect
+        id="skill-list-autocomplete"
+        value={value}
+        options={skillsConstants}
+        onChange={handleSkillChange}
+        getOptionSelected={getOptionSelected}
+        renderInput={(params) => (
+          <TextField
+            // variant="outlined"
+            placeholder="Add a library, framework, skill..."
+            {...params}
+          />
         )}
-      </Droppable>
-    </DragDropContext>
+        renderTags={(value) => value.map((skill, index) => (
+          // Add a chip for each skill.
+          <SkillsSelectChip
+            key={skill.name}
+            label={skill.name}
+            index={index}
+            onDrag={handleDrag}
+            onDelete={() => handleSkillDelete(index)}
+          />
+        ))}
+      />
+    </DndProvider>
   );
 };
 
@@ -106,12 +90,6 @@ const StyledAutocomplete = styled(Autocomplete)`
   .MuiAutocomplete-input {
     width: inherit;
   }
-`;
-
-// Make the chips have some space around them.
-const StyledChip = styled(Chip)`
-  margin: 0 8px 8px 0;
-  background-color: #fff;
 `;
 
 export default SkillsSelect;
