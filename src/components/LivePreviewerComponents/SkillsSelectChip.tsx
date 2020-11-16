@@ -1,11 +1,23 @@
 import React, { useRef } from "react";
 import { Chip } from "@material-ui/core";
-import { useDrag, useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import styled from "@emotion/styled";
+
+interface ISkillsSelectChipProperties {
+  label: string;
+  index: number;
+  onDrag: (sourceIndex: number, destinationIndex: number) => void;
+  onDelete: (index: number) => void;
+}
+
+interface IDragItem {
+  type: string;
+  index: number;
+}
 
 const DNDTYPE = "SkillsChip"
 
-const SkillsSelectChip = ({ label, index, onDrag, onDelete }) => {
+const SkillsSelectChip = ({ label, index, onDrag, onDelete }: ISkillsSelectChipProperties) => {
   /**
    * Create a reference to attach to the Component used for dragging and dropping.
    */
@@ -23,7 +35,7 @@ const SkillsSelectChip = ({ label, index, onDrag, onDelete }) => {
    */
   const [, drop] = useDrop({
     accept: DNDTYPE,
-    hover(item, monitor) {
+    hover(item: IDragItem, monitor: DropTargetMonitor) {
       if (!ref.current) return;
 
       const sourceIndex = item.index;
@@ -32,8 +44,9 @@ const SkillsSelectChip = ({ label, index, onDrag, onDelete }) => {
       // Don't replace items with themselves.
       if (sourceIndex === destinationIndex) return;
 
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverBoundingRect = (ref.current! as Element).getBoundingClientRect();
       const clientOffset = monitor.getClientOffset();
+      if (!clientOffset) return;
 
       // Take a % of the width and height.
       const hoverWidth = hoverBoundingRect.width * 0.3;
@@ -64,7 +77,7 @@ const SkillsSelectChip = ({ label, index, onDrag, onDelete }) => {
       color="secondary"
       ref={ref}
       label={label}
-      onDelete={onDelete}
+      onDelete={() => onDelete(index)}
       // Stop propagation of the mouse event to avoid it being swallowed by the autocomplete.
       // If the event is swallowed, drag & drop doesn't work.
       onMouseDown={event => event.stopPropagation()}

@@ -7,43 +7,38 @@ import styled from "@emotion/styled";
 import { skillsConstants } from "../../config/skills.constants";
 import SkillsSelectChip from "./SkillsSelectChip";
 
-const AUTOCOMPLETE_REASONS = {
-  ADD: "select-option", // Added via dropdown/select options
-  CREATE: "create-option", // Added via typing
-  REMOVE: "remove-option",
-};
+interface ISkill {
+  name: string;
+}
 
-const SkillsSelect = ({ value, onChange }) => {
+interface ISkillsSelectProperties {
+  value: ISkill[];
+  onChange: (skills: ISkill[]) => void;
+}
+
+const SkillsSelect = ({ value, onChange }: ISkillsSelectProperties) => {
   /**
    * Check if the provided option is currently included in the skills.
    */
-  const getOptionSelected = (option, skill) => option === skill.name;
+  const getOptionSelected = (option: string, skill: string) => option === skill;
 
   /**
    * Handle adding or deleting a skill through the autocomplete input.
    */
-  const handleSkillChange = (event, inputValue, reason) => {
-    if (reason === AUTOCOMPLETE_REASONS.ADD || reason === AUTOCOMPLETE_REASONS.CREATE) {
-      // Not a full copy, but as we don't edit skills that should be okay.
-      const skills = [...inputValue];
-      skills.push({ name: skills.pop() });
-      onChange(skills);
-    }
-
-    if (reason === AUTOCOMPLETE_REASONS.REMOVE) {
-      onChange(inputValue);
-    }
+  const handleSkillChange = (event: object, inputValue: string[], reason: string) => {
+    const skills = inputValue.map(name => ({ name }));
+    onChange(skills);
   }
 
   /**
    * Handle deleting a skill by clicking the x on the chip.
    */
-  const handleSkillDelete = (index) => onChange(value.filter((skill, i) => index !== i));
+  const handleSkillDelete = (index: number) => onChange(value.filter((skill, i) => index !== i));
 
   /**
    * Handle when a skill is being dropped in a new position.
    */
-  const handleDrag = (sourceIndex, destinationIndex) => {
+  const handleDrag = (sourceIndex: number, destinationIndex: number) => {
     // Not a full copy, but as we don't edit skills that should be okay.
     const skills = [...value];
     skills.splice(destinationIndex, 0, skills.splice(sourceIndex, 1)[0]);
@@ -59,25 +54,25 @@ const SkillsSelect = ({ value, onChange }) => {
         disableClearable
         disableCloseOnSelect
         id="skill-list-autocomplete"
-        value={value}
+        value={value.map(skill => skill.name)}
         options={skillsConstants}
         onChange={handleSkillChange}
         getOptionSelected={getOptionSelected}
-        renderInput={(params) => (
+        renderInput={(params: object) => (
           <TextField
             // variant="outlined"
             placeholder="Add a library, framework, skill..."
             {...params}
           />
         )}
-        renderTags={(value) => value.map((skill, index) => (
+        renderTags={(value: string[]) => value.map((skill, index) => (
           // Add a chip for each skill.
           <SkillsSelectChip
-            key={skill.name}
-            label={skill.name}
+            key={skill}
+            label={skill}
             index={index}
             onDrag={handleDrag}
-            onDelete={() => handleSkillDelete(index)}
+            onDelete={handleSkillDelete}
           />
         ))}
       />
@@ -90,6 +85,6 @@ const StyledAutocomplete = styled(Autocomplete)`
   .MuiAutocomplete-input {
     width: inherit;
   }
-`;
+` as typeof Autocomplete;
 
 export default SkillsSelect;
