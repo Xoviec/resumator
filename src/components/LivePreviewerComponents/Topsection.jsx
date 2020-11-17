@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
-import { TextField, Typography } from "@material-ui/core";
+import { Box, TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
@@ -12,13 +12,17 @@ import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import ActionIcon from "./ActionIcon";
-import EmptyNotice from "./EmptyNotice";
+// import EmptyNotice from "./EmptyNotice";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
+// Icons
+import CakeIcon from "@material-ui/icons/CakeOutlined";
+import EmailIcon from "@material-ui/icons/EmailOutlined";
+import PlaceIcon from "@material-ui/icons/PlaceOutlined";
 
-const isInfoEmpty = ({ firstName, lastName, email, city }) =>
-  !(firstName || lastName || email || city);
+// const isInfoEmpty = ({ firstName, lastName, email, city }) =>
+//   !(firstName || lastName || email || city);
 
-const TopSection = ({ personalia, onSubmit }) => {
+const TopSection = ({ personalia, introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const methods = useForm({
@@ -34,41 +38,51 @@ const TopSection = ({ personalia, onSubmit }) => {
     }
   }, [personalia, getValues, reset]);
 
-  const { city, dateOfBirth } = personalia;
-
-  const renderInfo = () => {
-    if (isInfoEmpty(personalia)) {
-      return <EmptyNotice show icon={faPen} />;
-    }
-
-    return (
-      <>
-        <AvatarWrapper>
-          <AvatarImg
-            src={getAvatarDataUri(personalia.avatar)}
-            alt="Avatar"
-          />
-        </AvatarWrapper>
-
-        <MainInfo>
-          <Typography variant="h2">
-            {personalia.firstName} {personalia.lastName}
-          </Typography>
-
-          <Typography variant="h5">{personalia.email}</Typography>
-        </MainInfo>
-
-        <OtherInfo variant="subtitle1">
-          {city} {city && dateOfBirth && <Separator />}{" "}
-          {formatDate(dateOfBirth)}
-        </OtherInfo>
-      </>
-    );
-  };
+  const getFirstName = () => personalia.firstName ? personalia.firstName : (personalia.avatar > 4 ? "John" : "Jane");
+  const getLastName = () => personalia.lastName ? personalia.lastName : "Doe";
 
   return (
-    <TopSectionContainer>
-      {renderInfo()}
+    <Card>
+      <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
+        <Box display="flex" flexDirection="row" flex={1}>
+          <AvatarWrapper>
+            <AvatarImg
+              src={getAvatarDataUri(personalia.avatar)}
+              alt="Avatar"
+            />
+          </AvatarWrapper>
+
+          <Box marginRight={2}>
+            <Typography variant="h3" align="left">
+              {getFirstName()} {getLastName()}
+            </Typography>
+            <SubInfo>
+              <EmailIcon />
+              {personalia.email ? personalia.email : "---"}
+            </SubInfo>
+            <SubInfo>
+              <PlaceIcon />
+              {personalia.city ? personalia.city : "---"}
+            </SubInfo>
+            <SubInfo>
+              <CakeIcon />
+              {personalia.dateOfBirth ? formatDate(personalia.dateOfBirth) : "---"}
+            </SubInfo>
+          </Box>
+        </Box>
+        
+        <Box display="flex" flexDirection="column" flex={1} marginTop={{ xs: 2, md: 0 }}>
+          <Typography variant="h5" align="left">
+            About {personalia.firstName}
+          </Typography>
+          <Typography variant="body2">
+            {introduction
+              ? introduction
+              : `${getFirstName()} has nothing to tell you.`}
+          </Typography>
+        </Box>
+      </Box>
+      
 
       <CustomActionIcon
         onClick={() => setIsEditing((prevState) => !prevState)}
@@ -143,30 +157,22 @@ const TopSection = ({ personalia, onSubmit }) => {
           control={methods.control}
         />
       </EditModalWrapper>
-    </TopSectionContainer>
+    </Card>
   );
 };
 
-const TopSectionContainer = styled(Card)`
-  &,
-  .MuiCardContent-root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const AVATAR_SIZE = 200;
+const AVATAR_SIZE = 150;
 const AvatarWrapper = styled.div`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   height: ${AVATAR_SIZE}px;
   width: ${AVATAR_SIZE}px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid rgba(0, 0, 0, 0.7);
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  margin-right: 32px;
 `;
 
 const AvatarImg = styled.img`
@@ -175,25 +181,15 @@ const AvatarImg = styled.img`
   margin-left: 10%;
 `;
 
-const MainInfo = styled.div`
-  margin-top: 8px;
-  text-align: center;
-`;
-
-const OtherInfo = styled(Typography)`
+const SubInfo = styled.div`
+  margin-top: 6px;
   display: flex;
-  margin-top: 16px;
-  text-align: center;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-`;
-
-const Separator = styled.div`
-  width: 20px;
-  height: 1px;
-  background-color: currentColor;
-  margin: 0 8px;
-  opacity: 0.75;
+  
+  .MuiSvgIcon-root {
+    margin-right: 8px;
+  }
 `;
 
 const CustomActionIcon = styled(ActionIcon)`
