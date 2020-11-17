@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
-import TopSection from "./Topsection";
+import TopSection from "./TopSection";
 import Introduction from "./Introduction";
 import Education from "./Education";
 import Skills from "./Skills";
@@ -10,6 +10,7 @@ import PDFPreviewModal from "./PDFPreviewModal";
 import PreviewControls from "./PreviewControls";
 import Experience from "./Experience";
 import SideProjects from "./SideProjects";
+import { Box } from "@material-ui/core";
 
 const LivePreviewerTemplate = ({ data }) => {
   const [showPDFModal, setShowPDFModal] = useState(false);
@@ -88,24 +89,70 @@ const LivePreviewerTemplate = ({ data }) => {
         setShowPDFModal={setShowPDFModal}
         resume={dataState}
       />
-      <>
-        <ColumnContainer>
-          {dataState.personalia && (
-            <TopSection
-              personalia={dataState.personalia}
-              onSubmit={onSubmitSection}
+      {/* <> */}
+        {/* <ColumnContainer> */}
+      <TopSection
+        personalia={dataState.personalia}
+        introduction={dataState.introduction}
+        onSubmit={onSubmitSection}
+      />
+
+      {/* <Introduction
+        introduction={dataState.introduction}
+        onSubmit={onSubmitSection}
+      /> */}
+        {/* </ColumnContainer> */}
+
+      <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
+        {/* Left column */}
+        <Box display="flex" flexDirection="column" flex={2} marginRight={{ md: 1.5 }}>
+          {dataState.projects && (
+            <Experience
+              type="Projects"
+              onEditHandler={(values, index) => onEditSectionItem("projects", values, index)}
+              onDeleteHandler={(values, index) => onDeleteSectionItem("projects", values, index)}
+              onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
+              experience={dataState.projects}
             />
           )}
-
-          <Introduction
-            introduction={dataState.introduction}
-            onSubmit={onSubmitSection}
-          />
-        </ColumnContainer>
-
-        <ColumnContainer>
+          {dataState.experience && (
+            <Experience
+              type="Work Experience"
+              onEditHandler={(values, index) => onEditSectionItem("experience", values, index)}
+              onDeleteHandler={(values, index) => onDeleteSectionItem("experience", values, index)}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("experience", values)
+              }
+              experience={dataState.experience}
+            />
+          )}
+        </Box>
+        {/* Right column */}
+        <Box display="flex" flexDirection="column" flex={1}>
           {dataState.skills && (
             <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
+          )}
+          {dataState.sideProjects && (
+            <SideProjects
+              type="Side projects"
+              onEditHandler={(values, index) => onEditSectionItem("sideProjects", values, index)}
+              onDeleteHandler={(values, index) => onDeleteSectionItem("sideProjects", values, index)}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("sideProjects", values)
+              }
+              projects={dataState.sideProjects}
+            />
+          )}
+          {dataState.publications && (
+            <SideProjects
+              type="Publications"
+              onEditHandler={(values, index) => onEditSectionItem("publications", values, index)}
+              onDeleteHandler={(values, index) => onDeleteSectionItem("publications", values, index)}
+              onSubmit={(values) =>
+                onAddNewItemForSectionHandler("publications", values)
+              }
+              projects={dataState.publications}
+            />
           )}
           {dataState.education && (
             <Education
@@ -117,50 +164,11 @@ const LivePreviewerTemplate = ({ data }) => {
               onDeleteHandler={(values, index) => onDeleteSectionItem("education", values, index)}
             />
           )}
-        </ColumnContainer>
-        {dataState.projects && (
-          <Experience
-            type="Projects"
-            onEditHandler={(values, index) => onEditSectionItem("projects", values, index)}
-            onDeleteHandler={(values, index) => onDeleteSectionItem("projects", values, index)}
-            onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
-            experience={dataState.projects}
-          />
-        )}
-        {dataState.experience && (
-          <Experience
-            type="Work Experience"
-            onEditHandler={(values, index) => onEditSectionItem("experience", values, index)}
-            onDeleteHandler={(values, index) => onDeleteSectionItem("experience", values, index)}
-            onSubmit={(values) =>
-              onAddNewItemForSectionHandler("experience", values)
-            }
-            experience={dataState.experience}
-          />
-        )}
-        {dataState.sideProjects && (
-          <SideProjects
-            type="Side projects"
-            onEditHandler={(values, index) => onEditSectionItem("sideProjects", values, index)}
-            onDeleteHandler={(values, index) => onDeleteSectionItem("sideProjects", values, index)}
-            onSubmit={(values) =>
-              onAddNewItemForSectionHandler("sideProjects", values)
-            }
-            projects={dataState.sideProjects}
-          />
-        )}
-        {dataState.publications && (
-          <SideProjects
-            type="Publications"
-            onEditHandler={(values, index) => onEditSectionItem("publications", values, index)}
-            onDeleteHandler={(values, index) => onDeleteSectionItem("publications", values, index)}
-            onSubmit={(values) =>
-              onAddNewItemForSectionHandler("publications", values)
-            }
-            projects={dataState.publications}
-          />
-        )}
-      </>
+        </Box>
+      </Box>      
+        
+        
+      {/* </> */}
 
       <PDFPreviewModal
         data={dataState}
