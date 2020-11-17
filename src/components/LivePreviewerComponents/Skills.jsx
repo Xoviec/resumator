@@ -3,16 +3,15 @@ import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { Typography } from "@material-ui/core";
+import { Chip, Typography } from "@material-ui/core";
 import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
 import ActionIcon from "./ActionIcon";
 import SkillsSelectFormField from "./SkillsSelectFormField";
-import Chip from "@material-ui/core/Chip";
 
 const Skills = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [skillsState, setSkillsState] = React.useState(skills || []);
+  const [skillsState, setSkillsState] = useState(skills || []);
   const methods = useForm();
   const { reset, control, getValues } = methods;
 
@@ -28,7 +27,7 @@ const Skills = ({ skills, onSubmit }) => {
         </Typography>
 
         <ActionIcon
-          onClick={() => setIsEditing((prevState) => !prevState)}
+          onClick={() => setIsEditing(true)}
           icon={faPen}
           tooltipText="Edit skills"
         />
@@ -62,6 +61,7 @@ const Skills = ({ skills, onSubmit }) => {
         }}
         onSecondaryActionClicked={() => {
           reset({});
+          setSkillsState(skills);
           setIsEditing(false);
         }}
       >

@@ -6,7 +6,7 @@ import ModalActionButtons from "./ModalActionButtons";
 
 const BackdropComponent = ({ open, ...backdropProps }) => (
   <Fade in={open}>
-    <Backdrop {...backdropProps} />
+    <Backdrop open={open} {...backdropProps} />
   </Fade>
 );
 
