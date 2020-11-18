@@ -2,16 +2,9 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { Chip, Typography } from "@material-ui/core";
-import Card from "../Card";
-import EmptyNotice from "./EmptyNotice";
-import ActionIcon from "./ActionIcon";
+import { Chip } from "@material-ui/core";
 import SkillsSelectFormField from "./SkillsSelectFormField";
 import { Section } from "./Section";
-import { TooltipIconButton } from "../Material";
-// Icons
-import EditIcon from "@material-ui/icons/Edit";
 
 interface SkillsProps {
   skills: { name: string }[];
@@ -76,14 +69,6 @@ const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
     </Section>
   );
 };
-
-const StyledCard = styled(Card)`
-  &:hover {
-    .add-new-button {
-      visibility: visible;
-    }
-  }
-`;
 
 const CHIP_GUTTER = 8;
 const SkillsContainer = styled.div`

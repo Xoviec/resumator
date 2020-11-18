@@ -6,11 +6,11 @@ import { useForm } from "react-hook-form";
 import Input from "../Input";
 import { TextField, Typography } from "@material-ui/core";
 import SideProjectItem from "./SideProjectItem";
-import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
 import ActionIcon from "./ActionIcon";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
+import { Section } from "./Section";
 
 const SideProjects = ({
   type,
@@ -40,19 +40,12 @@ const SideProjects = ({
   }
 
   return (
-    <Card>
-      <TopWrapper>
-        <Typography gutterBottom variant="h4">
-          {type}
-        </Typography>
-
-        <ActionIcon
-          onClick={() => setIsEditing((prevState) => !prevState)}
-          icon={faPlus}
-          tooltipText={tooltipText}
-        />
-      </TopWrapper>
-
+    <Section
+      title={type}
+      action="add"
+      actionTooltip={tooltipText}
+      actionOnClick={() => setIsEditing(true)}
+    >
       {projects.map((entry, index) => (
         <React.Fragment key={index}>
           <SideProjectItem
@@ -116,7 +109,7 @@ const SideProjects = ({
           defaultValue=""
         />
       </EditModalWrapper>
-    </Card>
+    </Section>
   );
 };
 

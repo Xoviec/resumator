@@ -1,28 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import { Box, TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 import isEqual from "lodash/isEqual";
 import { formatDate } from "../../lib/date";
-import Card from "../Card";
 import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
-import ActionIcon from "./ActionIcon";
-// import EmptyNotice from "./EmptyNotice";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
+import { TooltipIconButton } from "../Material";
+import { Section } from "./Section";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
+import EditIcon from "@material-ui/icons/Edit"
 import PlaceIcon from "@material-ui/icons/PlaceOutlined";
 
-// const isInfoEmpty = ({ firstName, lastName, email, city }) =>
-//   !(firstName || lastName || email || city);
+interface TopSectionProps {
+  personalia: {
+    avatar: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    city: string;
+    dateOfBirth: Date;
+  };
+  introduction: string;
+  onSubmit: (key: string, values: any) => void;
+}
 
-const TopSection = ({ personalia, introduction, onSubmit }) => {
+const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const methods = useForm({
@@ -38,11 +47,15 @@ const TopSection = ({ personalia, introduction, onSubmit }) => {
     }
   }, [personalia, getValues, reset]);
 
-  const getFirstName = () => personalia.firstName ? personalia.firstName : (personalia.avatar > 4 ? "John" : "Jane");
+  /**
+   * Get first and last name.
+   * Will return John / Jane Doe if the name is not filled in.
+   */
+  const getFirstName = () => personalia.firstName ? personalia.firstName : (+personalia.avatar > 4 ? "John" : "Jane");
   const getLastName = () => personalia.lastName ? personalia.lastName : "Doe";
 
   return (
-    <Card>
+    <Section>
       <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
         <Box display="flex" flexDirection="row" flex={1}>
           <AvatarWrapper>
@@ -82,19 +95,18 @@ const TopSection = ({ personalia, introduction, onSubmit }) => {
           </Typography>
         </Box>
       </Box>
-      
-
-      <CustomActionIcon
+    
+      {/* <TooltipIconButton
+        tooltip="Edit personal details"
         onClick={() => setIsEditing((prevState) => !prevState)}
-        icon={faPen}
-        tooltipText="Edit personal information"
-      />
+      >
+        <EditIcon fontSize="small" />
+      </TooltipIconButton> */}
 
       <EditModalWrapper
         isOpen={isEditing}
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
-        contentLabel="Edit personal details"
         heading="Personal details"
         onPrimaryActionClicked={() => {
           onSubmit("personalia", methods.getValues());
@@ -141,7 +153,7 @@ const TopSection = ({ personalia, introduction, onSubmit }) => {
           as={DatePicker}
           control={methods.control}
           rules={{ required: true }}
-          onChange={([selected]) => {
+          onChange={([selected]: any) => {
             return selected;
           }}
           name="dateOfBirth"
@@ -157,7 +169,7 @@ const TopSection = ({ personalia, introduction, onSubmit }) => {
           control={methods.control}
         />
       </EditModalWrapper>
-    </Card>
+    </Section>
   );
 };
 
@@ -190,12 +202,6 @@ const SubInfo = styled.div`
   .MuiSvgIcon-root {
     margin-right: 8px;
   }
-`;
-
-const CustomActionIcon = styled(ActionIcon)`
-  position: absolute;
-  top: 16px;
-  right: 16px;
 `;
 
 export default TopSection;

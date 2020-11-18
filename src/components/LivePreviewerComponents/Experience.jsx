@@ -6,7 +6,6 @@ import { TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
@@ -15,6 +14,7 @@ import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 import SkillsSelectFormField from "./SkillsSelectFormField";
 import ActionIcon from "./ActionIcon";
+import { Section } from "./Section";
 
 const Experience = ({
   type,
@@ -48,7 +48,7 @@ const Experience = ({
   }
 
   return (
-    <Card>
+    <Section>
       <TopWrapper>
         <Typography gutterBottom variant="h4">
           {type}
@@ -151,7 +151,7 @@ const Experience = ({
           name="skills"
         />
       </EditModalWrapper>
-    </Card>
+    </Section>
   );
 };
 

@@ -8,13 +8,13 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { DatePicker } from "@material-ui/pickers";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
 import ActionIcon from "./ActionIcon";
+import { Section } from "./Section";
 
 const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,7 +39,7 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
   const minDate = (endDate) => endDate > methods.getValues().startDate;
 
   return (
-    <Card>
+    <Section>
       <TopWrapper>
         <Typography gutterBottom variant="h4">
           Education
@@ -138,7 +138,7 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
           label={<p>Certificate</p>}
         />
       </EditModalWrapper>
-    </Card>
+    </Section>
   );
 };
 

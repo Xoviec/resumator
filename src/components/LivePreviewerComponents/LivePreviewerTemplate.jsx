@@ -89,23 +89,25 @@ const LivePreviewerTemplate = ({ data }) => {
         setShowPDFModal={setShowPDFModal}
         resume={dataState}
       />
-      {/* <> */}
-        {/* <ColumnContainer> */}
       <TopSection
         personalia={dataState.personalia}
         introduction={dataState.introduction}
         onSubmit={onSubmitSection}
       />
-
-      {/* <Introduction
-        introduction={dataState.introduction}
-        onSubmit={onSubmitSection}
-      /> */}
-        {/* </ColumnContainer> */}
-
-      <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
+      <Box
+        display="flex"
+        flexDirection={{ xs: "column", md: "row" }}
+        marginTop={1}
+      >
         {/* Left column */}
-        <Box display="flex" flexDirection="column" flex={2} marginRight={{ md: 1.5 }}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          flex={2}
+          marginRight={{ md: 1 }}
+          // gridGap does not use the material spacing system, so 8 is needed here for 8px.
+          gridGap={8}
+        >
           {dataState.projects && (
             <Experience
               type="Projects"
@@ -128,7 +130,12 @@ const LivePreviewerTemplate = ({ data }) => {
           )}
         </Box>
         {/* Right column */}
-        <Box display="flex" flexDirection="column" flex={1}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          flex={1}
+          gridGap={8}
+        >
           {dataState.skills && (
             <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
           )}
@@ -166,9 +173,6 @@ const LivePreviewerTemplate = ({ data }) => {
           )}
         </Box>
       </Box>      
-        
-        
-      {/* </> */}
 
       <PDFPreviewModal
         data={dataState}
@@ -178,15 +182,5 @@ const LivePreviewerTemplate = ({ data }) => {
     </>
   );
 };
-
-const ColumnContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 8px;
-
-  @media (max-width: 970px) {
-    display: block;
-  }
-`;
 
 export default LivePreviewerTemplate;
