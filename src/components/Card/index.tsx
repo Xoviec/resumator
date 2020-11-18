@@ -1,9 +1,13 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import styled from "@emotion/styled";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
-const InternCard = ({ children, className, ...props }) => {
+interface InternCardProps {
+  className?: string;
+}
+
+const InternCard: FunctionComponent<InternCardProps> = ({ children, className, ...props }) => {
   return (
     <CardContainer {...props} className={className}>
       <CardContent>{children}</CardContent>
