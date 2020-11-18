@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { FunctionComponent, useRef } from "react";
 import { Chip } from "@material-ui/core";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import styled from "@emotion/styled";
 
-interface ISkillsSelectChipProperties {
+interface SkillsSelectChipProps {
   label: string;
   index: number;
   onDrag: (sourceIndex: number, destinationIndex: number) => void;
@@ -17,7 +17,7 @@ interface IDragItem {
 
 const DNDTYPE = "SkillsChip"
 
-const SkillsSelectChip = ({ label, index, onDrag, onDelete }: ISkillsSelectChipProperties) => {
+const SkillsSelectChip: FunctionComponent<SkillsSelectChipProps> = ({ label, index, onDrag, onDelete }: SkillsSelectChipProps) => {
   /**
    * Create a reference to attach to the Component used for dragging and dropping.
    */

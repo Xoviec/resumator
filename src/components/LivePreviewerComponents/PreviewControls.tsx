@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Box, Button } from "@material-ui/core";
 import { SpacedButton } from "../Material";
 import DropdownButton from "./DropdownButton";
@@ -9,16 +9,17 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import SaveIcon from "@material-ui/icons/Save";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 
-interface IPreviewControlsProperties {
+interface PreviewControlsProps {
   resume: any;
   goTo: (path: string) => void;
   setShowPDFModal: (show: boolean) => void;
   onSaveClicked: () => void;
 }
 
-const PreviewControls = ({ resume, goTo, setShowPDFModal, onSaveClicked }: IPreviewControlsProperties) => {
+const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo, setShowPDFModal, onSaveClicked }) => {
   return (
     <Box display="flex" padding={2} paddingTop={0} flexDirection="row" justifyContent="space-between">
+      {/* Back to overview */}
       <Button
         variant="contained"
         type="button"
@@ -27,15 +28,15 @@ const PreviewControls = ({ resume, goTo, setShowPDFModal, onSaveClicked }: IPrev
       >
         Back to overview
       </Button>
-
       <Box>
+        {/* Download as */}
         <DropdownButton
           label="Download as.."
           actions={["PDF", "DOCX"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
         />
-
+        {/* Preview */}
         <SpacedButton
           variant="contained"
           type="button"
@@ -45,7 +46,7 @@ const PreviewControls = ({ resume, goTo, setShowPDFModal, onSaveClicked }: IPrev
         >
           Preview
         </SpacedButton>
-
+        {/* Save */}
         <Button
           variant="contained"
           type="button"

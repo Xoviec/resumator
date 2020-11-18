@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import { Menu, MenuItem } from "@material-ui/core";
@@ -11,7 +11,7 @@ interface IDropdownButtonProperties {
   onClick: (action: string) => void;
 }
 
-const DropdownButton = ({ label, actions, startIcon, onClick }: IDropdownButtonProperties) => {
+const DropdownButton: FunctionComponent<IDropdownButtonProperties> = ({ label, actions, startIcon, onClick }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
   const handleClick = (event: React.MouseEvent) => {
