@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Box, Button } from "@material-ui/core";
-import { SpacedButton } from "../Material";
-import DropdownButton from "./DropdownButton";
+import { DropdownButton, SpacedButton } from "../Material";
 import downloadResume from "../../lib/downloadResume";
 // Icons
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -22,7 +21,6 @@ const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo
       {/* Back to overview */}
       <Button
         variant="contained"
-        type="button"
         startIcon={<ArrowBackIcon />}
         onClick={() => goTo(`/overview`)}
       >
@@ -31,15 +29,16 @@ const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo
       <Box>
         {/* Download as */}
         <DropdownButton
-          label="Download as.."
+          variant="contained"
           actions={["PDF", "DOCX"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
-        />
+        >
+          Download as..
+        </DropdownButton>
         {/* Preview */}
         <SpacedButton
           variant="contained"
-          type="button"
           marginX={1}
           startIcon={<VisibilityIcon />}
           onClick={() => setShowPDFModal(true)}
@@ -49,7 +48,6 @@ const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo
         {/* Save */}
         <Button
           variant="contained"
-          type="button"
           color="primary"
           startIcon={<SaveIcon />}
           onClick={onSaveClicked}

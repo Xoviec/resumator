@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
@@ -8,8 +8,17 @@ import Card from "../Card";
 import EmptyNotice from "./EmptyNotice";
 import ActionIcon from "./ActionIcon";
 import SkillsSelectFormField from "./SkillsSelectFormField";
+import { Section } from "./Section";
+import { TooltipIconButton } from "../Material";
+// Icons
+import EditIcon from "@material-ui/icons/Edit";
 
-const Skills = ({ skills, onSubmit }) => {
+interface SkillsProps {
+  skills: { name: string }[];
+  onSubmit: (key: string, values: any) => void;
+}
+
+const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = useState(skills || []);
   const methods = useForm();
@@ -20,19 +29,12 @@ const Skills = ({ skills, onSubmit }) => {
   }, [skills, reset]);
 
   return (
-    <StyledCard>
-      <TopWrapper>
-        <Typography gutterBottom variant="h4">
-          Skills
-        </Typography>
-
-        <ActionIcon
-          onClick={() => setIsEditing(true)}
-          icon={faPen}
-          tooltipText="Edit skills"
-        />
-      </TopWrapper>
-
+    <Section
+      title="Skills"
+      action="edit"
+      actionTooltip="Edit skills"
+      actionOnClick={() => setIsEditing(true)}
+    >
       <SkillsContainer>
         {skills.map((skill) => (
           <CustomChip
@@ -45,13 +47,11 @@ const Skills = ({ skills, onSubmit }) => {
         ))}
       </SkillsContainer>
 
-      <EmptyNotice show={skills.length === 0} icon={faPen} />
-
       <EditModalWrapper
         isOpen={isEditing}
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
-        contentLabel="Edit skills"
+        // contentLabel="Edit skills"
         heading="Skills"
         onPrimaryActionClicked={() => {
           const { skills } = getValues();
@@ -73,7 +73,7 @@ const Skills = ({ skills, onSubmit }) => {
           name="skills"
         />
       </EditModalWrapper>
-    </StyledCard>
+    </Section>
   );
 };
 
@@ -96,11 +96,6 @@ const SkillsContainer = styled.div`
 const CustomChip = styled(Chip)`
   margin-left: ${CHIP_GUTTER}px;
   margin-top: ${CHIP_GUTTER}px;
-`;
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 export default Skills;

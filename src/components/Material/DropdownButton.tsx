@@ -1,27 +1,32 @@
 import React, { FunctionComponent, useState } from "react";
-import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
+import { Button, ButtonProps } from "@material-ui/core";
 import { Menu, MenuItem } from "@material-ui/core";
-import styled from "@emotion/styled";
 
-interface IDropdownButtonProperties {
-  label: string;
+interface DropdownButtonProps extends Omit<ButtonProps, "onClick"> {
   actions: string[];
-  startIcon?: React.ReactNode;
   onClick: (action: string) => void;
 }
 
-const DropdownButton: FunctionComponent<IDropdownButtonProperties> = ({ label, actions, startIcon, onClick }) => {
+export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({ actions, children, onClick, ...props }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
+  /**
+   * Set the target for the menu to bind to.
+   */
   const handleClick = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
   };
 
+  /**
+   * Remove the target for the menu.
+   */
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  /**
+   * Handle a menu item click.
+   */
   const handleAction = (action: string) => {
     handleClose();
     onClick(action);
@@ -29,13 +34,11 @@ const DropdownButton: FunctionComponent<IDropdownButtonProperties> = ({ label, a
 
   return (
     <>
-      <Button
-        variant="contained"
-        startIcon={startIcon}
-        onClick={handleClick}
-      >
-        {label}
+      {/* Trigger button with added properties from this component. */}
+      <Button onClick={handleClick} {...props}>
+        {children}
       </Button>
+      {/* The menu with possible actions. */}
       <Menu
         keepMounted
         anchorEl={anchorEl}
@@ -49,9 +52,3 @@ const DropdownButton: FunctionComponent<IDropdownButtonProperties> = ({ label, a
     </>
   );
 };
-
-// const StyledButton = styled(Button)`
-//   margin: 0 8px;
-// `;
-
-export default DropdownButton;
