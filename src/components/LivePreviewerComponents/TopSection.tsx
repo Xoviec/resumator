@@ -1,7 +1,6 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import React, { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Box, TextField, Typography } from "@material-ui/core";
+import { Box, Card, Hidden, TextField, Typography } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import isEqual from "lodash/isEqual";
 import { formatDate } from "../../lib/date";
@@ -11,7 +10,7 @@ import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
-import { Section } from "./Section";
+import { SectionHeader } from "./SectionHeader";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
@@ -31,7 +30,7 @@ interface TopSectionProps {
   onSubmit: (key: string, values: any) => void;
 }
 
-const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introduction, onSubmit }) => {
+export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const methods = useForm({
@@ -55,53 +54,103 @@ const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introducti
   const getLastName = () => personalia.lastName ? personalia.lastName : "Doe";
 
   return (
-    <Section>
-      <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
-        <Box display="flex" flexDirection="row" flex={1}>
-          <AvatarWrapper>
-            <AvatarImg
-              src={getAvatarDataUri(personalia.avatar)}
-              alt="Avatar"
-            />
-          </AvatarWrapper>
-
-          <Box marginRight={2}>
-            <Typography variant="h3" align="left">
-              {getFirstName()} {getLastName()}
-            </Typography>
-            <SubInfo>
-              <EmailIcon />
-              {personalia.email ? personalia.email : "---"}
-            </SubInfo>
-            <SubInfo>
-              <PlaceIcon />
-              {personalia.city ? personalia.city : "---"}
-            </SubInfo>
-            <SubInfo>
-              <CakeIcon />
-              {personalia.dateOfBirth ? formatDate(personalia.dateOfBirth) : "---"}
-            </SubInfo>
+    // We use a card directly here instead of a section because this is a custom full width section.
+    <Card>
+      <Box
+        display="flex"
+        flexDirection={{ xs: "column", md: "row" }}
+      >
+        <Box
+          display="flex"
+          flexDirection="row"
+          // justifyContent="space-between"
+          padding={1}
+          flex={1}
+        >
+          <Box
+            display="flex"
+            alignItems="center"
+            // As we have a button in mobile mode on the right, 5.5 gives us 44px, the same as the button.
+            marginLeft={{ xs: 5.5, sm: 0 }}
+            flexDirection={{ xs: "column", sm: "row"}}
+            padding={1}
+            gridGap={16}
+            flex={1}
+          >
+            {/* Avatar */}
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              borderRadius="50%"
+              overflow="hidden"
+              width={160}
+              height={160}
+              border={2}
+              flexShrink={0}
+            >
+              <img
+                alt="Avatar"
+                height="90%"
+                // Drop shadow for the avatar, only works if all avatars have a transparent background.
+                style={{ marginTop: "10%", filter: "drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.7))"}}
+                src={getAvatarDataUri(personalia.avatar)}
+              />
+            </Box>
+            {/* Personalia */}
+            <Box display="flex" flexDirection="column" marginBottom={1} gridGap={8}>
+              <Typography variant="h3" align="left">
+                {getFirstName()} {getLastName()}
+              </Typography>
+              <Personalia icon={<EmailIcon />}>{personalia.email}</Personalia>
+              <Personalia icon={<PlaceIcon />}>{personalia.city}</Personalia>
+              <Personalia icon={<CakeIcon />}>{formatDate(personalia.dateOfBirth)}</Personalia>
+            </Box>
           </Box>
+          {/* Edit button in mobile view */}
+          <Hidden mdUp>
+            <Box>
+              <TooltipIconButton
+                color="inherit"
+                tooltip={"Edit personal details"}
+                onClick={() => setIsEditing(true)}
+              >
+                <EditIcon fontSize="small" />
+              </TooltipIconButton>
+            </Box>
+          </Hidden>
         </Box>
         
-        <Box display="flex" flexDirection="column" flex={1} marginTop={{ xs: 2, md: 0 }}>
-          <Typography variant="h5" align="left">
-            About {personalia.firstName}
-          </Typography>
-          <Typography variant="body2">
-            {introduction
-              ? introduction
-              : `${getFirstName()} has nothing to tell you.`}
-          </Typography>
+        <Box
+          display="flex"
+          flexDirection="column"
+          flex={1}
+        >
+          {/* Have the ability to edit the personalia when in normal view. */}
+          <Hidden smDown> 
+            <SectionHeader
+              title={`About ${personalia.firstName}`}
+              action="edit"
+              actionTooltip="Edit personal details"
+              actionOnClick={() => setIsEditing(true)}
+            />
+          </Hidden>
+          {/* Only show about in mobile view, the edit option will be somewhere else. */}
+          <Hidden mdUp> 
+            <SectionHeader
+              title={`About ${personalia.firstName}`}
+            />
+          </Hidden>
+          {/* Introduction text. */}
+          <Box padding={2} paddingTop={0}>
+            <Typography variant="body2">
+              {introduction
+                ? introduction
+                : `${getFirstName()} has nothing to tell you.`}
+            </Typography>
+          </Box>
         </Box>
       </Box>
-    
-      {/* <TooltipIconButton
-        tooltip="Edit personal details"
-        onClick={() => setIsEditing((prevState) => !prevState)}
-      >
-        <EditIcon fontSize="small" />
-      </TooltipIconButton> */}
 
       <EditModalWrapper
         isOpen={isEditing}
@@ -169,39 +218,20 @@ const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introducti
           control={methods.control}
         />
       </EditModalWrapper>
-    </Section>
+    </Card>
   );
 };
 
-const AVATAR_SIZE = 150;
-const AvatarWrapper = styled.div`
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  height: ${AVATAR_SIZE}px;
-  width: ${AVATAR_SIZE}px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid rgba(0, 0, 0, 0.7);
-  margin-right: 32px;
-`;
-
-const AvatarImg = styled.img`
-  width: 60%;
-  margin-top: 50%;
-  margin-left: 10%;
-`;
-
-const SubInfo = styled.div`
-  margin-top: 6px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  
-  .MuiSvgIcon-root {
-    margin-right: 8px;
-  }
-`;
-
-export default TopSection;
+const Personalia: FunctionComponent<{ icon: ReactNode }> = ({ icon, children }) => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      gridGap={8}
+    >
+      {icon}
+      {children ? children : "---"}
+    </Box>
+  )
+}
