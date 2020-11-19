@@ -12,5 +12,5 @@ export const Section: FunctionComponent<SectionProps> = ({ children, ...props })
         {children}
       </CardContent>
     </Card>
-  )
-}
+  );
+};

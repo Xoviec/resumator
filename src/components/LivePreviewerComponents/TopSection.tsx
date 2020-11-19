@@ -16,6 +16,7 @@ import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
 import EditIcon from "@material-ui/icons/Edit"
 import PlaceIcon from "@material-ui/icons/PlaceOutlined";
+import { SectionEditDialog } from "./SectionEditDialog";
 
 interface TopSectionProps {
   personalia: {
@@ -152,8 +153,87 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
         </Box>
       </Box>
 
+      <SectionEditDialog
+        title="Personal details"
+        open={isEditing}
+        onCancel={() => setIsEditing(false)}
+        onSave={() => {}}
+      >
+        <Box display="flex" flexDirection="column" gridGap={16}>
+          <Box display="flex" flexDirection="row" gridGap={8}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              label="First name"
+            />
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              label="Last name"
+            />
+
+            {/* <Input
+              as={TextField}
+              name="firstName"
+              label="First Name"
+              control={methods.control}
+              defaultValue=""
+              flex={1}
+            />
+            <Input
+              as={TextField}
+              name="lastName"
+              label="Last name"
+              control={methods.control}
+              defaultValue=""
+              flex={1}
+            /> */}
+          </Box>
+          <Box>
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              label="Email"
+            />
+          </Box>
+          <Box display="flex" flexDirection="row" gridGap={8}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              label="City"
+            />
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              label="Date of birth"
+            />
+          </Box>
+          <Box>
+            <TextField
+              fullWidth
+              multiline
+              variant="outlined"
+              size="small"
+              label="Introduction"
+              rows={6}
+            />
+          </Box>
+          <Input
+            as={AvatarSelector}
+            name="avatar"
+            label="Avatar"
+            control={methods.control}
+          />
+        </Box>
+      </SectionEditDialog>
+
       <EditModalWrapper
-        isOpen={isEditing}
+        isOpen={false}
         onRequestClose={() => setIsEditing(false)}
         methods={methods}
         heading="Personal details"
@@ -233,5 +313,5 @@ const Personalia: FunctionComponent<{ icon: ReactNode }> = ({ icon, children }) 
       {icon}
       {children ? children : "---"}
     </Box>
-  )
-}
+  );
+};

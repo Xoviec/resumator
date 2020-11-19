@@ -45,5 +45,5 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({ title, ac
       </Box>
     }
     </>
-  )
-}
+  );
+};
