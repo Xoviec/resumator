@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import EditModalWrapper from "./ModalWrapper";
-import { Chip } from "@material-ui/core";
+import { Box, Chip } from "@material-ui/core";
 import SkillsSelectFormField from "./SkillsSelectFormField";
 import { Section } from "./Section";
 
@@ -11,7 +10,7 @@ interface SkillsProps {
   onSubmit: (key: string, values: any) => void;
 }
 
-const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
+export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [skillsState, setSkillsState] = useState(skills || []);
   const methods = useForm();
@@ -28,9 +27,9 @@ const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
       actionTooltip="Edit skills"
       actionOnClick={() => setIsEditing(true)}
     >
-      <SkillsContainer>
+      <Box display="flex" flexWrap="wrap" gridGap={8}>
         {skills.map((skill) => (
-          <CustomChip
+          <Chip
             key={skill.name}
             size="small"
             variant="outlined"
@@ -38,7 +37,7 @@ const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
             color="secondary"
           />
         ))}
-      </SkillsContainer>
+      </Box>
 
       <EditModalWrapper
         isOpen={isEditing}
@@ -69,18 +68,3 @@ const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
     </Section>
   );
 };
-
-const CHIP_GUTTER = 8;
-const SkillsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: -${CHIP_GUTTER}px;
-  margin-left: -${CHIP_GUTTER}px;
-`;
-
-const CustomChip = styled(Chip)`
-  margin-left: ${CHIP_GUTTER}px;
-  margin-top: ${CHIP_GUTTER}px;
-`;
-
-export default Skills;
