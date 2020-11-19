@@ -39,19 +39,12 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
   const minDate = (endDate) => endDate > methods.getValues().startDate;
 
   return (
-    <Section>
-      <TopWrapper>
-        <Typography gutterBottom variant="h4">
-          Education
-        </Typography>
-
-        <ActionIcon
-          onClick={() => setIsEditing((prevState) => !prevState)}
-          tooltipText="Add education"
-          icon={faPlus}
-        />
-      </TopWrapper>
-
+    <Section
+      title="Education"
+      action="add"
+      actionTooltip="Add education"
+      actionOnClick={() => setIsEditing(true)}
+    >
       {education.map((entry, index) => (
         <React.Fragment key={index}>
           <EducationItem

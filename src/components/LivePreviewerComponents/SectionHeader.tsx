@@ -6,7 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 
 export interface SectionHeaderProps {
-  title?: string;
+  title: string;
   action?: "add" | "edit";
   actionTooltip?: string;
   actionOnClick?: () => void;
@@ -22,6 +22,7 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({ title, ac
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
+        height={52}
         paddingTop={1}
         paddingRight={1}
         paddingLeft={2}

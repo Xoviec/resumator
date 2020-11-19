@@ -48,19 +48,12 @@ const Experience = ({
   }
 
   return (
-    <Section>
-      <TopWrapper>
-        <Typography gutterBottom variant="h4">
-          {type}
-        </Typography>
-
-        <ActionIcon
-          onClick={() => setIsEditing((prevState) => !prevState)}
-          icon={faPlus}
-          tooltipText={tooltipText}
-        />
-      </TopWrapper>
-
+    <Section
+      action="add"
+      title={type}
+      actionTooltip={tooltipText}
+      actionOnClick={() => setIsEditing(true)}
+    >
       {experience.map((entry, index) => (
         <React.Fragment key={index}>
           <ExperienceItem

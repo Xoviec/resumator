@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
-import TopSection from "./TopSection";
+import { TopSection } from "./TopSection";
 import Introduction from "./Introduction";
 import Education from "./Education";
-import Skills from "./Skills";
+import { Skills } from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
 import PreviewControls from "./PreviewControls";
 import Experience from "./Experience";
@@ -98,14 +98,14 @@ const LivePreviewerTemplate = ({ data }) => {
         display="flex"
         flexDirection={{ xs: "column", md: "row" }}
         marginTop={1}
+        // gridGap does not use the material spacing system, so 8 is needed here for 8px.
+        gridGap={8}
       >
         {/* Left column */}
         <Box
           display="flex"
           flexDirection="column"
           flex={2}
-          marginRight={{ md: 1 }}
-          // gridGap does not use the material spacing system, so 8 is needed here for 8px.
           gridGap={8}
         >
           {dataState.projects && (
