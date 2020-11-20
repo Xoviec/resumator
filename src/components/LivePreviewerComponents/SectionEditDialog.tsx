@@ -1,16 +1,25 @@
-import React, { FunctionComponent } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
+import { FormContext, useForm } from "react-hook-form";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogProps, Typography } from "@material-ui/core";
 import { TooltipIconButton } from "../Material";
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
 
-interface SectionEditDialogProps extends DialogProps {
+interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
+  data: T;
   onCancel: () => void;
-  onSave: () => void;
+  onSave: (data: T) => void;
 }
 
-export const SectionEditDialog: FunctionComponent<SectionEditDialogProps> = ({ title, onCancel, onSave, children, ...props }) => {
+// FunctionComponent doesn't work well with additional generics, so we use the props type directly.
+// To have generics work in TSX with an arrow function, we have to hint the compiler to use generics, thus the trailing comma.
+export const SectionEditDialog = <T,>({ title, data, onCancel, onSave, children, ...props }: PropsWithChildren<SectionEditDialogProps<T>>) => {
+  const form = useForm({ defaultValues: { ...data }});
+
+  // Reset the form with new data if it changes.
+  useEffect(() => form.reset(data), [data])
+
   return (
     <Dialog
       fullWidth
@@ -27,23 +36,24 @@ export const SectionEditDialog: FunctionComponent<SectionEditDialogProps> = ({ t
             {title}
           </Typography>
         </Box>
-        <TooltipIconButton
-          tooltip="Close"
-          onClick={onCancel}
-        >
+        <TooltipIconButton tooltip="Close" onClick={onCancel}>
           <CloseIcon />
         </TooltipIconButton>
       </Box>
       {/* Content */}
       <DialogContent id="section-edit-dialog-content">
-        {children}
+        <FormContext {...form}>
+          <form id="section-edit-dialog-form" onSubmit={form.handleSubmit((data) => onSave(data as T))}>
+            {children}
+          </form>
+        </FormContext>
       </DialogContent>
       {/* Actions for cancel and save. */}
       <DialogActions>
         <Button onClick={onCancel}>
           Cancel
         </Button>
-        <Button color="primary" onClick={onSave}>
+        <Button type="submit" color="primary" form="section-edit-dialog-form">
           Save
         </Button>
       </DialogActions>

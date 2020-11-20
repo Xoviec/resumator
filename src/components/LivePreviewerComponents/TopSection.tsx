@@ -1,22 +1,18 @@
-import React, { FunctionComponent, ReactNode, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Box, Card, Hidden, TextField, Typography } from "@material-ui/core";
-import { DatePicker } from "@material-ui/pickers";
-import isEqual from "lodash/isEqual";
+import React, { FunctionComponent, ReactNode, useState } from "react";
+import { Box, Card, Hidden, Typography } from "@material-ui/core";
 import { formatDate } from "../../lib/date";
 import Input from "../Input";
 import AvatarSelector from "../FormComponents/AvatarSelector";
-import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
-import EditModalWrapper from "./ModalWrapper";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
 import { SectionHeader } from "./SectionHeader";
+import { SectionEditDialog } from "./SectionEditDialog";
+import { FormColumn, FormRow, FormTextField } from "../Form";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
 import EditIcon from "@material-ui/icons/Edit"
 import PlaceIcon from "@material-ui/icons/PlaceOutlined";
-import { SectionEditDialog } from "./SectionEditDialog";
 
 interface TopSectionProps {
   personalia: {
@@ -33,19 +29,6 @@ interface TopSectionProps {
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-
-  const methods = useForm({
-    defaultValues: { ...personalia },
-  });
-
-  const reset = methods.reset;
-  const getValues = methods.getValues;
-
-  useEffect(() => {
-    if (!isEqual(personalia, getValues())) {
-      reset(personalia);
-    }
-  }, [personalia, getValues, reset]);
 
   /**
    * Get first and last name.
@@ -64,7 +47,6 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
         <Box
           display="flex"
           flexDirection="row"
-          // justifyContent="space-between"
           padding={1}
           flex={1}
         >
@@ -130,7 +112,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
           {/* Have the ability to edit the personalia when in normal view. */}
           <Hidden smDown> 
             <SectionHeader
-              title={`About ${personalia.firstName}`}
+              title={`About ${getFirstName()}`}
               action="edit"
               actionTooltip="Edit personal details"
               actionOnClick={() => setIsEditing(true)}
@@ -139,7 +121,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
           {/* Only show about in mobile view, the edit option will be somewhere else. */}
           <Hidden mdUp> 
             <SectionHeader
-              title={`About ${personalia.firstName}`}
+              title={`About ${getFirstName()}`}
             />
           </Hidden>
           {/* Introduction text. */}
@@ -155,149 +137,72 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
 
       <SectionEditDialog
         title="Personal details"
+        data={personalia}
         open={isEditing}
         onCancel={() => setIsEditing(false)}
-        onSave={() => {}}
+        onSave={(data) => {
+          setIsEditing(false);
+          onSubmit("personalia", data);
+        }}
       >
-        <Box display="flex" flexDirection="column" gridGap={16}>
-          <Box display="flex" flexDirection="row" gridGap={8}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
+        <FormColumn>
+          <FormRow>
+            <FormTextField
+              required
+              name="firstName"
               label="First name"
             />
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
-              label="Last name"
-            />
-
-            {/* <Input
-              as={TextField}
-              name="firstName"
-              label="First Name"
-              control={methods.control}
-              defaultValue=""
-              flex={1}
-            />
-            <Input
-              as={TextField}
+            <FormTextField
+              required
               name="lastName"
               label="Last name"
-              control={methods.control}
-              defaultValue=""
-              flex={1}
-            /> */}
-          </Box>
-          <Box>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
+            />
+          </FormRow>
+          <FormRow>
+            <FormTextField
+              required
+              name="email"
               label="Email"
             />
-          </Box>
-          <Box display="flex" flexDirection="row" gridGap={8}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
+          </FormRow>
+          <FormRow>
+            <FormTextField
+              name="city"
               label="City"
             />
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
+            <FormTextField
+              name="dateOfBirth"
               label="Date of birth"
             />
-          </Box>
-          <Box>
-            <TextField
-              fullWidth
+          </FormRow>
+          <FormRow>
+            <FormTextField
               multiline
-              variant="outlined"
-              size="small"
+              name="introduction"
               label="Introduction"
               rows={6}
             />
-          </Box>
+          </FormRow>
           <Input
             as={AvatarSelector}
             name="avatar"
             label="Avatar"
-            control={methods.control}
           />
-        </Box>
+        </FormColumn>
       </SectionEditDialog>
 
-      <EditModalWrapper
-        isOpen={false}
-        onRequestClose={() => setIsEditing(false)}
-        methods={methods}
-        heading="Personal details"
-        onPrimaryActionClicked={() => {
-          onSubmit("personalia", methods.getValues());
-          setIsEditing(false);
+      {/* <Input
+        as={DatePicker}
+        control={methods.control}
+        rules={{ required: true }}
+        onChange={([selected]: any) => {
+          return selected;
         }}
-        onSecondaryActionClicked={() => {
-          reset();
-          setIsEditing(false);
-        }}
-      >
-        <Input
-          as={TextField}
-          name="email"
-          label="Email"
-          control={methods.control}
-          defaultValue=""
-        />
-
-        <Input
-          as={TextField}
-          name="firstName"
-          label="First Name"
-          control={methods.control}
-          defaultValue=""
-        />
-
-        <Input
-          as={TextField}
-          name="lastName"
-          label="Last name"
-          control={methods.control}
-          defaultValue=""
-        />
-
-        <Input
-          as={TextField}
-          name="city"
-          label="City"
-          control={methods.control}
-          defaultValue=""
-        />
-
-        <Input
-          as={DatePicker}
-          control={methods.control}
-          rules={{ required: true }}
-          onChange={([selected]: any) => {
-            return selected;
-          }}
-          name="dateOfBirth"
-          label="Date of birth"
-          format="dd/MM/yyyy"
-          defaultValue={DATE_FIELD_DEFAULT_VALUE}
-        />
-
-        <Input
-          as={AvatarSelector}
-          name="avatar"
-          label="Avatar"
-          control={methods.control}
-        />
-      </EditModalWrapper>
+        name="dateOfBirth"
+        label="Date of birth"
+        format="dd/MM/yyyy"
+        defaultValue={DATE_FIELD_DEFAULT_VALUE}
+      /> */}
     </Card>
   );
 };
