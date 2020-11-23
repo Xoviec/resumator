@@ -108,26 +108,22 @@ const LivePreviewerTemplate = ({ data }) => {
           flex={2}
           gridGap={8}
         >
-          {dataState.projects && (
-            <Experience
-              type="Projects"
-              onEditHandler={(values, index) => onEditSectionItem("projects", values, index)}
-              onDeleteHandler={(values, index) => onDeleteSectionItem("projects", values, index)}
-              onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
-              experience={dataState.projects}
-            />
-          )}
-          {dataState.experience && (
-            <Experience
-              type="Work Experience"
-              onEditHandler={(values, index) => onEditSectionItem("experience", values, index)}
-              onDeleteHandler={(values, index) => onDeleteSectionItem("experience", values, index)}
-              onSubmit={(values) =>
-                onAddNewItemForSectionHandler("experience", values)
-              }
-              experience={dataState.experience}
-            />
-          )}
+          <Experience
+            type="Projects"
+            onEditHandler={(values, index) => onEditSectionItem("projects", values, index)}
+            onDeleteHandler={(values, index) => onDeleteSectionItem("projects", values, index)}
+            onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
+            experience={dataState.projects}
+          />
+          <Experience
+            type="Work Experience"
+            onEditHandler={(values, index) => onEditSectionItem("experience", values, index)}
+            onDeleteHandler={(values, index) => onDeleteSectionItem("experience", values, index)}
+            onSubmit={(values) =>
+              onAddNewItemForSectionHandler("experience", values)
+            }
+            experience={dataState.experience}
+          />
         </Box>
         {/* Right column */}
         <Box
@@ -136,41 +132,33 @@ const LivePreviewerTemplate = ({ data }) => {
           flex={1}
           gridGap={8}
         >
-          {dataState.skills && (
-            <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
-          )}
-          {dataState.sideProjects && (
-            <SideProjects
-              type="Side projects"
-              onEditHandler={(values, index) => onEditSectionItem("sideProjects", values, index)}
-              onDeleteHandler={(values, index) => onDeleteSectionItem("sideProjects", values, index)}
-              onSubmit={(values) =>
-                onAddNewItemForSectionHandler("sideProjects", values)
-              }
-              projects={dataState.sideProjects}
-            />
-          )}
-          {dataState.publications && (
-            <SideProjects
-              type="Publications"
-              onEditHandler={(values, index) => onEditSectionItem("publications", values, index)}
-              onDeleteHandler={(values, index) => onDeleteSectionItem("publications", values, index)}
-              onSubmit={(values) =>
-                onAddNewItemForSectionHandler("publications", values)
-              }
-              projects={dataState.publications}
-            />
-          )}
-          {dataState.education && (
-            <Education
-              education={dataState.education}
-              onSubmit={(values) =>
-                onAddNewItemForSectionHandler("education", values)
-              }
-              onEditHandler={(values, index) => onEditSectionItem("education", values, index)}
-              onDeleteHandler={(values, index) => onDeleteSectionItem("education", values, index)}
-            />
-          )}
+          <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
+          <SideProjects
+            type="Side projects"
+            onEditHandler={(values, index) => onEditSectionItem("sideProjects", values, index)}
+            onDeleteHandler={(values, index) => onDeleteSectionItem("sideProjects", values, index)}
+            onSubmit={(values) =>
+              onAddNewItemForSectionHandler("sideProjects", values)
+            }
+            projects={dataState.sideProjects}
+          />
+          <SideProjects
+            type="Publications"
+            onEditHandler={(values, index) => onEditSectionItem("publications", values, index)}
+            onDeleteHandler={(values, index) => onDeleteSectionItem("publications", values, index)}
+            onSubmit={(values) =>
+              onAddNewItemForSectionHandler("publications", values)
+            }
+            projects={dataState.publications}
+          />
+          <Education
+            education={dataState.education}
+            onSubmit={(values) =>
+              onAddNewItemForSectionHandler("education", values)
+            }
+            onEditHandler={(values, index) => onEditSectionItem("education", values, index)}
+            onDeleteHandler={(values, index) => onDeleteSectionItem("education", values, index)}
+          />
         </Box>
       </Box>      
 
