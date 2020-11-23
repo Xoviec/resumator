@@ -7,7 +7,7 @@ import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
 import { SectionHeader } from "./SectionHeader";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { FormColumn, FormRow, FormTextField } from "../Form";
+import { FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
@@ -87,7 +87,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               </Typography>
               <Personalia icon={<EmailIcon />}>{personalia.email}</Personalia>
               <Personalia icon={<PlaceIcon />}>{personalia.city}</Personalia>
-              <Personalia icon={<CakeIcon />}>{formatDate(personalia.dateOfBirth)}</Personalia>
+              <Personalia icon={<CakeIcon />}>{formatDate(personalia.dateOfBirth, "dd-MM-yyyy")}</Personalia>
             </Box>
           </Box>
           {/* Edit button in mobile view */}
@@ -170,7 +170,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               name="city"
               label="City"
             />
-            <FormTextField
+            <FormDatePicker
               name="dateOfBirth"
               label="Date of birth"
             />
@@ -190,19 +190,6 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
           />
         </FormColumn>
       </SectionEditDialog>
-
-      {/* <Input
-        as={DatePicker}
-        control={methods.control}
-        rules={{ required: true }}
-        onChange={([selected]: any) => {
-          return selected;
-        }}
-        name="dateOfBirth"
-        label="Date of birth"
-        format="dd/MM/yyyy"
-        defaultValue={DATE_FIELD_DEFAULT_VALUE}
-      /> */}
     </Card>
   );
 };

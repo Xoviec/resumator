@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { TextField, TextFieldProps } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
+import { TextField, TextFieldProps } from "@material-ui/core";
 
 export const FormTextField: FunctionComponent<TextFieldProps> = ({ ...props }) => {
   const { register } = useFormContext();
