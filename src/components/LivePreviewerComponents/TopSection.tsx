@@ -1,19 +1,17 @@
-import React, { FunctionComponent, ReactNode, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Box, Card, Hidden, Typography } from "@material-ui/core";
 import { formatDate } from "../../lib/date";
-import Input from "../Input";
-import AvatarSelector from "../FormComponents/AvatarSelector";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
 import { SectionHeader } from "./SectionHeader";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
+import { TopSectionPersonalia } from "./TopSectionPersonalia";
+import { FormAvatarSelector, FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
 import EditIcon from "@material-ui/icons/Edit"
 import PlaceIcon from "@material-ui/icons/PlaceOutlined";
-import { TopSectionPersonalia } from "./TopSectionPersonalia";
 
 interface TopSectionProps {
   personalia: {
@@ -184,11 +182,12 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               rows={6}
             />
           </FormRow>
-          {/* <Input
-            as={AvatarSelector}
-            name="avatar"
-            label="Avatar"
-          /> */}
+          <FormRow>
+            <FormAvatarSelector
+              name="avatar"
+              label="Avatar"
+            />
+          </FormRow>
         </FormColumn>
       </SectionEditDialog>
     </Card>
