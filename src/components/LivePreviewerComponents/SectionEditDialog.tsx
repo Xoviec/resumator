@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect } from "react";
-import { FormContext, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogProps, Typography } from "@material-ui/core";
 import { TooltipIconButton } from "../Material";
 // Icons
@@ -15,7 +15,7 @@ interface SectionEditDialogProps<T> extends DialogProps {
 // FunctionComponent doesn't work well with additional generics, so we use the props type directly.
 // To have generics work in TSX with an arrow function, we have to hint the compiler to use generics, thus the trailing comma.
 export const SectionEditDialog = <T,>({ title, data, onCancel, onSave, children, ...props }: PropsWithChildren<SectionEditDialogProps<T>>) => {
-  const form = useForm({ defaultValues: { ...data }});
+  const form = useForm();
 
   // Reset the form with new data if it changes.
   useEffect(() => form.reset(data), [data])
@@ -42,11 +42,11 @@ export const SectionEditDialog = <T,>({ title, data, onCancel, onSave, children,
       </Box>
       {/* Content */}
       <DialogContent id="section-edit-dialog-content">
-        <FormContext {...form}>
-          <form id="section-edit-dialog-form" onSubmit={form.handleSubmit((data) => onSave(data as T))}>
+        <FormProvider {...form}>
+          <form id="section-edit-dialog-form" onSubmit={form.handleSubmit((formData) => onSave(formData as T))}>
             {children}
           </form>
-        </FormContext>
+        </FormProvider>
       </DialogContent>
       {/* Actions for cancel and save. */}
       <DialogActions>

@@ -1,5 +1,5 @@
 import React from "react";
-import { FormContext } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import styled from "@emotion/styled";
 import { Modal, Fade, Backdrop } from "@material-ui/core";
 import ModalActionButtons from "./ModalActionButtons";
@@ -33,7 +33,7 @@ const EditModalWrapper = ({
     >
       <Fade in={isOpen}>
         <ModalContent fullWidth={fullWidth}>
-          <FormContext {...methods}>
+          <FormProvider {...methods}>
             <StyledForm>
               <ScrollableWrapper>
                 {heading && <h1>{heading}</h1>}
@@ -47,7 +47,7 @@ const EditModalWrapper = ({
                 onSecondaryActionClicked={onSecondaryActionClicked}
               />
             </StyledForm>
-          </FormContext>
+          </FormProvider>
         </ModalContent>
       </Fade>
     </CustomModal>

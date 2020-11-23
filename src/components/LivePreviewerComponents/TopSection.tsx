@@ -13,6 +13,7 @@ import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
 import EditIcon from "@material-ui/icons/Edit"
 import PlaceIcon from "@material-ui/icons/PlaceOutlined";
+import { TopSectionPersonalia } from "./TopSectionPersonalia";
 
 interface TopSectionProps {
   personalia: {
@@ -34,8 +35,8 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
    * Get first and last name.
    * Will return John / Jane Doe if the name is not filled in.
    */
-  const getFirstName = () => personalia.firstName ? personalia.firstName : (+personalia.avatar > 4 ? "John" : "Jane");
-  const getLastName = () => personalia.lastName ? personalia.lastName : "Doe";
+  const getFirstName = () => personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane");
+  const getLastName = () => personalia.lastName || "Doe";
 
   return (
     // We use a card directly here instead of a section because this is a custom full width section.
@@ -85,9 +86,9 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               <Typography variant="h3" align="left">
                 {getFirstName()} {getLastName()}
               </Typography>
-              <Personalia icon={<EmailIcon />}>{personalia.email}</Personalia>
-              <Personalia icon={<PlaceIcon />}>{personalia.city}</Personalia>
-              <Personalia icon={<CakeIcon />}>{formatDate(personalia.dateOfBirth, "dd-MM-yyyy")}</Personalia>
+              <TopSectionPersonalia icon={<EmailIcon />}>{personalia.email}</TopSectionPersonalia>
+              <TopSectionPersonalia icon={<PlaceIcon />}>{personalia.city}</TopSectionPersonalia>
+              <TopSectionPersonalia icon={<CakeIcon />}>{formatDate(personalia.dateOfBirth, "dd-MM-yyyy")}</TopSectionPersonalia>
             </Box>
           </Box>
           {/* Edit button in mobile view */}
@@ -183,27 +184,13 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               rows={6}
             />
           </FormRow>
-          <Input
+          {/* <Input
             as={AvatarSelector}
             name="avatar"
             label="Avatar"
-          />
+          /> */}
         </FormColumn>
       </SectionEditDialog>
     </Card>
-  );
-};
-
-const Personalia: FunctionComponent<{ icon: ReactNode }> = ({ icon, children }) => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      gridGap={8}
-    >
-      {icon}
-      {children ? children : "---"}
-    </Box>
   );
 };
