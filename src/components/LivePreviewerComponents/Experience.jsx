@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
@@ -13,7 +12,6 @@ import RichTextEditor from "./RichTextEditor";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 import SkillsSelectFormField from "./SkillsSelectFormField";
-import ActionIcon from "./ActionIcon";
 import { Section } from "./Section";
 
 const Experience = ({
@@ -147,10 +145,5 @@ const Experience = ({
     </Section>
   );
 };
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default Experience;

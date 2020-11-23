@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { DatePicker } from "@material-ui/pickers";
@@ -13,7 +12,6 @@ import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
-import ActionIcon from "./ActionIcon";
 import { Section } from "./Section";
 
 const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
@@ -134,10 +132,5 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
     </Section>
   );
 };
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default Education;

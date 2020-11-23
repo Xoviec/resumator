@@ -15,10 +15,10 @@ interface SectionEditDialogProps<T> extends DialogProps {
 // FunctionComponent doesn't work well with additional generics, so we use the props type directly.
 // To have generics work in TSX with an arrow function, we have to hint the compiler to use generics, thus the trailing comma.
 export const SectionEditDialog = <T,>({ title, data, onCancel, onSave, children, ...props }: PropsWithChildren<SectionEditDialogProps<T>>) => {
-  const form = useForm();
+  const { reset, ...form } = useForm();
 
   // Reset the form with new data if it changes.
-  useEffect(() => form.reset(data), [data])
+  useEffect(() => reset(data), [reset, data])
 
   return (
     <Dialog
@@ -42,7 +42,7 @@ export const SectionEditDialog = <T,>({ title, data, onCancel, onSave, children,
       </Box>
       {/* Content */}
       <DialogContent id="section-edit-dialog-content">
-        <FormProvider {...form}>
+        <FormProvider reset={reset} {...form}>
           <form id="section-edit-dialog-form" onSubmit={form.handleSubmit((formData) => onSave(formData as T))}>
             {children}
           </form>

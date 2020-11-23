@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import EditModalWrapper from "./ModalWrapper";
 import { useForm } from "react-hook-form";
 import Input from "../Input";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import SideProjectItem from "./SideProjectItem";
 import EmptyNotice from "./EmptyNotice";
-import ActionIcon from "./ActionIcon";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import { Section } from "./Section";
@@ -112,10 +110,5 @@ const SideProjects = ({
     </Section>
   );
 };
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default SideProjects;

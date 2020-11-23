@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
-import styled from "@emotion/styled";
 import { useHistory } from "react-router-dom";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { TopSection } from "./TopSection";
-import Introduction from "./Introduction";
 import Education from "./Education";
 import { Skills } from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
@@ -52,6 +50,7 @@ const LivePreviewerTemplate = ({ data }) => {
   };
 
   const onSubmitSection = (sectionKey, values) => {
+    console.log(sectionKey, values);
     setDataState((prevState) => ({
       ...prevState,
       [sectionKey]: values,
