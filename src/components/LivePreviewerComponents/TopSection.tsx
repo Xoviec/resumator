@@ -5,7 +5,7 @@ import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
 import { SectionHeader } from "./SectionHeader";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { TopSectionPersonalia } from "./TopSectionPersonalia";
+import { DetailWithIcon } from "./DetailWithIcon";
 import { FormAvatarSelector, FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
@@ -86,9 +86,9 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               <Typography variant="h3" align="left">
                 {getFirstName()} {getLastName()}
               </Typography>
-              <TopSectionPersonalia icon={<EmailIcon />}>{personaliaWithIntroduction.email}</TopSectionPersonalia>
-              <TopSectionPersonalia icon={<PlaceIcon />}>{personaliaWithIntroduction.city}</TopSectionPersonalia>
-              <TopSectionPersonalia icon={<CakeIcon />}>{formatDate(personaliaWithIntroduction.dateOfBirth, "dd-MM-yyyy")}</TopSectionPersonalia>
+              <DetailWithIcon icon={<EmailIcon />}>{personaliaWithIntroduction.email}</DetailWithIcon>
+              <DetailWithIcon icon={<PlaceIcon />}>{personaliaWithIntroduction.city}</DetailWithIcon>
+              <DetailWithIcon icon={<CakeIcon />}>{formatDate(personaliaWithIntroduction.dateOfBirth)}</DetailWithIcon>
             </Box>
           </Box>
           {/* Edit button in mobile view */}

@@ -12,7 +12,7 @@ export function castDate(timestamp: DateOrTimestamp | undefined): Date | undefin
     : timestamp as Date | undefined;
 }
 
-export function formatDate(timestamp: DateOrTimestamp | string | undefined, dateformat = "yyyy-MM-dd"): string | undefined {
+export function formatDate(timestamp: DateOrTimestamp | string | undefined, dateformat = "dd-MM-yyyy"): string | undefined {
   return timestamp && typeof timestamp === "object"
     ? format(castDate(timestamp) as Date, dateformat) as string
     : timestamp as string  | undefined;
