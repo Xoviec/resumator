@@ -89,9 +89,12 @@ const LivePreviewerTemplate = ({ data }) => {
         resume={dataState}
       />
       <TopSection
-        personalia={dataState.personalia}
-        introduction={dataState.introduction}
-        onSubmit={onSubmitSection}
+        personalia={{ ...dataState.personalia, introduction: dataState.introduction }}
+        onSubmit={(data) => {
+          const { introduction, ...personalia } = data;
+          onSubmitSection("personalia", personalia);
+          onSubmitSection("introduction", introduction);
+        }}
       />
       <Box
         display="flex"
