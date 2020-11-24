@@ -21,6 +21,7 @@ interface TopSectionProps {
     email: string;
     city: string;
     dateOfBirth: Date;
+    introduction: string; // Needed for the edit dialog.
   };
   introduction: string;
   onSubmit: (key: string, values: any) => void;
@@ -28,13 +29,14 @@ interface TopSectionProps {
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, introduction, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const personaliaWithIntroduction = { ...personalia, introduction };
 
   /**
    * Get first and last name.
    * Will return John / Jane Doe if the name is not filled in.
    */
-  const getFirstName = () => personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane");
-  const getLastName = () => personalia.lastName || "Doe";
+  const getFirstName = () => personaliaWithIntroduction.firstName || (+personaliaWithIntroduction.avatar > 4 ? "John" : "Jane");
+  const getLastName = () => personaliaWithIntroduction.lastName || "Doe";
 
   return (
     // We use a card directly here instead of a section because this is a custom full width section.
@@ -76,7 +78,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
                 height="90%"
                 // Drop shadow for the avatar, only works if all avatars have a transparent background.
                 style={{ marginTop: "10%", filter: "drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.7))"}}
-                src={getAvatarDataUri(personalia.avatar)}
+                src={getAvatarDataUri(personaliaWithIntroduction.avatar)}
               />
             </Box>
             {/* Personalia */}
@@ -84,9 +86,9 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
               <Typography variant="h3" align="left">
                 {getFirstName()} {getLastName()}
               </Typography>
-              <TopSectionPersonalia icon={<EmailIcon />}>{personalia.email}</TopSectionPersonalia>
-              <TopSectionPersonalia icon={<PlaceIcon />}>{personalia.city}</TopSectionPersonalia>
-              <TopSectionPersonalia icon={<CakeIcon />}>{formatDate(personalia.dateOfBirth, "dd-MM-yyyy")}</TopSectionPersonalia>
+              <TopSectionPersonalia icon={<EmailIcon />}>{personaliaWithIntroduction.email}</TopSectionPersonalia>
+              <TopSectionPersonalia icon={<PlaceIcon />}>{personaliaWithIntroduction.city}</TopSectionPersonalia>
+              <TopSectionPersonalia icon={<CakeIcon />}>{formatDate(personaliaWithIntroduction.dateOfBirth, "dd-MM-yyyy")}</TopSectionPersonalia>
             </Box>
           </Box>
           {/* Edit button in mobile view */}
@@ -126,9 +128,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
           {/* Introduction text. */}
           <Box padding={2} paddingTop={0}>
             <Typography variant="body2">
-              {introduction
-                ? introduction
-                : `${getFirstName()} has nothing to tell you.`}
+              {personaliaWithIntroduction.introduction || `${getFirstName()} has nothing to tell you.`}
             </Typography>
           </Box>
         </Box>
@@ -136,12 +136,14 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, int
 
       <SectionEditDialog
         title="Personal details"
-        data={personalia}
+        data={personaliaWithIntroduction}
         open={isEditing}
         onCancel={() => setIsEditing(false)}
         onSave={(data) => {
           setIsEditing(false);
-          onSubmit("personalia", data);
+          const { introduction, ...personalia } = data;
+          onSubmit("personalia", personalia);
+          onSubmit("introduction", introduction);
         }}
       >
         <FormColumn>
