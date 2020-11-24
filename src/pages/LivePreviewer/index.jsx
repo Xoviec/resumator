@@ -10,14 +10,14 @@ const LivePreviewer = (props) => {
   if (loading) {
     return (
       <div>
-        <StyledSkeleton animation="wave" variant="rect" width={1440} height={50} />
-        <StyledSkeleton animation="wave" variant="rect" width={1440} height={200} />
-        <StyledSkeleton animation="wave" variant="rect" width={1440} height={200} />
+        <StyledSkeleton animation="wave" variant="rect" width={1200} height={50} />
+        <StyledSkeleton animation="wave" variant="rect" width={1200} height={200} />
+        <StyledSkeleton animation="wave" variant="rect" width={1200} height={200} />
 
-        <StyledSkeleton animation="wave" variant="rect" width={1440} height={300} />
+        <StyledSkeleton animation="wave" variant="rect" width={1200} height={300} />
 
-        <StyledSkeleton animation="wave" variant="rect" width={1440} height={500} />
-        <StyledSkeleton animation="wave" variant="rect" width={1440} height={500} />
+        <StyledSkeleton animation="wave" variant="rect" width={1200} height={500} />
+        <StyledSkeleton animation="wave" variant="rect" width={1200} height={500} />
       </div>
     );
   }
@@ -40,7 +40,7 @@ const StyledSkeleton = styled(Skeleton)`
 const LivePreviewContainer = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1200px;
 `;
 
 export default LivePreviewer;

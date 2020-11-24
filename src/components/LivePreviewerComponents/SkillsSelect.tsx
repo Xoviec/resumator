@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";
@@ -7,16 +7,16 @@ import styled from "@emotion/styled";
 import { skillsConstants } from "../../config/skills.constants";
 import SkillsSelectChip from "./SkillsSelectChip";
 
-interface ISkill {
+interface Skill {
   name: string;
 }
 
-interface ISkillsSelectProperties {
-  value: ISkill[];
-  onChange: (skills: ISkill[]) => void;
+interface SkillsSelectProps {
+  value: Skill[];
+  onChange: (skills: Skill[]) => void;
 }
 
-const SkillsSelect = ({ value, onChange }: ISkillsSelectProperties) => {
+const SkillsSelect: FunctionComponent<SkillsSelectProps> = ({ value, onChange }) => {
   /**
    * Check if the provided option is currently included in the skills.
    */

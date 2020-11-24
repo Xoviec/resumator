@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EmptyNotice from "./EmptyNotice";
@@ -14,7 +12,7 @@ import RichTextEditor from "./RichTextEditor";
 import ExperienceItem from "./ExperienceItem";
 import EditModalWrapper from "./ModalWrapper";
 import SkillsSelectFormField from "./SkillsSelectFormField";
-import ActionIcon from "./ActionIcon";
+import { Section } from "./Section";
 
 const Experience = ({
   type,
@@ -48,19 +46,12 @@ const Experience = ({
   }
 
   return (
-    <Card>
-      <TopWrapper>
-        <Typography gutterBottom variant="h4">
-          {type}
-        </Typography>
-
-        <ActionIcon
-          onClick={() => setIsEditing((prevState) => !prevState)}
-          icon={faPlus}
-          tooltipText={tooltipText}
-        />
-      </TopWrapper>
-
+    <Section
+      action="add"
+      title={type}
+      actionTooltip={tooltipText}
+      actionOnClick={() => setIsEditing(true)}
+    >
       {experience.map((entry, index) => (
         <React.Fragment key={index}>
           <ExperienceItem
@@ -151,13 +142,8 @@ const Experience = ({
           name="skills"
         />
       </EditModalWrapper>
-    </Card>
+    </Section>
   );
 };
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default Experience;

@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { DatePicker } from "@material-ui/pickers";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import Card from "../Card";
 import Input from "../Input";
 import { DATE_FIELD_DEFAULT_VALUE } from "../constants";
 import EditModalWrapper from "./ModalWrapper";
 import EmptyNotice from "./EmptyNotice";
 import EducationItem from "./EducationItem";
-import ActionIcon from "./ActionIcon";
+import { Section } from "./Section";
 
 const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,19 +37,12 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
   const minDate = (endDate) => endDate > methods.getValues().startDate;
 
   return (
-    <Card>
-      <TopWrapper>
-        <Typography gutterBottom variant="h4">
-          Education
-        </Typography>
-
-        <ActionIcon
-          onClick={() => setIsEditing((prevState) => !prevState)}
-          tooltipText="Add education"
-          icon={faPlus}
-        />
-      </TopWrapper>
-
+    <Section
+      title="Education"
+      action="add"
+      actionTooltip="Add education"
+      actionOnClick={() => setIsEditing(true)}
+    >
       {education.map((entry, index) => (
         <React.Fragment key={index}>
           <EducationItem
@@ -138,13 +129,8 @@ const Education = ({ education, onSubmit, onEditHandler, onDeleteHandler }) => {
           label={<p>Certificate</p>}
         />
       </EditModalWrapper>
-    </Card>
+    </Section>
   );
 };
-
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export default Education;
