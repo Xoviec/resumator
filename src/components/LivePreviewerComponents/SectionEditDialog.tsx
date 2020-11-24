@@ -18,7 +18,7 @@ export const SectionEditDialog = <T,>({ title, data, onCancel, onSave, children,
   const { reset, ...form } = useForm();
 
   // Reset the form with new data if it changes.
-  useEffect(() => reset(data), [reset, data])
+  useEffect(() => reset({ ...data }), [reset, data])
 
   return (
     <Dialog

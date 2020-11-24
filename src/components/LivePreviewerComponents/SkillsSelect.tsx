@@ -60,7 +60,7 @@ const SkillsSelect: FunctionComponent<SkillsSelectProps> = ({ value, onChange })
         getOptionSelected={getOptionSelected}
         renderInput={(params: object) => (
           <TextField
-            // variant="outlined"
+            variant="outlined"
             placeholder="Add a library, framework, skill..."
             {...params}
           />

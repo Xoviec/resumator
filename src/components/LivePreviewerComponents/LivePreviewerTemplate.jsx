@@ -6,7 +6,7 @@ import Education from "./Education";
 import { Skills } from "./Skills";
 import PDFPreviewModal from "./PDFPreviewModal";
 import PreviewControls from "./PreviewControls";
-import Experience from "./Experience";
+import { Experience } from "./Experience";
 import SideProjects from "./SideProjects";
 import { Box } from "@material-ui/core";
 
@@ -112,19 +112,21 @@ const LivePreviewerTemplate = ({ data }) => {
         >
           <Experience
             type="Projects"
-            onEditHandler={(values, index) => onEditSectionItem("projects", values, index)}
-            onDeleteHandler={(values, index) => onDeleteSectionItem("projects", values, index)}
-            onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
+            // onEditHandler={(values, index) => onEditSectionItem("projects", values, index)}
+            // onDeleteHandler={(values, index) => onDeleteSectionItem("projects", values, index)}
+            // onSubmit={(values) => onAddNewItemForSectionHandler("projects", values)}
             experience={dataState.projects}
+            onSubmit={(data) => onSubmitSection("projects", data)}
           />
           <Experience
             type="Work Experience"
-            onEditHandler={(values, index) => onEditSectionItem("experience", values, index)}
-            onDeleteHandler={(values, index) => onDeleteSectionItem("experience", values, index)}
-            onSubmit={(values) =>
-              onAddNewItemForSectionHandler("experience", values)
-            }
+            // onEditHandler={(values, index) => onEditSectionItem("experience", values, index)}
+            // onDeleteHandler={(values, index) => onDeleteSectionItem("experience", values, index)}
+            // onSubmit={(values) =>
+            //   onAddNewItemForSectionHandler("experience", values)
+            // }
             experience={dataState.experience}
+            onSubmit={(data) => onSubmitSection("experience", data)}
           />
         </Box>
         {/* Right column */}
