@@ -22,6 +22,9 @@ const useStyles = makeStyles({
       height: "unset",
       overflow: "auto"
     },
+    "& ul, ol": {
+      margin: 0,
+    },
   },
   verticalDivider: {
     margin: "0 4px",

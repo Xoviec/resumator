@@ -42,7 +42,7 @@ export function formatDatesInObject(object: LooseObject, format = "yyyy-MM-dd"):
 function walkObject(object: LooseObject, callback: Function): LooseObject {
   for (const key in object) {
     let prop = object[key];
-    if (typeof prop === "object") {
+    if (prop && typeof prop === "object") {
       if (prop.seconds || prop instanceof Date) {
         object[key] = callback(prop);
       } else {
