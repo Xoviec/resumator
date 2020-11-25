@@ -139,14 +139,6 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
         onSecondaryActionClicked={resetForm}
       >
         <RichTextEditor methods={methods} value={descriptionState} />
-
-        <SkillsSelectFormField
-          onSkillsChanged={setSkillsState}
-          skills={skillsState}
-          formControl={control}
-          formRules={{ required: true }}
-          name="skills"
-        />
       </EditModalWrapper> */}
     </Section>
   );
