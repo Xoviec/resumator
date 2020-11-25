@@ -136,7 +136,7 @@ const LivePreviewerTemplate = ({ data }) => {
           flex={1}
           gridGap={8}
         >
-          <Skills skills={dataState.skills} onSubmit={onSubmitSection} />
+          <Skills skills={dataState.skills} onSubmit={(data) => onSubmitSection("skills", data)} />
           <SideProjects
             type="Side projects"
             onEditHandler={(values, index) => onEditSectionItem("sideProjects", values, index)}

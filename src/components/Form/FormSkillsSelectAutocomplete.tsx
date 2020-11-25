@@ -23,6 +23,11 @@ const useStyles = makeStyles({
       width: "inherit",
     },
   },
+  textField: {
+    "& input": {
+      marginTop: "4px",
+    },
+  },
 });
 
 const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> = ({ label, value, onChange }) => {
@@ -75,6 +80,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
           <TextField
             variant="outlined"
             placeholder="Add a library, framework, skill..."
+            className={value.length ? classes.textField : undefined}
             label={label}
             {...params}
           />

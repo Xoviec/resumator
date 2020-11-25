@@ -1,24 +1,19 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import EditModalWrapper from "./ModalWrapper";
+import React, { FunctionComponent, useState } from "react";
 import { Box, Chip } from "@material-ui/core";
-import SkillsSelectFormField from "./SkillsSelectFormField";
 import { Section } from "./Section";
+import { SectionEditDialog } from "./SectionEditDialog";
+import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
 
+interface Skill {
+  name: string;
+}
 interface SkillsProps {
-  skills: { name: string }[];
-  onSubmit: (key: string, values: any) => void;
+  skills: Skill[];
+  onSubmit: (skills: Skill[]) => void;
 }
 
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [skillsState, setSkillsState] = useState(skills || []);
-  const methods = useForm();
-  const { reset, control, getValues } = methods;
-
-  useEffect(() => {
-    reset({});
-  }, [skills, reset]);
 
   return (
     <Section
@@ -39,32 +34,24 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
         ))}
       </Box>
 
-      <EditModalWrapper
-        isOpen={isEditing}
-        onRequestClose={() => setIsEditing(false)}
-        methods={methods}
-        // contentLabel="Edit skills"
-        heading="Skills"
-        onPrimaryActionClicked={() => {
-          const { skills } = getValues();
-
-          onSubmit("skills", skills);
+      <SectionEditDialog
+        title="Skills"
+        data={{ skills }}
+        open={isEditing}
+        onCancel={() => setIsEditing(false)}
+        onSave={(data) => {
           setIsEditing(false);
-        }}
-        onSecondaryActionClicked={() => {
-          reset({});
-          setSkillsState(skills);
-          setIsEditing(false);
+          onSubmit(data.skills);
         }}
       >
-        <SkillsSelectFormField
-          onSkillsChanged={setSkillsState}
-          skills={skillsState}
-          formControl={control}
-          formRules={{ required: true }}
-          name="skills"
-        />
-      </EditModalWrapper>
+        <FormColumn>
+          <FormRow>
+            <FormSkillsSelect
+              name="skills"
+            />
+          </FormRow>
+        </FormColumn>
+      </SectionEditDialog>
     </Section>
   );
 };

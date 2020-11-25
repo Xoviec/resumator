@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { FormControlProps, makeStyles } from "@material-ui/core";
-import { colors } from "../../config/theme";
+import { FormControlProps } from "@material-ui/core";
 import FormSkillsSelectAutocomplete from "./FormSkillsSelectAutocomplete";
 
 interface FormSkillsSelectProps extends FormControlProps {
@@ -9,26 +8,7 @@ interface FormSkillsSelectProps extends FormControlProps {
   label?: string;
 }
 
-const useStyles = makeStyles({
-  avatar: {
-    width: "100px",
-    height: "200px",
-    margin: "16px",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    cursor: "pointer",
-
-    "&:hover": {
-      outline: `2px auto ${colors.darkBlue}`,
-    }
-  },
-  selected: {
-    outline: `2px auto ${colors.orange}`,
-  }
-});
-
 export const FormSkillsSelect: FunctionComponent<FormSkillsSelectProps> = ({ name, label, ...props }) => {
-  const classes = useStyles();
   const { control } = useFormContext();
 
   return (
