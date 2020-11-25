@@ -14,9 +14,6 @@ interface ExperienceProps {
 }
 
 export const Experience: FunctionComponent<ExperienceProps> = ({ type, experience, onSubmit }) => {
-  // const [skillsState, setSkillsState] = React.useState(experience.skills || []);
-  // const [descriptionState, setDescriptionState] = React.useState();
-
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<ExperienceModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
@@ -33,9 +30,18 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
     setIsEditing(true);
   };
 
+  const handleEditCancel = () => {
+    setEditItem(null);
+    setEditItemIndex(null);
+    setIsEditing(false);
+  }
+
   const handleSave = (item: ExperienceModel) => {
     const updatedExperience = [...experience];
-    updatedExperience.splice(editItemIndex!, 1, item);
+    if (editItemIndex !== null) updatedExperience.splice(editItemIndex!, 1, item);
+    else updatedExperience.push(item);
+
+    // TODO: Sort based on timespan.
 
     setEditItem(null);
     setEditItemIndex(null);
@@ -80,7 +86,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
         title={editItem ? `Edit ${type}` : `Add ${type}`}
         data={editItem!}
         open={isEditing}
-        onCancel={() => setIsEditing(false)}
+        onCancel={handleEditCancel}
         onSave={handleSave}
       >
         <FormColumn>
