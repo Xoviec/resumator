@@ -5,6 +5,7 @@ import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormDatePicker, FormRow, FormSkillsSelect, FormTextField } from "../Form";
+import { FormRichTextEditor } from "../Form/FormRichTextEditor";
 
 interface ExperienceProps {
   type: string,
@@ -106,11 +107,9 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
             />
           </FormRow>
           <FormRow>
-            <FormTextField
-              multiline
+            <FormRichTextEditor
               name="description"
               label="Description"
-              rows={10}
             />
           </FormRow>
           <FormRow>
@@ -121,25 +120,6 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
           </FormRow>
         </FormColumn>
       </SectionEditDialog>
-      
-      {/* <EditModalWrapper
-        isOpen={isEditing}
-        onRequestClose={resetForm}
-        methods={methods}
-        heading={`Add ${type} details`}
-        onPrimaryActionClicked={() => {
-          const values = getValues();
-          if (editingExisting) {
-            onEditHandler(values, currentItemIndex);
-          } else {
-            onSubmit(values);
-          }
-          resetForm();
-        }}
-        onSecondaryActionClicked={resetForm}
-      >
-        <RichTextEditor methods={methods} value={descriptionState} />
-      </EditModalWrapper> */}
     </Section>
   );
 };
