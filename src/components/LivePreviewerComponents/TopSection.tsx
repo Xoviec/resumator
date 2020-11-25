@@ -6,7 +6,7 @@ import { TooltipIconButton } from "../Material";
 import { SectionHeader } from "./SectionHeader";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { DetailWithIcon } from "./DetailWithIcon";
-import { FormAvatarSelector, FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
+import { FormAvatarSelect, FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
 // Icons
 import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
@@ -182,7 +182,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, onS
             />
           </FormRow>
           <FormRow>
-            <FormAvatarSelector
+            <FormAvatarSelect
               name="avatar"
               label="Avatar"
             />

@@ -4,7 +4,7 @@ import { Box, FormControl, FormControlProps, InputLabel, makeStyles, OutlinedInp
 import avatars from "../../assets/images/avatars";
 import { colors } from "../../config/theme";
 
-interface FormAvatarSelectorProps extends FormControlProps {
+interface FormAvatarSelectProps extends FormControlProps {
   name: string;
   label: string;
 }
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const FormAvatarSelector: FunctionComponent<FormAvatarSelectorProps> = ({ name, label, ...props }) => {
+export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({ name, label, ...props }) => {
   const classes = useStyles();
   const { control } = useFormContext();
 

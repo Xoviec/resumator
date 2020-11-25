@@ -4,7 +4,7 @@ import Divider from "@material-ui/core/Divider";
 import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { FormColumn, FormDatePicker, FormRow, FormTextField } from "../Form";
+import { FormColumn, FormDatePicker, FormRow, FormSkillsSelect, FormTextField } from "../Form";
 
 interface ExperienceProps {
   type: string,
@@ -111,6 +111,12 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
               name="description"
               label="Description"
               rows={10}
+            />
+          </FormRow>
+          <FormRow>
+            <FormSkillsSelect
+              name="stackAndTechniques"
+              label="Skills"
             />
           </FormRow>
         </FormColumn>
