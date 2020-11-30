@@ -178,7 +178,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({ personalia, onS
               multiline
               name="introduction"
               label="Introduction"
-              rows={6}
+              rows={8}
             />
           </FormRow>
           <FormRow>

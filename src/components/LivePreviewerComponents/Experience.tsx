@@ -31,9 +31,9 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
   };
 
   const handleEditCancel = () => {
+    setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
-    setIsEditing(false);
   }
 
   const handleSave = (item: ExperienceModel) => {
@@ -43,9 +43,9 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
 
     // TODO: Sort based on timespan.
 
+    setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
-    setIsEditing(false);
     onSubmit(updatedExperience);
   }
 
@@ -62,7 +62,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({ type, experienc
         marginTop={-1}
         gridGap={8}
       >
-        {experience.map((entry: any, index: any) => (
+        {experience.map((entry: ExperienceModel, index: number) => (
           <Box
             display="flex"
             flexDirection="column"

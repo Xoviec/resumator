@@ -6,8 +6,8 @@ import { formatDate } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
-import BusinessIcon from "@material-ui/icons/Business"
-import DateRangeIcon from "@material-ui/icons/DateRangeOutlined"
+import BusinessIcon from "@material-ui/icons/Business";
+import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
 
 export interface ExperienceModel {
   role: string;
