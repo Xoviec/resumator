@@ -20,6 +20,8 @@ export const useSectionItemHeaderStyles = makeStyles({
     opacity: 0,
     transition: "opacity 150ms ease-out",
     pointerEvents: "none",
+    alignSelf: "start",
+    flexShrink: 0,
   },
   container: {
     "&:hover $actions": {

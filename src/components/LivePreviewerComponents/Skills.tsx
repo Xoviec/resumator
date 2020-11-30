@@ -4,12 +4,12 @@ import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
 
-interface Skill {
+export interface SkillModel {
   name: string;
 }
 interface SkillsProps {
-  skills: Skill[];
-  onSubmit: (skills: Skill[]) => void;
+  skills: SkillModel[];
+  onSubmit: (skills: SkillModel[]) => void;
 }
 
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {

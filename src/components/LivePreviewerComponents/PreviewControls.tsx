@@ -15,7 +15,7 @@ interface PreviewControlsProps {
   onSaveClicked: () => void;
 }
 
-const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo, setShowPDFModal, onSaveClicked }) => {
+export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo, setShowPDFModal, onSaveClicked }) => {
   return (
     <Box display="flex" padding={2} paddingTop={0} flexDirection="row" justifyContent="space-between">
       {/* Back to overview */}
@@ -58,5 +58,3 @@ const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo
     </Box>
   );
 };
-
-export default PreviewControls;
