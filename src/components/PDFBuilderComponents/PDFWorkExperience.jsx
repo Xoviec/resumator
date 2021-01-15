@@ -15,6 +15,10 @@ const Header = styled.Text`
 `;
 
 export function PDFWorkExperience({ experience }) {
+  if (!Object.keys(experience).length) {
+    return null;
+  }
+
   return (
     <Root wrap={false}>
       <Header>WORK EXPERIENCE</Header>

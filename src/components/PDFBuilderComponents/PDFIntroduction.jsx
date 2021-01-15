@@ -14,6 +14,10 @@ const TextArea = styled.Text`
 `;
 
 export function PDFIntroduction({ introduction }) {
+  if (!introduction.length) {
+    return null;
+  }
+
   return (
     <Root>
       <TextArea>{introduction}</TextArea>

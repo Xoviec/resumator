@@ -56,6 +56,10 @@ const Badge = styled.Image`
 `;
 
 export function PDFSkills({ skills }) {
+  if (!Object.keys(skills).length) {
+    return null;
+  }
+
   return (
     <Root>
       <Header>SKILLS</Header>

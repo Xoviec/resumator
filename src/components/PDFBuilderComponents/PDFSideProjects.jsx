@@ -44,6 +44,10 @@ const SideProjectItem = ({ sideProjectItem: { title, description, link } }) => {
   );
 };
 export function PDFSideProjects({ sideProjects, type }) {
+  if (!Object.keys(sideProjects).length) {
+    return null;
+  }
+
   return (
     <Root wrap={false}>
       <Header>{type === "openSource" ? "OPEN SOURCE" : "PUBLICATIONS"}</Header>

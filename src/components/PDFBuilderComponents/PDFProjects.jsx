@@ -15,6 +15,10 @@ const Header = styled.Text`
 `;
 
 export function PDFProjects({ projects }) {
+  if (!Object.keys(projects).length) {
+    return null;
+  }
+
   return (
     <Root wrap={true}>
       <Header>PROJECTS</Header>
