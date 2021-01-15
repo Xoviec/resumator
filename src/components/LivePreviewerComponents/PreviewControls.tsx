@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, makeStyles } from "@material-ui/core";
 import { DropdownButton, SpacedButton } from "../Material";
 import downloadResume from "../../lib/downloadResume";
 // Icons
@@ -15,32 +15,51 @@ interface PreviewControlsProps {
   onSaveClicked: () => void;
 }
 
-export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resume, goTo, setShowPDFModal, onSaveClicked }) => {
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginBottom: theme.spacing(2),
+    "&--action": {
+      marginRight: theme.spacing(2),
+    },
+  },
+}));
+
+export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
+  resume,
+  goTo,
+  setShowPDFModal,
+  onSaveClicked,
+}) => {
+  const classes = useStyles();
+
   return (
-    <Box display="flex" padding={2} paddingTop={0} flexDirection="row" justifyContent="space-between">
+    <Box display="flex" flexDirection="row" justifyContent="space-between">
       {/* Back to overview */}
       <Button
         variant="contained"
         startIcon={<ArrowBackIcon />}
         onClick={() => goTo(`/overview`)}
+        className={classes.button}
       >
         Back to overview
       </Button>
-      <Box>
+      <Box marginLeft={2}>
         {/* Download as */}
         <DropdownButton
           variant="contained"
           actions={["PDF", "DOCX"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
+          className={`${classes.button} ${classes.button}--action`}
         >
           Download as..
         </DropdownButton>
         {/* Preview */}
         <SpacedButton
           variant="contained"
-          marginX={1}
+          // marginX={1}
           startIcon={<VisibilityIcon />}
+          className={`${classes.button} ${classes.button}--action`}
           onClick={() => setShowPDFModal(true)}
         >
           Preview
@@ -50,6 +69,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({ resum
           variant="contained"
           color="primary"
           startIcon={<SaveIcon />}
+          className={`${classes.button} ${classes.button}--action`}
           onClick={onSaveClicked}
         >
           Save
