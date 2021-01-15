@@ -1,11 +1,11 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import { Box } from "@material-ui/core";
 
-interface TopSectionPersonaliaProps {
+interface DetailWithIconProps {
   icon: ReactNode;
 }
 
-export const TopSectionPersonalia: FunctionComponent<TopSectionPersonaliaProps> = ({ icon, children }) => {
+export const DetailWithIcon: FunctionComponent<DetailWithIconProps> = ({ icon, children }) => {
   return (
     <Box
       display="flex"

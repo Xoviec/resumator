@@ -1,22 +1,37 @@
 import React, { FunctionComponent } from "react";
 import { Autocomplete } from "@material-ui/lab";
-import { TextField } from "@material-ui/core";
+import { makeStyles, TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import styled from "@emotion/styled";
 import { skillsConstants } from "../../config/skills.constants";
-import SkillsSelectChip from "./SkillsSelectChip";
+import FormSkillsSelectChip from "./FormSkillsSelectChip";
 
 interface Skill {
   name: string;
 }
 
-interface SkillsSelectProps {
+interface FormSkillsSelectPropsAutocomplete {
+  label?: string;
   value: Skill[];
   onChange: (skills: Skill[]) => void;
 }
 
-const SkillsSelect: FunctionComponent<SkillsSelectProps> = ({ value, onChange }) => {
+const useStyles = makeStyles({
+  autocomplete: {
+    // Make sure the input is below the chips.
+    "& .MuiAutocomplete-input": {
+      width: "inherit",
+    },
+  },
+  textField: {
+    "& input": {
+      marginTop: "4px",
+    },
+  },
+});
+
+const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> = ({ label, value, onChange }) => {
+  const classes = useStyles();
   /**
    * Check if the provided option is currently included in the skills.
    */
@@ -48,26 +63,31 @@ const SkillsSelect: FunctionComponent<SkillsSelectProps> = ({ value, onChange })
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <StyledAutocomplete
+      <Autocomplete
+        fullWidth
         multiple
         freeSolo
         disableClearable
         disableCloseOnSelect
         id="skill-list-autocomplete"
+        size="small"
+        className={classes.autocomplete}
         value={value.map(skill => skill.name)}
         options={skillsConstants}
         onChange={handleSkillChange}
         getOptionSelected={getOptionSelected}
         renderInput={(params: object) => (
           <TextField
-            // variant="outlined"
+            variant="outlined"
             placeholder="Add a library, framework, skill..."
+            className={value.length ? classes.textField : undefined}
+            label={label}
             {...params}
           />
         )}
         renderTags={(value: string[]) => value.map((skill, index) => (
           // Add a chip for each skill.
-          <SkillsSelectChip
+          <FormSkillsSelectChip
             key={skill}
             label={skill}
             index={index}
@@ -80,11 +100,4 @@ const SkillsSelect: FunctionComponent<SkillsSelectProps> = ({ value, onChange })
   );
 };
 
-// Style the autocomplete so that the input is placed below the chips.
-const StyledAutocomplete = styled(Autocomplete)`
-  .MuiAutocomplete-input {
-    width: inherit;
-  }
-` as typeof Autocomplete;
-
-export default SkillsSelect;
+export default FormSkillsSelectAutocomplete;

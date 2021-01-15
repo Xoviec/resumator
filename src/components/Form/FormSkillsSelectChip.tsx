@@ -1,23 +1,33 @@
 import React, { FunctionComponent, useRef } from "react";
-import { Chip } from "@material-ui/core";
+import { Chip, makeStyles } from "@material-ui/core";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
-import styled from "@emotion/styled";
 
-interface SkillsSelectChipProps {
+interface FormSkillsSelectChipProps {
   label: string;
   index: number;
   onDrag: (sourceIndex: number, destinationIndex: number) => void;
   onDelete: (index: number) => void;
 }
 
-interface IDragItem {
+interface DragItem {
   type: string;
   index: number;
 }
 
-const DNDTYPE = "SkillsChip"
+const DNDTYPE = "SkillsChip";
+const useStyles = makeStyles({
+  chip: {
+    margin: "4px",
+    backgroundColor: "#ffffff",
+    cursor: "move",
+    // Needed to keep the rounded edged when dragging
+    transform: "translate(0, 0)",
+  },
+});
 
-const SkillsSelectChip: FunctionComponent<SkillsSelectChipProps> = ({ label, index, onDrag, onDelete }: SkillsSelectChipProps) => {
+const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ label, index, onDrag, onDelete }: FormSkillsSelectChipProps) => {
+  const classes = useStyles();
+
   /**
    * Create a reference to attach to the Component used for dragging and dropping.
    */
@@ -35,7 +45,7 @@ const SkillsSelectChip: FunctionComponent<SkillsSelectChipProps> = ({ label, ind
    */
   const [, drop] = useDrop({
     accept: DNDTYPE,
-    hover(item: IDragItem, monitor: DropTargetMonitor) {
+    hover(item: DragItem, monitor: DropTargetMonitor) {
       if (!ref.current) return;
 
       const sourceIndex = item.index;
@@ -71,10 +81,11 @@ const SkillsSelectChip: FunctionComponent<SkillsSelectChipProps> = ({ label, ind
   drag(drop(ref));
 
   return (
-    <StyledChip
+    <Chip
       size="small"
       variant="outlined"
       color="secondary"
+      className={classes.chip}
       ref={ref}
       label={label}
       onDelete={() => onDelete(index)}
@@ -85,13 +96,4 @@ const SkillsSelectChip: FunctionComponent<SkillsSelectChipProps> = ({ label, ind
   )
 };
 
-// Make the chip have some space around it.
-// The transform is needed to keep the rounded edges when dragging.
-const StyledChip = styled(Chip)`
-  margin: 0 8px 8px 0;
-  background-color: #fff;
-  cursor: move;
-  transform: translate(0, 0);
-`;
-
-export default SkillsSelectChip;
+export default FormSkillsSelectChip;

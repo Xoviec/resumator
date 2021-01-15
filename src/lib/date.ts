@@ -12,7 +12,7 @@ export function castDate(timestamp: DateOrTimestamp | undefined): Date | undefin
     : timestamp as Date | undefined;
 }
 
-export function formatDate(timestamp: DateOrTimestamp | string | undefined, dateformat = "yyyy-MM-dd"): string | undefined {
+export function formatDate(timestamp: DateOrTimestamp | string | undefined, dateformat = "dd-MM-yyyy"): string | undefined {
   return timestamp && typeof timestamp === "object"
     ? format(castDate(timestamp) as Date, dateformat) as string
     : timestamp as string  | undefined;
@@ -42,7 +42,7 @@ export function formatDatesInObject(object: LooseObject, format = "yyyy-MM-dd"):
 function walkObject(object: LooseObject, callback: Function): LooseObject {
   for (const key in object) {
     let prop = object[key];
-    if (typeof prop === "object") {
+    if (prop && typeof prop === "object") {
       if (prop.seconds || prop instanceof Date) {
         object[key] = callback(prop);
       } else {

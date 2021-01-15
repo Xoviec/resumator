@@ -11,7 +11,7 @@ export const FormDatePicker: FunctionComponent<FormDatePickerProps> = ({ name, .
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Controller
-        defaultValue={new Date()}
+        defaultValue={null}
         control={control}
         name={name!}
         render={({ value, onChange }) => (
