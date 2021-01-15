@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     "&--action": {
       marginRight: theme.spacing(2),
+      "&:last-child": {
+        marginRight: 0,
+      },
     },
   },
 }));
