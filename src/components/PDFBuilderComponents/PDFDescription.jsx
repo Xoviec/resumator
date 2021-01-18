@@ -88,6 +88,10 @@ const generatePrefix = (block, counter) => {
   if (block.type === "ordered-list-item") return `${counter}. `;
 };
 const PDFDescription = ({ description }) => {
+  if (!description || !description.length) {
+    return null;
+  }
+
   let editor;
   try {
     editor = convertFromRaw(JSON.parse(description));

@@ -36,6 +36,10 @@ const Education = ({ education: { name, institute } }) => {
   );
 };
 export function PDFEducation({ education }) {
+  if (!education || !education.length) {
+    return null;
+  }
+
   return (
     <Root wrap={false}>
       <Header>EDUCATION</Header>

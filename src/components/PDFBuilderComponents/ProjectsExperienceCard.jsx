@@ -64,14 +64,16 @@ const renderStack = (stackAndTechniques) => {
 
 export function ProjectsExperienceCard({ project }) {
   const { role, company, description, skills, startDate, endDate } = project;
+  const startDateFormatted = startDate ? formatDate(startDate, "MMMM yyyy") : "";
+  const endDateFormatted = endDate ? formatDate(endDate, "MMMM yyyy") : "";
+
   return (
     <Root wrap={false}>
       <Header>{role}</Header>
       <Flex>
         <SubText>{company}</SubText>
         <SubText>
-          {formatDate(startDate, "MMMM yyyy")} -
-          {formatDate(endDate, "MMMM yyyy")}
+          {startDateFormatted} - {endDateFormatted}
         </SubText>
       </Flex>
       <PDFDescription description={description} />
