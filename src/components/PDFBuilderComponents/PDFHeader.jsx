@@ -55,8 +55,9 @@ const Avatar = styled(Image)`
 `;
 
 export function PDFHeader({ avatar, name, city, dateOfBirth }) {
-  const month = formatDate(dateOfBirth, "MMMM").toUpperCase();
-  const year = formatDate(dateOfBirth, "yyyy");
+  const month = dateOfBirth ? formatDate(dateOfBirth, "MMMM").toUpperCase() : "";
+  const year = dateOfBirth ? formatDate(dateOfBirth, "yyyy") : "";
+  city = city ? city : "";
 
   return (
     <Root>
