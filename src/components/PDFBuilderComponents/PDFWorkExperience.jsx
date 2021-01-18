@@ -15,7 +15,7 @@ const Header = styled.Text`
 `;
 
 export function PDFWorkExperience({ experience }) {
-  if (!Object.keys(experience).length) {
+  if (!experience || !experience.length) {
     return null;
   }
 

@@ -56,7 +56,7 @@ const Badge = styled.Image`
 `;
 
 export function PDFSkills({ skills }) {
-  if (!Object.keys(skills).length) {
+  if (!skills || !skills.length) {
     return null;
   }
 

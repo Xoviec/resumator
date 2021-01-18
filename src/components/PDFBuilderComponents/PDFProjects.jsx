@@ -15,7 +15,7 @@ const Header = styled.Text`
 `;
 
 export function PDFProjects({ projects }) {
-  if (!Object.keys(projects).length) {
+  if (!projects || !projects.length) {
     return null;
   }
 

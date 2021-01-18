@@ -36,7 +36,7 @@ const Education = ({ education: { name, institute } }) => {
   );
 };
 export function PDFEducation({ education }) {
-  if (!education.length) {
+  if (!education || !education.length) {
     return null;
   }
 

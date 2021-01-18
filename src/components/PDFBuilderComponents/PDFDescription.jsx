@@ -88,7 +88,7 @@ const generatePrefix = (block, counter) => {
   if (block.type === "ordered-list-item") return `${counter}. `;
 };
 const PDFDescription = ({ description }) => {
-  if (!description.length) {
+  if (!description || !description.length) {
     return null;
   }
 
