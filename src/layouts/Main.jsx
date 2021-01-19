@@ -18,10 +18,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainLayout = ({ children }) => {
-  const [searchText, setSearchText] = useState("");
+  const [searchTerms, setSearchTerms] = useState([]);
   const handleSearch = (val) => {
-    setSearchText(val);
+    setSearchTerms(val);
   };
+
   const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
@@ -30,7 +31,7 @@ const MainLayout = ({ children }) => {
         <Nav handleSearch={handleSearch} />
         <main className={classes.content}>
           <div className={classes.spacer} />
-          {React.cloneElement(children, { searchText })}
+          {React.cloneElement(children, { searchTerms })}
         </main>
       </div>
     </ThemeProvider>
