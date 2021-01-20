@@ -43,29 +43,30 @@ const Plain = styled.Text`
   margin-left: 3px;
 `;
 
-const renderStack = (stackAndTechniques) => {
-  const arrayCount = stackAndTechniques ? stackAndTechniques.length - 1 : 0;
-
-  if (arrayCount === 0) {
-    return null;
-  }
-
-  return stackAndTechniques.map((project, index) => {
-    return index < arrayCount ? (
-      <React.Fragment key={project.name}>
-        <Plain key={index}>{project.name}</Plain>
-        <Plain>-</Plain>
+const renderStack = (stackAndTechniques) =>
+  stackAndTechniques.map((tech, index) => {
+    const shouldAddHypen = index < stackAndTechniques.length - 1;
+    return (
+      <React.Fragment key={tech.name}>
+        <Plain>{tech.name}</Plain>
+        {shouldAddHypen && <Plain>-</Plain>}
       </React.Fragment>
-    ) : (
-      <Plain key={project.name}>{project.name}</Plain>
     );
   });
-};
 
 export function ProjectsExperienceCard({ project }) {
-  const { role, company, description, skills, startDate, endDate } = project;
+  const {
+    role,
+    company,
+    description,
+    stackAndTechniques,
+    startDate,
+    endDate,
+  } = project;
   const startDateFormatted = startDate ? formatDate(startDate, "MMMM yyyy") : "";
   const endDateFormatted = endDate ? formatDate(endDate, "MMMM yyyy") : "";
+  const shouldRenderTechniquesRow =
+    !!project.stackAndTechniques && !!project.stackAndTechniques.length;
 
   return (
     <Root wrap={false}>
@@ -77,10 +78,12 @@ export function ProjectsExperienceCard({ project }) {
         </SubText>
       </Flex>
       <PDFDescription description={description} />
-      <TechniquesWrapper>
-        <Plain>Techniques:</Plain>
-        {project ? renderStack(skills) : null}
-      </TechniquesWrapper>
+      {shouldRenderTechniquesRow && (
+        <TechniquesWrapper>
+          <Plain>Techniques:</Plain>
+          {renderStack(stackAndTechniques)}
+        </TechniquesWrapper>
+      )}
     </Root>
   );
 }

@@ -38,7 +38,6 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const goTo = (path: string) => history.push(path);
 
   const onSubmitSection = (sectionKey: string, values: any) => {
-    console.log(sectionKey, values);
     setDataState((prevState) => ({
       ...prevState,
       [sectionKey]: values,
