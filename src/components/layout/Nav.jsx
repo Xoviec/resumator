@@ -143,6 +143,8 @@ const Nav = ({ handleSearch }) => {
       <AccountCircle />
     );
 
+  const isUserManager = user && user.userRec && user.userRec.isManager;
+
   return (
     <div className={classes.navContainer}>
       <div className={classes.grow}>
@@ -152,41 +154,43 @@ const Nav = ({ handleSearch }) => {
               <img className={classes.logo} src={frontmenLogo} alt="logo" />
             </a>
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
-            <div className={classes.search}>
-              <Autocomplete
-                id="overview-searcher"
-                multiple
-                limitTags={3}
-                options={skillsConstants}
-                getOptionLabel={(option) => option}
-                freeSolo
-                onChange={(data, newValue) => {
-                  handleSearch(newValue);
-                }}
-                className={classes.autocomplete}
-                renderInput={(params) => (
-                  <>
-                    <div className={classes.searchIcon}>
-                      <Search />
-                    </div>
-                    <TextField
-                      {...params}
-                      ref={params.InputProps.ref}
-                      placeholder="Search…"
-                      InputProps={{
-                        ...params.InputProps,
-                        disableUnderline: true,
-                      }}
-                      inputProps={{
-                        ...params.inputProps,
-                        "aria-label": "search",
-                        className: classes.inputInput,
-                      }}
-                    />
-                  </>
-                )}
-              />
-            </div>
+            {isUserManager && (
+              <div className={classes.search}>
+                <Autocomplete
+                  id="overview-searcher"
+                  multiple
+                  limitTags={3}
+                  options={skillsConstants}
+                  getOptionLabel={(option) => option}
+                  freeSolo
+                  onChange={(data, newValue) => {
+                    handleSearch(newValue);
+                  }}
+                  className={classes.autocomplete}
+                  renderInput={(params) => (
+                    <>
+                      <div className={classes.searchIcon}>
+                        <Search />
+                      </div>
+                      <TextField
+                        {...params}
+                        ref={params.InputProps.ref}
+                        placeholder="Search…"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                        inputProps={{
+                          ...params.inputProps,
+                          "aria-label": "search",
+                          className: classes.inputInput,
+                        }}
+                      />
+                    </>
+                  )}
+                />
+              </div>
+            )}
             <div className={classes.grow} />
             <IconButton
               edge="end"

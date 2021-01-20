@@ -27,13 +27,18 @@ interface LivePreviewerTemplateProps {
   };
 }
 
-const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ data }) => {
+const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
+  data,
+}) => {
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [dataState, setDataState] = useState(data);
   const history = useHistory();
-  const { firebase } = useContext(FirebaseAppContext);
+  const { firebase, user } = useContext(FirebaseAppContext);
 
   const goTo = (path: string) => history.push(path);
+
+  const isUserManager =
+    user && (user as any).userRec && (user as any).userRec.isManager;
 
   const onSubmit = async () => {
     try {
@@ -70,10 +75,14 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
         onSaveClicked={onSubmit}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
+        showBackToOverviewButton={isUserManager}
         resume={dataState}
       />
       <TopSection
-        personalia={{ ...dataState.personalia, introduction: dataState.introduction }}
+        personalia={{
+          ...dataState.personalia,
+          introduction: dataState.introduction,
+        }}
         onSubmit={(data) => {
           const { introduction, ...personalia } = data;
           onSubmitSection("personalia", personalia);
@@ -88,12 +97,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
         gridGap={8}
       >
         {/* Left column */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          flex={2}
-          gridGap={8}
-        >
+        <Box display="flex" flexDirection="column" flex={2} gridGap={8}>
           <Experience
             type="Projects"
             experience={dataState.projects}
@@ -106,13 +110,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
           />
         </Box>
         {/* Right column */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          flex={1}
-          gridGap={8}
-        >
-          <Skills skills={dataState.skills} onSubmit={(data) => onSubmitSection("skills", data)} />
+        <Box display="flex" flexDirection="column" flex={1} gridGap={8}>
+          <Skills
+            skills={dataState.skills}
+            onSubmit={(data) => onSubmitSection("skills", data)}
+          />
           <SideProjects
             type="Side projects"
             projects={dataState.sideProjects}
@@ -128,7 +130,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({ 
             onSubmit={(data) => onSubmitSection("education", data)}
           />
         </Box>
-      </Box>      
+      </Box>
 
       <PDFPreviewModal
         data={dataState}

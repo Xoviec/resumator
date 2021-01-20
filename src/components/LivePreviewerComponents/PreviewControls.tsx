@@ -12,6 +12,7 @@ interface PreviewControlsProps {
   resume: any;
   goTo: (path: string) => void;
   setShowPDFModal: (show: boolean) => void;
+  showBackToOverviewButton: boolean;
   onSaveClicked: () => void;
 }
 
@@ -31,21 +32,26 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
   goTo,
   setShowPDFModal,
+  showBackToOverviewButton,
   onSaveClicked,
 }) => {
   const classes = useStyles();
 
   return (
     <Box display="flex" flexDirection="row" justifyContent="space-between">
-      {/* Back to overview */}
-      <Button
-        variant="contained"
-        startIcon={<ArrowBackIcon />}
-        onClick={() => goTo(`/overview`)}
-        className={classes.button}
-      >
-        Back to overview
-      </Button>
+      <Box>
+        {/* Back to overview */}
+        {showBackToOverviewButton && (
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackIcon />}
+            onClick={() => goTo(`/overview`)}
+            className={classes.button}
+          >
+            Back to overview
+          </Button>
+        )}
+      </Box>
       <Box marginLeft={2}>
         {/* Download as */}
         <DropdownButton
