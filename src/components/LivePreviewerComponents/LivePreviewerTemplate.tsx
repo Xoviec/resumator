@@ -1,4 +1,4 @@
-import React, { useContext, useState, FunctionComponent } from "react";
+import React, { useContext, useState, FunctionComponent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
@@ -33,49 +33,48 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [dataState, setDataState] = useState(data);
   const history = useHistory();
-  const { firebase, user } = useContext(FirebaseAppContext);
+  const { firebase } = useContext(FirebaseAppContext);
 
   const goTo = (path: string) => history.push(path);
 
-  const isUserManager =
-    user && (user as any).userRec && (user as any).userRec.isManager;
-
-  const onSubmit = async () => {
-    try {
-      if (dataState.id) {
-        const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
-          .firestore()
-          .collection("resumes")
-          .doc(dataState.id);
-        await resumesRef.update({
-          ...dataState,
-          isImport: false, // explicitly remove database import flag, but only when saving to firestore
-        });
-      } else {
-        const resumesRef = (firebase as any).firestore().collection("resumes").doc();
-        await resumesRef.set(dataState);
-      }
-      history.push("/overview");
-    } catch (e) {
-      alert(`Error writing document. ${e.message}`);
-    }
-  };
-
   const onSubmitSection = (sectionKey: string, values: any) => {
-    console.log(sectionKey, values);
     setDataState((prevState) => ({
       ...prevState,
       [sectionKey]: values,
     }));
   };
 
+  useEffect(() => {
+    const storeResume = async () => {
+      try {
+        if (dataState.id) {
+          const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
+            .firestore()
+            .collection("resumes")
+            .doc(dataState.id);
+          await resumesRef.update({
+            ...dataState,
+            isImport: false, // explicitly remove database import flag, but only when saving to firestore
+          });
+        } else {
+          const resumesRef = (firebase as any)
+            .firestore()
+            .collection("resumes")
+            .doc();
+          await resumesRef.set(dataState);
+        }
+      } catch (e) {
+        alert(`Error writing document. ${e.message}`);
+      }
+    };
+    storeResume();
+  }, [dataState, firebase]);
+
   return (
     <>
       <PreviewControls
-        onSaveClicked={onSubmit}
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
-        showBackToOverviewButton={isUserManager}
         resume={dataState}
       />
       <TopSection
