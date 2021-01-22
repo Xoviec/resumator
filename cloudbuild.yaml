@@ -1,12 +1,12 @@
 steps:
   # Install
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
+    args: ['ci']
 
   # Install functions
   - name: 'gcr.io/cloud-builders/npm'
     dir: 'functions'
-    args: ['install']
+    args: ['ci']
 
   # Deploy
   - name: 'gcr.io/fm-resume/firebase'
