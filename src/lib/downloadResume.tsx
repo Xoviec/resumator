@@ -24,7 +24,6 @@ export default async function downloadResume(resume: Resume, type = "PDF") {
       });
       break;
     case "pdf":
-      debugger;
       const pdfTemplate = <PDFTemplate {...{ resume }} />;
       const pdf = await createPdf(pdfTemplate).toBlob();
       file = new Blob([pdf], {
