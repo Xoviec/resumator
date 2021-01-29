@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext, useEffect, useState } from "react";
 import { Box, Button } from "@material-ui/core";
 import { DropdownButton, SpacedButton } from "../Material";
 import downloadResume from "../../lib/downloadResume";
@@ -6,6 +6,7 @@ import downloadResume from "../../lib/downloadResume";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import { FirebaseAppContext } from "../../context/FirebaseContext";
 
 interface PreviewControlsProps {
   resume: any;
@@ -18,6 +19,21 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   goTo,
   setShowPDFModal,
 }) => {
+  const { user }: { user: any } = useContext(FirebaseAppContext);
+  const [isManager, setIsManager] = useState(false);
+
+  useEffect(() => {
+    if (
+      user &&
+      user.hasOwnProperty("userRec") &&
+      user.userRec &&
+      user.userRec.hasOwnProperty("isManager") &&
+      user.userRec.isManager
+    ) {
+      setIsManager(true);
+    }
+  }, [user]);
+
   return (
     <Box
       display="flex"
@@ -25,14 +41,18 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
       justifyContent="space-between"
       marginBottom={2}
     >
-      {/* Back to overview */}
-      <Button
-        variant="contained"
-        startIcon={<ArrowBackIcon />}
-        onClick={() => goTo(`/overview`)}
-      >
-        Back to overview
-      </Button>
+      <Box>
+        {/* Back to overview */}
+        {isManager && (
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackIcon />}
+            onClick={() => goTo(`/overview`)}
+          >
+            Back to overview
+          </Button>
+        )}
+      </Box>
       <Box
         display="flex"
         justifyContent="flex-end"
