@@ -28,6 +28,10 @@ const FirebaseAppContextProvider = ({ children }) => {
     initApp();
   }, []);
 
+  React.useContext(() => {
+    setIsLoading(true);
+  });
+
   if (initializing) return null;
 
   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
@@ -36,7 +40,7 @@ const FirebaseAppContextProvider = ({ children }) => {
   });
 
   firebase.auth().onAuthStateChanged(async function (authUser) {
-    if (!authUser && user) {
+    if (!authUser) {
       setUser(null);
       setIsLoading(false);
       return;
