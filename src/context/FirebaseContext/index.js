@@ -8,12 +8,14 @@ import getFirebaseConfig from "./getFirebaseConfig";
 export const FirebaseAppContext = React.createContext({
   firebase: {},
   initializing: true,
+  isLoading: true,
   user: {},
 });
 
 const FirebaseAppContextProvider = ({ children }) => {
   const [firebaseApp, setFirebaseApp] = React.useState({});
   const [initializing, setInitializing] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
@@ -33,9 +35,10 @@ const FirebaseAppContextProvider = ({ children }) => {
     hd: "frontmen.nl",
   });
 
-  firebase.auth().onAuthStateChanged(async function (user) {
-    if (!user) {
+  firebase.auth().onAuthStateChanged(async function (authUser) {
+    if (!authUser && user) {
       setUser(null);
+      setIsLoading(false);
       return;
     }
 
@@ -45,13 +48,14 @@ const FirebaseAppContextProvider = ({ children }) => {
     const userRec = await firebase
       .firestore()
       .collection("users")
-      .doc(user.uid)
+      .doc(authUser.uid)
       .get();
 
     if (userRec) {
-      Object.assign(user, { userRec: userRec.data() });
+      Object.assign(authUser, { userRec: userRec.data() });
     }
-    setUser(user);
+    setUser(authUser);
+    setIsLoading(false);
   });
 
   return (
@@ -59,6 +63,7 @@ const FirebaseAppContextProvider = ({ children }) => {
       value={{
         firebase: firebaseApp,
         initializing,
+        isLoading,
         provider: googleAuthProvider,
         user,
       }}
