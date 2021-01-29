@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route as RouterRoute,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
@@ -19,44 +24,34 @@ function App() {
     <FirebaseAppContextProvider>
       <BrowserRouter>
         <Switch>
-          <ProtectedRoute
-            type="private"
-            exact
-            path="/overview"
-            component={OverviewWrapper}
-          />
-          <ProtectedRoute
+          <Route type="private" exact path="/overview" component={OverviewWrapper} />
+          <Route
             type="private"
             exact
             path="/live/:id"
             component={LivePreviewerWrapper}
           />
-          <ProtectedRoute
-            type="private"
-            exact
-            path="/creator"
-            component={CreatorWrapper}
-          />
-          <ProtectedRoute
+          <Route type="private" exact path="/creator" component={CreatorWrapper} />
+          <Route
             type="private"
             exact
             path="/pdf-preview/:id/"
             component={PdfPreviewer}
           />
-          <ProtectedRoute
+          <Route
             type="private"
             exact
             path="/html-previewer"
             component={HTMLPreviewerWrapper}
           />
-          <ProtectedRoute type="anonymous" path="/" component={HomePageWrapper} />
+          <Route type="anonymous" path="/" component={HomePageWrapper} />
         </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>
   );
 }
 
-const ProtectedRoute = ({ component: Component, type, ...rest }) => {
+const Route = ({ component: Component, type, ...rest }) => {
   const { user, isLoading } = React.useContext(FirebaseAppContext);
 
   if (isLoading) {
@@ -65,11 +60,11 @@ const ProtectedRoute = ({ component: Component, type, ...rest }) => {
 
   switch (type) {
     case "private": {
-      if (user) return <Route {...rest} component={Component} />;
+      if (user) return <RouterRoute {...rest} component={Component} />;
       return <Redirect to="/" />;
     }
     case "anonymous": {
-      if (!user) return <Route {...rest} component={Component} />;
+      if (!user) return <RouterRoute {...rest} component={Component} />;
       return <Redirect to="/overview" />;
     }
     default:
