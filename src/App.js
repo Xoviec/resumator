@@ -68,8 +68,8 @@ const Route = ({ component: Component, type, ...rest }) => {
       return <Redirect to="/overview" />;
     }
     default:
+      throw new Error("Unhandled Route");
   }
-  throw new Error("Unhandled Route");
 };
 
 const HomePageWrapper = (props) => (
