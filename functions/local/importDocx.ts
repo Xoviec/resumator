@@ -14,6 +14,7 @@ import {
 } from "../../types/Resume.d";
 
 type CollectionBySection<T> = {
+  certifications: T;
   education: T;
   experience: T;
   intro: T;
@@ -29,6 +30,7 @@ type Section = {
 };
 
 const headingRegexes: CollectionBySection<RegExp> = {
+  certifications: /^Certifications/i,
   education: /^Education/i,
   experience: /^Work experience/i,
   intro: /^Hi, I am ([^\n]+)$/i,
@@ -70,6 +72,7 @@ export default async function importDocx(path: string): Promise<PartialResume> {
     .then(extractSections)
     .then((sections) => {
       const parsers: CollectionBySection<Function> = {
+        certifications: parseExperience,
         education: parseEducation,
         experience: parseExperience,
         intro: parseIntro,
@@ -79,7 +82,7 @@ export default async function importDocx(path: string): Promise<PartialResume> {
         skills: parseSkills,
       };
 
-      return sections.reduce(
+      const parsedSections = sections.reduce(
         (resume, section) => {
           const parser = parsers[section.type];
           let sectionData =
@@ -94,6 +97,7 @@ export default async function importDocx(path: string): Promise<PartialResume> {
         },
         { isImport: true } as PartialResume
       );
+      return parsedSections;
     });
 }
 
@@ -104,7 +108,11 @@ export default async function importDocx(path: string): Promise<PartialResume> {
  * @returns {string}
  */
 function correctSpacing(string: string): string {
-  return string.replace(new RegExp(`(\\w)(${months.join("|")})`, "gi"), `$1 $2`);
+  const corrected = string.replace(
+    new RegExp(`(\\w)(${months.join("|")})`, "gi"),
+    `$1 $2`
+  );
+  return corrected;
 }
 
 /**
@@ -114,31 +122,37 @@ function correctSpacing(string: string): string {
  * @returns {Section[]}
  */
 function extractSections(string: string): Section[] {
-  const lines = string.split("\n");
+  const lines = string.split("\n").filter((str) => str.trim() !== "");
+  let sections: Section[] = [];
+  let sectionName: string = "";
 
-  return lines.reduce((sections, line) => {
-    for (const entry of Object.entries(headingRegexes) as [SectionType, RegExp][]) {
-      const [type, value] = entry;
-      if (line.search(value as RegExp) !== -1) {
-        sections.push({ type, lines: [] });
+  lines.forEach((line) => {
+    const entries = Object.entries(headingRegexes);
+    for (const entry of entries) {
+      const [sectionType, regEx] = entry;
+      // 1. determine if the current line is a section header like education, projects etc
+      const lineIsSectionHeader = line.search(regEx) !== -1;
+      if (lineIsSectionHeader) {
+        // 2. add an object to sections array that holds the section name and an array of lines that belong to the section name
+        // 3. then break to focus only on current section name
+        sectionName = sectionType;
+        sections.push({ type: sectionType as SectionType, lines: [] });
         break;
       }
     }
 
-    // skip leading empty lines
-    if (!sections.length) {
-      return sections;
+    // 4. find section object in array that equals the sectionName we want to add the current line to
+    for (let i = 0; i < sections.length; i += 1) {
+      const { type, lines } = sections[i];
+      const isCurrentSection = type === sectionName;
+      if (isCurrentSection) {
+        sections[i].lines = [...lines, line];
+        break;
+      }
     }
+  });
 
-    const [{ type, lines }, ...otherSections] = sections.reverse();
-    return [
-      ...otherSections,
-      {
-        type,
-        lines: [...lines, line],
-      },
-    ];
-  }, [] as Section[]);
+  return sections;
 }
 
 function parseIntro(
@@ -185,13 +199,13 @@ function parseIntro(
 }
 
 function parseEducation(lines: string[]): Education[] {
-  return lines
+  const educations = lines
     .slice(1, lines.length)
     .filter(notEmpty)
     .reduce(
       (acc, line) => {
         let lastEntry = acc.pop() as Partial<Education>;
-        let newEntry;
+        let newEntry: Partial<Education> | null = null;
 
         if (lastEntry.name === undefined) {
           lastEntry.name = line;
@@ -200,7 +214,7 @@ function parseEducation(lines: string[]): Education[] {
         } else if (lastEntry.startDate === undefined) {
           const [startDate, endDate] = getDateRange(line);
           lastEntry.startDate = dateFromPartial(startDate, { month: 9 });
-          lastEntry.endDate = dateFromPartial(endDate, { month: 9 });
+          lastEntry.endDate = dateFromPartial(endDate, { month: 8, day: 31 });
         } else {
           newEntry = {
             name: line,
@@ -214,6 +228,7 @@ function parseEducation(lines: string[]): Education[] {
       },
       [{}] as Partial<Education>[]
     );
+  return educations;
 }
 
 function parseExperience(lines: string[]): Partial<Experience>[] {
@@ -223,7 +238,7 @@ function parseExperience(lines: string[]): Partial<Experience>[] {
     .reduce(
       (acc, line, index, lines) => {
         let lastEntry = acc.pop() as Partial<Experience>;
-        let newEntry;
+        let newEntry: Partial<Experience | null> = null;
 
         // Try to guess what type of data the current line holds
         if (line.search(dateRegex) !== -1) {
@@ -285,7 +300,7 @@ function parsePublications(lines: string[]): Partial<Publication>[] {
     .reduce(
       (acc, line, index) => {
         let lastEntry = acc.pop() as Partial<Publication>;
-        let newEntry;
+        let newEntry: Partial<Publication> | null = null;
         if (index === 0) {
           lastEntry = {
             title: line,
@@ -316,7 +331,7 @@ function parseSideProjects(lines: string[]): Partial<SideProject>[] {
     .reduce(
       (acc, line, index) => {
         let lastEntry = acc.pop() as Partial<Publication>;
-        let newEntry;
+        let newEntry: Partial<Publication> | null = null;
         if (index === 0) {
           lastEntry = {
             title: line,
@@ -345,12 +360,13 @@ function parseSideProjects(lines: string[]): Partial<SideProject>[] {
 }
 
 function parseSkills(lines: string[]): Skill[] {
-  return lines
+  const skills = lines
     .slice(1, lines.length)
     .filter((line) => line !== "Languages – Frameworks - Libraries") // remove heading
     .filter(notEmpty) // remove lines with only whitespace
     .reduce((lines, line) => [...lines, ...line.split("/")], [] as string[]) // split single line lists
     .map((name) => ({ name }));
+  return skills;
 }
 
 function getDateRange(line: string): [string, string] {
