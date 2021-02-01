@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route as RouterRoute,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
@@ -7,7 +12,9 @@ import MainLayout from "./layouts/Main";
 import Overview from "./pages/Overview";
 import Home from "./pages/Home";
 import PdfPreviewer from "./pages/PdfPreviewer";
-import FirebaseAppContextProvider from "./context/FirebaseContext";
+import FirebaseAppContextProvider, {
+  FirebaseAppContext,
+} from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
 import Creator from "./pages/Creator";
@@ -17,17 +24,53 @@ function App() {
     <FirebaseAppContextProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={HomePageWrapper} />
-          <Route exact path="/overview" component={OverviewWrapper} />
-          <Route exact path="/live/:id" component={LivePreviewerWrapper} />
-          <Route exact path="/creator" component={CreatorWrapper} />
-          <Route exact path="/pdf-preview/:id/" component={PdfPreviewer} />
-          <Route exact path="/html-previewer" component={HTMLPreviewerWrapper} />
+          <Route type="private" exact path="/overview" component={OverviewWrapper} />
+          <Route
+            type="private"
+            exact
+            path="/live/:id"
+            component={LivePreviewerWrapper}
+          />
+          <Route type="private" exact path="/creator" component={CreatorWrapper} />
+          <Route
+            type="private"
+            exact
+            path="/pdf-preview/:id/"
+            component={PdfPreviewer}
+          />
+          <Route
+            type="private"
+            exact
+            path="/html-previewer"
+            component={HTMLPreviewerWrapper}
+          />
+          <Route type="anonymous" path="/" component={HomePageWrapper} />
         </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>
   );
 }
+
+const Route = ({ component: Component, type, ...rest }) => {
+  const { user, isLoading } = React.useContext(FirebaseAppContext);
+
+  if (isLoading) {
+    return null;
+  }
+
+  switch (type) {
+    case "private": {
+      if (user) return <RouterRoute {...rest} component={Component} />;
+      return <Redirect to="/" />;
+    }
+    case "anonymous": {
+      if (!user) return <RouterRoute {...rest} component={Component} />;
+      return <Redirect to="/overview" />;
+    }
+    default:
+      throw new Error("Unhandled Route");
+  }
+};
 
 const HomePageWrapper = (props) => (
   <LoginLayout>
