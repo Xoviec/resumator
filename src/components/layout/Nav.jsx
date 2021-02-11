@@ -105,6 +105,7 @@ const Nav = ({ handleSearch }) => {
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isManager, setIsManager] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -143,7 +144,17 @@ const Nav = ({ handleSearch }) => {
       <AccountCircle />
     );
 
-  const isUserManager = user && user.userRec && user.userRec.isManager;
+  React.useEffect(() => {
+    if (
+      user &&
+      user.hasOwnProperty("userRec") &&
+      user.userRec &&
+      user.userRec.hasOwnProperty("isManager") &&
+      user.userRec.isManager
+    ) {
+      setIsManager(true);
+    }
+  }, [user]);
 
   return (
     <div className={classes.navContainer}>
@@ -154,7 +165,7 @@ const Nav = ({ handleSearch }) => {
               <img className={classes.logo} src={frontmenLogo} alt="logo" />
             </a>
             <div className={[classes.grow, classes.sectionDesktop].join(" ")} />
-            {isUserManager && (
+            {isManager && (
               <div className={classes.search}>
                 <Autocomplete
                   id="overview-searcher"
