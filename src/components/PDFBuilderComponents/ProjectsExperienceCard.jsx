@@ -69,7 +69,7 @@ export function ProjectsExperienceCard({ project }) {
     !!project.stackAndTechniques && !!project.stackAndTechniques.length;
 
   return (
-    <Root wrap={false}>
+    <Root wrap={true}>
       <Header>{role}</Header>
       <Flex>
         <SubText>{company}</SubText>

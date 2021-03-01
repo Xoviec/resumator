@@ -20,7 +20,7 @@ export function PDFWorkExperience({ experience }) {
   }
 
   return (
-    <Root wrap={false}>
+    <Root wrap={true}>
       <Header>WORK EXPERIENCE</Header>
       {experience.map((project, i) => {
         return <ProjectsExperienceCard key={i} project={project} />;

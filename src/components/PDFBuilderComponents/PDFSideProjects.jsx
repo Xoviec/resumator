@@ -49,7 +49,7 @@ export function PDFSideProjects({ sideProjects, type }) {
   }
 
   return (
-    <Root wrap={false}>
+    <Root wrap={true}>
       <Header>{type === "openSource" ? "OPEN SOURCE" : "PUBLICATIONS"}</Header>
       {sideProjects.map((sideProjectItem, i) => {
         return <SideProjectItem key={i} sideProjectItem={sideProjectItem} />;
