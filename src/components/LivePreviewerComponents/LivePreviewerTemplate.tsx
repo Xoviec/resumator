@@ -37,6 +37,8 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   const goTo = (path: string) => history.push(path);
 
+  const prevDocumentTitle = document.title;
+
   const onSubmitSection = (sectionKey: string, values: any) => {
     setDataState((prevState) => ({
       ...prevState,
@@ -45,6 +47,16 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   };
 
   useEffect(() => {
+    let fullName = "";
+    if (dataState && dataState.personalia && dataState.personalia.firstName) {
+      fullName += dataState.personalia.firstName;
+      if (dataState.personalia.lastName) {
+        fullName += ` ${data.personalia.lastName}`;
+      }
+      fullName += " - ";
+    }
+    document.title = `${fullName}${prevDocumentTitle}`;
+
     const storeResume = async () => {
       try {
         if (dataState.id) {
@@ -68,6 +80,10 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       }
     };
     storeResume();
+
+    return function cleanup() {
+      document.title = prevDocumentTitle;
+    };
   }, [dataState, firebase]);
 
   return (

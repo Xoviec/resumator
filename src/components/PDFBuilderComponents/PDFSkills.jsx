@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
-import angularBadge from "../../assets/images/angularBadge.png";
-import nodeBadge from "../../assets/images/nodeBadge.png";
-import cssBadge from "../../assets/images/cssBadge.png";
 
 const Root = styled.View`
   background-color: #181626;
@@ -11,22 +8,10 @@ const Root = styled.View`
   width: 200px;
 `;
 
-const Flex = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
 const Header = styled.Text`
   color: #19c3c0;
   font-size: 10px;
-`;
-const SubHeader = styled.Text`
-  color: #fff;
-  font-size: 7.5px;
-  margin-bottom: 8px;
+  padding-bottom: 10px;
 `;
 
 const LiWrapper = styled.View`
@@ -63,12 +48,6 @@ export function PDFSkills({ skills }) {
   return (
     <Root>
       <Header>SKILLS</Header>
-      <Flex>
-        <Badge src={angularBadge} />
-        <Badge src={nodeBadge} />
-        <Badge src={cssBadge} />
-      </Flex>
-      <SubHeader>LANGUAGES - FRAMEWORKS - LIBRARIES</SubHeader>
       {skills.map((skill) => {
         return (
           <LiWrapper key={skill.name}>
