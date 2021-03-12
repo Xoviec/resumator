@@ -54,6 +54,7 @@ export interface SideProject {
 }
 export interface Skill {
   name: string;
+  years?: string;
 }
 
 export default interface Resume {

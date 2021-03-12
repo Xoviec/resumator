@@ -1,7 +1,7 @@
 /// <reference path="../../types/docxtemplater/index.d.ts" />
-/// <reference path="../../types/docxtemplater-image-module/index.d.ts" />
+/// <reference path="../../types/docxtemplater-image-module-free/index.d.ts" />
 import Docxtemplater from "docxtemplater";
-import ImageModule from "docxtemplater-image-module";
+import ImageModule from "docxtemplater-image-module-free";
 import PizZip from "pizzip";
 
 import Resume from "../../types/Resume";
@@ -22,7 +22,6 @@ export default async function createDocx(
   const zip = new PizZip(template);
   const options = { modules: [imageModule] };
   const doc = await new Docxtemplater(zip, options);
-
   const tags = {
     ...formatDescriptionsInObject(resume),
     ...resume.personalia, // unnest names, city, date of birth for easier usage inside template

@@ -17,7 +17,11 @@ export default async function downloadResume(resume: Resume, type = "PDF") {
         fetch("/template.docx").then((res) => res.arrayBuffer()),
         fetch(getAvatarDataUri(avatarName)).then((res) => res.arrayBuffer()),
       ]);
-      const docx = await createDocx(resume, docxTemplate, avatar);
+      const docx = await createDocx(
+        JSON.parse(JSON.stringify(resume)),
+        docxTemplate,
+        avatar
+      );
       file = new Blob([docx], {
         type:
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
