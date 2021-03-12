@@ -42,7 +42,7 @@ const getColumns = (classes) => [
   {
     title: "",
     field: "avatar",
-    width: 40,
+    width: "40px",
     render: function RenderAvatar(rowData) {
       return (
         <img
@@ -87,7 +87,7 @@ const getColumns = (classes) => [
     field: "active",
     type: "boolean",
     render: function RenderStatus(rowData) {
-      return rowData.active ? (
+      return !rowData.isImport ? (
         <span>
           <FiberManualRecordIcon color="primary" className={classes.activeIcon} />
           Active
