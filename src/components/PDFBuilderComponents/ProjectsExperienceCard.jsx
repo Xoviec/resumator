@@ -29,6 +29,7 @@ const Flex = styled.View`
 const TechniquesWrapper = styled.View`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   background-color: #e0e0e0;
   padding-top: 2px;
   padding-bottom: 2px;

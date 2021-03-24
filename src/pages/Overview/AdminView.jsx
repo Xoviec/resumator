@@ -42,12 +42,15 @@ const getColumns = (classes) => [
   {
     title: "",
     field: "avatar",
-    width: "40px",
+    cellStyle: {
+      whiteSpace: "nowrap",
+      width: "1%",
+    },
     render: function RenderAvatar(rowData) {
       return (
         <img
           alt="avatar"
-          src={getAvatarDataUri(rowData.personalia.avatar)}
+          src={getAvatarDataUri(rowData.personalia && rowData.personalia.avatar)}
           className={classes.miniAvatar}
         />
       );
@@ -57,31 +60,13 @@ const getColumns = (classes) => [
     title: "Name",
     field: "personalia.lastName",
     render: (rowData) => {
-      return `${rowData.isImport ? "* " : ""}
-        ${rowData.personalia.firstName} ${rowData.personalia.lastName}`;
+      const fullName = rowData.personalia
+        ? `${rowData.personalia.firstName} ${rowData.personalia.lastName}`
+        : "";
+      return `${rowData.isImport ? "* " : ""} ${fullName}`;
     },
   },
-  { title: "City", field: "personalia.city" },
-  {
-    title: "Skills",
-    field: "skills",
-    render: function RenderSkills({ skills }) {
-      if (!skills || skills.length === 0) {
-        return (
-          <span className={classes.emptyNotice}>
-            No skills have been supplied yet
-          </span>
-        );
-      }
-
-      const skillList = skills.map(({ id, name }, i) => (
-        <li className={classes.inlineList} key={`${id}-${i}`}>
-          {(i ? ", " : "") + name}
-        </li>
-      ));
-      return <ul className={classes.skillList}>{skillList}</ul>;
-    },
-  },
+  { title: "City", field: "personalia.city", width: 100 },
   {
     title: "Status",
     field: "active",
@@ -134,6 +119,19 @@ export const AdminView = ({ firebase, query, searchTerms, user }) => {
     () => (val ? val.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : []),
     [val]
   );
+
+  const deleteResume = (resume) => {
+    if (resume && resume.id) {
+      firebase
+        .firestore()
+        .collection("resumes")
+        .doc(resume.id)
+        .delete()
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+    }
+  };
 
   if (!searchTerms.length && resumes.length) {
     refreshResumeData(resumeOverviewData, resumes, setResumeOverviewData);
@@ -188,6 +186,7 @@ export const AdminView = ({ firebase, query, searchTerms, user }) => {
               actionsColumnIndex: -1,
               pageSize: 10,
               pageSizeOptions: [10, 15, 25, 50],
+              rowStyle: { columnWidth: 100 },
             }}
             icons={tableIcons}
             columns={getColumns(classes)}
@@ -203,6 +202,11 @@ export const AdminView = ({ firebase, query, searchTerms, user }) => {
                 icon: tableIcons.GetAppIcon,
                 tooltip: "Download PFD",
                 onClick: (event, rowData) => downloadResume(rowData),
+              },
+              {
+                icon: tableIcons.Delete,
+                tooltip: "Delete resume",
+                onClick: (event, rowData) => deleteResume(rowData),
               },
             ]}
             localization={{
