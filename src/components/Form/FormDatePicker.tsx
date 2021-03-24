@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import DateFnsUtils from "@date-io/date-fns";
 import {
-  DatePicker,
+  KeyboardDatePicker,
   DatePickerProps,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
@@ -22,8 +22,10 @@ export const FormDatePicker: FunctionComponent<FormDatePickerProps> = ({
         control={control}
         name={name!}
         render={({ value, onChange }) => (
-          <DatePicker
+          <KeyboardDatePicker
             fullWidth
+            disableFuture={true}
+            autoOk={true}
             variant="inline"
             inputVariant="outlined"
             size="small"
