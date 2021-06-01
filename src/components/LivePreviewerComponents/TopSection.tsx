@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Box, Card, Hidden, Typography } from "@material-ui/core";
+import { Box, Card, createMuiTheme, Hidden, Typography } from "@material-ui/core";
 import { formatDate } from "../../lib/date";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
@@ -18,6 +18,7 @@ import CakeIcon from "@material-ui/icons/CakeOutlined";
 import EmailIcon from "@material-ui/icons/EmailOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import PlaceIcon from "@material-ui/icons/PlaceOutlined";
+import { colors } from "../../config/theme";
 
 export interface PersonaliaModel {
   avatar: string;
@@ -32,6 +33,16 @@ interface TopSectionProps {
   personalia: PersonaliaModel;
   onSubmit: (value: PersonaliaModel) => void;
 }
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiTypography: {
+      h3: {
+        fontSize: 2.53,
+      },
+    },
+  },
+});
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({
   personalia,
@@ -50,15 +61,14 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
   return (
     // We use a card directly here instead of a section because this is a custom full width section.
     <Card>
-      <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
-        <Box display="flex" flexDirection="row" padding={1} flex={1}>
+      <Box display="flex" flexDirection={{ xs: "column", md: "row" }} padding={2.5}>
+        <Box display="flex" flexDirection="row" flex={1}>
           <Box
             display="flex"
             alignItems="center"
             // As we have a button in mobile mode on the right, 5.5 gives us 44px, the same as the button.
             marginLeft={{ xs: 5.5, sm: 0 }}
             flexDirection={{ xs: "column", sm: "row" }}
-            padding={1}
             gridGap={16}
             flex={1}
           >
@@ -72,6 +82,8 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
               width={160}
               height={160}
               border={2}
+              borderColor={colors.midBlue}
+              marginRight={2}
               flexShrink={0}
             >
               <img
@@ -80,21 +92,29 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
                 // Drop shadow for the avatar, only works if all avatars have a transparent background.
                 style={{
                   marginTop: "10%",
-                  filter: "drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.7))",
                 }}
                 src={getAvatarDataUri(personalia.avatar)}
               />
             </Box>
             {/* Personalia */}
             <Box display="flex" flexDirection="column" marginBottom={1} gridGap={8}>
-              <Typography variant="h3" align="left">
+              <Typography
+                variant="h3"
+                align="left"
+                style={{
+                  fontSize: "2.53rem",
+                  marginBottom: "30px",
+                }}
+              >
                 {getFirstName()} {getLastName()}
               </Typography>
-              <DetailWithIcon icon={<EmailIcon />}>
+              <DetailWithIcon icon={<EmailIcon style={{ color: colors.midBlue }} />}>
                 {personalia.email}
               </DetailWithIcon>
-              <DetailWithIcon icon={<PlaceIcon />}>{personalia.city}</DetailWithIcon>
-              <DetailWithIcon icon={<CakeIcon />}>
+              <DetailWithIcon icon={<PlaceIcon style={{ color: colors.midBlue }} />}>
+                {personalia.city}
+              </DetailWithIcon>
+              <DetailWithIcon icon={<CakeIcon style={{ color: colors.midBlue }} />}>
                 {formatDate(personalia.dateOfBirth)}
               </DetailWithIcon>
             </Box>
@@ -113,7 +133,15 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           </Hidden>
         </Box>
 
-        <Box display="flex" flexDirection="column" flex={1}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          flex={1}
+          borderLeft={{ md: "1px solid" }}
+          paddingLeft={{ md: 2 }}
+          marginLeft={{ md: 2 }}
+          maxWidth={{ md: "50%" }}
+        >
           {/* Have the ability to edit the personalia when in normal view. */}
           <Hidden smDown>
             <SectionHeader
