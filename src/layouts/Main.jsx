@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Nav } from "../components/layout";
 import "../assets/css/global.css";
-import theme from "../config/theme";
+import theme, { colors } from "../config/theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   spacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: colors.background,
     padding: theme.spacing(3),
   },
 }));

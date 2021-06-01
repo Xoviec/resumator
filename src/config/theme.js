@@ -7,6 +7,7 @@ export const colors = {
   orange: "#ff5900",
   lightGrey: "#e6e6e6",
   mediumGrey: "#d1d1d1",
+  background: "#E8E1E1",
 };
 
 const theme = createMuiTheme({
