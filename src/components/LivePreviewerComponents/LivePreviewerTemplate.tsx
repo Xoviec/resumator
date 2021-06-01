@@ -107,12 +107,12 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       <Box
         display="flex"
         flexDirection={{ xs: "column", md: "row" }}
-        marginTop={1}
+        marginTop={2}
         // gridGap does not use the material spacing system, so 8 is needed here for 8px.
-        gridGap={8}
+        gridGap={16}
       >
         {/* Left column */}
-        <Box display="flex" flexDirection="column" flex={2} gridGap={8}>
+        <Box display="flex" flexDirection="column" flex={2} gridGap={16}>
           <Experience
             type="Projects"
             experience={dataState.projects}
@@ -125,7 +125,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           />
         </Box>
         {/* Right column */}
-        <Box display="flex" flexDirection="column" flex={1} gridGap={8}>
+        <Box display="flex" flexDirection="column" flex={1} gridGap={16}>
           <Skills
             skills={dataState.skills}
             onSubmit={(data) => onSubmitSection("skills", data)}
