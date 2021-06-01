@@ -6,6 +6,7 @@ import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
 import SchoolIcon from "@material-ui/icons/School";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
+import { colors } from "../../config/theme";
 
 export interface EducationModel {
   name: string;
@@ -46,10 +47,12 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
         onEdit={() => onEdit(educationItem)}
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
-        <DetailWithIcon icon={<SchoolIcon />}>
+        <DetailWithIcon icon={<SchoolIcon style={{ color: colors.midBlue }} />}>
           {educationItem.institute}
         </DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
+        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.midBlue }} />}>
+          {getTimespan()}
+        </DetailWithIcon>
       </Box>
     </Box>
   );

@@ -8,6 +8,7 @@ import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
 import BusinessIcon from "@material-ui/icons/Business";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
+import { colors } from "../../config/theme";
 
 export interface ExperienceModel {
   role: string;
@@ -75,16 +76,20 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
         onEdit={() => onEdit(experienceItem)}
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
-        <DetailWithIcon icon={<BusinessIcon />}>
+        <DetailWithIcon icon={<BusinessIcon style={{ color: colors.midBlue }} />}>
           {experienceItem.company}
         </DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
+        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.midBlue }} />}>
+          {getTimespan()}
+        </DetailWithIcon>
         <Box
+          marginTop={description ? 1.5 : 0}
+          marginBottom={1.5}
           className={classes.description}
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {experienceItem.stackAndTechniques && (
-          <Box display="flex" flexWrap="wrap" gridGap={8}>
+          <Box display="flex" flexWrap="wrap" gridGap={8} marginBottom={1.5}>
             {experienceItem.stackAndTechniques.map((skill) => (
               <Chip
                 key={skill.name}
