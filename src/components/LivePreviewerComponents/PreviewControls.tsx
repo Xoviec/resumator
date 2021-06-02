@@ -38,22 +38,9 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
     <Box
       display="flex"
       flexDirection="row"
-      justifyContent="space-between"
-      marginBottom={3}
+      justifyContent="flex-end"
+      marginBottom={2}
     >
-      <Box>
-        {/* Back to overview */}
-        {isManager && (
-          <Button
-            variant="contained"
-            startIcon={<ArrowBackIcon />}
-            onClick={() => goTo(`/overview`)}
-            color="primary"
-          >
-            Back to overview
-          </Button>
-        )}
-      </Box>
       <Box
         display="flex"
         justifyContent="flex-end"
