@@ -61,13 +61,12 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
   return (
     // We use a card directly here instead of a section because this is a custom full width section.
     <Card>
-      <Box display="flex" flexDirection={{ xs: "column", md: "row" }} padding={2.5}>
+      <Box display="flex" flexDirection={{ xs: "column", md: "row" }} padding={1.5}>
         <Box display="flex" flexDirection="row" flex={1}>
           <Box
             display="flex"
             alignItems="center"
-            // As we have a button in mobile mode on the right, 5.5 gives us 44px, the same as the button.
-            marginLeft={{ xs: 5.5, sm: 0 }}
+            marginLeft={{ xs: 2, sm: 0 }}
             flexDirection={{ xs: "column", sm: "row" }}
             gridGap={16}
             flex={1}
@@ -84,6 +83,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
               border={2}
               borderColor={colors.midBlue}
               marginRight={2}
+              marginLeft={2}
               flexShrink={0}
             >
               <img
