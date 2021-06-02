@@ -11,7 +11,7 @@ type DateOrTimestamp = Date | firebase.firestore.Timestamp;
  */
 function isDateKey(key: string): boolean {
   const dateKeys = ["startDate", "endDate", "dateOfBirth"];
-  return dateKeys.indexOf(key) > -1;
+  return dateKeys.includes(key);
 }
 
 function isISODateString(timestamp: string): boolean {
