@@ -44,6 +44,7 @@ const PdfCreator = () => {
   const onSubmit = async (data) => {
     //TODO: Use a toast/notification to show success or errors
     try {
+      console.log("vlad pdf creator on submit");
       setIsLoading(true);
       const resumesRef = firebase.firestore().collection().doc();
       await resumesRef.set(data);

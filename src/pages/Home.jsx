@@ -6,11 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 const Home = () => {
-  const { firebase, provider } = React.useContext(FirebaseAppContext);
+  const { firebase, provider, user } = React.useContext(FirebaseAppContext);
   const history = useHistory();
 
   const login = async () => {
     await firebase.auth().signInWithPopup(provider);
+    console.log("vlad login", user);
     history.push("/overview");
   };
 

@@ -6,6 +6,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 const LivePreviewer = (props) => {
   const [data, loading, error] = useResume(props.match.params.id);
+  if (!props.match.params.id) return <h2>No resume selected</h2>;
 
   if (loading) {
     return (
