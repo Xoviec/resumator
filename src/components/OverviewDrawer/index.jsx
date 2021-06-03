@@ -82,7 +82,6 @@ const OverviewDrawer = (props) => {
 
   const renderDrawer = () => {
     // TODO: working list -> now mutates the clicked on person to whoever I am currently on
-    // TODO: when saving on /create navigate to link/thatId
     return (
       <>
         <Hidden lgUp>
