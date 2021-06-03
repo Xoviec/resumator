@@ -1,5 +1,4 @@
 import React from "react";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useHistory } from "react-router-dom";
@@ -8,62 +7,29 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  makeStyles,
 } from "@material-ui/core/";
-import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { TooltipIconButton } from "../Material";
 
-const getColumns = (classes) => [
-  {
-    title: "",
-    field: "avatar",
-    cellStyle: {
-      whiteSpace: "nowrap",
-      width: "1%",
-    },
-    render: function RenderAvatar(rowData) {
-      return (
-        <img
-          alt="avatar"
-          src={getAvatarDataUri(rowData.personalia && rowData.personalia.avatar)}
-          className={classes.miniAvatar}
-        />
-      );
+export const useSectionItemHeaderStyles = makeStyles({
+  actions: {
+    opacity: 0,
+    transition: "opacity 150ms ease-out",
+    pointerEvents: "none",
+    alignSelf: "start",
+    flexShrink: 0,
+  },
+  container: {
+    "&:hover $actions": {
+      opacity: 1,
+      pointerEvents: "all",
     },
   },
-  {
-    title: "Name",
-    field: "personalia.lastName",
-    render: (rowData) => {
-      const fullName = rowData.personalia
-        ? `${rowData.personalia.firstName} ${rowData.personalia.lastName}`
-        : "";
-      return `${rowData.isImport ? "* " : ""} ${fullName}`;
-    },
-  },
-  { title: "City", field: "personalia.city", width: 100 },
-  {
-    title: "Status",
-    field: "active",
-    type: "boolean",
-    render: function RenderStatus(rowData) {
-      return !rowData.isImport ? (
-        <span>
-          <FiberManualRecordIcon color="primary" className={classes.activeIcon} />
-          Active
-        </span>
-      ) : (
-        <span style={{ color: "gray" }}>
-          <FiberManualRecordIcon color="disabled" className={classes.activeIcon} />
-          Inactive
-        </span>
-      );
-    },
-  },
-];
+});
 
 function refreshResumeData(oldData, newData, setData) {
   const data1 = JSON.stringify(oldData);
@@ -96,6 +62,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
     () => (val ? val.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : []),
     [val]
   );
+  const classes = useSectionItemHeaderStyles();
 
   const deleteResume = (resume) => {
     if (resume && resume.id) {
@@ -124,7 +91,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
               firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
 
             return (
-              <ListItem key={id}>
+              <ListItem key={id} classes={{ container: classes.container }}>
                 <ListItemAvatar>
                   <Avatar>
                     <img
@@ -138,9 +105,18 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
                   primary={name}
                   onClick={() => history.push(`./${id}`)}
                 />
-                <ListItemSecondaryAction onClick={() => deleteResume(resume)}>
+                <ListItemSecondaryAction
+                  className={classes.actions}
+                  onClick={() => deleteResume(resume)}
+                >
                   <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
+                    <TooltipIconButton
+                      color="inherit"
+                      tooltip={"Delete resume"}
+                      onClick={() => deleteResume(resume)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </TooltipIconButton>
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>

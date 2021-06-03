@@ -17,18 +17,18 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    padding: "120px 20px 0",
+    padding: "0 20px 0",
   },
   drawerMobile: {
     width: "50vw",
     flexShrink: 0,
-    padding: "120px 20px 0",
+    padding: "0 20px 0",
   },
   drawerContentMobile: {
-    padding: "120px 20px 0",
+    padding: "0 20px 0",
   },
   drawerContent: {
-    padding: "120px 20px 0",
+    padding: "0 20px 0",
   },
   drawerPaper: {
     width: drawerWidth,
@@ -39,6 +39,16 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+  },
+  sticky: {
+    padding: "120px 0 10px",
+    position: "sticky",
+    top: 0,
+    left: 0,
+    background: "white",
+    zIndex: "2",
+    borderBottom: "1px solid",
+    marginBottom: "10px",
   },
 }));
 
@@ -79,8 +89,6 @@ const OverviewDrawer = (props) => {
 
   const renderDrawer = () => {
     // TODO: working list -> now mutates the clicked on person to whoever I am currently on
-    // TODO: working !isManager view -> not sure how it behaves
-    // TODO: correct navigation from home after login -> stuck on overview, should go to current user or /create
     // TODO: when saving on /create navigate to link/thatId
     // TODO: move those components into a component to avoid repeating them
     // TODO: checklist and delete all instead of individual delete OR hide/show delete button on hover
@@ -96,6 +104,7 @@ const OverviewDrawer = (props) => {
             Overview
           </SpacedButton>
         </Hidden>
+
         <div className={classes.root}>
           <Hidden mdDown>
             <Drawer
@@ -106,15 +115,17 @@ const OverviewDrawer = (props) => {
               }}
             >
               <div className={classes.drawerContent}>
-                <SpacedButton
-                  href="/creator"
-                  variant="contained"
-                  color="primary"
-                  marginBottom={2}
-                >
-                  Add Resume
-                </SpacedButton>
-                <OverviewSearch handleSearch={handleSearch} />
+                <div className={classes.sticky}>
+                  <SpacedButton
+                    href="/creator"
+                    variant="contained"
+                    color="primary"
+                    marginBottom={2}
+                  >
+                    Add Resume
+                  </SpacedButton>
+                  <OverviewSearch handleSearch={handleSearch} />
+                </div>
                 <OverviewList
                   firebase={firebase}
                   user={user}
@@ -136,24 +147,26 @@ const OverviewDrawer = (props) => {
               }}
             >
               <div className={classes.drawerContentMobile}>
-                <SpacedButton
-                  href="/creator"
-                  variant="contained"
-                  color="primary"
-                  marginBottom={2}
-                >
-                  Add Resume
-                </SpacedButton>
-                <SpacedButton
-                  onClick={toggleDrawer("left", false)}
-                  variant="contained"
-                  color="primary"
-                  marginBottom={2}
-                  marginLeft={2}
-                >
-                  Close
-                </SpacedButton>
-                <OverviewSearch handleSearch={handleSearch} />
+                <div className={classes.sticky}>
+                  <SpacedButton
+                    href="/creator"
+                    variant="contained"
+                    color="primary"
+                    marginBottom={2}
+                  >
+                    Add Resume
+                  </SpacedButton>
+                  <SpacedButton
+                    onClick={toggleDrawer("left", false)}
+                    variant="contained"
+                    color="primary"
+                    marginBottom={2}
+                    marginLeft={2}
+                  >
+                    Close
+                  </SpacedButton>
+                  <OverviewSearch handleSearch={handleSearch} />
+                </div>
                 <OverviewList
                   firebase={firebase}
                   user={user}

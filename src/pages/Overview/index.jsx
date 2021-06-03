@@ -4,6 +4,7 @@ import { AdminView } from "./AdminView";
 import { UserRedirect } from "./UserRedirect";
 
 const Home = ({ searchTerms }) => {
+  console.log("vlad index initial redirect on home");
   const { firebase, user } = useContext(FirebaseAppContext);
 
   if (user) {

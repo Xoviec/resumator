@@ -79,7 +79,7 @@ const Nav = () => {
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <a href="/overview" title="Back to overview">
+            <a href="/" title="Home">
               <img className={classes.logo} src={frontmenLogo} alt="logo" />
             </a>
             <div className={[classes.grow].join(" ")} />

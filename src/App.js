@@ -58,7 +58,7 @@ function App() {
 }
 
 const Route = ({ component: Component, type, ...rest }) => {
-  const { user, isLoading } = React.useContext(FirebaseAppContext);
+  const { user, isLoading, firebase } = React.useContext(FirebaseAppContext);
 
   if (isLoading) {
     return null;
@@ -71,7 +71,18 @@ const Route = ({ component: Component, type, ...rest }) => {
     }
     case "anonymous": {
       if (!user) return <RouterRoute {...rest} component={Component} />;
-      return <Redirect to={`/live/`} />;
+
+      // Redirect existing user to his resume if it exists
+      return (
+        <UserRedirect
+          firebase={firebase}
+          user={user}
+          query={firebase
+            .firestore()
+            .collection("resumes")
+            .where("personalia.email", "==", user.email)}
+        />
+      );
     }
     default:
       throw new Error("Unhandled Route");
