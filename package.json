@@ -43,6 +43,8 @@
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "eslint:github-action": "eslint .",
@@ -89,6 +91,7 @@
     "lint-staged": "^10.5.3",
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
+    "ts-jest": "^27.0.2",
     "typescript": "^3.9.7"
   },
   "husky": {
