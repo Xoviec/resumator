@@ -120,9 +120,6 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
-              //   <li key={id}>
-              //     <span onClick={() => history.push(`./live/${id}`)}>{name}</span>
-              //   </li>
             );
           })}
       </List>

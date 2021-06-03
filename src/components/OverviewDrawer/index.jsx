@@ -91,7 +91,6 @@ const OverviewDrawer = (props) => {
     // TODO: working list -> now mutates the clicked on person to whoever I am currently on
     // TODO: when saving on /create navigate to link/thatId
     // TODO: move those components into a component to avoid repeating them
-    // TODO: checklist and delete all instead of individual delete OR hide/show delete button on hover
     // TODO: persist component on mobile when toggling - searchterms and data reset and re-requested
     return (
       <>
@@ -144,6 +143,9 @@ const OverviewDrawer = (props) => {
               onClose={toggleDrawer("left", false)}
               classes={{
                 paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
               }}
             >
               <div className={classes.drawerContentMobile}>
