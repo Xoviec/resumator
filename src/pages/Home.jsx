@@ -10,8 +10,7 @@ const Home = () => {
   const history = useHistory();
 
   const login = async () => {
-    const loginData = await firebase.auth().signInWithPopup(provider);
-    console.log("vlad", loginData);
+    await firebase.auth().signInWithPopup(provider);
     history.push("/");
   };
 

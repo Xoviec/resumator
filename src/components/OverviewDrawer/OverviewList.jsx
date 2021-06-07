@@ -1,7 +1,7 @@
 import React from "react";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   Avatar,
   List,
@@ -88,7 +88,9 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
             const { firstName, lastName } = personalia;
 
             let name =
-              firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
+              firstName || lastName
+                ? `${firstName} ${lastName} - ${id}`
+                : `No name - ${id}`;
 
             return (
               <ListItem key={id} classes={{ container: classes.container }}>
@@ -101,14 +103,8 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
                     />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText
-                  primary={name}
-                  onClick={() => history.push(`./${id}`)}
-                />
-                <ListItemSecondaryAction
-                  className={classes.actions}
-                  onClick={() => deleteResume(resume)}
-                >
+                <Link to={`/live/${id}`}>{name}</Link>
+                <ListItemSecondaryAction className={classes.actions}>
                   <IconButton edge="end" aria-label="delete">
                     <TooltipIconButton
                       color="inherit"

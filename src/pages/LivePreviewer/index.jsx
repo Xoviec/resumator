@@ -7,14 +7,17 @@ import { Card } from "@material-ui/core";
 
 const LivePreviewer = (props) => {
   const [data, loading, error] = useResume(props.match.params.id);
+
   if (!props.match.params.id)
     return (
-      <Card>
-        <h2 style={{ textAlign: "center" }}>No resume to show</h2>
-      </Card>
+      <LivePreviewContainer>
+        <Card>
+          <h2 style={{ textAlign: "center" }}>No resume to show</h2>
+        </Card>
+      </LivePreviewContainer>
     );
 
-  if (loading) {
+  if (loading || (data && data.id !== props.match.params.id)) {
     return (
       <div>
         <StyledSkeleton animation="wave" variant="rect" width={1200} height={50} />
@@ -28,7 +31,7 @@ const LivePreviewer = (props) => {
       </div>
     );
   }
-  if (data) {
+  if (data && data.id === props.match.params.id) {
     return (
       <LivePreviewContainer>
         <LivePreviewerTemplate data={{ ...data, id: props.match.params.id }} />
