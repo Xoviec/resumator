@@ -7,7 +7,8 @@
   "extends": [
     "plugin:prettier/recommended",
     "plugin:react/recommended",
-    "react-app"
+    "react-app",
+    "plugin:cypress/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -24,5 +25,8 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "plugins": [
+    "cypress"
+  ]
 }
