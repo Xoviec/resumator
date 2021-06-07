@@ -13,7 +13,9 @@ import {
   makeStyles,
 } from "@material-ui/core/";
 import DeleteIcon from "@material-ui/icons/Delete";
+import ReportProblemOutlinedIcon from "@material-ui/icons/ReportProblemOutlined";
 import { TooltipIconButton } from "../Material";
+import Tooltip from "@material-ui/core/Tooltip";
 import { colors } from "../../config/theme";
 
 export const useSectionItemHeaderStyles = makeStyles({
@@ -37,6 +39,10 @@ export const useSectionItemHeaderStyles = makeStyles({
   isImported: {
     color: colors.darkGray,
     textDecoration: "none",
+  },
+  importedWarning: {
+    verticalAlign: "middle",
+    fontSize: "1.2rem",
   },
   activeLink: {
     color: colors.orange,
@@ -115,6 +121,16 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
                     to={`/live/${id}`}
                   >
                     {name}
+                    {isImport && (
+                      <>
+                        &nbsp;
+                        <Tooltip title="is imported">
+                          <ReportProblemOutlinedIcon
+                            className={classes.importedWarning}
+                          />
+                        </Tooltip>
+                      </>
+                    )}
                   </NavLink>
                 </ListItemText>
                 <ListItemSecondaryAction className={classes.actions}>
