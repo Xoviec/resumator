@@ -7,8 +7,9 @@ import { Card } from "@material-ui/core";
 
 const LivePreviewer = (props) => {
   const [data, loading, error] = useResume(props.match.params.id);
+  console.log("vlad personalia", data, loading, error);
 
-  if (!props.match.params.id)
+  if (!props.match.params.id) {
     return (
       <LivePreviewContainer>
         <Card>
@@ -16,8 +17,13 @@ const LivePreviewer = (props) => {
         </Card>
       </LivePreviewContainer>
     );
+  }
 
-  if (loading || (data && data.id !== props.match.params.id)) {
+  if (error) {
+    return <LivePreviewContainer>Something went wrong</LivePreviewContainer>;
+  }
+
+  if (loading || (data && data.id !== props.match.params.id && !data.isImport)) {
     return (
       <div>
         <StyledSkeleton animation="wave" variant="rect" width={1200} height={50} />
@@ -31,15 +37,12 @@ const LivePreviewer = (props) => {
       </div>
     );
   }
-  if (data && data.id === props.match.params.id) {
+  if (data && (data.id === props.match.params.id || data.isImport)) {
     return (
       <LivePreviewContainer>
         <LivePreviewerTemplate data={{ ...data, id: props.match.params.id }} />
       </LivePreviewContainer>
     );
-  }
-  if (error) {
-    return <LivePreviewContainer>Something went wrong</LivePreviewContainer>;
   }
   return null;
 };
