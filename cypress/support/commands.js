@@ -5,6 +5,7 @@ import "firebase/database";
 import "firebase/firestore";
 import { attachCustomCommands } from "cypress-firebase";
 import serviceAccount from "../../serviceAccount.json";
+import "@testing-library/cypress/add-commands";
 
 const fbConfig = {
   apiKey: Cypress.env("apiKey"),
