@@ -39,7 +39,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
       display="flex"
       flexDirection="row"
       justifyContent="space-between"
-      marginBottom={2}
+      marginBottom={3}
     >
       <Box>
         {/* Back to overview */}
@@ -48,6 +48,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
             variant="contained"
             startIcon={<ArrowBackIcon />}
             onClick={() => goTo(`/overview`)}
+            color="primary"
           >
             Back to overview
           </Button>
@@ -57,7 +58,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         display="flex"
         justifyContent="flex-end"
         flexWrap="wrap"
-        gridGap={8}
+        gridGap={15}
         marginLeft={2}
       >
         {/* Download as */}
@@ -66,6 +67,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           actions={["PDF", "DOCX"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
+          color="primary"
         >
           Download as..
         </DropdownButton>
@@ -74,6 +76,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           variant="contained"
           startIcon={<VisibilityIcon />}
           onClick={() => setShowPDFModal(true)}
+          color="primary"
         >
           Preview
         </SpacedButton>
