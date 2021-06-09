@@ -200,7 +200,7 @@ export const AdminView = ({ firebase, query, searchTerms, user }) => {
               },
               {
                 icon: tableIcons.GetAppIcon,
-                tooltip: "Download PFD",
+                tooltip: "Download PDF",
                 onClick: (event, rowData) => downloadResume(rowData),
               },
               {
