@@ -7,20 +7,24 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
+import { useHistory } from "react-router-dom";
 
 interface PreviewControlsProps {
   resume: any;
   goTo: (path: string) => void;
   setShowPDFModal: (show: boolean) => void;
+  showBackToLive?: boolean;
 }
 
 export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
   goTo,
   setShowPDFModal,
+  showBackToLive,
 }) => {
   const { user }: { user: any } = useContext(FirebaseAppContext);
   const [isManager, setIsManager] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (
@@ -39,21 +43,19 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
       display="flex"
       flexDirection="row"
       justifyContent="space-between"
-      marginBottom={3}
+      marginBottom={2}
     >
-      <Box>
-        {/* Back to overview */}
-        {isManager && (
-          <Button
-            variant="contained"
-            startIcon={<ArrowBackIcon />}
-            onClick={() => goTo(`/overview`)}
+      {showBackToLive && (
+        <Box>
+          <SpacedButton
             color="primary"
+            variant="contained"
+            onClick={() => history.push("/live/")}
           >
-            Back to overview
-          </Button>
-        )}
-      </Box>
+            Go to overview
+          </SpacedButton>
+        </Box>
+      )}
       <Box
         display="flex"
         justifyContent="flex-end"

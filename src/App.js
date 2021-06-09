@@ -8,8 +8,6 @@ import {
 
 import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
-
-import Overview from "./pages/Overview";
 import Home from "./pages/Home";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider, {
@@ -17,14 +15,22 @@ import FirebaseAppContextProvider, {
 } from "./context/FirebaseContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
+import OverviewDrawer from "./components/OverviewDrawer";
 import Creator from "./pages/Creator";
+
+import { UserRedirect } from "./pages/Overview/UserRedirect";
 
 function App() {
   return (
     <FirebaseAppContextProvider>
       <BrowserRouter>
         <Switch>
-          <Route type="private" exact path="/overview" component={OverviewWrapper} />
+          <Route
+            type="private"
+            exact
+            path="/live"
+            component={LivePreviewerWrapper}
+          />
           <Route
             type="private"
             exact
@@ -52,7 +58,7 @@ function App() {
 }
 
 const Route = ({ component: Component, type, ...rest }) => {
-  const { user, isLoading } = React.useContext(FirebaseAppContext);
+  const { user, isLoading, firebase } = React.useContext(FirebaseAppContext);
 
   if (isLoading) {
     return null;
@@ -65,7 +71,18 @@ const Route = ({ component: Component, type, ...rest }) => {
     }
     case "anonymous": {
       if (!user) return <RouterRoute {...rest} component={Component} />;
-      return <Redirect to="/overview" />;
+
+      // Redirect existing user to his resume if it exists
+      return (
+        <UserRedirect
+          firebase={firebase}
+          user={user}
+          query={firebase
+            .firestore()
+            .collection("resumes")
+            .where("personalia.email", "==", user.email)}
+        />
+      );
     }
     default:
       throw new Error("Unhandled Route");
@@ -78,17 +95,15 @@ const HomePageWrapper = (props) => (
   </LoginLayout>
 );
 
-const OverviewWrapper = (props) => (
-  <MainLayout>
-    <Overview {...props} />
-  </MainLayout>
-);
-
-const LivePreviewerWrapper = (props) => (
-  <MainLayout>
-    <LivePreviewer {...props} />
-  </MainLayout>
-);
+const LivePreviewerWrapper = (props) => {
+  return (
+    <MainLayout>
+      <OverviewDrawer>
+        <LivePreviewer {...props} />
+      </OverviewDrawer>
+    </MainLayout>
+  );
+};
 
 const CreatorWrapper = (props) => (
   <MainLayout>

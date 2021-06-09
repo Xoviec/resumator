@@ -33,6 +33,8 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [dataState, setDataState] = useState(data);
   const history = useHistory();
+
+  const isCreatorPage = history.location.pathname.includes("creator");
   const { firebase } = useContext(FirebaseAppContext);
 
   const goTo = (path: string) => history.push(path);
@@ -92,6 +94,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         goTo={goTo}
         setShowPDFModal={setShowPDFModal}
         resume={dataState}
+        showBackToLive={isCreatorPage}
       />
       <TopSection
         personalia={{
