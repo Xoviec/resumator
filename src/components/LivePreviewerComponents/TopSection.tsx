@@ -60,7 +60,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
 
   return (
     // We use a card directly here instead of a section because this is a custom full width section.
-    <Card>
+    <Card elevation={3}>
       <Box display="flex" flexDirection={{ xs: "column", md: "row" }} padding={1.5}>
         <Box display="flex" flexDirection="row" flex={1}>
           <Box
