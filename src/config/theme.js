@@ -8,6 +8,7 @@ export const colors = {
   lightGrey: "#e6e6e6",
   mediumGrey: "#d1d1d1",
   background: "#fafafa",
+  darkGray: "#777",
 };
 
 const theme = createMuiTheme({

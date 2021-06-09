@@ -1,7 +1,7 @@
 import React from "react";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { useHistory, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Avatar,
   List,
@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core/";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { TooltipIconButton } from "../Material";
+import { colors } from "../../config/theme";
 
 export const useSectionItemHeaderStyles = makeStyles({
   actions: {
@@ -28,6 +29,17 @@ export const useSectionItemHeaderStyles = makeStyles({
       opacity: 1,
       pointerEvents: "all",
     },
+  },
+  link: {
+    color: colors.darkBlue,
+    textDecoration: "none",
+  },
+  isImported: {
+    color: colors.darkGray,
+    textDecoration: "none",
+  },
+  activeLink: {
+    color: colors.orange,
   },
 });
 
@@ -57,7 +69,6 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
   const [resumeOverviewData, setResumeOverviewData] = React.useState([]);
   const hasFetchError = !isLoading && error;
   const normalizedSearchTerms = searchTerms.map((s) => s.toLowerCase().trim());
-  const history = useHistory();
   const resumes = React.useMemo(
     () => (val ? val.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : []),
     [val]
@@ -84,26 +95,28 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
         {resumeOverviewData
           .filter((resume) => resume.personalia && resume)
           .map((resume) => {
-            const { id, personalia } = resume;
-            const { firstName, lastName } = personalia;
+            const { id, personalia, isImport } = resume;
+            const { firstName, lastName, avatar } = personalia;
 
             let name =
-              firstName || lastName
-                ? `${firstName} ${lastName} - ${id}`
-                : `No name - ${id}`;
+              firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
 
             return (
               <ListItem key={id} classes={{ container: classes.container }}>
                 <ListItemAvatar>
                   <Avatar>
-                    <img
-                      alt="avatar"
-                      width="15"
-                      src={getAvatarDataUri(personalia.avatar)}
-                    />
+                    <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
                   </Avatar>
                 </ListItemAvatar>
-                <Link to={`/live/${id}`}>{name}</Link>
+                <ListItemText>
+                  <NavLink
+                    className={isImport ? classes.isImported : classes.link}
+                    activeClassName={classes.activeLink}
+                    to={`/live/${id}`}
+                  >
+                    {name}
+                  </NavLink>
+                </ListItemText>
                 <ListItemSecondaryAction className={classes.actions}>
                   <IconButton edge="end" aria-label="delete">
                     <TooltipIconButton

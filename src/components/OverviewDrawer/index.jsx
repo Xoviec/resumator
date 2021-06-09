@@ -99,6 +99,7 @@ const OverviewDrawer = (props) => {
             <Drawer
               variant="permanent"
               className={classes.drawer}
+              PaperProps={{ elevation: 2 }}
               classes={{
                 paper: classes.drawerPaper,
               }}
@@ -117,6 +118,7 @@ const OverviewDrawer = (props) => {
               className={classes.drawerMobile}
               open={state["left"]}
               onClose={toggleDrawer("left", false)}
+              PaperProps={{ elevation: 2 }}
               classes={{
                 paper: classes.drawerPaper,
               }}
