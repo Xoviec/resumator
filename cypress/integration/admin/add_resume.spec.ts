@@ -4,8 +4,10 @@ describe("add a new resume", () => {
   });
 
   it("tests if button exists", () => {
-    cy.findByRole("link")
-      .should("have.attr", "href", "/creator")
-      .and("include", "Add Resume");
+    cy.findByRole("link", { name: /Add resume/i }).should(
+      "have.attr",
+      "href",
+      "/creator"
+    );
   });
 });
