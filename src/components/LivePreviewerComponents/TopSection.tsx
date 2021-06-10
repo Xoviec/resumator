@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Box, Card, createMuiTheme, Hidden, Typography } from "@material-ui/core";
+import { Box, Card, Hidden, Typography } from "@material-ui/core";
 import { formatDate } from "../../lib/date";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
@@ -38,16 +38,6 @@ interface TopSectionProps {
   introduction?: string;
   onSubmit: (value: FormModel) => void;
 }
-
-const theme = createMuiTheme({
-  overrides: {
-    MuiTypography: {
-      h3: {
-        fontSize: 2.53,
-      },
-    },
-  },
-});
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({
   personalia,
