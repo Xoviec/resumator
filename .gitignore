@@ -34,5 +34,3 @@ credentials.json
 .eslintcache
 serviceAccount.json
 cypress.env.json
-
-cypress/integration/.examples/
