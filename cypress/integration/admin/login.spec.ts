@@ -4,6 +4,6 @@ describe("admin logged in view", () => {
   });
 
   it("title should be correct", () => {
-    cy.findByRole("heading", { level: 6 }).should("have.text", "Resumes Overview");
+    cy.findByRole("button", { name: /Overview/i }).should("exist");
   });
 });

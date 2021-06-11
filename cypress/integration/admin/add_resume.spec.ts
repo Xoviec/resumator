@@ -3,7 +3,8 @@ describe("add a new resume", () => {
     cy.login().visit("/overview");
   });
 
-  it("tests if button exists", () => {
+  it("checks if button exists", () => {
+    cy.findByRole("button", { name: /Overview/i }).click();
     cy.findByRole("link", { name: /Add resume/i }).should(
       "have.attr",
       "href",
