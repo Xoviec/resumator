@@ -1,9 +1,9 @@
 import React from "react";
 import { FirebaseAppContext } from "../context/FirebaseContext";
-import { useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
   const { firebase, provider } = React.useContext(FirebaseAppContext);
@@ -11,7 +11,7 @@ const Home = () => {
 
   const login = async () => {
     await firebase.auth().signInWithPopup(provider);
-    history.push("/overview");
+    history.push("/");
   };
 
   return (

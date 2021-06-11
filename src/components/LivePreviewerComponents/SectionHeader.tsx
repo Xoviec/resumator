@@ -4,6 +4,7 @@ import { TooltipIconButton } from "../Material";
 // Icons
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import { colors } from "../../config/theme";
 
 export interface SectionHeaderProps {
   title: string;
@@ -39,10 +40,15 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
             <TooltipIconButton
               color="inherit"
               tooltip={actionTooltip || ""}
-              onClick={actionOnClick || (() => {})}
+              // eslint-disable-next-line prettier/prettier
+              onClick={actionOnClick || (() => { })}
             >
-              {action === "add" && <AddIcon fontSize="small" />}
-              {action === "edit" && <EditIcon fontSize="small" />}
+              {action === "add" && (
+                <AddIcon fontSize="small" htmlColor={colors.midBlue} />
+              )}
+              {action === "edit" && (
+                <EditIcon fontSize="small" htmlColor={colors.midBlue} />
+              )}
             </TooltipIconButton>
           )}
         </Box>

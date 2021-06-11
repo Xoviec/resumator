@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useRef } from "react";
-import { Chip, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
+import { TruncateChip } from "../Material/truncatedChip";
 
 interface FormSkillsSelectChipProps {
   label: string;
@@ -86,7 +87,7 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({
   drag(drop(ref));
 
   return (
-    <Chip
+    <TruncateChip
       size="small"
       variant="outlined"
       color="secondary"
@@ -96,8 +97,8 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({
       onDelete={() => onDelete(index)}
       // Stop propagation of the mouse event to avoid it being swallowed by the autocomplete.
       // If the event is swallowed, drag & drop doesn't work.
-      onMouseDown={(event) => event.stopPropagation()}
-    />
+      onMouseDown={(event: any) => event.stopPropagation()}
+    ></TruncateChip>
   );
 };
 

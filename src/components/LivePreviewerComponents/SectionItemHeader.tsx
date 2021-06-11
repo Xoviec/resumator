@@ -13,6 +13,7 @@ import { TooltipIconButton } from "../Material";
 // Icons
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { colors } from "../../config/theme";
 
 export interface SectionItemHeaderProps {
   title: string;
@@ -64,11 +65,11 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
           tooltip={`Delete ${type}`}
           onClick={() => setDeleteConfirmationOpen(true)}
         >
-          <DeleteIcon fontSize="small" />
+          <DeleteIcon fontSize="small" style={{ color: colors.midBlue }} />
         </TooltipIconButton>
         {/* Edit item */}
         <TooltipIconButton color="inherit" tooltip={`Edit ${type}`} onClick={onEdit}>
-          <EditIcon fontSize="small" />
+          <EditIcon fontSize="small" style={{ color: colors.midBlue }} />
         </TooltipIconButton>
       </Box>
 
