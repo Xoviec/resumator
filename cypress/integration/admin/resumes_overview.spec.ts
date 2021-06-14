@@ -12,13 +12,13 @@ describe("resumes overview", () => {
       cy.findByRole("list").within(() => {
         cy.findAllByRole("listitem")
           .should("have.length", resumes.length)
-          .each((listItem, index) => {
+          .each(($listItem, index) => {
             const resume: Resume = resumes[index];
             const { id, personalia, avatar } = resume;
             const { firstName, lastName, avatar: pAvatar } = personalia;
 
-            cy.wrap(listItem).within(() => {
-              let name =
+            cy.wrap($listItem).within(() => {
+              const name =
                 firstName || lastName
                   ? `${firstName} ${lastName}`
                   : `No name - ${id}`;
@@ -29,9 +29,9 @@ describe("resumes overview", () => {
 
               cy.findByRole("link").contains(name);
 
-              cy.findByRole("button", { name: /Delete resume/i })
-                .should("exist")
-                .should("not.be.visible");
+              cy.findByRole("button", { name: /Delete resume/i }).should(
+                "not.be.visible"
+              );
             });
           });
       });
