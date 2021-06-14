@@ -97,7 +97,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
   const renderResume = () => {
     if (!resumeOverviewData.length) return;
     return (
-      <List dense={true}>
+      <List dense={true} data-testid="overview-list">
         {resumeOverviewData
           .filter((resume) => resume.personalia && resume)
           .map((resume) => {

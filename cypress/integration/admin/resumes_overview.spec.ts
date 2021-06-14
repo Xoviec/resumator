@@ -9,7 +9,7 @@ describe("resumes overview", () => {
     cy.callFirestore("get", "resumes").then((resumes) => {
       cy.findByRole("button", { name: /Overview/i }).click();
 
-      cy.findByRole("list").within(() => {
+      cy.findByTestId("overview-list").within(() => {
         cy.findAllByRole("listitem")
           .should("have.length", resumes.length)
           .each(($listItem, index) => {
