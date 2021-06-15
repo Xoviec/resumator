@@ -27,11 +27,16 @@ export interface PersonaliaModel {
   email: string;
   city: string;
   dateOfBirth: Date;
-  introduction: string;
 }
+
+interface FormModel extends PersonaliaModel {
+  introduction: string | undefined;
+}
+
 interface TopSectionProps {
   personalia: PersonaliaModel;
-  onSubmit: (value: PersonaliaModel) => void;
+  introduction?: string;
+  onSubmit: (value: FormModel) => void;
 }
 
 const theme = createMuiTheme({
@@ -46,6 +51,7 @@ const theme = createMuiTheme({
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({
   personalia,
+  introduction,
   onSubmit,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -158,8 +164,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           {/* Introduction text. */}
           <Box padding={2} paddingTop={0}>
             <Typography variant="body2">
-              {personalia.introduction ||
-                `${getFirstName()} has nothing to tell you.`}
+              {introduction || `${getFirstName()} has nothing to tell you.`}
             </Typography>
           </Box>
         </Box>
@@ -167,7 +172,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
 
       <SectionEditDialog
         title="Personal details"
-        data={personalia}
+        data={{ ...personalia, introduction }}
         open={isEditing}
         onCancel={() => setIsEditing(false)}
         onSave={(data) => {
