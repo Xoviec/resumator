@@ -16,7 +16,6 @@
     "@react-pdf/renderer": "^1.6.12",
     "@react-pdf/styled-components": "^1.4.0",
     "@rebass/forms": "^4.0.6",
-    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "docxtemplater": "^3.19.9",
     "docxtemplater-image-module-free": "^1.1.1",
