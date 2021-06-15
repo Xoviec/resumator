@@ -24,7 +24,7 @@ export const OverviewContent = ({
     <div className={rootClass}>
       <div className={actionClass}>
         <SpacedButton
-          href="/creator"
+          href="/new"
           variant="contained"
           color="primary"
           marginBottom={2}

@@ -125,7 +125,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
                     <NavLink
                       className={isImport ? classes.isImported : classes.link}
                       activeClassName={classes.activeLink}
-                      to={`/live/${id}`}
+                      to={`/resume/${id}`}
                     >
                       {name}
                       {isImport && (

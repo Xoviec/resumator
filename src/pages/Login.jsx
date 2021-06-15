@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
-const Home = () => {
+const Login = () => {
   const { firebase, provider } = React.useContext(FirebaseAppContext);
   const history = useHistory();
 
@@ -30,4 +30,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;

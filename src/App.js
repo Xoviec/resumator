@@ -8,7 +8,7 @@ import {
 
 import LoginLayout from "./layouts/Login";
 import MainLayout from "./layouts/Main";
-import Home from "./pages/Home";
+import Login from "./pages/Login";
 import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider, {
   FirebaseAppContext,
@@ -26,20 +26,15 @@ function App() {
     <FirebaseAppContextProvider>
       <BrowserRouter>
         <Switch>
+          <Route type="private" exact path="/" component={LivePreviewerWrapper} />
           <Route
             type="private"
             exact
-            path="/live"
-            component={LivePreviewerWrapper}
-          />
-          <Route
-            type="private"
-            exact
-            path="/live/:id"
+            path="/resume/:id"
             component={LivePreviewerWrapper}
           />
           <Route type="private" exact path="/skills" component={SkillsPageWrapper} />
-          <Route type="private" exact path="/creator" component={CreatorWrapper} />
+          <Route type="private" exact path="/new" component={CreatorWrapper} />
           <Route
             type="private"
             exact
@@ -52,14 +47,14 @@ function App() {
             path="/html-previewer"
             component={HTMLPreviewerWrapper}
           />
-          <Route type="anonymous" path="/" component={HomePageWrapper} />
+          <Route type="anonymous" exact path="/login" component={LoginPageWrapper} />
         </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>
   );
 }
 
-const Route = ({ component: Component, type, ...rest }) => {
+const Route = ({ component: Component, type, path, ...rest }) => {
   const { user, isLoading, firebase } = React.useContext(FirebaseAppContext);
 
   if (isLoading) {
@@ -69,10 +64,13 @@ const Route = ({ component: Component, type, ...rest }) => {
   switch (type) {
     case "private": {
       if (user) return <RouterRoute {...rest} component={Component} />;
-      return <Redirect to="/" />;
+      return <Redirect to="/login" />;
     }
     case "anonymous": {
-      if (!user) return <RouterRoute {...rest} component={Component} />;
+      if (!user && path !== "/login") return <Redirect to="/login" />;
+
+      if (!user && path === "/login")
+        return <RouterRoute {...rest} component={Component} />;
 
       // Redirect existing user to his resume if it exists
       return (
@@ -91,9 +89,9 @@ const Route = ({ component: Component, type, ...rest }) => {
   }
 };
 
-const HomePageWrapper = (props) => (
+const LoginPageWrapper = (props) => (
   <LoginLayout>
-    <Home {...props} />
+    <Login {...props} />
   </LoginLayout>
 );
 

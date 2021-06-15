@@ -38,7 +38,7 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
               color="primary"
               variant="contained"
               marginLeft={2}
-              onClick={() => history.push("/live")}
+              onClick={() => history.push("/")}
             >
               Go to overview
             </SpacedButton>

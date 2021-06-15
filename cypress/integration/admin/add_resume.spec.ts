@@ -25,7 +25,7 @@ describe("add resume", () => {
     });
 
     cy.findByRole("link", { name: /Add resume/i })
-      .should("have.attr", "href", "/creator")
+      .should("have.attr", "href", "/new")
       .click();
     cy.findByRole("button", { name: /Go to overview/i }).click();
     cy.findByRole("button", { name: /Overview/i }).click();
