@@ -96,7 +96,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     return function cleanup() {
       document.title = prevDocumentTitle;
     };
-  }, []);
+  });
 
   const handleSubmit = (resumePartial: Partial<Resume>) => {
     const newResume = { ...resume, ...resumePartial };
