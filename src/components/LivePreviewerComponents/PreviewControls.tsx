@@ -17,10 +17,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   setShowPDFModal,
 }) => {
   const history = useHistory();
-<<<<<<< HEAD
-  const isCreatorPage = history.location.pathname.includes("creator");
-=======
->>>>>>> 3a584dd (Refactor and fix errors and linting warnings)
+  const isCreatorPage = history.location.pathname.includes("new");
 
   return (
     <Box
