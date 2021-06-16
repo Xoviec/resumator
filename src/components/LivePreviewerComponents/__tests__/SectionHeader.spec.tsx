@@ -1,38 +1,39 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import {SectionHeader, SectionHeaderProps} from '../SectionHeader';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { SectionHeader, SectionHeaderProps } from "../SectionHeader";
 
-
-test('it should render a title', () => {
+test("it should render a title", () => {
   const props = {
-    title: 'About Donald'
-  } as SectionHeaderProps
-  
-  render(<SectionHeader {...props} />)
-  expect(screen.getByRole('heading', {level: 5})).toHaveTextContent('About Donald')
-})
+    title: "About Donald",
+  } as SectionHeaderProps;
 
-test('it should render a button', () => {
+  render(<SectionHeader {...props} />);
+  expect(screen.getByRole("heading", { level: 5 })).toHaveTextContent(
+    "About Donald"
+  );
+});
+
+test("it should render a button", () => {
   const props = {
-    action: 'edit'
-  } as SectionHeaderProps
-  
-  render(<SectionHeader {...props} />)
-  expect(screen.getByRole('button')).toBeInTheDocument()
-})
+    action: "edit",
+  } as SectionHeaderProps;
 
-test('open modal', () => {
+  render(<SectionHeader {...props} />);
+  expect(screen.getByRole("button")).toBeInTheDocument();
+});
+
+test("open modal", () => {
   const props = {
-    title: 'About Donald',
-    action: 'edit',
-    actionTooltip: '',
-    actionOnClick: jest.fn()
-  } as SectionHeaderProps
-  render(<SectionHeader {...props} />)
-  const button = screen.getByRole('button')
+    title: "About Donald",
+    action: "edit",
+    actionTooltip: "",
+    actionOnClick: jest.fn(),
+  } as SectionHeaderProps;
+  render(<SectionHeader {...props} />);
+  const button = screen.getByRole("button");
 
-  expect(button).toBeInTheDocument()
-  userEvent.click(button)
+  expect(button).toBeInTheDocument();
+  userEvent.click(button);
   expect(props.actionOnClick).toHaveBeenCalledTimes(1);
-})
+});
