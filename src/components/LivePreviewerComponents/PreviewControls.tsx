@@ -1,42 +1,23 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
-import { Box, Button } from "@material-ui/core";
+import React, { FunctionComponent } from "react";
+import { Box } from "@material-ui/core";
 import { DropdownButton, SpacedButton } from "../Material";
 import downloadResume from "../../lib/downloadResume";
 // Icons
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { useHistory } from "react-router-dom";
 
 interface PreviewControlsProps {
   resume: any;
-  goTo: (path: string) => void;
   setShowPDFModal: (show: boolean) => void;
-  showBackToLive?: boolean;
 }
 
 export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
-  goTo,
   setShowPDFModal,
-  showBackToLive,
 }) => {
-  const { user }: { user: any } = useContext(FirebaseAppContext);
-  const [isManager, setIsManager] = useState(false);
   const history = useHistory();
-
-  useEffect(() => {
-    if (
-      user &&
-      user.hasOwnProperty("userRec") &&
-      user.userRec &&
-      user.userRec.hasOwnProperty("isManager") &&
-      user.userRec.isManager
-    ) {
-      setIsManager(true);
-    }
-  }, [user]);
+  const isCreatorPage = history.location.pathname.includes("creator");
 
   return (
     <Box
@@ -45,7 +26,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
       justifyContent="space-between"
       marginBottom={2}
     >
-      {showBackToLive && (
+      {isCreatorPage && (
         <Box>
           <SpacedButton
             color="primary"
