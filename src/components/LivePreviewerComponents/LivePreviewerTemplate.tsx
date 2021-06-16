@@ -32,6 +32,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   data,
 }) => {
   const [resume, setResume] = useState<Resume>(data);
+
+  useEffect(() => {
+    setResume(data);
+  }, [data]);
+
   const [showPDFModal, setShowPDFModal] = useState(false);
 
   const { firebase } = useContext(FirebaseAppContext);

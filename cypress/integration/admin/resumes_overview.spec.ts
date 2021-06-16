@@ -1,33 +1,33 @@
+import type { Personalia } from "../../../types/Resume";
+
+const getLinkName = (personalia: Personalia, id: string) =>
+  personalia.firstName || personalia.lastName
+    ? `${personalia.firstName} ${personalia.lastName}`
+    : `No name - ${id}`;
+
 describe("resumes overview", () => {
   beforeEach(() => {
     cy.login();
+    cy.visit("/overview");
+    cy.findByRole("button", { name: /Overview/i }).click();
   });
 
   it("should display all resumes correctly", () => {
-    cy.visit("/overview");
-
     cy.callFirestore("get", "resumes").then((resumes) => {
-      cy.findByRole("button", { name: /Overview/i }).click();
-
       cy.findByTestId("overview-list").within(() => {
         cy.findAllByRole("listitem")
           .should("have.length", resumes.length)
           .each(($listItem, index) => {
             const resume: Resume = resumes[index];
             const { id, personalia, avatar } = resume;
-            const { firstName, lastName, avatar: pAvatar } = personalia;
+            const { avatar: pAvatar } = personalia;
 
             cy.wrap($listItem).within(() => {
-              const name =
-                firstName || lastName
-                  ? `${firstName} ${lastName}`
-                  : `No name - ${id}`;
-
               cy.findByRole("img")
                 .should("have.attr", "src")
                 .should("include", `${pAvatar || avatar}.`);
 
-              cy.findByRole("link").contains(name);
+              cy.findByRole("link").contains(getLinkName(personalia, id));
 
               cy.findByRole("button", { name: /Delete resume/i }).should(
                 "not.be.visible"
@@ -35,6 +35,35 @@ describe("resumes overview", () => {
             });
           });
       });
+    });
+  });
+
+  it("should display the correct resume on click", () => {
+    cy.callFirestore("get", "resumes").then((resumes) => {
+      cy.findByTestId("overview-list")
+        .findAllByRole("listitem")
+        .each(($listItem, index) => {
+          const resume: Resume = resumes[index];
+          const { id, personalia } = resume;
+
+          cy.wrap($listItem)
+            .findByRole("link", { name: getLinkName(personalia, id) })
+            .click();
+          cy.findByRole("button", { name: /Close/i }).click();
+
+          const title = `${
+            personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane")
+          } ${personalia.lastName || "Doe"}`;
+
+          cy.findByRole("heading", { level: 3 }).contains(title);
+
+          cy.findByRole("button", { name: /Overview/i }).click();
+
+          // Test up to 5 times
+          if (index === 4) {
+            return false;
+          }
+        });
     });
   });
 });

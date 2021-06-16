@@ -22,7 +22,7 @@ const LivePreviewer = (props) => {
     return <LivePreviewContainer>Something went wrong</LivePreviewContainer>;
   }
 
-  if (loading || (data && data.id !== props.match.params.id && !data.isImport)) {
+  if (loading) {
     return (
       <div>
         <StyledSkeleton animation="wave" variant="rect" width={1200} height={50} />
@@ -36,7 +36,7 @@ const LivePreviewer = (props) => {
       </div>
     );
   }
-  if (data && (data.id === props.match.params.id || data.isImport)) {
+  if (data) {
     return (
       <LivePreviewContainer>
         <LivePreviewerTemplate data={{ ...data, id: props.match.params.id }} />
