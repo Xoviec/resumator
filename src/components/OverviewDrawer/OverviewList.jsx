@@ -92,6 +92,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
       .collection("resumes")
       .doc(resumeToDelete.id)
       .delete()
+      .then(() => setResumeToDelete(null))
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.error("Error removing document: ", error);

@@ -32,7 +32,7 @@ const SkillsEditorList = () => {
   const [skillList, setSkillList] = useState<string[]>([]);
   const [editSkillList, setEditSkillList] = useState<EditedSkillDictionary>({});
   const { firebase } = useContext(FirebaseAppContext) as any;
-  const [val] = useCollection(firebase.firestore().collection("skills"));
+  const [val] = useCollection(firebase.firestore().collection("allSkills"));
 
   // Get skillList from API
   useEffect(() => {
@@ -70,8 +70,8 @@ const SkillsEditorList = () => {
     setEditCount(count);
   };
 
-  const handleNewSkill = (Event: any): void => {
-    const value = Event.target.value;
+  const handleNewSkill = (event: any): void => {
+    const value = event.target.value;
     setNewSkill(value);
   };
 
@@ -81,7 +81,7 @@ const SkillsEditorList = () => {
    */
   const saveSkills = async (skills: string[]): Promise<void> => {
     try {
-      const ref = await firebase.firestore().collection("skills").doc(docID);
+      const ref = await firebase.firestore().collection("allSkills").doc(docID);
       ref.update({ skills: skills });
 
       setSkillList(skills);
@@ -120,7 +120,6 @@ const SkillsEditorList = () => {
   const saveEditedSkills = (): void => {
     const newSkillList = [...skillList];
 
-    // for (const [key, value] of Object.entries(editSkillList)) {
     Object.entries(editSkillList).forEach(([key, value]) => {
       const index = parseInt(key, 10);
       newSkillList[index] = value;

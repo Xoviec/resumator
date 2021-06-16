@@ -15,9 +15,7 @@ export const OverviewContent = ({
   const [searchTerms, setSearchTerms] = React.useState([]);
 
   const handleSearch = (val = []) => {
-    // val = val || [];
     setSearchTerms(val);
-    // should pass the search upwards again, so I can pass searchTerms into component with React.clone in indexjsx of this module
   };
 
   return (

@@ -70,7 +70,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     }
   };
 
-  const [val] = useCollection(firebase.firestore().collection("skills"));
+  const [val] = useCollection(firebase.firestore().collection("allSkills"));
 
   useEffect(() => {
     if (val) {

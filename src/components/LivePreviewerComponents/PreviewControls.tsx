@@ -28,11 +28,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
     >
       {isCreatorPage && (
         <Box>
-          <SpacedButton
-            color="primary"
-            variant="contained"
-            onClick={() => history.push("/")}
-          >
+          <SpacedButton color="primary" variant="contained" href="/">
             Go to overview
           </SpacedButton>
         </Box>
