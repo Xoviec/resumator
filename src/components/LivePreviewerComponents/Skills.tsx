@@ -11,9 +11,14 @@ export interface SkillModel {
 interface SkillsProps {
   skills: SkillModel[];
   onSubmit: (skills: SkillModel[]) => void;
+  options: string[];
 }
 
-export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
+export const Skills: FunctionComponent<SkillsProps> = ({
+  skills,
+  onSubmit,
+  options,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -47,7 +52,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       >
         <FormColumn>
           <FormRow>
-            <FormSkillsSelect name="skills" />
+            <FormSkillsSelect name="skills" options={options} />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>

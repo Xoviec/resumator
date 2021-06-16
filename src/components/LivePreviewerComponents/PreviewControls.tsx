@@ -17,7 +17,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   setShowPDFModal,
 }) => {
   const history = useHistory();
-  const isCreatorPage = history.location.pathname.includes("creator");
+  const isCreatorPage = history.location.pathname.includes("new");
 
   return (
     <Box
@@ -28,11 +28,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
     >
       {isCreatorPage && (
         <Box>
-          <SpacedButton
-            color="primary"
-            variant="contained"
-            onClick={() => history.push("/live/")}
-          >
+          <SpacedButton color="primary" variant="contained" href="/">
             Go to overview
           </SpacedButton>
         </Box>

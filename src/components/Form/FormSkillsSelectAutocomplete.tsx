@@ -3,7 +3,6 @@ import { Autocomplete } from "@material-ui/lab";
 import { makeStyles, TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { skillsConstants } from "../../config/skills.constants";
 import FormSkillsSelectChip from "./FormSkillsSelectChip";
 
 interface Skill {
@@ -14,6 +13,7 @@ interface FormSkillsSelectPropsAutocomplete {
   label?: string;
   value: Skill[];
   onChange: (skills: Skill[]) => void;
+  options: string[];
 }
 
 const useStyles = makeStyles({
@@ -34,6 +34,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
   label,
   value,
   onChange,
+  options,
 }) => {
   const classes = useStyles();
   /**
@@ -75,14 +76,13 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
       <Autocomplete
         fullWidth
         multiple
-        freeSolo
         disableClearable
         disableCloseOnSelect
         id="skill-list-autocomplete"
         size="small"
         className={classes.autocomplete}
         value={value.map((skill) => skill.name)}
-        options={skillsConstants}
+        options={options}
         onChange={handleSkillChange}
         getOptionSelected={getOptionSelected}
         renderInput={(params: object) => (

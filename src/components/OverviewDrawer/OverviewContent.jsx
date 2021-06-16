@@ -14,20 +14,29 @@ export const OverviewContent = ({
   const { firebase, user } = useContext(FirebaseAppContext);
   const [searchTerms, setSearchTerms] = React.useState([]);
 
-  const handleSearch = (val) => {
+  const handleSearch = (val = []) => {
     setSearchTerms(val);
-    // should pass the search upwards again, so I can pass searchTerms into component with React.clone in indexjsx of this module
   };
+
   return (
     <div className={rootClass}>
       <div className={actionClass}>
         <SpacedButton
-          href="/creator"
+          href="/new"
           variant="contained"
           color="primary"
           marginBottom={2}
         >
           Add Resume
+        </SpacedButton>
+        <SpacedButton
+          href="/skills"
+          variant="contained"
+          color="primary"
+          marginLeft={2}
+          marginBottom={2}
+        >
+          Manage skills
         </SpacedButton>
         {isMobile && (
           <SpacedButton
@@ -35,7 +44,6 @@ export const OverviewContent = ({
             variant="contained"
             color="primary"
             marginBottom={2}
-            marginLeft={2}
           >
             Close
           </SpacedButton>
