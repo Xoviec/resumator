@@ -1,14 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import { TooltipIconButton } from "../Material";
 // Icons
 import DeleteIcon from "@material-ui/icons/Delete";
