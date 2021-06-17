@@ -3,47 +3,66 @@ import { OverviewSearch } from "./OverviewSearch";
 import { SpacedButton } from "../Material";
 import { OverviewList } from "./OverviewList";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
+import { NavLink } from "react-router-dom";
+import { Button, makeStyles } from "@material-ui/core/";
 
-export const OverviewContent = ({
-  actionClass,
-  rootClass,
-  isMobile,
-  toggleDrawer,
-  ...props
-}) => {
+const useStyles = makeStyles((theme) => ({
+  button: {
+    display: "inline-block",
+    marginBottom: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
+  drawerContent: {
+    padding: "0 20px 0",
+  },
+  sticky: {
+    padding: "120px 0 10px",
+    position: "sticky",
+    top: 0,
+    left: 0,
+    background: "white",
+    zIndex: "2",
+    borderBottom: "1px solid",
+    marginBottom: "10px",
+  },
+}));
+
+export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
   const { firebase, user } = useContext(FirebaseAppContext);
   const [searchTerms, setSearchTerms] = React.useState([]);
+  const classes = useStyles();
 
   const handleSearch = (val = []) => {
     setSearchTerms(val);
   };
 
   return (
-    <div className={rootClass}>
-      <div className={actionClass}>
-        <SpacedButton
-          href="/new"
-          variant="contained"
+    <div className={classes.drawerContent}>
+      <div className={classes.sticky}>
+        <Button
           color="primary"
-          marginBottom={2}
+          variant="contained"
+          component={NavLink}
+          to="/new"
+          className={classes.button}
         >
           Add Resume
-        </SpacedButton>
-        <SpacedButton
-          href="/skills"
-          variant="contained"
+        </Button>
+        <Button
           color="primary"
-          marginLeft={2}
-          marginBottom={2}
+          variant="contained"
+          component={NavLink}
+          to="/skills"
+          className={classes.button}
         >
           Manage skills
-        </SpacedButton>
+        </Button>
         {isMobile && (
           <SpacedButton
             onClick={toggleDrawer("left", false)}
             variant="contained"
             color="primary"
-            marginBottom={2}
+            className={classes.button}
           >
             Close
           </SpacedButton>

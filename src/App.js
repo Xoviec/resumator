@@ -65,12 +65,6 @@ const Route = ({ component: Component, type, path, ...rest }) => {
     return null;
   }
 
-  console.log(
-    "Vlad trying to switch arround private and anonymous shit",
-    user,
-    path,
-    type
-  );
   switch (type) {
     case "private": {
       if (user) return <RouterRoute {...rest} component={Component} />;
