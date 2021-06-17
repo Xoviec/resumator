@@ -56,15 +56,6 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   const { firebase } = useContext(FirebaseAppContext) as any;
 
-  const [skillList, setSkillList] = useState<string[]>([]);
-  const [val] = useCollection(firebase.firestore().collection("allSkills"));
-
-  useEffect(() => {
-    if (val) {
-      setSkillList(val.docs[0].data().skills);
-    }
-  }, [val]);
-
   const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
     .firestore()
     .collection("resumes");
@@ -138,13 +129,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
                 projects: data,
               })
             }
-            options={skillList}
           />
           <Experience
             type="Work Experience"
             experience={resume.experience}
             onSubmit={(data) => handleSubmit({ experience: data })}
-            options={skillList}
           />
         </Box>
         {/* Right column */}
@@ -152,7 +141,6 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           <Skills
             skills={resume.skills}
             onSubmit={(data) => handleSubmit({ skills: data })}
-            options={skillList}
           />
           <SideProjects
             type="Side projects"

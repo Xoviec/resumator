@@ -4,8 +4,12 @@ import { FirebaseAppContext } from "../FirebaseContext";
 
 export const SkillsContext: React.Context<{
   skillList: string[];
+  updateSkillList: (arg: string[]) => void;
+  docId: string;
 }> = React.createContext({
   skillList: [""],
+  updateSkillList: (arg: string[]) => {},
+  docId: "",
 });
 
 export const SkillsContextProvider: FunctionComponent<
@@ -14,11 +18,12 @@ export const SkillsContextProvider: FunctionComponent<
   const { firebase } = useContext(FirebaseAppContext) as any;
 
   const [skillList, setSkillList] = useState<string[]>([]);
+  const [docId, setDocId] = useState<string>("");
   const [val] = useCollection(firebase.firestore().collection("allSkills"));
 
   useEffect(() => {
-    console.log("vlad getting skillList", val);
     if (val) {
+      setDocId(val.docs[0].id);
       setSkillList(val.docs[0].data().skills);
     }
   }, [val]);
@@ -27,6 +32,8 @@ export const SkillsContextProvider: FunctionComponent<
     <SkillsContext.Provider
       value={{
         skillList: skillList,
+        updateSkillList: () => setSkillList(skillList),
+        docId: docId,
       }}
     >
       {children}

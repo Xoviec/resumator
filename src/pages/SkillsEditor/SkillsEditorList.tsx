@@ -1,11 +1,11 @@
 import { makeStyles, Grid } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
+import React, { useContext, useState } from "react";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";
 import { Confirmation } from "../../components/Confirmation/Confirmation";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 const useStyles = makeStyles({
   input: {
@@ -27,20 +27,10 @@ const SkillsEditorList = () => {
   const [deleteIndex, setDeleteIndex] = useState<number>(-1);
   const [newSkill, setNewSkill] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
-  const [docID, setDocId] = useState<string>("");
   const [editCount, setEditCount] = useState<number>(0);
-  const [skillList, setSkillList] = useState<string[]>([]);
   const [editSkillList, setEditSkillList] = useState<EditedSkillDictionary>({});
   const { firebase } = useContext(FirebaseAppContext) as any;
-  const [val] = useCollection(firebase.firestore().collection("allSkills"));
-
-  // Get skillList from API
-  useEffect(() => {
-    if (val) {
-      setSkillList(val.docs[0].data().skills);
-      setDocId(val.docs[0].id);
-    }
-  }, [val]);
+  const { skillList, updateSkillList, docId } = useContext(SkillsContext);
 
   /**
    * Check if value has been edited to mark for change
@@ -81,10 +71,10 @@ const SkillsEditorList = () => {
    */
   const saveSkills = async (skills: string[]): Promise<void> => {
     try {
-      const ref = await firebase.firestore().collection("allSkills").doc(docID);
+      const ref = await firebase.firestore().collection("allSkills").doc(docId);
       ref.update({ skills: skills });
 
-      setSkillList(skills);
+      updateSkillList(skills);
 
       if (skills.includes(newSkill)) {
         // If we added newSkill to list, reset the value

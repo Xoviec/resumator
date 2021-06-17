@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useContext, useState } from "react";
 import { Box } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
@@ -12,23 +12,23 @@ import {
   FormTextField,
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
+import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];
   onSubmit: (value: ExperienceModel[]) => void;
-  options: string[];
 }
 
 export const Experience: FunctionComponent<ExperienceProps> = ({
   type,
   experience,
   onSubmit,
-  options,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<ExperienceModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const { skillList } = useContext(SkillsContext);
 
   const handleDelete = (index: number) => {
     const filteredExperience = [...experience];
@@ -137,7 +137,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
             <FormSkillsSelect
               name="stackAndTechniques"
               label="Skills"
-              options={options}
+              options={skillList}
             />
           </FormRow>
         </FormColumn>
