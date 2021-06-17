@@ -9,6 +9,7 @@ import { DetailWithIcon } from "./DetailWithIcon";
 import BusinessIcon from "@material-ui/icons/Business";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
 import { colors } from "../../config/theme";
+import { TruncateChip } from "../Material/truncatedChip";
 
 export interface ExperienceModel {
   role: string;
@@ -91,7 +92,7 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
         {experienceItem.stackAndTechniques && (
           <Box display="flex" flexWrap="wrap" gridGap={8} marginBottom={1.5}>
             {experienceItem.stackAndTechniques.map((skill) => (
-              <Chip
+              <TruncateChip
                 key={skill.name}
                 label={skill.name}
                 size="small"
