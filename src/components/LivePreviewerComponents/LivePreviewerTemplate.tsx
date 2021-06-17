@@ -96,7 +96,8 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     return function cleanup() {
       document.title = prevDocumentTitle;
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = (resumePartial: Partial<Resume>) => {
     const newResume = { ...resume, ...resumePartial };
