@@ -1,6 +1,6 @@
 describe("admin logged in view", () => {
   beforeEach(() => {
-    cy.login().visit("/overview");
+    cy.login().visit("/");
   });
 
   it("title should be correct", () => {
