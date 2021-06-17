@@ -38,19 +38,39 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     setResume(data);
   }, [data]);
 
-  const [showPDFModal, setShowPDFModal] = useState(false);
-  const [skillList, setSkillList] = useState<string[]>([]);
+  const { personalia } = resume;
+
+  useEffect(() => {
+    const defaultTitle = "CV | Frontmen";
+    let fullName = "";
+    if (personalia?.firstName) {
+      fullName += personalia.firstName;
+      if (personalia.lastName) {
+        fullName += ` ${personalia.lastName}`;
+      }
+      fullName += " - ";
+    }
+
+    document.title = `${fullName}${defaultTitle}`;
+  }, [personalia.firstName, personalia.lastName]);
 
   const { firebase } = useContext(FirebaseAppContext) as any;
+
+  const [skillList, setSkillList] = useState<string[]>([]);
+  const [val] = useCollection(firebase.firestore().collection("allSkills"));
+
+  useEffect(() => {
+    if (val) {
+      setSkillList(val.docs[0].data().skills);
+    }
+  }, [val]);
+
   const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
     .firestore()
     .collection("resumes");
 
-  const prevDocumentTitle = document.title;
-
   const addResume = async (resume: Resume) => {
     const doc = resumesRef.doc();
-
     try {
       await doc.set(resume);
       setResume({ ...resume, id: doc.id });
@@ -70,34 +90,14 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     }
   };
 
-  const [val] = useCollection(firebase.firestore().collection("allSkills"));
-
   useEffect(() => {
-    if (val) {
-      setSkillList(val.docs[0].data().skills);
-    }
-  }, [val]);
-
-  useEffect(() => {
-    let fullName = "";
-    if (resume?.personalia?.firstName) {
-      fullName += resume.personalia.firstName;
-      if (resume.personalia.lastName) {
-        fullName += ` ${data.personalia.lastName}`;
-      }
-      fullName += " - ";
-    }
-    document.title = `${fullName}${prevDocumentTitle}`;
-
     if (!resume.id) {
       addResume(resume);
     }
-
-    return function cleanup() {
-      document.title = prevDocumentTitle;
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [showPDFModal, setShowPDFModal] = useState(false);
 
   const handleSubmit = (resumePartial: Partial<Resume>) => {
     const newResume = { ...resume, ...resumePartial };
