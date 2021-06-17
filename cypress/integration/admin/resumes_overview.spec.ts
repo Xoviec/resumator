@@ -8,7 +8,7 @@ const getLinkName = (personalia: Personalia, id: string) =>
 describe("resumes overview", () => {
   beforeEach(() => {
     cy.login();
-    cy.visit("/overview");
+    cy.visit("/");
     cy.findByRole("button", { name: /Overview/i }).click();
   });
 
@@ -29,9 +29,7 @@ describe("resumes overview", () => {
 
               cy.findByRole("link").contains(getLinkName(personalia, id));
 
-              cy.findByRole("button", { name: /Delete resume/i }).should(
-                "not.be.visible"
-              );
+              cy.findByRole("button", { name: /Delete/i }).should("not.be.visible");
             });
           });
       });

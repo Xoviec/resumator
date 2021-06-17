@@ -9,7 +9,7 @@ describe("add resume", () => {
       });
     });
 
-    cy.login().visit("/overview");
+    cy.login().visit("/");
     cy.findByRole("button", { name: /Overview/i }).click();
   });
 
@@ -27,9 +27,15 @@ describe("add resume", () => {
     cy.findByRole("link", { name: /Add resume/i })
       .should("have.attr", "href", "/new")
       .click();
-    cy.findByRole("button", { name: /Go to overview/i }).click();
-    cy.findByRole("button", { name: /Overview/i }).click();
 
+    cy.intercept({
+      method: "POST",
+      url: "https://firestore.googleapis.com/google.firestore.v1.Firestore/Write/**",
+    }).as("addResume");
+    cy.wait("@addResume");
+    cy.findByRole("link", { name: /Go to overview/i }).click();
+
+    cy.findByRole("button", { name: /Overview/i }).click();
     cy.findByTestId("overview-list").within(() => {
       cy.findAllByRole("listitem").should("have.length", resumesCount + 1);
     });
