@@ -1,7 +1,6 @@
 import { Grid, Box, Typography, InputBase } from "@material-ui/core";
 import { SpacedButton } from "../../components/Material";
 import { colors } from "../../config/theme";
-import { useHistory } from "react-router-dom";
 import React, { FunctionComponent } from "react";
 
 interface SkillHeaderProps {
@@ -24,8 +23,6 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
   saveEditedSkills,
   ...props
 }) => {
-  const history = useHistory();
-
   return (
     <>
       <Grid container spacing={3}>

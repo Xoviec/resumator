@@ -40,7 +40,6 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
             <TooltipIconButton
               color="inherit"
               tooltip={actionTooltip || ""}
-              // eslint-disable-next-line prettier/prettier
               onClick={actionOnClick || (() => {})}
             >
               {action === "add" && (
