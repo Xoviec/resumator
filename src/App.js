@@ -13,6 +13,7 @@ import PdfPreviewer from "./pages/PdfPreviewer";
 import FirebaseAppContextProvider, {
   FirebaseAppContext,
 } from "./context/FirebaseContext";
+import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
 import OverviewDrawer from "./components/OverviewDrawer";
@@ -26,15 +27,18 @@ function App() {
     <FirebaseAppContextProvider>
       <BrowserRouter>
         <Switch>
-          <Route type="private" exact path="/" component={LivePreviewerWrapper} />
-          <Route
-            type="private"
-            exact
-            path="/resume/:id"
-            component={LivePreviewerWrapper}
-          />
-          <Route type="private" exact path="/skills" component={SkillsPageWrapper} />
-          <Route type="private" exact path="/new" component={CreatorWrapper} />
+          <Route exact type="private" path={["/", "/skills", "/new", "/resume/:id"]}>
+            <SkillsContextProvider>
+              <RouterRoute exact path="/" component={LivePreviewerWrapper} />
+              <RouterRoute
+                exact
+                path="/resume/:id"
+                component={LivePreviewerWrapper}
+              />
+              <RouterRoute exact path="/skills" component={SkillsPageWrapper} />
+              <RouterRoute exact path="/new" component={CreatorWrapper} />
+            </SkillsContextProvider>
+          </Route>
           <Route
             type="private"
             exact
@@ -61,6 +65,12 @@ const Route = ({ component: Component, type, path, ...rest }) => {
     return null;
   }
 
+  console.log(
+    "Vlad trying to switch arround private and anonymous shit",
+    user,
+    path,
+    type
+  );
   switch (type) {
     case "private": {
       if (user) return <RouterRoute {...rest} component={Component} />;
