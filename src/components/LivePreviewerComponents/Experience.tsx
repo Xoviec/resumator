@@ -49,16 +49,48 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
   };
 
   const handleSave = (item: ExperienceModel) => {
-    const updatedExperience = [...experience];
+    let updatedExperience = [...experience];
     if (editItemIndex !== null) updatedExperience.splice(editItemIndex!, 1, item);
     else updatedExperience.push(item);
 
-    // TODO: Sort based on timespan.
+    updatedExperience = sortDateDescending(updatedExperience);
 
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
     onSubmit(updatedExperience);
+  };
+
+  /**
+   * Sort by endDate Date object propriety in descending order.
+   * If endDate is null, it is placed on first.
+   * If both are equal, including both null, sort descending by startDate
+   * @param targetArray ExperienceModel[]
+   * @returns ExperienceModel[]
+   */
+  const sortDateDescending = (targetArray: ExperienceModel[]): ExperienceModel[] => {
+    return targetArray.sort((a, b) => {
+      const endTimeA = a.endDate?.getTime();
+      const endTimeB = b.endDate?.getTime();
+      const startTimeA = a.startDate.getTime();
+      const startTimeB = b.startDate.getTime();
+
+      if (
+        (endTimeA === endTimeB && startTimeA > startTimeB) ||
+        (!endTimeA && endTimeB) ||
+        endTimeA > endTimeB
+      )
+        return -1;
+
+      if (
+        (endTimeA === endTimeB && startTimeA < startTimeB) ||
+        (endTimeA && !endTimeB) ||
+        endTimeA < endTimeB
+      )
+        return 1;
+
+      return 0;
+    });
   };
 
   return (
