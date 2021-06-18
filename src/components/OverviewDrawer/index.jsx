@@ -18,36 +18,20 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     padding: "0 20px 0",
   },
+  drawerContainer: {
+    overflow: "auto",
+  },
   drawerMobile: {
     width: "50vw",
     flexShrink: 0,
     padding: "0 20px 0",
   },
-  drawerContentMobile: {
-    padding: "0 20px 0",
-  },
-  drawerContent: {
-    padding: "0 20px 0",
-  },
   drawerPaper: {
     width: drawerWidth,
-  },
-  drawerContainer: {
-    overflow: "auto",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-  },
-  sticky: {
-    padding: "120px 0 10px",
-    position: "sticky",
-    top: 0,
-    left: 0,
-    background: "white",
-    zIndex: "2",
-    borderBottom: "1px solid",
-    marginBottom: "10px",
   },
 }));
 
@@ -81,7 +65,6 @@ const OverviewDrawer = (props) => {
   };
 
   const renderDrawer = () => {
-    // TODO: working list -> now mutates the clicked on person to whoever I am currently on
     return (
       <>
         <Hidden lgUp>
@@ -104,11 +87,7 @@ const OverviewDrawer = (props) => {
                 paper: classes.drawerPaper,
               }}
             >
-              <OverviewContent
-                rootClass={classes.drawerContent}
-                actionClass={classes.sticky}
-                toggleDrawer={toggleDrawer}
-              />
+              <OverviewContent toggleDrawer={toggleDrawer} />
             </Drawer>
           </Hidden>
           <Hidden lgUp>
@@ -126,12 +105,7 @@ const OverviewDrawer = (props) => {
                 keepMounted: true, // Better open performance on mobile.
               }}
             >
-              <OverviewContent
-                rootClass={classes.drawerContentMobile}
-                actionClass={classes.sticky}
-                toggleDrawer={toggleDrawer}
-                isMobile={true}
-              />
+              <OverviewContent toggleDrawer={toggleDrawer} isMobile={true} />
             </Drawer>
           </Hidden>
           <div className={classes.content}>{props.children}</div>

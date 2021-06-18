@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import { DropdownButton, SpacedButton } from "../Material";
 import downloadResume from "../../lib/downloadResume";
 // Icons
 import GetAppIcon from "@material-ui/icons/GetApp";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 
 interface PreviewControlsProps {
   resume: any;
@@ -28,9 +28,9 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
     >
       {isCreatorPage && (
         <Box>
-          <SpacedButton color="primary" variant="contained" href="/">
+          <Button color="primary" variant="contained" component={NavLink} to="/">
             Go to overview
-          </SpacedButton>
+          </Button>
         </Box>
       )}
       <Box

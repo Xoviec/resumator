@@ -1,7 +1,8 @@
-import { Grid, Box, Typography, InputBase } from "@material-ui/core";
+import { Grid, Box, Typography, InputBase, Button } from "@material-ui/core";
 import { SpacedButton } from "../../components/Material";
 import { colors } from "../../config/theme";
 import React, { FunctionComponent } from "react";
+import { NavLink } from "react-router-dom";
 
 interface SkillHeaderProps {
   hasError: boolean;
@@ -29,16 +30,12 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
         <Grid item xs={12} md={4}>
           <Box display="flex" justifyContent="flex-start" alignItems="center">
             <Typography variant="h3" component="h1">
-              Skills
+              Skills &nbsp;
             </Typography>
-            <SpacedButton
-              color="primary"
-              variant="contained"
-              marginLeft={2}
-              href="/"
-            >
+
+            <Button color="primary" variant="contained" component={NavLink} to="/">
               Go to overview
-            </SpacedButton>
+            </Button>
           </Box>
           {hasError && <p color={colors.orange}>Something went wrong</p>}
         </Grid>

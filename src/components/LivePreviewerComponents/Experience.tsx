@@ -12,23 +12,23 @@ import {
   FormTextField,
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
+import useAllSkills from "../../hooks/useAllSkills";
 
 interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];
   onSubmit: (value: ExperienceModel[]) => void;
-  options: string[];
 }
 
 export const Experience: FunctionComponent<ExperienceProps> = ({
   type,
   experience,
   onSubmit,
-  options,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<ExperienceModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const { skillList } = useAllSkills();
 
   const handleDelete = (index: number) => {
     const filteredExperience = [...experience];
@@ -137,7 +137,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
             <FormSkillsSelect
               name="stackAndTechniques"
               label="Skills"
-              options={options}
+              options={skillList}
             />
           </FormRow>
         </FormColumn>

@@ -4,6 +4,7 @@ import { TruncateChip } from "../Material/truncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
+import useAllSkills from "../../hooks/useAllSkills";
 
 export interface SkillModel {
   name: string;
@@ -11,14 +12,10 @@ export interface SkillModel {
 interface SkillsProps {
   skills: SkillModel[];
   onSubmit: (skills: SkillModel[]) => void;
-  options: string[];
 }
 
-export const Skills: FunctionComponent<SkillsProps> = ({
-  skills,
-  onSubmit,
-  options,
-}) => {
+export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
+  const { skillList } = useAllSkills();
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -52,7 +49,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({
       >
         <FormColumn>
           <FormRow>
-            <FormSkillsSelect name="skills" options={options} />
+            <FormSkillsSelect name="skills" options={skillList} />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>
