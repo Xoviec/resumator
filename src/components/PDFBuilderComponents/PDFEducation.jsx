@@ -19,7 +19,7 @@ const DegreeText = styled.Text`
   font-family: "Stratum";
 `;
 const CollegeText = styled.Text`
-  font-size: 10px;
+  font-size: 8px;
 `;
 
 const Wrapper = styled.View`
