@@ -1,4 +1,10 @@
-import React, { useContext, useState, FunctionComponent, useEffect } from "react";
+import React, {
+  useContext,
+  useState,
+  FunctionComponent,
+  useEffect,
+  useCallback,
+} from "react";
 import { Box } from "@material-ui/core";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { PreviewControls } from "./PreviewControls";
@@ -11,7 +17,6 @@ import { SideProjectModel } from "./SideProjectItem";
 import { Education } from "./Education";
 import { EducationModel } from "./EducationItem";
 import PDFPreviewModal from "./PDFPreviewModal";
-import { useCollection } from "react-firebase-hooks/firestore";
 
 interface Resume {
   id: string;
@@ -60,15 +65,19 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     .firestore()
     .collection("resumes");
 
-  const addResume = async (resume: Resume) => {
-    const doc = resumesRef.doc();
-    try {
-      await doc.set(resume);
-      setResume({ ...resume, id: doc.id });
-    } catch (e) {
-      alert(`Error adding document. ${e.message}`);
-    }
-  };
+  const addResume = useCallback(
+    async (resume: Resume) => {
+      const doc = resumesRef.doc();
+
+      try {
+        await doc.set(resume);
+        setResume({ ...resume, id: doc.id });
+      } catch (e) {
+        alert(`Error adding document. ${e.message}`);
+      }
+    },
+    [resumesRef]
+  );
 
   const updateResume = async (resume: Resume) => {
     try {
@@ -85,8 +94,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     if (!resume.id) {
       addResume(resume);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [addResume, resume]);
 
   const [showPDFModal, setShowPDFModal] = useState(false);
 
