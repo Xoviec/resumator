@@ -84,8 +84,10 @@ const generateInlineStyle = (block) => {
 };
 
 const generatePrefix = (block, counter) => {
-  if (block.type === "unordered-list-item") return "- ";
-  if (block.type === "ordered-list-item") return `${counter}. `;
+  if (block.type === "unordered-list-item")
+    return "\u00A0\u00A0\u00A0\u00A0\u00A0\u2022\u00A0\u00A0";
+  if (block.type === "ordered-list-item")
+    return `\u00A0\u00A0\u00A0\u00A0\u00A0${counter}.\u00A0\u00A0`;
 };
 const PDFDescription = ({ description }) => {
   if (!description || !description.length) {
