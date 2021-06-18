@@ -38,6 +38,7 @@ const TechniquesWrapper = styled.View`
 `;
 
 const Plain = styled.Text`
+  display: inline;
   font-size: 8px;
   color: #5a5b5e;
   margin-right: 3px;
@@ -72,7 +73,7 @@ export function ProjectsExperienceCard({ project }) {
   return (
     <Root wrap={true}>
       <Header>{role}</Header>
-      <Flex>
+      <Flex wrap={false}>
         <SubText>{company}</SubText>
         <SubText>
           {startDateFormatted} - {endDateFormatted}
@@ -80,8 +81,7 @@ export function ProjectsExperienceCard({ project }) {
       </Flex>
       <PDFDescription description={description} />
       {shouldRenderTechniquesRow && (
-        <TechniquesWrapper>
-          <Plain>Techniques:</Plain>
+        <TechniquesWrapper wrap={false}>
           {renderStack(stackAndTechniques)}
         </TechniquesWrapper>
       )}
