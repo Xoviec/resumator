@@ -1,6 +1,5 @@
 import { makeStyles, Grid } from "@material-ui/core";
-import React, { useContext, useState } from "react";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
+import React, { useState } from "react";
 import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";
@@ -29,8 +28,7 @@ const SkillsEditorList = () => {
   const [hasError, setHasError] = useState<boolean>(false);
   const [editCount, setEditCount] = useState<number>(0);
   const [editSkillList, setEditSkillList] = useState<EditedSkillDictionary>({});
-  const { firebase } = useContext(FirebaseAppContext) as any;
-  const { skillList, updateSkillList, docId } = useAllSkills();
+  const { skillList, updateSkillList } = useAllSkills();
 
   /**
    * Check if value has been edited to mark for change
@@ -71,9 +69,6 @@ const SkillsEditorList = () => {
    */
   const saveSkills = async (skills: string[]): Promise<void> => {
     try {
-      const ref = await firebase.firestore().collection("allSkills").doc(docId);
-      ref.update({ skills: skills });
-
       updateSkillList(skills);
 
       if (skills.includes(newSkill)) {

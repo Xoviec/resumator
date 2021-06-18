@@ -5,11 +5,9 @@ import { FirebaseAppContext } from "../FirebaseContext";
 export const SkillsContext: React.Context<{
   skillList: string[];
   updateSkillList: (arg: string[]) => void;
-  docId: string;
 }> = React.createContext({
   skillList: [""],
   updateSkillList: (arg: string[]) => {},
-  docId: "",
 });
 
 export const SkillsContextProvider: FunctionComponent<
@@ -32,8 +30,11 @@ export const SkillsContextProvider: FunctionComponent<
     <SkillsContext.Provider
       value={{
         skillList: skillList,
-        updateSkillList: () => setSkillList(skillList),
-        docId: docId,
+        updateSkillList: async (newSkillList) => {
+          const ref = await firebase.firestore().collection("allSkills").doc(docId);
+          ref.update({ skills: newSkillList });
+          setSkillList(newSkillList);
+        },
       }}
     >
       {children}
