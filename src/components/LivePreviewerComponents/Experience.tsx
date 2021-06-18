@@ -72,8 +72,8 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
     return targetArray.sort((a, b) => {
       const endTimeA = a.endDate?.getTime();
       const endTimeB = b.endDate?.getTime();
-      const startTimeA = a.startDate.getTime();
-      const startTimeB = b.startDate.getTime();
+      const startTimeA = a.startDate?.getTime();
+      const startTimeB = b.startDate?.getTime();
 
       if (
         (endTimeA === endTimeB && startTimeA > startTimeB) ||
