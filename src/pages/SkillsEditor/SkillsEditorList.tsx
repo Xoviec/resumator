@@ -5,7 +5,7 @@ import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";
 import { Confirmation } from "../../components/Confirmation/Confirmation";
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import useAllSkills from "../../hooks/useAllSkills";
 
 const useStyles = makeStyles({
   input: {
@@ -30,7 +30,7 @@ const SkillsEditorList = () => {
   const [editCount, setEditCount] = useState<number>(0);
   const [editSkillList, setEditSkillList] = useState<EditedSkillDictionary>({});
   const { firebase } = useContext(FirebaseAppContext) as any;
-  const { skillList, updateSkillList, docId } = useContext(SkillsContext);
+  const { skillList, updateSkillList, docId } = useAllSkills();
 
   /**
    * Check if value has been edited to mark for change

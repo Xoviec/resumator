@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useContext, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Box } from "@material-ui/core";
 import { TruncateChip } from "../Material/truncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
-import { SkillsContext } from "../../context/SkillsContext/SkillsContext";
+import useAllSkills from "../../hooks/useAllSkills";
 
 export interface SkillModel {
   name: string;
@@ -15,7 +15,7 @@ interface SkillsProps {
 }
 
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
-  const { skillList } = useContext(SkillsContext);
+  const { skillList } = useAllSkills();
   const [isEditing, setIsEditing] = useState(false);
 
   return (
