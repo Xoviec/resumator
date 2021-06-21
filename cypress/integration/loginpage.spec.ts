@@ -5,14 +5,9 @@ describe("renders the login page", () => {
   });
 
   it("renders correctly", () => {
-    cy.findByRole("img", { name: /logo/i })
-      .should("have.attr", "src")
-      .should("include", "frontmen-logo");
+    cy.findByRole("img", { name: /logo/i }).should("have.attr", "src");
 
-    cy.findByRole("heading", { level: 1 }).contains(/Frontmen CV creator/i);
-
-    cy.findByRole("button", { name: /Login with your Frontmen account/i }).should(
-      "exist"
-    );
+    cy.findByRole("heading", { level: 1 }).contains(/Login/i);
+    cy.findByRole("button", { name: /Login/i }).should("exist");
   });
 });

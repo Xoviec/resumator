@@ -24,7 +24,7 @@ describe("add resume", () => {
         });
     });
 
-    cy.findByRole("link", { name: /Add resume/i })
+    cy.findByRole("button", { name: /Add Resume/i })
       .should("have.attr", "href", "/new")
       .click();
 
@@ -33,7 +33,7 @@ describe("add resume", () => {
       url: "https://firestore.googleapis.com/google.firestore.v1.Firestore/Write/**",
     }).as("addResume");
     cy.wait("@addResume");
-    cy.findByRole("link", { name: /Go to overview/i }).click();
+    cy.findByRole("button", { name: /Go to overview/i }).click();
 
     cy.findByRole("button", { name: /Overview/i }).click();
     cy.findByTestId("overview-list").within(() => {
