@@ -1,21 +1,48 @@
 import React from "react";
 import "../assets/css/global.css";
-import theme from "../config/theme";
-import frontmenLogo from "../assets/svg/frontmen-logo.svg";
+import theme, { colors } from "../config/theme";
+import styled from "@emotion/styled";
+
+import frontmenLogo from "../assets/images/frontmenLogoIcon.png";
 import CssBaseline from "@material-ui/core/CssBaseline";
+
 import { ThemeProvider } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
 
 const LoginLayout = ({ children }) => (
   <ThemeProvider theme={theme}>
-    <div>
-      <CssBaseline />
-      <AppBar position="static" style={{ paddingTop: 20, paddingBottom: 20 }}>
-        <img src={frontmenLogo} alt="logo" style={{ height: 100 }} />
-      </AppBar>
-      <main>{children}</main>
-    </div>
+    <CssBaseline />
+    <Layout bgColor={colors.lightGrey}>
+      <Card>
+        <LogoWrapper>
+          <img src={frontmenLogo} alt="logo" />
+        </LogoWrapper>
+        <div>{children}</div>
+      </Card>
+    </Layout>
   </ThemeProvider>
 );
+
+const Layout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  height: 100vh;
+  background-color: ${({ bgColor }) => bgColor};
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  background-color: white;
+`;
+
+const LogoWrapper = styled.div`
+  max-width: 200px;
+`;
 
 export default LoginLayout;
