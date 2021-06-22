@@ -36,26 +36,21 @@ describe("resumes overview", () => {
     });
   });
 
-  it("should display the correct resume on click", () => {
+  it("should display the correct resume on visit", () => {
     cy.callFirestore("get", "resumes").then((resumes) => {
       cy.findByTestId("overview-list")
         .findAllByRole("listitem")
-        .each(($listItem, index) => {
+        .each(($_, index) => {
           const resume: Resume = resumes[index];
           const { id, personalia } = resume;
 
-          cy.wrap($listItem)
-            .findByRole("link", { name: getLinkName(personalia, id) })
-            .click();
-          cy.findByRole("button", { name: /Close/i }).click();
+          cy.visit(`/resume/${id}`);
 
           const title = `${
             personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane")
           } ${personalia.lastName || "Doe"}`;
 
           cy.findByRole("heading", { level: 3 }).contains(title);
-
-          cy.findByRole("button", { name: /Overview/i }).click();
 
           // Test up to 5 times
           if (index === 4) {
