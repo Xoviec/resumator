@@ -5,7 +5,7 @@ import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 const Root = styled.View`
   padding: 20px;
   margin-bottom: 20px;
-  width: 200px;
+  width: 350px;
 `;
 
 const Header = styled.Text`

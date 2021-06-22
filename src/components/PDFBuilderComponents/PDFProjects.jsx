@@ -4,7 +4,7 @@ import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 
 const Root = styled.View`
   padding: 20px;
-  width: 200px;
+  width: 350px;
   margin-bottom: -40px;
 `;
 

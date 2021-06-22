@@ -5,7 +5,7 @@ import { formatDate } from "../../lib/date";
 
 const Root = styled.View`
   margin-bottom: 20px;
-  width: 300px;
+  width: 330px;
 `;
 
 const Header = styled.Text`
@@ -16,14 +16,15 @@ const Header = styled.Text`
 const SubText = styled.Text`
   color: #000;
   font-family: "Stratum";
-  font-size: 10px;
+  font-weight: 400;
+  font-size: 8px;
 `;
 
 const Flex = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 300px;
+  width: 330px;
 `;
 
 const TechniquesWrapper = styled.View`
@@ -33,11 +34,12 @@ const TechniquesWrapper = styled.View`
   background-color: #e0e0e0;
   padding-top: 2px;
   padding-bottom: 2px;
-  width: 300px;
-  margin-top: 6px;
+  width: 330px;
+  margin-top: 10px;
 `;
 
 const Plain = styled.Text`
+  display: inline;
   font-size: 8px;
   color: #5a5b5e;
   margin-right: 3px;
@@ -68,23 +70,32 @@ export function ProjectsExperienceCard({ project }) {
   const endDateFormatted = endDate ? formatDate(endDate, "MMMM yyyy") : "";
   const shouldRenderTechniquesRow =
     !!project.stackAndTechniques && !!project.stackAndTechniques.length;
+  const isEmpty =
+    !role &&
+    !company &&
+    !startDateFormatted &&
+    !endDateFormatted &&
+    !shouldRenderTechniquesRow;
 
   return (
-    <Root wrap={true}>
-      <Header>{role}</Header>
-      <Flex>
-        <SubText>{company}</SubText>
-        <SubText>
-          {startDateFormatted} - {endDateFormatted}
-        </SubText>
-      </Flex>
-      <PDFDescription description={description} />
-      {shouldRenderTechniquesRow && (
-        <TechniquesWrapper>
-          <Plain>Techniques:</Plain>
-          {renderStack(stackAndTechniques)}
-        </TechniquesWrapper>
+    <>
+      {!isEmpty && (
+        <Root wrap={true}>
+          <Header>{role}</Header>
+          <Flex wrap={false}>
+            <SubText>{company}</SubText>
+            <SubText>
+              {startDateFormatted} - {endDateFormatted}
+            </SubText>
+          </Flex>
+          <PDFDescription description={description} />
+          {shouldRenderTechniquesRow && (
+            <TechniquesWrapper wrap={false}>
+              {renderStack(stackAndTechniques)}
+            </TechniquesWrapper>
+          )}
+        </Root>
       )}
-    </Root>
+    </>
   );
 }
