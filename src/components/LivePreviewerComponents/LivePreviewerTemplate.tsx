@@ -1,5 +1,10 @@
-import React, { useContext, useState, FunctionComponent, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, {
+  useContext,
+  useState,
+  FunctionComponent,
+  useEffect,
+  useCallback,
+} from "react";
 import { Box } from "@material-ui/core";
 import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { PreviewControls } from "./PreviewControls";
@@ -13,126 +18,156 @@ import { Education } from "./Education";
 import { EducationModel } from "./EducationItem";
 import PDFPreviewModal from "./PDFPreviewModal";
 
+interface Resume {
+  id: string;
+  personalia: PersonaliaModel;
+  introduction: string | undefined;
+  projects: ExperienceModel[];
+  experience: ExperienceModel[];
+  skills: SkillModel[];
+  sideProjects: SideProjectModel[];
+  publications: SideProjectModel[];
+  education: EducationModel[];
+}
+
 interface LivePreviewerTemplateProps {
-  data: {
-    id: string;
-    personalia: PersonaliaModel;
-    introduction: string;
-    projects: ExperienceModel[];
-    experience: ExperienceModel[];
-    skills: SkillModel[];
-    sideProjects: SideProjectModel[];
-    publications: SideProjectModel[];
-    education: EducationModel[];
-  };
+  data: Resume;
 }
 
 const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   data,
 }) => {
-  const [showPDFModal, setShowPDFModal] = useState(false);
-  const [dataState, setDataState] = useState(data);
-  const history = useHistory();
-  const { firebase } = useContext(FirebaseAppContext);
+  const [resume, setResume] = useState<Resume>(data);
 
-  const goTo = (path: string) => history.push(path);
+  useEffect(() => {
+    setResume(data);
+  }, [data]);
 
-  const onSubmitSection = (sectionKey: string, values: any) => {
-    setDataState((prevState) => ({
-      ...prevState,
-      [sectionKey]: values,
-    }));
+  const { personalia } = resume;
+
+  useEffect(() => {
+    const defaultTitle = "CV | Frontmen";
+    let fullName = "";
+    if (personalia?.firstName) {
+      fullName += personalia.firstName;
+      if (personalia.lastName) {
+        fullName += ` ${personalia.lastName}`;
+      }
+      fullName += " - ";
+    }
+
+    document.title = `${fullName}${defaultTitle}`;
+  }, [personalia.firstName, personalia.lastName]);
+
+  const { firebase } = useContext(FirebaseAppContext) as any;
+
+  const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
+    .firestore()
+    .collection("resumes");
+
+  const addResume = useCallback(
+    async (resume: Resume) => {
+      const doc = resumesRef.doc();
+
+      try {
+        await doc.set(resume);
+        setResume({ ...resume, id: doc.id });
+      } catch (e) {
+        alert(`Error adding document. ${e.message}`);
+      }
+    },
+    [resumesRef]
+  );
+
+  const updateResume = async (resume: Resume) => {
+    try {
+      await resumesRef.doc(resume.id).update({
+        ...resume,
+        isImport: false, // explicitly remove database import flag, but only when saving to firestore
+      });
+    } catch (e) {
+      alert(`Error updating document. ${e.message}`);
+    }
   };
 
   useEffect(() => {
-    const storeResume = async () => {
-      try {
-        if (dataState.id) {
-          const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
-            .firestore()
-            .collection("resumes")
-            .doc(dataState.id);
-          await resumesRef.update({
-            ...dataState,
-            isImport: false, // explicitly remove database import flag, but only when saving to firestore
-          });
-        } else {
-          const resumesRef = (firebase as any)
-            .firestore()
-            .collection("resumes")
-            .doc();
-          await resumesRef.set(dataState);
-        }
-      } catch (e) {
-        alert(`Error writing document. ${e.message}`);
-      }
-    };
-    storeResume();
-  }, [dataState, firebase]);
+    if (!resume.id) {
+      addResume(resume);
+    }
+  }, [addResume, resume]);
+
+  const [showPDFModal, setShowPDFModal] = useState(false);
+
+  const handleSubmit = (resumePartial: Partial<Resume>) => {
+    const newResume = { ...resume, ...resumePartial };
+    updateResume(newResume);
+    setResume(newResume);
+  };
 
   return (
     <>
-      <PreviewControls
-        goTo={goTo}
-        setShowPDFModal={setShowPDFModal}
-        resume={dataState}
-      />
+      <PreviewControls setShowPDFModal={setShowPDFModal} resume={resume} />
       <TopSection
         personalia={{
-          ...dataState.personalia,
-          introduction: dataState.introduction,
+          ...resume.personalia,
         }}
+        introduction={resume.introduction}
         onSubmit={(data) => {
           const { introduction, ...personalia } = data;
-          onSubmitSection("personalia", personalia);
-          onSubmitSection("introduction", introduction);
+          handleSubmit({
+            personalia,
+            introduction,
+          });
         }}
       />
       <Box
         display="flex"
         flexDirection={{ xs: "column", md: "row" }}
-        marginTop={1}
+        marginTop={2}
         // gridGap does not use the material spacing system, so 8 is needed here for 8px.
-        gridGap={8}
+        gridGap={16}
       >
         {/* Left column */}
-        <Box display="flex" flexDirection="column" flex={2} gridGap={8}>
+        <Box display="flex" flexDirection="column" flex={2} gridGap={16}>
           <Experience
             type="Projects"
-            experience={dataState.projects}
-            onSubmit={(data) => onSubmitSection("projects", data)}
+            experience={resume.projects}
+            onSubmit={(data) =>
+              handleSubmit({
+                projects: data,
+              })
+            }
           />
           <Experience
             type="Work Experience"
-            experience={dataState.experience}
-            onSubmit={(data) => onSubmitSection("experience", data)}
+            experience={resume.experience}
+            onSubmit={(data) => handleSubmit({ experience: data })}
           />
         </Box>
         {/* Right column */}
-        <Box display="flex" flexDirection="column" flex={1} gridGap={8}>
+        <Box display="flex" flexDirection="column" flex={1} gridGap={16}>
           <Skills
-            skills={dataState.skills}
-            onSubmit={(data) => onSubmitSection("skills", data)}
+            skills={resume.skills}
+            onSubmit={(data) => handleSubmit({ skills: data })}
           />
           <SideProjects
             type="Side projects"
-            projects={dataState.sideProjects}
-            onSubmit={(data) => onSubmitSection("sideProjects", data)}
+            projects={resume.sideProjects}
+            onSubmit={(data) => handleSubmit({ sideProjects: data })}
           />
           <SideProjects
             type="Publications"
-            projects={dataState.publications}
-            onSubmit={(data) => onSubmitSection("publications", data)}
+            projects={resume.publications}
+            onSubmit={(data) => handleSubmit({ publications: data })}
           />
           <Education
-            education={dataState.education}
-            onSubmit={(data) => onSubmitSection("education", data)}
+            education={resume.education}
+            onSubmit={(data) => handleSubmit({ education: data })}
           />
         </Box>
       </Box>
-
       <PDFPreviewModal
-        data={dataState}
+        data={resume}
         setShowPDFModal={setShowPDFModal}
         showPDFModal={showPDFModal}
       />

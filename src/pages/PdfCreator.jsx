@@ -33,7 +33,6 @@ import {
 
 const PdfCreator = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
 
   const { firebase } = useContext(FirebaseAppContext);
   const methods = useForm({
@@ -48,7 +47,6 @@ const PdfCreator = () => {
       const resumesRef = firebase.firestore().collection().doc();
       await resumesRef.set(data);
       setIsLoading(false);
-      history.push("./overview");
     } catch (e) {
       setIsLoading(false);
       alert(`Error writing document. ${e.message}`);

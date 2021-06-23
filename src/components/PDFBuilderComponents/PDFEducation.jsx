@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@react-pdf/styled-components";
+import { formatDate } from "../../lib/date";
 
 const Root = styled.View`
   background-color: #e0e0e0;
@@ -18,7 +19,7 @@ const DegreeText = styled.Text`
   font-family: "Stratum";
 `;
 const CollegeText = styled.Text`
-  font-size: 10px;
+  font-size: 8px;
 `;
 
 const Wrapper = styled.View`
@@ -26,12 +27,25 @@ const Wrapper = styled.View`
   margin-bottom: 5px;
 `;
 
-const Education = ({ education: { name, institute } }) => {
+const Education = ({ education: { name, institute, endDate, startDate } }) => {
+  let formattedDate = "";
+  const dateformat = "MMMM yyyy";
+  if (startDate && endDate) {
+    formattedDate = `${formatDate(startDate, dateformat)} - ${formatDate(
+      endDate,
+      dateformat
+    )}`;
+  } else if (startDate && !endDate) {
+    formattedDate = `${formatDate(startDate, dateformat)} - present`;
+  } else if (!startDate && endDate) {
+    formattedDate = `${formatDate(endDate, dateformat)}`;
+  }
+
   return (
     <Wrapper>
       <DegreeText>{name}</DegreeText>
       <CollegeText>{institute}</CollegeText>
-      <CollegeText>2011 - 2014</CollegeText>
+      <CollegeText>{formattedDate}</CollegeText>
     </Wrapper>
   );
 };

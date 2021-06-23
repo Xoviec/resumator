@@ -5,7 +5,7 @@ import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 const Root = styled.View`
   padding: 20px;
   margin-bottom: 20px;
-  width: 200px;
+  width: 350px;
 `;
 
 const Header = styled.Text`
@@ -20,7 +20,7 @@ export function PDFWorkExperience({ experience }) {
   }
 
   return (
-    <Root wrap={false}>
+    <Root wrap={true}>
       <Header>WORK EXPERIENCE</Header>
       {experience.map((project, i) => {
         return <ProjectsExperienceCard key={i} project={project} />;

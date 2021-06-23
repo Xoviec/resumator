@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useRef } from "react";
-import { Chip, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
+import { TruncateChip } from "../Material/truncatedChip";
 
 interface FormSkillsSelectChipProps {
   label: string;
@@ -25,7 +26,12 @@ const useStyles = makeStyles({
   },
 });
 
-const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ label, index, onDrag, onDelete }: FormSkillsSelectChipProps) => {
+const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({
+  label,
+  index,
+  onDrag,
+  onDelete,
+}: FormSkillsSelectChipProps) => {
   const classes = useStyles();
 
   /**
@@ -38,7 +44,7 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ la
    */
   const [, drag] = useDrag({
     item: { index, type: DNDTYPE },
-  })
+  });
 
   /**
    * Setup the chip drop handler.
@@ -74,14 +80,14 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ la
 
       onDrag(sourceIndex, destinationIndex);
       item.index = destinationIndex;
-    }
-  })
+    },
+  });
 
   // Enable drag & drop.
   drag(drop(ref));
 
   return (
-    <Chip
+    <TruncateChip
       size="small"
       variant="outlined"
       color="secondary"
@@ -91,9 +97,9 @@ const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({ la
       onDelete={() => onDelete(index)}
       // Stop propagation of the mouse event to avoid it being swallowed by the autocomplete.
       // If the event is swallowed, drag & drop doesn't work.
-      onMouseDown={event => event.stopPropagation()}
-    />
-  )
+      onMouseDown={(event: any) => event.stopPropagation()}
+    ></TruncateChip>
+  );
 };
 
 export default FormSkillsSelectChip;

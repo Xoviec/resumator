@@ -8,9 +8,6 @@
     },
     "firestore": {
       "port": 8080
-    },
-    "hosting": {
-      "port": 5000
     }
   },
   "firestore": {
@@ -23,22 +20,5 @@
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ],
     "source": "functions"
-  },
-  "hosting": {
-    "predeploy": [
-      "npm run build"
-    ],
-    "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
   }
 }

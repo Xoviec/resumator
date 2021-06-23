@@ -1,4 +1,4 @@
-declare module "docxtemplater-image-module" {
+declare module "docxtemplater-image-module-free" {
   export = ImageModule;
 }
 
@@ -11,5 +11,6 @@ declare namespace ImageModule {
     centered?: boolean;
     getImage?: any;
     getSize?: (img: string, tagValue: string, tagName: string) => number[];
+    fileType?: string;
   }
 }

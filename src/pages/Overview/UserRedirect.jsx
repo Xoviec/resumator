@@ -10,5 +10,11 @@ export const UserRedirect = ({ firebase, query, user }) => {
   }
 
   const [data] = val.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-  return <Redirect to={`/live/${data.id}`} />;
+
+  // Send user without a resume to appropriate page
+  let url;
+
+  if (data && data.id) url = `/resume/${data.id}`;
+  url = user && user.userRec && user.userRec.isManager ? "/" : url || "/";
+  return <Redirect to={url} />;
 };

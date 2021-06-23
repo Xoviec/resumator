@@ -3,9 +3,24 @@ import useResume from "../../hooks/useResume";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { Card } from "@material-ui/core";
 
 const LivePreviewer = (props) => {
   const [data, loading, error] = useResume(props.match.params.id);
+
+  if (!props.match.params.id) {
+    return (
+      <LivePreviewContainer>
+        <Card>
+          <h2 style={{ textAlign: "center" }}>No resume to show</h2>
+        </Card>
+      </LivePreviewContainer>
+    );
+  }
+
+  if (error) {
+    return <LivePreviewContainer>Something went wrong</LivePreviewContainer>;
+  }
 
   if (loading) {
     return (
@@ -27,9 +42,6 @@ const LivePreviewer = (props) => {
         <LivePreviewerTemplate data={{ ...data, id: props.match.params.id }} />
       </LivePreviewContainer>
     );
-  }
-  if (error) {
-    return <LivePreviewContainer>Something went wrong</LivePreviewContainer>;
   }
   return null;
 };

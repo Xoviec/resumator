@@ -6,7 +6,7 @@ interface SectionProps extends SectionHeaderProps {}
 
 export const Section: FunctionComponent<SectionProps> = ({ children, ...props }) => {
   return (
-    <Card>
+    <Card elevation={3} style={{ padding: "9px" }}>
       <SectionHeader {...props} />
       <Box padding={2} paddingTop={1}>
         {children}

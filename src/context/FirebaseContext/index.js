@@ -8,12 +8,14 @@ import getFirebaseConfig from "./getFirebaseConfig";
 export const FirebaseAppContext = React.createContext({
   firebase: {},
   initializing: true,
+  isLoading: true,
   user: {},
 });
 
 const FirebaseAppContextProvider = ({ children }) => {
   const [firebaseApp, setFirebaseApp] = React.useState({});
   const [initializing, setInitializing] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
@@ -26,16 +28,18 @@ const FirebaseAppContextProvider = ({ children }) => {
     initApp();
   }, []);
 
-  if (initializing) return null;
-
-  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-  googleAuthProvider.setCustomParameters({
-    hd: "frontmen.nl",
+  React.useContext(() => {
+    setIsLoading(true);
   });
 
-  firebase.auth().onAuthStateChanged(async function (user) {
-    if (!user) {
+  if (initializing) return null;
+
+  const samlAuthProvider = new firebase.auth.SAMLAuthProvider("saml.intracto");
+
+  firebase.auth().onAuthStateChanged(async function (authUser) {
+    if (!authUser) {
       setUser(null);
+      setIsLoading(false);
       return;
     }
 
@@ -45,13 +49,14 @@ const FirebaseAppContextProvider = ({ children }) => {
     const userRec = await firebase
       .firestore()
       .collection("users")
-      .doc(user.uid)
+      .doc(authUser.uid)
       .get();
 
     if (userRec) {
-      Object.assign(user, { userRec: userRec.data() });
+      Object.assign(authUser, { userRec: userRec.data() });
     }
-    setUser(user);
+    setUser(authUser);
+    setIsLoading(false);
   });
 
   return (
@@ -59,7 +64,8 @@ const FirebaseAppContextProvider = ({ children }) => {
       value={{
         firebase: firebaseApp,
         initializing,
-        provider: googleAuthProvider,
+        isLoading,
+        provider: samlAuthProvider,
         user,
       }}
     >

@@ -1,5 +1,5 @@
 import React from "react";
-import { Document, Font, Page, View } from "@react-pdf/renderer";
+import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Light.ttf";
@@ -12,6 +12,7 @@ import {
   PDFWorkExperience,
 } from "../PDFBuilderComponents";
 import { PDFSideProjects } from "../PDFBuilderComponents/PDFSideProjects";
+import { base64logo } from "../PDFBuilderComponents/base64logo";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
@@ -21,12 +22,29 @@ Font.register({
 });
 
 const CustomPage = styled(Page)`
-  padding: 20px;
+  padding: 20px 20px 70px;
+  position: relative;
 `;
 
 const FlexView = styled(View)`
   display: flex;
   flex-direction: row;
+`;
+
+const Footer = styled(View)`
+  position: absolute;
+  left: 0;
+  right: 20px;
+  bottom: 10px;
+  height: 60px;
+  text-align: right;
+`;
+
+const Logo = styled(Image)`
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  height: 40px;
 `;
 
 const PDFTemplate = React.memo(
@@ -59,6 +77,10 @@ const PDFTemplate = React.memo(
               <PDFWorkExperience experience={resume.experience} />
             </View>
           </FlexView>
+
+          <Footer fixed>
+            <Logo src={base64logo} />
+          </Footer>
         </CustomPage>
       </Document>
     );

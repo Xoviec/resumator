@@ -8,6 +8,8 @@ import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
 import BusinessIcon from "@material-ui/icons/Business";
 import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
+import { colors } from "../../config/theme";
+import { TruncateChip } from "../Material/truncatedChip";
 
 export interface ExperienceModel {
   role: string;
@@ -19,7 +21,7 @@ export interface ExperienceModel {
 }
 
 interface ExperienceItemProps {
-  type: string
+  type: string;
   experienceItem: ExperienceModel;
   onDelete: () => void;
   onEdit: (item: ExperienceModel) => void;
@@ -36,7 +38,12 @@ const useStyles = makeStyles({
   },
 });
 
-export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({ type, experienceItem, onDelete, onEdit }) => {
+export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
+  type,
+  experienceItem,
+  onDelete,
+  onEdit,
+}) => {
   const classes = useStyles();
   const sectionItemHeaderClasses = useSectionItemHeaderStyles();
   let description;
@@ -70,16 +77,22 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({ type, e
         onEdit={() => onEdit(experienceItem)}
       ></SectionItemHeader>
       <Box display="flex" flexDirection="column" gridGap={8}>
-        <DetailWithIcon icon={<BusinessIcon />}>{experienceItem.company}</DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon />}>{getTimespan()}</DetailWithIcon>
+        <DetailWithIcon icon={<BusinessIcon style={{ color: colors.midBlue }} />}>
+          {experienceItem.company}
+        </DetailWithIcon>
+        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.midBlue }} />}>
+          {getTimespan()}
+        </DetailWithIcon>
         <Box
+          marginTop={description ? 1.5 : 0}
+          marginBottom={1.5}
           className={classes.description}
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {experienceItem.stackAndTechniques && (
-          <Box display="flex" flexWrap="wrap" gridGap={8}>
+          <Box display="flex" flexWrap="wrap" gridGap={8} marginBottom={1.5}>
             {experienceItem.stackAndTechniques.map((skill) => (
-              <Chip
+              <TruncateChip
                 key={skill.name}
                 label={skill.name}
                 size="small"

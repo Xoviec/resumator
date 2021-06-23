@@ -3,21 +3,22 @@ import { Box, Button } from "@material-ui/core";
 import { DropdownButton, SpacedButton } from "../Material";
 import downloadResume from "../../lib/downloadResume";
 // Icons
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import { useHistory, NavLink } from "react-router-dom";
 
 interface PreviewControlsProps {
   resume: any;
-  goTo: (path: string) => void;
   setShowPDFModal: (show: boolean) => void;
 }
 
 export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
-  goTo,
   setShowPDFModal,
 }) => {
+  const history = useHistory();
+  const isCreatorPage = history.location.pathname.includes("new");
+
   return (
     <Box
       display="flex"
@@ -25,19 +26,18 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
       justifyContent="space-between"
       marginBottom={2}
     >
-      {/* Back to overview */}
-      <Button
-        variant="contained"
-        startIcon={<ArrowBackIcon />}
-        onClick={() => goTo(`/overview`)}
-      >
-        Back to overview
-      </Button>
+      {isCreatorPage && (
+        <Box>
+          <Button color="primary" variant="contained" component={NavLink} to="/">
+            Go to overview
+          </Button>
+        </Box>
+      )}
       <Box
         display="flex"
         justifyContent="flex-end"
         flexWrap="wrap"
-        gridGap={8}
+        gridGap={15}
         marginLeft={2}
       >
         {/* Download as */}
@@ -46,6 +46,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           actions={["PDF", "DOCX"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
+          color="primary"
         >
           Download as..
         </DropdownButton>
@@ -54,6 +55,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           variant="contained"
           startIcon={<VisibilityIcon />}
           onClick={() => setShowPDFModal(true)}
+          color="primary"
         >
           Preview
         </SpacedButton>
