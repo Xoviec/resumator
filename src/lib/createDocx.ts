@@ -74,13 +74,22 @@ function formatListItem(
   text: string,
   type: "ordered-list-item" | "unordered-list-item"
 ): string {
-  const listId = "ordered-list-item"
-    ? 4 // TODO: Find actual listId for ordered lists in template
-    : 3;
+  /**
+   * Refers to ids of <w: num> tags in the template docx, under numbering.xml.
+   * Each one points to a different instance of abstractNum with its own logic (bullets/numbers/ levels) and styling.
+   * At the time of edit, 1 is the orange bullets of skill List, 2 is simple black bullets and 3 is numbers.
+   * Known issue: numbered list does not restart with each section, but treats all lists as a single big list.
+   */
+  const listId = "ordered-list-item" === type ? 3 : 2;
   return (
     "<w:p>" +
     // List definition values
-    `<w:pPr><w:numPr><w:ilvl w:val="0"/><w:numId w:val="${listId}" /></w:numPr></w:pPr>` +
+    `<w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="${listId}" />
+        </w:numPr>
+      </w:pPr>` +
     // Actual content
     `<w:r><w:t>${text}</w:t></w:r>` +
     "</w:p>"
