@@ -197,7 +197,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
             <Typography>
               Want to add your own avatar? Make a PR{" "}
               <a
-                href="https://github.com/FrontMen/resumator"
+                href="https://github.com/FrontMen/resumator/tree/develop/src/assets/images/avatars"
                 target="_blank"
                 rel="noreferrer"
               >
