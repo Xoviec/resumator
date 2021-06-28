@@ -34,7 +34,16 @@ const FirebaseAppContextProvider = ({ children }) => {
 
   if (initializing) return null;
 
+  const isDev = process.env.NODE_ENV === "development";
+
   const samlAuthProvider = new firebase.auth.SAMLAuthProvider("saml.intracto");
+
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  googleAuthProvider.setCustomParameters({
+    hd: "frontmen.nl",
+  });
+
+  const provider = isDev ? googleAuthProvider : samlAuthProvider;
 
   firebase.auth().onAuthStateChanged(async function (authUser) {
     if (!authUser) {
@@ -65,7 +74,7 @@ const FirebaseAppContextProvider = ({ children }) => {
         firebase: firebaseApp,
         initializing,
         isLoading,
-        provider: samlAuthProvider,
+        provider,
         user,
       }}
     >
