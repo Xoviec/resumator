@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Development environment
 
 A development firebase instance is created. To use it, add an .env.development file, based on the sample, with the appropriate credentials.
+
 ## Available Scripts
 
 In the project directory, you can run:

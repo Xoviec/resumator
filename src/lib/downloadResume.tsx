@@ -23,8 +23,7 @@ export default async function downloadResume(resume: Resume, type = "PDF") {
         avatar
       );
       file = new Blob([docx], {
-        type:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       });
       break;
     case "pdf":
