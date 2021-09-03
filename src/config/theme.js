@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
 export const colors = {
   lightBlue: "#00cccc",
@@ -11,7 +11,7 @@ export const colors = {
   darkGray: "#777",
 };
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: { main: colors.darkBlue },
     secondary: { main: colors.orange },
