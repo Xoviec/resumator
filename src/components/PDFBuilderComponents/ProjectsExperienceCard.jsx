@@ -58,14 +58,8 @@ const renderStack = (stackAndTechniques) =>
   });
 
 export function ProjectsExperienceCard({ project }) {
-  const {
-    role,
-    company,
-    description,
-    stackAndTechniques,
-    startDate,
-    endDate,
-  } = project;
+  const { role, company, description, stackAndTechniques, startDate, endDate } =
+    project;
   const startDateFormatted = startDate ? formatDate(startDate, "MMMM yyyy") : "";
   const endDateFormatted = endDate ? formatDate(endDate, "MMMM yyyy") : "";
   const shouldRenderTechniquesRow =

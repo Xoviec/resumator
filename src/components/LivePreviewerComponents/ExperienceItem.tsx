@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Box, Chip, makeStyles } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { formatDate } from "../../lib/date";

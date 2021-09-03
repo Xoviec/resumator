@@ -168,23 +168,24 @@ function parseIntro(
     lastName.toLowerCase(),
     ""
   )}@frontmen.nl`;
-  const { city = "", dateOfBirth = "", introduction = "" } = lines.reduce(
-    (acc, line) => {
-      const cityAndDateMatch =
-        line.match(
-          new RegExp(`^(\\w+)\\sregion\\s–\\s[A-Z]{2}\\s–\\s(${dateRegex.source})`)
-        ) || [];
-      if (cityAndDateMatch.length) {
-        acc.city = cityAndDateMatch[1] || "";
-        acc.dateOfBirth = cityAndDateMatch[2] || "";
-      } else if (acc.city) {
-        // Everything after region and date of birth is considered introduction
-        acc.introduction = acc.introduction ? `${acc.introduction} ${line}` : line;
-      }
-      return acc;
-    },
-    {} as { [key: string]: string }
-  );
+  const {
+    city = "",
+    dateOfBirth = "",
+    introduction = "",
+  } = lines.reduce((acc, line) => {
+    const cityAndDateMatch =
+      line.match(
+        new RegExp(`^(\\w+)\\sregion\\s–\\s[A-Z]{2}\\s–\\s(${dateRegex.source})`)
+      ) || [];
+    if (cityAndDateMatch.length) {
+      acc.city = cityAndDateMatch[1] || "";
+      acc.dateOfBirth = cityAndDateMatch[2] || "";
+    } else if (acc.city) {
+      // Everything after region and date of birth is considered introduction
+      acc.introduction = acc.introduction ? `${acc.introduction} ${line}` : line;
+    }
+    return acc;
+  }, {} as { [key: string]: string });
   return {
     personalia: {
       firstName,
@@ -388,11 +389,9 @@ function dateFromPartial(
   defaults?: { day?: number; month?: number }
 ): Date {
   const { day: defaultDay = 1, month: defaultMonth = 1 } = defaults || {};
-  const [
-    year,
-    month = months[defaultMonth - 1],
-    day = defaultDay,
-  ] = partialDate.split(" ").reverse();
+  const [year, month = months[defaultMonth - 1], day = defaultDay] = partialDate
+    .split(" ")
+    .reverse();
   const date = new Date(`${day} ${month} ${year} UTC`);
   return date;
 }
