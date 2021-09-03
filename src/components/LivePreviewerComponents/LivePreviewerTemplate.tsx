@@ -85,6 +85,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         ...resume,
         isImport: false, // explicitly remove database import flag, but only when saving to firestore
       });
+      setResume(resume);
     } catch (e) {
       alert(`Error updating document. ${e.message}`);
     }
@@ -101,7 +102,6 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const handleSubmit = (resumePartial: Partial<Resume>) => {
     const newResume = { ...resume, ...resumePartial };
     updateResume(newResume);
-    setResume(newResume);
   };
 
   return (
