@@ -34,7 +34,7 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
 
     if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
     if (start && !end) return `${formatDate(start)} - present`;
-    if (!start && end) return `${formatDate(end)}`;
+    if (!start && end) return `Ended in ${formatDate(end, "yyyy")}`;
   };
 
   return (
