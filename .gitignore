@@ -27,7 +27,7 @@ yarn-error.log*
 .env
 .idea/
 
-yarn.lock
+package-lock.json
 
 *.log
 
