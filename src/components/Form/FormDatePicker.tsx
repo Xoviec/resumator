@@ -24,7 +24,6 @@ export const FormDatePicker: FunctionComponent<FormDatePickerProps> = ({
         render={({ value, onChange }) => (
           <KeyboardDatePicker
             fullWidth
-            disableFuture={true}
             autoOk={true}
             variant="inline"
             inputVariant="outlined"
