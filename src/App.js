@@ -117,9 +117,12 @@ const LivePreviewerWrapper = (props) => {
 
 const CreatorWrapper = (props) => (
   <MainLayout>
-    <Creator {...props} />
+    <OverviewDrawer>
+      <Creator {...props} />
+    </OverviewDrawer>
   </MainLayout>
 );
+
 const HTMLPreviewerWrapper = (props) => (
   <LoginLayout>
     <HTMLPreviewer {...props} />
