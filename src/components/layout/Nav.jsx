@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
@@ -8,6 +8,7 @@ import {
   MenuItem,
   Toolbar,
   Avatar,
+  Divider,
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import "firebase/firestore";
@@ -25,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: 40,
     height: 40,
+  },
+  linkItem: {
+    color: theme.palette.primary.main,
+    textDecoration: "none",
   },
 }));
 
@@ -52,6 +57,22 @@ const Nav = () => {
     goTo("/");
   };
 
+  const adminMenuItems = (
+    <div>
+      <MenuItem>
+        <Link to="/new" className={classes.linkItem}>
+          Add Resume
+        </Link>
+      </MenuItem>
+      <MenuItem>
+        <Link to="/skills" className={classes.linkItem}>
+          Manage Skills
+        </Link>
+      </MenuItem>
+      <Divider />
+    </div>
+  );
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -63,6 +84,7 @@ const Nav = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      {user?.userRec?.isManager && adminMenuItems}
       <MenuItem onClick={signOut}>Sign out</MenuItem>
     </Menu>
   );

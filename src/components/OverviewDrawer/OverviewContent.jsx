@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 20px 0",
   },
   sticky: {
-    padding: "120px 0 10px",
+    padding: "80px 0 10px",
     position: "sticky",
     top: 0,
     left: 0,
@@ -39,24 +39,6 @@ export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
   return (
     <div className={classes.drawerContent}>
       <div className={classes.sticky}>
-        <Button
-          color="primary"
-          variant="contained"
-          component={NavLink}
-          to="/new"
-          className={classes.button}
-        >
-          Add Resume
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          component={NavLink}
-          to="/skills"
-          className={classes.button}
-        >
-          Manage skills
-        </Button>
         {isMobile && (
           <SpacedButton
             onClick={toggleDrawer("left", false)}
