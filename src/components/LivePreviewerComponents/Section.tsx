@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Box, Card } from "@material-ui/core";
 import { SectionHeader, SectionHeaderProps } from "./SectionHeader";
 
-interface SectionProps extends SectionHeaderProps {}
+type SectionProps = SectionHeaderProps;
 
 export const Section: FunctionComponent<SectionProps> = ({ children, ...props }) => {
   return (

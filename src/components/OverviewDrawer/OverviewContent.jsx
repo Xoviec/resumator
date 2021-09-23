@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { OverviewSearch } from "./OverviewSearch";
+import { makeStyles } from "@material-ui/core/";
+import React from "react";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 import { SpacedButton } from "../Material";
 import { OverviewList } from "./OverviewList";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
-import { NavLink } from "react-router-dom";
-import { Button, makeStyles } from "@material-ui/core/";
+import { OverviewSearch } from "./OverviewSearch";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
-  const { firebase, user } = useContext(FirebaseAppContext);
+  const { firebase, userRecord } = useFirebaseApp();
   const [searchTerms, setSearchTerms] = React.useState([]);
   const classes = useStyles();
 
@@ -53,7 +52,7 @@ export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
       </div>
       <OverviewList
         firebase={firebase}
-        user={user}
+        userRecord={userRecord}
         searchTerms={searchTerms}
         query={firebase.firestore().collection("resumes")}
       />

@@ -5,15 +5,12 @@
     "es6": true
   },
   "extends": [
+    "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "react-app",
     "plugin:cypress/recommended"
   ],
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
-  },
   "rules": {
     "no-console": "warn",
     "no-eval": "error",
@@ -26,7 +23,13 @@
       "version": "detect"
     }
   },
-  "plugins": [
-    "cypress"
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn"
+      }
+    }
   ]
 }

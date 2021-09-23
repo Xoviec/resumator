@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
 import { PDFViewer } from "@react-pdf/renderer";
+import React from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
 import PDFTemplate from "../../components/PDFTemplate/PDFTemplate";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 
 const PDFTemplateWrapper = React.memo(
   ({ resume }) => {
@@ -18,7 +18,7 @@ const PDFTemplateWrapper = React.memo(
 PDFTemplateWrapper.displayName = "PDFTemplateWrapper";
 
 const PdfPreviewer = (props) => {
-  const { firebase } = useContext(FirebaseAppContext);
+  const { firebase } = useFirebaseApp();
   const resumeId = props.match.params.id;
   const [resumeData, loading, error] = useDocument(
     firebase.firestore().doc(`resumes/${resumeId}`)

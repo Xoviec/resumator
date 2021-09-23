@@ -1,26 +1,24 @@
 import React from "react";
 import {
   BrowserRouter,
+  Redirect,
   Route as RouterRoute,
   Switch,
-  Redirect,
 } from "react-router-dom";
-
-import LoginLayout from "./layouts/Login";
-import MainLayout from "./layouts/Main";
-import Login from "./pages/Login";
-import PdfPreviewer from "./pages/PdfPreviewer";
+import OverviewDrawer from "./components/OverviewDrawer";
 import FirebaseAppContextProvider, {
-  FirebaseAppContext,
+  useFirebaseApp,
 } from "./context/FirebaseContext";
 import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
+import LoginLayout from "./layouts/Login";
+import MainLayout from "./layouts/Main";
+import Creator from "./pages/Creator";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";
-import OverviewDrawer from "./components/OverviewDrawer";
-import Creator from "./pages/Creator";
-import SkillsEditor from "./pages/SkillsEditor";
-
+import Login from "./pages/Login";
 import { UserRedirect } from "./pages/Overview/UserRedirect";
+import PdfPreviewer from "./pages/PdfPreviewer";
+import SkillsEditor from "./pages/SkillsEditor";
 
 function App() {
   return (
@@ -59,7 +57,7 @@ function App() {
 }
 
 const Route = ({ component: Component, type, path, ...rest }) => {
-  const { user, isLoading, firebase } = React.useContext(FirebaseAppContext);
+  const { userRecord, isLoading, firebase } = useFirebaseApp();
 
   if (isLoading) {
     return null;
@@ -67,24 +65,24 @@ const Route = ({ component: Component, type, path, ...rest }) => {
 
   switch (type) {
     case "private": {
-      if (user) return <RouterRoute {...rest} component={Component} />;
+      if (userRecord) return <RouterRoute {...rest} component={Component} />;
       return <Redirect to="/login" />;
     }
     case "anonymous": {
-      if (!user && path !== "/login") return <Redirect to="/login" />;
+      if (!userRecord && path !== "/login") return <Redirect to="/login" />;
 
-      if (!user && path === "/login")
+      if (!userRecord && path === "/login")
         return <RouterRoute {...rest} component={Component} />;
 
       // Redirect existing user to his resume if it exists
       return (
         <UserRedirect
           firebase={firebase}
-          user={user}
+          userRecord={userRecord}
           query={firebase
             .firestore()
             .collection("resumes")
-            .where("personalia.email", "==", user.email)}
+            .where("personalia.email", "==", userRecord.email)}
         />
       );
     }

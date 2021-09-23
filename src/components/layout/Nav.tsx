@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -14,7 +14,7 @@ import { AccountCircle } from "@material-ui/icons";
 import "firebase/firestore";
 import "firebase/auth";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -33,18 +33,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = () => {
-  const { firebase, user } = useContext(FirebaseAppContext);
+const Nav: React.FC = () => {
+  const { firebase, authUser, userRecord } = useFirebaseApp();
 
   const history = useHistory();
-  const goTo = (path) => history.push(path);
+  const goTo = (path: string) => history.push(path);
 
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const handleProfileMenuOpen = (event) => {
+  const handleProfileMenuOpen = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -57,7 +59,7 @@ const Nav = () => {
     goTo("/");
   };
 
-  const adminMenuItems = (
+  const adminMenuItems = userRecord?.isManager ? (
     <div>
       <MenuItem>
         <Link to="/new" className={classes.linkItem}>
@@ -71,7 +73,7 @@ const Nav = () => {
       </MenuItem>
       <Divider />
     </div>
-  );
+  ) : null;
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -84,20 +86,19 @@ const Nav = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {user?.userRec?.isManager && adminMenuItems}
+      {adminMenuItems}
       <MenuItem onClick={signOut}>Sign out</MenuItem>
     </Menu>
   );
 
-  const avatarComponent =
-    user && user.photoURL ? (
-      <Avatar alt={user.displayName} src={user.photoURL} />
-    ) : (
-      <AccountCircle />
-    );
+  const avatarComponent = authUser?.photoURL ? (
+    <Avatar alt={authUser.displayName || "User Avatar"} src={authUser.photoURL} />
+  ) : (
+    <AccountCircle />
+  );
 
   return (
-    <div className={classes.navContainer}>
+    <div>
       <div className={classes.grow}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>

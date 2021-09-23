@@ -70,7 +70,7 @@ function twoWayFind(value, arr) {
   return stringisInStringArray || stringiedArrayIsInString;
 }
 
-export const OverviewList = ({ firebase, query, searchTerms, user }) => {
+export const OverviewList = ({ firebase, query, searchTerms, userRecord }) => {
   const [val, isLoading, error] = useCollection(query);
   const [resumeOverviewData, setResumeOverviewData] = React.useState([]);
   const [openConfirmation, setOpenConfirmation] = React.useState(false);
@@ -198,7 +198,7 @@ export const OverviewList = ({ firebase, query, searchTerms, user }) => {
     refreshResumeData(resumeOverviewData, filteredResumes, setResumeOverviewData);
   }
 
-  if (!user || !val) return null;
+  if (!userRecord?.isManager || !val) return null;
 
   return (
     <>

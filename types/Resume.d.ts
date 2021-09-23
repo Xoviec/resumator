@@ -1,7 +1,7 @@
 type RecursivePartial<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
     ? RecursivePartial<U>[]
-    : T[P] extends object
+    : T[P] extends Record<string, unknown>
     ? RecursivePartial<T[P]>
     : T[P];
 };
@@ -58,7 +58,7 @@ export interface Skill {
 }
 
 export default interface Resume {
-  isImport?: Boolean;
+  isImport?: boolean;
   personalia: Personalia;
   education: Education[];
   introduction: string;

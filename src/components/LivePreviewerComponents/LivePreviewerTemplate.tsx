@@ -1,22 +1,17 @@
-import React, {
-  useContext,
-  useState,
-  FunctionComponent,
-  useEffect,
-  useCallback,
-} from "react";
 import { Box } from "@material-ui/core";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
-import { PreviewControls } from "./PreviewControls";
-import { TopSection, PersonaliaModel } from "./TopSection";
-import { Experience } from "./Experience";
-import { ExperienceModel } from "./ExperienceItem";
-import { Skills, SkillModel } from "./Skills";
-import { SideProjects } from "./SideProjects";
-import { SideProjectModel } from "./SideProjectItem";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
 import { EducationModel } from "./EducationItem";
+import { Experience } from "./Experience";
+import { ExperienceModel } from "./ExperienceItem";
 import PDFPreviewModal from "./PDFPreviewModal";
+import { PreviewControls } from "./PreviewControls";
+import { SideProjectModel } from "./SideProjectItem";
+import { SideProjects } from "./SideProjects";
+import { SkillModel, Skills } from "./Skills";
+import { PersonaliaModel, TopSection } from "./TopSection";
+import { SocialLinks, SocialLinkModel } from "./SocialLinks";
 
 interface Resume {
   id: string;
@@ -28,6 +23,7 @@ interface Resume {
   sideProjects: SideProjectModel[];
   publications: SideProjectModel[];
   education: EducationModel[];
+  socialLinks: SocialLinkModel[];
 }
 
 interface LivePreviewerTemplateProps {
@@ -59,9 +55,9 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     document.title = `${fullName}${defaultTitle}`;
   }, [personalia.firstName, personalia.lastName]);
 
-  const { firebase } = useContext(FirebaseAppContext) as any;
+  const { firebase } = useFirebaseApp();
 
-  const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
+  const resumesRef = firebase // Remove this when typings are provided for the Firebase context.
     .firestore()
     .collection("resumes");
 
@@ -146,6 +142,10 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         </Box>
         {/* Right column */}
         <Box display="flex" flexDirection="column" flex={1} gridGap={16}>
+          <SocialLinks
+            socialLinks={resume.socialLinks}
+            onSubmit={(data) => handleSubmit({ socialLinks: data })}
+          />
           <Skills
             skills={resume.skills}
             onSubmit={(data) => handleSubmit({ skills: data })}

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Autocomplete } from "@material-ui/lab";
+import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
 import { makeStyles, TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -42,9 +42,9 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
      * Handle adding or deleting a skill through the autocomplete input.
      */
     const handleSkillChange = (
-      event: object,
+      event: React.ChangeEvent<Record<string, unknown>>,
       inputValue: string[],
-      reason: string
+      reason: AutocompleteChangeReason
     ) => {
       const skills = inputValue.map((name) => ({ name }));
       onChange(skills);
@@ -81,7 +81,7 @@ const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutoc
           options={options}
           onChange={handleSkillChange}
           getOptionSelected={getOptionSelected}
-          renderInput={(params: object) => (
+          renderInput={(params) => (
             <TextField
               variant="outlined"
               placeholder="Add a library, framework, skill..."

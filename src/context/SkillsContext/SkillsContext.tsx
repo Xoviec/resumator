@@ -1,45 +1,55 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { FirebaseAppContext } from "../FirebaseContext";
+import { useFirebaseApp } from "../FirebaseContext";
 
-export const SkillsContext: React.Context<{
+type SkillsContextType = {
   skillList: string[];
   updateSkillList: (arg: string[]) => void;
-}> = React.createContext({
-  skillList: [""],
-  updateSkillList: (arg: string[]) => {},
-});
+};
 
-export const SkillsContextProvider: FunctionComponent<React.PropsWithChildren<{}>> =
-  ({ children }) => {
-    const { firebase } = useContext(FirebaseAppContext) as any;
+const SkillsContext = React.createContext<SkillsContextType | undefined>(undefined);
 
-    const [skillList, setSkillList] = useState<string[]>([]);
-    const [docId, setDocId] = useState<string>("");
-    const [val] = useCollection(firebase.firestore().collection("allSkills"));
+export const useSkillsContext = (): SkillsContextType => {
+  const context = useContext(SkillsContext);
+  if (context === undefined) {
+    throw new Error("Firebase context is used before initialization");
+  }
 
-    useEffect(() => {
-      if (val) {
-        setDocId(val.docs[0].id);
-        setSkillList(val.docs[0].data().skills);
-      }
-    }, [val]);
+  return context;
+};
 
-    return (
-      <SkillsContext.Provider
-        value={{
-          skillList: skillList,
-          updateSkillList: async (newSkillList) => {
-            const ref = await firebase
-              .firestore()
-              .collection("allSkills")
-              .doc(docId);
-            ref.update({ skills: newSkillList });
-            setSkillList(newSkillList);
-          },
-        }}
-      >
-        {children}
-      </SkillsContext.Provider>
-    );
+export const SkillsContextProvider: React.VFC<
+  React.PropsWithChildren<Record<string, never>>
+> = ({ children }) => {
+  const { firebase } = useFirebaseApp();
+
+  const [skillList, setSkillList] = useState<string[]>([]);
+  const [docId, setDocId] = useState<string>("");
+  const [val] = useCollection(firebase.firestore().collection("allSkills"));
+
+  useEffect(() => {
+    if (val) {
+      setDocId(val.docs[0].id);
+      setSkillList(val.docs[0].data().skills);
+    }
+  }, [val]);
+
+  const updateSkillList: SkillsContextType["updateSkillList"] = async (
+    newSkillList
+  ) => {
+    const ref = await firebase.firestore().collection("allSkills").doc(docId);
+    ref.update({ skills: newSkillList });
+    setSkillList(newSkillList);
   };
+
+  return (
+    <SkillsContext.Provider
+      value={{
+        skillList,
+        updateSkillList,
+      }}
+    >
+      {children}
+    </SkillsContext.Provider>
+  );
+};

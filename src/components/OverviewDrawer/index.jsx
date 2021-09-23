@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { Drawer, makeStyles, Hidden } from "@material-ui/core";
+import { Drawer, Hidden, makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 import { SpacedButton } from "../Material";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
 import { OverviewContent } from "./OverviewContent";
 
 const drawerWidth = 380;
@@ -38,23 +38,10 @@ const useStyles = makeStyles((theme) => ({
 const OverviewDrawer = (props) => {
   const classes = useStyles();
 
-  const { user } = useContext(FirebaseAppContext);
-  const [state, setState] = React.useState({
+  const { userRecord } = useFirebaseApp();
+  const [state, setState] = useState({
     left: false,
   });
-  const [isManager, setIsManager] = React.useState(false);
-
-  React.useEffect(() => {
-    if (
-      user &&
-      user.hasOwnProperty("userRec") &&
-      user.userRec &&
-      user.userRec.hasOwnProperty("isManager") &&
-      user.userRec.isManager
-    ) {
-      setIsManager(true);
-    }
-  }, [user]);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -114,12 +101,7 @@ const OverviewDrawer = (props) => {
     );
   };
 
-  return (
-    <>
-      {isManager && renderDrawer()}
-      {!isManager && props.children}
-    </>
-  );
+  return <>{userRecord?.isManager ? renderDrawer() : props.children}</>;
 };
 
 export default OverviewDrawer;

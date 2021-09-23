@@ -4,7 +4,7 @@ import { TruncateChip } from "../Material/truncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
-import useAllSkills from "../../hooks/useAllSkills";
+import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 export interface SkillModel {
   name: string;
@@ -15,7 +15,7 @@ interface SkillsProps {
 }
 
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
-  const { skillList } = useAllSkills();
+  const { skillList } = useSkillsContext();
   const [isEditing, setIsEditing] = useState(false);
 
   return (

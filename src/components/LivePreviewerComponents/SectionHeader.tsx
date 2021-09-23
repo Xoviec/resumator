@@ -40,7 +40,7 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
             <TooltipIconButton
               color="inherit"
               tooltip={actionTooltip || ""}
-              onClick={actionOnClick || (() => {})}
+              onClick={actionOnClick}
             >
               {action === "add" && (
                 <AddIcon fontSize="small" htmlColor={colors.midBlue} />

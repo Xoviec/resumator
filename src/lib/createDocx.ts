@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="../../types/docxtemplater/index.d.ts" />
 /// <reference path="../../types/docxtemplater-image-module-free/index.d.ts" />
 import Docxtemplater from "docxtemplater";
@@ -31,12 +32,12 @@ export default async function createDocx(
 
   doc.render();
 
-  return await doc.getZip().generate({ type: "uint8array" });
+  return doc.getZip().generate({ type: "uint8array" });
 }
 
 function formatDescriptionsInObject(object: LooseObject): LooseObject {
   for (const key in object) {
-    let prop = object[key];
+    const prop = object[key];
     if (key === "description") {
       object["description"] = formatDescription(prop); // special tag inside template
     } else if (typeof prop === "object") {

@@ -1,21 +1,21 @@
 import React from "react";
-import { FirebaseAppContext } from "../context/FirebaseContext";
+import { useFirebaseApp } from "../context/FirebaseContext";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
-const Login = () => {
-  const { firebase, provider } = React.useContext(FirebaseAppContext);
+const Login: React.FC = () => {
+  const { firebase, authProvider } = useFirebaseApp();
   const history = useHistory();
 
   const login = async () => {
-    await firebase.auth().signInWithPopup(provider);
+    await firebase.auth().signInWithPopup(authProvider);
     history.push("/");
   };
 
   return (
-    <Box width="100%" color="white" bg="white" textAlign="center">
+    <Box width="100%" color="white" bgcolor="white" textAlign="center">
       <Typography
         variant="h4"
         component="h1"

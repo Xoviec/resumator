@@ -2,7 +2,7 @@ import React from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Redirect } from "react-router-dom";
 
-export const UserRedirect = ({ firebase, query, user }) => {
+export const UserRedirect = ({ firebase, query, userRecord }) => {
   const [val, isLoading, error] = useCollection(query);
 
   if (!val || isLoading || error) {
@@ -15,6 +15,6 @@ export const UserRedirect = ({ firebase, query, user }) => {
   let url;
 
   if (data && data.id) url = `/resume/${data.id}`;
-  url = user && user.userRec && user.userRec.isManager ? "/" : url || "/";
+  url = userRecord?.isManager ? "/" : url || "/";
   return <Redirect to={url} />;
 };

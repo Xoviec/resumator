@@ -1,40 +1,37 @@
-import React, { useContext, useState } from "react";
-import { FirebaseAppContext } from "../context/FirebaseContext";
-import resumeMock from "../mock/smallmock.json";
-import { useForm, FormContext } from "react-hook-form";
-import { Box, Button, Heading } from "rebass";
-import { Input, Textarea } from "@rebass/forms";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { useHistory } from "react-router-dom";
 import {
   faAddressCard,
-  faGraduationCap,
-  faBriefcase,
-  faCodeBranch,
   faBrain,
+  faBriefcase,
   faCertificate,
-  faUserCircle,
+  faCodeBranch,
+  faGraduationCap,
   faSyncAlt,
+  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-
-import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { Input, Textarea } from "@rebass/forms";
+import React, { useState } from "react";
+import { FormContext, useForm } from "react-hook-form";
+import { Box, Button, Heading } from "rebass";
 import {
   AvatarInput,
   EducationInput,
   ExperienceInput,
 } from "../components/CreatorComponents";
-
 import {
   FieldsInput,
   FormField,
   FormGroup,
   InputWrapper,
 } from "../components/FormComponents";
+import validationSchema, { MIN_NUMBER_OF_EXPERIENCE } from "../config/validation";
+import { useFirebaseApp } from "../context/FirebaseContext";
+import resumeMock from "../mock/smallmock.json";
 
 const PdfCreator = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { firebase } = useContext(FirebaseAppContext);
+  const { firebase } = useFirebaseApp();
   const methods = useForm({
     defaultValues: { ...resumeMock },
     validationSchema,

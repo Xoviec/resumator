@@ -4,7 +4,7 @@ import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";
 import { Confirmation } from "../../components/Confirmation/Confirmation";
-import useAllSkills from "../../hooks/useAllSkills";
+import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 const useStyles = makeStyles({
   input: {
@@ -20,7 +20,7 @@ interface EditedSkillDictionary {
   [key: number]: string;
 }
 
-const SkillsEditorList = () => {
+const SkillsEditorList: React.VFC = () => {
   const classes = useStyles();
   const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
   const [deleteIndex, setDeleteIndex] = useState<number>(-1);
@@ -28,7 +28,7 @@ const SkillsEditorList = () => {
   const [hasError, setHasError] = useState<boolean>(false);
   const [editCount, setEditCount] = useState<number>(0);
   const [editSkillList, setEditSkillList] = useState<EditedSkillDictionary>({});
-  const { skillList, updateSkillList } = useAllSkills();
+  const { skillList, updateSkillList } = useSkillsContext();
 
   /**
    * Check if value has been edited to mark for change

@@ -8,4 +8,5 @@ export default {
   skills: [],
   sideProjects: [],
   publications: [],
+  socialLinks: [],
 };

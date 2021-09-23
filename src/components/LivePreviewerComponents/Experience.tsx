@@ -12,7 +12,7 @@ import {
   FormTextField,
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
-import useAllSkills from "../../hooks/useAllSkills";
+import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 interface ExperienceProps {
   type: string;
@@ -28,7 +28,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<ExperienceModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
-  const { skillList } = useAllSkills();
+  const { skillList } = useSkillsContext();
 
   const handleDelete = (index: number) => {
     const filteredExperience = [...experience];
