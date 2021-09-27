@@ -69,7 +69,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         await doc.set(resume);
         setResume({ ...resume, id: doc.id });
       } catch (e) {
-        alert(`Error adding document. ${e.message}`);
+        alert(`Error adding document. ${e instanceof Error ? `${e.message}` : ""}`);
       }
     },
     [resumesRef]
@@ -83,7 +83,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       });
       setResume(resume);
     } catch (e) {
-      alert(`Error updating document. ${e.message}`);
+      alert(`Error updating document. ${e instanceof Error ? `${e.message}` : ""}`);
     }
   };
 
