@@ -1,4 +1,3 @@
-import React from "react";
 import { PDFViewer } from "@react-pdf/renderer";
 import styled from "@emotion/styled";
 import Modal from "@material-ui/core/Modal";

@@ -1,4 +1,3 @@
-import React from "react";
 import "../assets/css/global.css";
 import theme, { colors } from "../config/theme";
 import styled from "@emotion/styled";

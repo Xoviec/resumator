@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useMemo } from "react";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { NavLink } from "react-router-dom";
@@ -72,14 +72,14 @@ function twoWayFind(value, arr) {
 
 export const OverviewList = ({ firebase, query, searchTerms, userRecord }) => {
   const [val, isLoading, error] = useCollection(query);
-  const [resumeOverviewData, setResumeOverviewData] = React.useState([]);
-  const [openConfirmation, setOpenConfirmation] = React.useState(false);
-  const [resumeToDelete, setResumeToDelete] = React.useState(null);
+  const [resumeOverviewData, setResumeOverviewData] = useState([]);
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [resumeToDelete, setResumeToDelete] = useState(null);
   const hasFetchError = !isLoading && error;
   const normalizedSearchTerms = []
     .concat(searchTerms)
     .map((s) => s.toLowerCase().trim());
-  const resumes = React.useMemo(
+  const resumes = useMemo(
     () => (val ? val.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : []),
     [val]
   );

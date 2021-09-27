@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@react-pdf/styled-components";
 import { formatDate } from "../../lib/date";
 

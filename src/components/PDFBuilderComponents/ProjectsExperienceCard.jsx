@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import styled from "@react-pdf/styled-components";
 import PDFDescription from "./PDFDescription";
 import { formatDate } from "../../lib/date";
@@ -50,10 +50,10 @@ const renderStack = (stackAndTechniques) =>
   stackAndTechniques.map((tech, index) => {
     const shouldAddHypen = index < stackAndTechniques.length - 1;
     return (
-      <React.Fragment key={tech.name}>
+      <Fragment key={tech.name}>
         <Plain>{tech.name}</Plain>
         {shouldAddHypen && <Plain>-</Plain>}
-      </React.Fragment>
+      </Fragment>
     );
   });
 

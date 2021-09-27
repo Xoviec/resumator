@@ -1,10 +1,10 @@
 import { PDFViewer } from "@react-pdf/renderer";
-import React from "react";
+import { memo } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
 import PDFTemplate from "../../components/PDFTemplate/PDFTemplate";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 
-const PDFTemplateWrapper = React.memo(
+const PDFTemplateWrapper = memo(
   ({ resume }) => {
     return (
       <PDFViewer width="100%" height="100%">

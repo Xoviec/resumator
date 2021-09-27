@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Button, Flex } from "rebass";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faArrowDown, faTimes } from "@fortawesome/free-solid-svg-icons";

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Box, Flex } from "rebass";
 import data from "../../mock/mock.json";
 import {
@@ -10,11 +10,11 @@ import {
 } from "../../components/ResumeComponents";
 
 const HTMLPreviewer = () => {
-  const [resume, SetResume] = React.useState();
+  const [resume, SetResume] = useState();
 
   // Using an effect hook is now an assumption on how we will fetch data form API
   // Can be refactored later when real API comes in
-  React.useEffect(() => {
+  useEffect(() => {
     SetResume(data);
   }, []);
 

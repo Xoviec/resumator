@@ -1,4 +1,3 @@
-import React from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Redirect } from "react-router-dom";
 

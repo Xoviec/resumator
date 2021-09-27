@@ -1,4 +1,3 @@
-import React from "react";
 import { ErrorMessage as FormErrorMessage } from "react-hook-form";
 import { ErrorMessage, InputWrapper, StyledLabel } from "./styledComponents";
 

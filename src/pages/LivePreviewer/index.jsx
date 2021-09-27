@@ -1,4 +1,3 @@
-import React from "react";
 import useResume from "../../hooks/useResume";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";

@@ -1,4 +1,3 @@
-import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { Box, Button, Flex } from "rebass";
 import { Input } from "@rebass/forms";
