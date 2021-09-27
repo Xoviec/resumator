@@ -1,5 +1,6 @@
 import { makeStyles, Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import { useState } from "react";
+import * as React from "react";
 import { colors } from "../../config/theme";
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";

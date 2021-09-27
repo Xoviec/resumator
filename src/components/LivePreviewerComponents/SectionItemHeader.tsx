@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import { TooltipIconButton } from "../Material";
 // Icons

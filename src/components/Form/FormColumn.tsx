@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Box } from "@material-ui/core";
 
 export const FormColumn: FunctionComponent = ({ children }) => {

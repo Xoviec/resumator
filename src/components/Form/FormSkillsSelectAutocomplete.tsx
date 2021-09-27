@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
+import * as React from "react";
 import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
 import { makeStyles, TextField } from "@material-ui/core";
 import { DndProvider } from "react-dnd";

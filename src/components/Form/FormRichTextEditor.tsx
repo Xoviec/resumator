@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import {
   FormControl,

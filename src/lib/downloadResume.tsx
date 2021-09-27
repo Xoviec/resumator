@@ -1,5 +1,4 @@
 /* eslint-disable no-case-declarations */
-import React from "react";
 import { pdf as createPdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 

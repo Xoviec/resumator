@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from "react";
+import { FunctionComponent, useRef } from "react";
 import { makeStyles } from "@material-ui/core";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { TruncateChip } from "../Material/truncatedChip";

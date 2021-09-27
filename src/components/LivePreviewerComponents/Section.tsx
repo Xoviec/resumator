@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Box, Card } from "@material-ui/core";
 import { SectionHeader, SectionHeaderProps } from "./SectionHeader";
 

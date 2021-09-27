@@ -1,4 +1,4 @@
-import React, { VoidFunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { OutlinedInput, Select, SelectProps } from "@material-ui/core";
 
