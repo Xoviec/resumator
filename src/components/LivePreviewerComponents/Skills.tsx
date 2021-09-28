@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { Box } from "@material-ui/core";
 import { TruncateChip } from "../Material/truncatedChip";
 import { Section } from "./Section";

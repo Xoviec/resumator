@@ -1,5 +1,5 @@
 import { Drawer, Hidden, makeStyles } from "@material-ui/core";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { SpacedButton } from "../Material";
 import { OverviewContent } from "./OverviewContent";

@@ -1,7 +1,7 @@
 import { Grid, Box, Typography, InputBase, Button } from "@material-ui/core";
 import { SpacedButton } from "../../components/Material";
 import { colors } from "../../config/theme";
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 
 interface SkillHeaderProps {

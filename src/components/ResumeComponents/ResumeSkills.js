@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Flex, Text, Heading } from "rebass";
 
 export const ResumeSkills = ({ skills }) => {

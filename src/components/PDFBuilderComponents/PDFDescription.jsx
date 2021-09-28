@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@react-pdf/styled-components";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";

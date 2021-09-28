@@ -1,4 +1,4 @@
-import React from "react";
+import { cloneElement } from "react";
 import { Nav } from "../components/layout";
 import "../assets/css/global.css";
 import theme, { colors } from "../config/theme";
@@ -26,7 +26,7 @@ const MainLayout = ({ children }) => {
         <Nav />
         <main className={classes.content}>
           <div className={classes.spacer} />
-          {React.cloneElement(children)}
+          {cloneElement(children)}
         </main>
       </div>
     </ThemeProvider>

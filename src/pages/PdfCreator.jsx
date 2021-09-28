@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { Input, Textarea } from "@rebass/forms";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FormContext, useForm } from "react-hook-form";
 import { Box, Button, Heading } from "rebass";
 import {

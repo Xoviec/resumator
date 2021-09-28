@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
@@ -47,7 +47,7 @@ const Logo = styled(Image)`
   height: 40px;
 `;
 
-const PDFTemplate = React.memo(
+const PDFTemplate = memo(
   ({ resume }) => {
     return (
       <Document>

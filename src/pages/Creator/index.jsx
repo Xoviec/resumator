@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import initialData from "../../config/initialData";

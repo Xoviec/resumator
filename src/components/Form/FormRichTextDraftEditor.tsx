@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  MouseEvent,
-  ReactNode,
-  useRef,
-  useState,
-} from "react";
+import { FunctionComponent, MouseEvent, ReactNode, useRef, useState } from "react";
 import { Box, Divider, makeStyles } from "@material-ui/core";
 import {
   ContentState,

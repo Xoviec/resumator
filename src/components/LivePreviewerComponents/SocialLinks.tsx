@@ -9,7 +9,8 @@ import {
   makeStyles,
   MenuItem,
 } from "@material-ui/core";
-import React, { useState, VoidFunctionComponent } from "react";
+import { useState, VoidFunctionComponent } from "react";
+import * as React from "react";
 import { useFormContext } from "react-hook-form";
 import { FormColumn, FormRow } from "../Form";
 import { FormSelect } from "../Form/FormSelect";

@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Text, Heading, Flex } from "rebass";
 
 export const ResumeExperience = ({ experience }) => {

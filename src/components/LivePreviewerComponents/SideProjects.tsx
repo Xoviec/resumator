@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent } from "react";
 import { Box, Divider } from "@material-ui/core";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";

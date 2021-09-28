@@ -1,5 +1,5 @@
 import { Box } from "@material-ui/core";
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
 import { EducationModel } from "./EducationItem";
@@ -69,7 +69,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         await doc.set(resume);
         setResume({ ...resume, id: doc.id });
       } catch (e) {
-        alert(`Error adding document. ${e.message}`);
+        alert(`Error adding document. ${e instanceof Error ? `${e.message}` : ""}`);
       }
     },
     [resumesRef]
@@ -83,7 +83,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       });
       setResume(resume);
     } catch (e) {
-      alert(`Error updating document. ${e.message}`);
+      alert(`Error updating document. ${e instanceof Error ? `${e.message}` : ""}`);
     }
   };
 

@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/";
-import React from "react";
+import { useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { SpacedButton } from "../Material";
 import { OverviewList } from "./OverviewList";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
   const { firebase, userRecord } = useFirebaseApp();
-  const [searchTerms, setSearchTerms] = React.useState([]);
+  const [searchTerms, setSearchTerms] = useState([]);
   const classes = useStyles();
 
   const handleSearch = (val = []) => {

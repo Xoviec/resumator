@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useFirebaseApp } from "../context/FirebaseContext";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
