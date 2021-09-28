@@ -1,5 +1,7 @@
+import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
+
+// TODO: fix this type
 export const initialResumeData = {
-  avatar: "1",
   education: [],
   experience: [],
   introduction: "",
@@ -9,4 +11,5 @@ export const initialResumeData = {
   sideProjects: [],
   publications: [],
   socialLinks: [],
-};
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+} as unknown as ResumeModel; // @ts-ignore

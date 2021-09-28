@@ -1,13 +1,13 @@
 import Docxtemplater from "docxtemplater";
 import ImageModule from "docxtemplater-image-module-free";
 import PizZip from "pizzip";
+import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 import { LooseObject } from "../types/LooseObject";
-import { Resume } from "../types/Resume";
 
 import { formatDatesInObject } from "./date";
 
 export default async function createDocx(
-  resume: Resume,
+  resume: ResumeModel,
   template: ArrayBuffer,
   avatar: ArrayBuffer
 ) {

@@ -6,9 +6,9 @@ import formatResumeFilename from "./formatResumeFilename";
 import createDocx from "./createDocx";
 import getAvatarDataUri from "./getAvatarDataUri";
 import PDFTemplate from "../components/PDFTemplate/PDFTemplate";
-import { Resume } from "../types/Resume";
+import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 
-export default async function downloadResume(resume: Resume, type = "PDF") {
+export default async function downloadResume(resume: ResumeModel, type = "PDF") {
   const { firstName, lastName, avatar: avatarName } = resume.personalia;
   let file: Blob;
   switch (type.toLowerCase()) {

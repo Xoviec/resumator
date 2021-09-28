@@ -1,39 +1,34 @@
+import { FunctionComponent, VoidFunctionComponent } from "react";
 import {
   BrowserRouter,
   Redirect,
   Route as RouterRoute,
+  RouteProps,
   Switch,
 } from "react-router-dom";
-import OverviewDrawer from "./components/OverviewDrawer";
 import FirebaseAppContextProvider, {
   useFirebaseApp,
 } from "./context/FirebaseContext";
 import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
-import { LoginLayout } from "./layouts/LoginLayout";
-import { MainLayout } from "./layouts/MainLayout";
-import Creator from "./pages/Creator";
-import HTMLPreviewer from "./pages/HTMLPreviewer";
-import LivePreviewer from "./pages/LivePreviewer";
-import Login from "./pages/Login";
+import { CreatorPage } from "./pages/CreatorPage/CreatorPage";
+import { HTMLPreviewerPage } from "./pages/HTMLPreviewerPage/HTMLPreviewerPage";
+import { LivePreviewerPage } from "./pages/LivePreviewerPage/LivePreviewerPage";
+import { LoginPage } from "./pages/LoginPage";
 import { UserRedirect } from "./pages/Overview/UserRedirect";
 import PdfPreviewer from "./pages/PdfPreviewer";
-import SkillsEditor from "./pages/SkillsEditor";
+import { SkillsEditorPage } from "./pages/SkillsEditor/SkillsEditorPage";
 
-function App() {
+export const App: VoidFunctionComponent = () => {
   return (
     <FirebaseAppContextProvider>
       <BrowserRouter>
         <Switch>
           <Route exact type="private" path={["/", "/skills", "/new", "/resume/:id"]}>
             <SkillsContextProvider>
-              <RouterRoute exact path="/" component={LivePreviewerWrapper} />
-              <RouterRoute
-                exact
-                path="/resume/:id"
-                component={LivePreviewerWrapper}
-              />
-              <RouterRoute exact path="/skills" component={SkillsPageWrapper} />
-              <RouterRoute exact path="/new" component={CreatorWrapper} />
+              <RouterRoute exact path="/" component={LivePreviewerPage} />
+              <RouterRoute exact path="/resume/:id" component={LivePreviewerPage} />
+              <RouterRoute exact path="/skills" component={SkillsEditorPage} />
+              <RouterRoute exact path="/new" component={CreatorPage} />
             </SkillsContextProvider>
           </Route>
           <Route
@@ -46,16 +41,23 @@ function App() {
             type="private"
             exact
             path="/html-previewer"
-            component={HTMLPreviewerWrapper}
+            component={HTMLPreviewerPage}
           />
-          <Route type="anonymous" exact path="/login" component={LoginPageWrapper} />
+          <Route type="anonymous" exact path="/login" component={LoginPage} />
         </Switch>
       </BrowserRouter>
     </FirebaseAppContextProvider>
   );
-}
+};
 
-const Route = ({ component: Component, type, path, ...rest }) => {
+type RouteType = "private" | "anonymous";
+
+const Route: FunctionComponent<RouteProps & { type: RouteType }> = ({
+  component: Component,
+  type,
+  path,
+  ...rest
+}) => {
   const { userRecord, isLoading, firebase } = useFirebaseApp();
 
   if (isLoading) {
@@ -81,7 +83,7 @@ const Route = ({ component: Component, type, path, ...rest }) => {
           query={firebase
             .firestore()
             .collection("resumes")
-            .where("personalia.email", "==", userRecord.email)}
+            .where("personalia.email", "==", userRecord?.email)}
         />
       );
     }
@@ -89,41 +91,3 @@ const Route = ({ component: Component, type, path, ...rest }) => {
       throw new Error("Unhandled Route");
   }
 };
-
-const LoginPageWrapper = (props) => (
-  <LoginLayout>
-    <Login {...props} />
-  </LoginLayout>
-);
-
-const SkillsPageWrapper = (props) => (
-  <MainLayout>
-    <SkillsEditor {...props} />
-  </MainLayout>
-);
-
-const LivePreviewerWrapper = (props) => {
-  return (
-    <MainLayout>
-      <OverviewDrawer>
-        <LivePreviewer {...props} />
-      </OverviewDrawer>
-    </MainLayout>
-  );
-};
-
-const CreatorWrapper = (props) => (
-  <MainLayout>
-    <OverviewDrawer>
-      <Creator {...props} />
-    </OverviewDrawer>
-  </MainLayout>
-);
-
-const HTMLPreviewerWrapper = (props) => (
-  <LoginLayout>
-    <HTMLPreviewer {...props} />
-  </LoginLayout>
-);
-
-export default App;

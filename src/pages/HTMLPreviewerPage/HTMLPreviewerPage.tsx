@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, VoidFunctionComponent } from "react";
 import { Box, Flex } from "rebass";
-import data from "../../mock/mock.json";
+import { ResumeModel } from "../../components/LivePreviewerComponents/ResumeModel";
 import {
   ResumeHeader,
   ResumeAbout,
@@ -8,14 +8,16 @@ import {
   ResumeSkills,
   ResumeEducation,
 } from "../../components/ResumeComponents";
+import { LoginLayout } from "../../layouts/LoginLayout";
+import { mockResume } from "./mockResume";
 
 const HTMLPreviewer = () => {
-  const [resume, SetResume] = useState();
+  const [resume, setResume] = useState<ResumeModel>();
 
   // Using an effect hook is now an assumption on how we will fetch data form API
   // Can be refactored later when real API comes in
   useEffect(() => {
-    SetResume(data);
+    setResume(mockResume as unknown as ResumeModel);
   }, []);
 
   const resumeView = () => {
@@ -34,17 +36,18 @@ const HTMLPreviewer = () => {
         />
         <Flex>
           <Box minWidth={300}>
-            <ResumeAbout width={1 / 4} text={resume.introduction} />
+            <ResumeAbout text={resume.introduction} />
             <ResumeSkills skills={resume.skills} />
             <ResumeEducation />
           </Box>
-          <ResumeExperience width={3 / 2} experience={resume.experience} />
+          <ResumeExperience experience={resume.experience} />
         </Flex>
       </>
     ) : (
       <div>...loading</div>
     );
   };
+
   return (
     <Box>
       <Flex
@@ -64,4 +67,8 @@ const HTMLPreviewer = () => {
   );
 };
 
-export default HTMLPreviewer;
+export const HTMLPreviewerPage: VoidFunctionComponent = () => (
+  <LoginLayout>
+    <HTMLPreviewer />
+  </LoginLayout>
+);

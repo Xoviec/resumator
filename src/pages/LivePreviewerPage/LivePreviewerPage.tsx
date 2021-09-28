@@ -1,11 +1,17 @@
-import useResume from "../../hooks/useResume";
+import { RouteComponentProps } from "react-router-dom";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Card } from "@material-ui/core";
+import { VoidFunctionComponent } from "react";
+import { MainLayout } from "../../layouts/MainLayout";
+import OverviewDrawer from "../../components/OverviewDrawer";
+import { useResume } from "../../hooks/useResume";
 
-const LivePreviewer = (props) => {
-  const [data, loading, error] = useResume(props.match.params.id);
+type LivePreviewerProps = RouteComponentProps<{ id: string }>;
+
+const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
+  const { resume, loading, error } = useResume(props.match.params.id);
 
   if (!props.match.params.id) {
     return (
@@ -35,13 +41,15 @@ const LivePreviewer = (props) => {
       </div>
     );
   }
-  if (data) {
+
+  if (resume) {
     return (
       <LivePreviewContainer>
-        <LivePreviewerTemplate data={{ ...data, id: props.match.params.id }} />
+        <LivePreviewerTemplate data={{ ...resume, id: props.match.params.id }} />
       </LivePreviewContainer>
     );
   }
+
   return null;
 };
 const StyledSkeleton = styled(Skeleton)`
@@ -54,4 +62,14 @@ const LivePreviewContainer = styled.div`
   max-width: 1200px;
 `;
 
-export default LivePreviewer;
+export const LivePreviewerPage: VoidFunctionComponent<LivePreviewerProps> = (
+  props
+) => {
+  return (
+    <MainLayout>
+      <OverviewDrawer>
+        <LivePreviewer {...props} />
+      </OverviewDrawer>
+    </MainLayout>
+  );
+};
