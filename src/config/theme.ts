@@ -15,7 +15,7 @@ const theme = createTheme({
   palette: {
     primary: { main: colors.darkBlue },
     secondary: { main: colors.orange },
-    action: { main: colors.midBlue },
+    info: { main: colors.midBlue },
   },
 });
 
