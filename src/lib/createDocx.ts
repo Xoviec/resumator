@@ -1,7 +1,7 @@
 import Docxtemplater from "docxtemplater";
 import ImageModule from "docxtemplater-image-module-free";
 import PizZip from "pizzip";
-import LooseObject from "../types/LooseObject";
+import { LooseObject } from "../types/LooseObject";
 import { Resume } from "../types/Resume";
 
 import { formatDatesInObject } from "./date";
