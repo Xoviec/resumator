@@ -9,8 +9,8 @@ import FirebaseAppContextProvider, {
   useFirebaseApp,
 } from "./context/FirebaseContext";
 import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
-import LoginLayout from "./layouts/Login";
-import MainLayout from "./layouts/Main";
+import { LoginLayout } from "./layouts/LoginLayout";
+import { MainLayout } from "./layouts/MainLayout";
 import Creator from "./pages/Creator";
 import HTMLPreviewer from "./pages/HTMLPreviewer";
 import LivePreviewer from "./pages/LivePreviewer";

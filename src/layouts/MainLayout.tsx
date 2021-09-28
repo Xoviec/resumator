@@ -1,5 +1,5 @@
-import { cloneElement } from "react";
-import { Nav } from "../components/layout";
+import { FunctionComponent } from "react";
+import { Nav } from "../components/layout/Nav";
 import "../assets/css/global.css";
 import theme, { colors } from "../config/theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainLayout = ({ children }) => {
+export const MainLayout: FunctionComponent = ({ children }) => {
   const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
@@ -26,11 +26,9 @@ const MainLayout = ({ children }) => {
         <Nav />
         <main className={classes.content}>
           <div className={classes.spacer} />
-          {cloneElement(children)}
+          {children}
         </main>
       </div>
     </ThemeProvider>
   );
 };
-
-export default MainLayout;

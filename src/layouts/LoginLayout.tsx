@@ -6,8 +6,9 @@ import frontmenLogo from "../assets/images/frontmenLogoIcon.png";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import { ThemeProvider } from "@material-ui/core/styles";
+import { FunctionComponent } from "react";
 
-const LoginLayout = ({ children }) => (
+export const LoginLayout: FunctionComponent = ({ children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Layout bgColor={colors.lightGrey}>
@@ -21,7 +22,11 @@ const LoginLayout = ({ children }) => (
   </ThemeProvider>
 );
 
-const Layout = styled.div`
+interface LayoutProps {
+  bgColor: string;
+}
+
+const Layout = styled.div<LayoutProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,5 +48,3 @@ const Card = styled.div`
 const LogoWrapper = styled.div`
   max-width: 200px;
 `;
-
-export default LoginLayout;

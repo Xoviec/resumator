@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, VoidFunctionComponent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -33,14 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav: React.FC = () => {
+export const Nav: VoidFunctionComponent = () => {
   const { firebase, authUser, userRecord } = useFirebaseApp();
 
   const history = useHistory();
   const goTo = (path: string) => history.push(path);
 
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const isMenuOpen = Boolean(anchorEl);
 
