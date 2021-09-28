@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
-import initialData from "../../config/initialData";
+import { initialResumeData } from "../../config/initialData";
 
 const Creator = () => {
   return (
     <LivePreviewContainer>
-      <LivePreviewerTemplate data={{ ...initialData }} />
+      <LivePreviewerTemplate data={{ ...initialResumeData }} />
     </LivePreviewContainer>
   );
 };

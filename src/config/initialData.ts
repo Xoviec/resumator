@@ -1,4 +1,4 @@
-export default {
+export const initialResumeData = {
   avatar: "1",
   education: [],
   experience: [],
