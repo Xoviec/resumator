@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import {
   Box,
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({
+export const FormAvatarSelect: VoidFunctionComponent<FormAvatarSelectProps> = ({
   name,
   label,
   ...props

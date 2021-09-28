@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import * as React from "react";
 import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
 import { makeStyles, TextField } from "@material-ui/core";
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-const FormSkillsSelectAutocomplete: FunctionComponent<FormSkillsSelectPropsAutocomplete> =
+const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
   ({ label, value, onChange, options }) => {
     const classes = useStyles();
     /**

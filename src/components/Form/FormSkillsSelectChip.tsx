@@ -1,4 +1,4 @@
-import { FunctionComponent, useRef } from "react";
+import { VoidFunctionComponent, useRef } from "react";
 import { makeStyles } from "@material-ui/core";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { TruncateChip } from "../Material/truncatedChip";
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const FormSkillsSelectChip: FunctionComponent<FormSkillsSelectChipProps> = ({
+const FormSkillsSelectChip: VoidFunctionComponent<FormSkillsSelectChipProps> = ({
   label,
   index,
   onDrag,
