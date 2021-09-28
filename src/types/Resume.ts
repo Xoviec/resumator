@@ -57,7 +57,7 @@ export interface Skill {
   years?: string | null;
 }
 
-export default interface Resume {
+export interface Resume {
   isImport?: boolean;
   personalia: Personalia;
   education: Education[];
