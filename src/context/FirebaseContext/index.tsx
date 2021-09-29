@@ -6,6 +6,8 @@ import "firebase/auth";
 
 import getFirebaseConfig from "./getFirebaseConfig";
 
+export type FirestoreQuery = firebase.firestore.Query;
+
 export type FirebaseUserRecord = {
   email: string;
   name: string;
@@ -13,7 +15,7 @@ export type FirebaseUserRecord = {
   isManager: boolean;
 };
 
-type FirebaseAppContextType = {
+export type FirebaseAppContextType = {
   firebase: firebase.app.App;
   initializing: boolean;
   isLoading: boolean;

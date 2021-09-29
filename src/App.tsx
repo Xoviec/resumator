@@ -78,7 +78,6 @@ const Route: FunctionComponent<RouteProps & { type: RouteType }> = ({
       // Redirect existing user to his resume if it exists
       return (
         <UserRedirect
-          firebase={firebase}
           userRecord={userRecord}
           query={firebase
             .firestore()
