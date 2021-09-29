@@ -14,7 +14,7 @@ import { CreatorPage } from "./pages/CreatorPage/CreatorPage";
 import { LivePreviewerPage } from "./pages/LivePreviewerPage/LivePreviewerPage";
 import { LoginPage } from "./pages/LoginPage";
 import { UserRedirect } from "./pages/Overview/UserRedirect";
-import PdfPreviewer from "./pages/PdfPreviewer";
+import { PDFPreviewerPage } from "./pages/PdfPreviewer/PDFPreviewerPage";
 import { SkillsEditorPage } from "./pages/SkillsEditor/SkillsEditorPage";
 
 export const App: VoidFunctionComponent = () => {
@@ -34,7 +34,7 @@ export const App: VoidFunctionComponent = () => {
             type="private"
             exact
             path="/pdf-preview/:id/"
-            component={PdfPreviewer}
+            component={PDFPreviewerPage}
           />
           <Route type="anonymous" exact path="/login" component={LoginPage} />
         </Switch>
