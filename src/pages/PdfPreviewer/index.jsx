@@ -1,7 +1,7 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import { memo } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
-import PDFTemplate from "../../components/PDFTemplate/PDFTemplate";
+import { PDFTemplate } from "../../components/PDFTemplate/PDFTemplate";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 
 const PDFTemplateWrapper = memo(

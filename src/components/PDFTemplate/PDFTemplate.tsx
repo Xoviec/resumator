@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, VoidFunctionComponent } from "react";
 import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
@@ -11,8 +11,12 @@ import {
   PDFSkills,
   PDFWorkExperience,
 } from "../PDFBuilderComponents";
-import { PDFSideProjects } from "../PDFBuilderComponents/PDFSideProjects";
+import {
+  PDFSideProjects,
+  PDFSideProjectType,
+} from "../PDFBuilderComponents/PDFSideProjects";
 import { base64logo } from "../PDFBuilderComponents/base64logo";
+import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
@@ -47,7 +51,11 @@ const Logo = styled(Image)`
   height: 40px;
 `;
 
-const PDFTemplate = memo(
+interface PDFTemplateProps {
+  resume: ResumeModel;
+}
+
+export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
   ({ resume }) => {
     return (
       <Document>
@@ -65,10 +73,13 @@ const PDFTemplate = memo(
               <PDFSkills skills={resume.skills} />
               <PDFEducation education={resume.education} />
               <PDFSideProjects
-                type="openSource"
+                type={PDFSideProjectType.SideProject}
                 sideProjects={resume.sideProjects}
               />
-              <PDFSideProjects sideProjects={resume.publications} />
+              <PDFSideProjects
+                type={PDFSideProjectType.Publication}
+                sideProjects={resume.publications}
+              />
               <View style={{ width: "200px", height: "100vh" }}></View>
             </View>
 
@@ -89,5 +100,3 @@ const PDFTemplate = memo(
 );
 
 PDFTemplate.displayName = "PDFTemplate";
-
-export default PDFTemplate;

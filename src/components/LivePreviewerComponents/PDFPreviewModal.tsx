@@ -1,10 +1,22 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import styled from "@emotion/styled";
 import Modal from "@material-ui/core/Modal";
-import PDFTemplate from "../PDFTemplate/PDFTemplate";
+import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
+import { VoidFunctionComponent } from "react";
+import { ResumeModel } from "./ResumeModel";
 
-const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
-  if (showPDFModal && data) {
+interface PDFPreviewModalProps {
+  showPDFModal: boolean;
+  setShowPDFModal: (s: boolean) => void;
+  resume: ResumeModel;
+}
+
+export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
+  showPDFModal,
+  setShowPDFModal,
+  resume,
+}) => {
+  if (showPDFModal && resume) {
     return (
       <Modal
         open={showPDFModal}
@@ -14,7 +26,7 @@ const PDFPreviewModal = ({ showPDFModal, setShowPDFModal, data }) => {
       >
         <ModalContent>
           <PDFViewer width="100%" height="100%">
-            <PDFTemplate resume={data} />
+            <PDFTemplate resume={resume} />
           </PDFViewer>
         </ModalContent>
       </Modal>
@@ -33,5 +45,3 @@ const ModalContent = styled.div`
     outline: none;
   }
 `;
-
-export default PDFPreviewModal;
