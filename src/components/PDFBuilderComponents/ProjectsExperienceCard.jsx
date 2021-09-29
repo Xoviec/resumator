@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import styled from "@react-pdf/styled-components";
-import PDFDescription from "./PDFDescription";
+import { PDFDescription } from "./PDFDescription";
 import { formatDate } from "../../lib/date";
 
 const Root = styled.View`

@@ -1,6 +1,14 @@
 import styled from "@react-pdf/styled-components";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
+import {
+  ContentState,
+  convertFromRaw,
+  convertToRaw,
+  EditorState,
+  RawDraftContentBlock,
+  RawDraftContentState,
+} from "draft-js";
+import { VoidFunctionComponent } from "react";
 
 const styles = StyleSheet.create({
   bold: {
@@ -39,10 +47,10 @@ const TextArea = styled.Text`
   font-family: "Helvetica";
 `;
 
-const generateInlineStyle = (block) => {
+const generateInlineStyle = (block: RawDraftContentBlock) => {
   const inlineStyleRanges = block.inlineStyleRanges;
   const text = block.text;
-  let nestedTexts = [];
+  const nestedTexts = [];
   let offset = 0;
 
   if (inlineStyleRanges.length === 0) {
@@ -60,7 +68,7 @@ const generateInlineStyle = (block) => {
     offset = inlineStyle.offset + inlineStyle.length;
     nestedTexts.push(<Text>{extractUnstyledText}</Text>);
 
-    let styledText = "";
+    let styledText = <Text></Text>;
     switch (inlineStyle.style) {
       case "UNDERLINE":
         styledText = <Text style={styles.underline}>{extractStyledText}</Text>;
@@ -71,9 +79,6 @@ const generateInlineStyle = (block) => {
       case "BOLD":
         styledText = <Text style={styles.bold}>{extractStyledText}</Text>;
         break;
-      default:
-        styledText = <Text></Text>;
-        break;
     }
 
     nestedTexts.push(styledText);
@@ -82,18 +87,27 @@ const generateInlineStyle = (block) => {
   return nestedTexts;
 };
 
-const generatePrefix = (block, counter) => {
+const generatePrefix = (block: RawDraftContentBlock, counter: number) => {
   if (block.type === "unordered-list-item")
     return "\u00A0\u00A0\u00A0\u00A0\u00A0\u2022\u00A0\u00A0";
   if (block.type === "ordered-list-item")
     return `\u00A0\u00A0\u00A0\u00A0\u00A0${counter}.\u00A0\u00A0`;
 };
-const PDFDescription = ({ description }) => {
+
+type MaybeEditorState = ContentState | RawDraftContentState | EditorState | null;
+
+interface PDFDescriptionProps {
+  description: string;
+}
+
+export const PDFDescription: VoidFunctionComponent<PDFDescriptionProps> = ({
+  description,
+}) => {
   if (!description || !description.length) {
     return null;
   }
 
-  let editor;
+  let editor: MaybeEditorState;
   try {
     editor = convertFromRaw(JSON.parse(description));
     editor = EditorState.createWithContent(editor);
@@ -124,5 +138,3 @@ const PDFDescription = ({ description }) => {
     </View>
   );
 };
-
-export default PDFDescription;
