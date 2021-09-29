@@ -1,5 +1,7 @@
 import styled from "@react-pdf/styled-components";
+import { VoidFunctionComponent } from "react";
 import { formatDate } from "../../lib/date";
+import { EducationModel } from "../LivePreviewerComponents/EducationItem";
 
 const Root = styled.View`
   background-color: #e0e0e0;
@@ -26,7 +28,13 @@ const Wrapper = styled.View`
   margin-bottom: 5px;
 `;
 
-const Education = ({ education: { name, institute, endDate, startDate } }) => {
+interface EducationProps {
+  education: EducationModel;
+}
+
+const Education: VoidFunctionComponent<EducationProps> = ({
+  education: { name, institute, endDate, startDate },
+}) => {
   let formattedDate = "";
   const dateformat = "MMMM yyyy";
   if (startDate && endDate) {
@@ -48,7 +56,14 @@ const Education = ({ education: { name, institute, endDate, startDate } }) => {
     </Wrapper>
   );
 };
-export function PDFEducation({ education }) {
+
+interface PDFEducationProps {
+  education: EducationModel[];
+}
+
+export const PDFEducation: VoidFunctionComponent<PDFEducationProps> = ({
+  education,
+}) => {
   if (!education || !education.length) {
     return null;
   }
@@ -61,4 +76,4 @@ export function PDFEducation({ education }) {
       })}
     </Root>
   );
-}
+};
