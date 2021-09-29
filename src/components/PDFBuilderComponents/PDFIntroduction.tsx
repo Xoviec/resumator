@@ -1,4 +1,5 @@
 import styled from "@react-pdf/styled-components";
+import { VoidFunctionComponent } from "react";
 
 const Root = styled.View`
   background-color: #19c3c0;
@@ -13,7 +14,13 @@ const TextArea = styled.Text`
   font-size: 9px;
 `;
 
-export function PDFIntroduction({ introduction }) {
+interface PDFIntroductionProps {
+  introduction?: string;
+}
+
+export const PDFIntroduction: VoidFunctionComponent<PDFIntroductionProps> = ({
+  introduction,
+}) => {
   if (!introduction || !introduction.length) {
     return null;
   }
@@ -23,4 +30,4 @@ export function PDFIntroduction({ introduction }) {
       <TextArea>{introduction}</TextArea>
     </Root>
   );
-}
+};
