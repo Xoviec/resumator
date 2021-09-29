@@ -11,7 +11,6 @@ import FirebaseAppContextProvider, {
 } from "./context/FirebaseContext";
 import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
 import { CreatorPage } from "./pages/CreatorPage/CreatorPage";
-import { HTMLPreviewerPage } from "./pages/HTMLPreviewerPage/HTMLPreviewerPage";
 import { LivePreviewerPage } from "./pages/LivePreviewerPage/LivePreviewerPage";
 import { LoginPage } from "./pages/LoginPage";
 import { UserRedirect } from "./pages/Overview/UserRedirect";
@@ -36,12 +35,6 @@ export const App: VoidFunctionComponent = () => {
             exact
             path="/pdf-preview/:id/"
             component={PdfPreviewer}
-          />
-          <Route
-            type="private"
-            exact
-            path="/html-previewer"
-            component={HTMLPreviewerPage}
           />
           <Route type="anonymous" exact path="/login" component={LoginPage} />
         </Switch>
