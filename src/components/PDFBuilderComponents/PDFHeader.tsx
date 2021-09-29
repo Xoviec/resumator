@@ -3,6 +3,8 @@ import { View, Text, Image, Font } from "@react-pdf/renderer";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import avatars from "../../assets/images/avatars";
 import { formatDate } from "../../lib/date";
+import { VoidFunctionComponent } from "react";
+import { PersonaliaModel } from "../LivePreviewerComponents/TopSection";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 
@@ -53,8 +55,10 @@ const Avatar = styled(Image)`
   width: 65px;
 `;
 
-export function PDFHeader({ avatar, name, city, dateOfBirth }) {
-  const month = dateOfBirth ? formatDate(dateOfBirth, "MMMM").toUpperCase() : "";
+export const PDFHeader: VoidFunctionComponent<{ personalia: PersonaliaModel }> = ({
+  personalia: { avatar, firstName, city, dateOfBirth },
+}) => {
+  const month = dateOfBirth ? formatDate(dateOfBirth, "MMMM")?.toUpperCase() : "";
   const year = dateOfBirth ? formatDate(dateOfBirth, "yyyy") : "";
   city = city ? city : "";
 
@@ -63,7 +67,7 @@ export function PDFHeader({ avatar, name, city, dateOfBirth }) {
       <PersonalInfoText>
         <HeaderBlockTop>
           <Heading>Hi, I am </Heading>
-          <HeadingName>{name}</HeadingName>
+          <HeadingName>{firstName}</HeadingName>
         </HeaderBlockTop>
 
         <View>
@@ -78,4 +82,4 @@ export function PDFHeader({ avatar, name, city, dateOfBirth }) {
       <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[0]).img} />
     </Root>
   );
-}
+};

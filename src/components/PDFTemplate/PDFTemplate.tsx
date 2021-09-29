@@ -60,12 +60,7 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
     return (
       <Document>
         <CustomPage size="A4">
-          <PDFHeader
-            avatar={resume.personalia.avatar}
-            name={resume.personalia.firstName}
-            city={resume.personalia.city}
-            dateOfBirth={resume.personalia.dateOfBirth}
-          />
+          <PDFHeader personalia={resume.personalia} />
 
           <FlexView>
             <View>
