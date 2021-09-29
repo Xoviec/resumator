@@ -1,4 +1,6 @@
 import styled from "@react-pdf/styled-components";
+import { VoidFunctionComponent } from "react";
+import { SideProjectModel } from "../LivePreviewerComponents/SideProjectItem";
 
 const Root = styled.View`
   background-color: #e0e0e0;
@@ -33,7 +35,13 @@ const Wrapper = styled.View`
   margin-bottom: 5px;
 `;
 
-const SideProjectItem = ({ sideProjectItem: { title, description, link } }) => {
+interface SideProjectItemProps {
+  sideProjectItem: SideProjectModel;
+}
+
+const SideProjectItem: VoidFunctionComponent<SideProjectItemProps> = ({
+  sideProjectItem: { title, description, link },
+}) => {
   return (
     <Wrapper>
       <DegreeText>{title}</DegreeText>
@@ -42,17 +50,34 @@ const SideProjectItem = ({ sideProjectItem: { title, description, link } }) => {
     </Wrapper>
   );
 };
-export function PDFSideProjects({ sideProjects, type }) {
+
+export enum PDFSideProjectType {
+  SideProject,
+  Publication,
+}
+
+interface PDFSideProjectsProps {
+  sideProjects: SideProjectModel[];
+  type: PDFSideProjectType;
+}
+
+export const PDFSideProjects: VoidFunctionComponent<PDFSideProjectsProps> = ({
+  sideProjects,
+  type,
+}) => {
   if (!sideProjects || !sideProjects.length) {
     return null;
   }
 
+  const title =
+    type === PDFSideProjectType.SideProject ? "SIDE PROJECTS" : "PUBLICATIONS";
+
   return (
     <Root wrap={true}>
-      <Header>{type === "openSource" ? "SIDE PROJECTS" : "PUBLICATIONS"}</Header>
+      <Header>{title}</Header>
       {sideProjects.map((sideProjectItem, i) => {
         return <SideProjectItem key={i} sideProjectItem={sideProjectItem} />;
       })}
     </Root>
   );
-}
+};

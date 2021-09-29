@@ -3,7 +3,7 @@ import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
 import { Experience } from "./Experience";
-import PDFPreviewModal from "./PDFPreviewModal";
+import { PDFPreviewModal } from "./PDFPreviewModal";
 import { PreviewControls } from "./PreviewControls";
 import { ResumeModel } from "./ResumeModel";
 import { SideProjects } from "./SideProjects";
@@ -152,7 +152,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         </Box>
       </Box>
       <PDFPreviewModal
-        data={resume}
+        resume={resume}
         setShowPDFModal={setShowPDFModal}
         showPDFModal={showPDFModal}
       />
