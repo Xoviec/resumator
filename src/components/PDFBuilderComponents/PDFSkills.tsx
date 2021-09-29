@@ -1,4 +1,6 @@
 import styled from "@react-pdf/styled-components";
+import { VoidFunctionComponent } from "react";
+import { SkillModel } from "../LivePreviewerComponents/Skills";
 
 const Root = styled.View`
   background-color: #181626;
@@ -35,7 +37,11 @@ const Li = styled.Text`
   font-size: 9px;
 `;
 
-export function PDFSkills({ skills }) {
+interface PDFSkillsProps {
+  skills: SkillModel[];
+}
+
+export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => {
   if (!skills || !skills.length) {
     return null;
   }
@@ -53,4 +59,4 @@ export function PDFSkills({ skills }) {
       })}
     </Root>
   );
-}
+};
