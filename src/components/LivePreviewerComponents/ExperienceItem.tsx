@@ -11,13 +11,17 @@ import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
 import { colors } from "../../config/theme";
 import { TruncateChip } from "../Material/truncatedChip";
 
+export interface ExperienceStackItem {
+  name: string;
+}
+
 export interface ExperienceModel {
   role: string;
   company: string;
   startDate: Date;
   endDate: Date;
   description: string;
-  stackAndTechniques: { name: string }[];
+  stackAndTechniques: ExperienceStackItem[];
 }
 
 interface ExperienceItemProps {
