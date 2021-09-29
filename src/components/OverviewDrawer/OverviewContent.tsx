@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/";
-import { useState } from "react";
+import { useState, VoidFunctionComponent } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { SpacedButton } from "../Material";
 import { OverviewList } from "./OverviewList";
@@ -20,13 +20,21 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     background: "white",
-    zIndex: "2",
+    zIndex: 2,
     borderBottom: "1px solid",
     marginBottom: "10px",
   },
 }));
 
-export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
+interface OverviewContentProps {
+  isMobile?: boolean;
+  onToggleDrawer: () => void;
+}
+
+export const OverviewContent: VoidFunctionComponent<OverviewContentProps> = ({
+  isMobile,
+  onToggleDrawer,
+}) => {
   const { firebase, userRecord } = useFirebaseApp();
   const [searchTerms, setSearchTerms] = useState([]);
   const classes = useStyles();
@@ -40,7 +48,7 @@ export const OverviewContent = ({ isMobile, toggleDrawer, ...props }) => {
       <div className={classes.sticky}>
         {isMobile && (
           <SpacedButton
-            onClick={toggleDrawer("left", false)}
+            onClick={onToggleDrawer}
             variant="contained"
             color="primary"
             className={classes.button}

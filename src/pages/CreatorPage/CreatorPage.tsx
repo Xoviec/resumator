@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { VoidFunctionComponent } from "react";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
-import OverviewDrawer from "../../components/OverviewDrawer";
+import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
 import { initialResumeData } from "../../config/initialData";
 import { MainLayout } from "../../layouts/MainLayout";
 

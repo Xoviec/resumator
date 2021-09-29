@@ -5,7 +5,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { Card } from "@material-ui/core";
 import { VoidFunctionComponent } from "react";
 import { MainLayout } from "../../layouts/MainLayout";
-import OverviewDrawer from "../../components/OverviewDrawer";
+import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
 import { useResume } from "../../hooks/useResume";
 
 type LivePreviewerProps = RouteComponentProps<{ id: string }>;
