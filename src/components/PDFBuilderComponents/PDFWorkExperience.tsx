@@ -1,4 +1,6 @@
 import styled from "@react-pdf/styled-components";
+import { VoidFunctionComponent } from "react";
+import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 
 const Root = styled.View`
@@ -13,7 +15,13 @@ const Header = styled.Text`
   margin-bottom: 10px;
 `;
 
-export function PDFWorkExperience({ experience }) {
+interface PDFWorkExperienceProps {
+  experience: ExperienceModel[];
+}
+
+export const PDFWorkExperience: VoidFunctionComponent<PDFWorkExperienceProps> = ({
+  experience,
+}) => {
   if (!experience || !experience.length) {
     return null;
   }
@@ -26,4 +34,4 @@ export function PDFWorkExperience({ experience }) {
       })}
     </Root>
   );
-}
+};
