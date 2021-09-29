@@ -4,19 +4,17 @@ import styled from "@react-pdf/styled-components";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
 import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Light.ttf";
 import {
-  PDFEducation,
-  PDFHeader,
-  PDFIntroduction,
-  PDFProjects,
-  PDFSkills,
-  PDFWorkExperience,
-} from "../PDFBuilderComponents";
-import {
   PDFSideProjects,
   PDFSideProjectType,
 } from "../PDFBuilderComponents/PDFSideProjects";
-import { base64logo } from "../PDFBuilderComponents/base64logo";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import { pdfLogo } from "../PDFBuilderComponents/pdfLogo";
+import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
+import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
+import { PDFIntroduction } from "../PDFBuilderComponents/PDFIntroduction";
+import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
+import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
+import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
 
 Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
@@ -85,7 +83,7 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
           </FlexView>
 
           <Footer fixed>
-            <Logo src={base64logo} />
+            <Logo src={pdfLogo} />
           </Footer>
         </CustomPage>
       </Document>
