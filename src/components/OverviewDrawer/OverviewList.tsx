@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, VoidFunctionComponent } from "react";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { NavLink } from "react-router-dom";
@@ -17,6 +17,11 @@ import { TooltipIconButton } from "../Material";
 import Tooltip from "@material-ui/core/Tooltip";
 import { colors } from "../../config/theme";
 import { Confirmation } from "../Confirmation/Confirmation";
+import {
+  FirebaseAppContextType,
+  FirestoreQuery,
+} from "../../context/FirebaseContext";
+import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 
 export const useSectionItemHeaderStyles = makeStyles({
   actions: {
@@ -49,7 +54,11 @@ export const useSectionItemHeaderStyles = makeStyles({
   },
 });
 
-function refreshResumeData(oldData, newData, setData) {
+function refreshResumeData(
+  oldData: ResumeModel[],
+  newData: ResumeModel[],
+  setData: (resume: ResumeModel[]) => void
+) {
   const data1 = JSON.stringify(oldData);
   const data2 = JSON.stringify(newData);
   if (data1 !== data2) {
@@ -57,36 +66,41 @@ function refreshResumeData(oldData, newData, setData) {
   }
 }
 
-function twoWayFind(value, arr) {
-  const isEmptyValue = !value;
-  if (isEmptyValue) return false;
+function twoWayFind(personaliaValue: string | undefined, searchTerm: string = "") {
+  if (typeof personaliaValue !== 'string') return false;
 
-  const str = value.toString().toLowerCase().trim();
-  const stringifiedArray = arr.join(" ").toLowerCase();
-
-  const stringisInStringArray = stringifiedArray.includes(str);
-  const stringiedArrayIsInString = str.includes(stringifiedArray);
-
-  return stringisInStringArray || stringiedArrayIsInString;
+  return searchTerm.includes(personaliaValue) || personaliaValue.includes(searchTerm);
 }
 
-export const OverviewList = ({ firebase, query, searchTerms, userRecord }) => {
+interface OverviewListProps {
+  firebase: FirebaseAppContextType["firebase"];
+  query: FirestoreQuery;
+  searchTerms: string;
+  userRecord: FirebaseAppContextType["userRecord"];
+}
+
+export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
+  firebase,
+  query,
+  searchTerms,
+  userRecord,
+}) => {
   const [val, isLoading, error] = useCollection(query);
-  const [resumeOverviewData, setResumeOverviewData] = useState([]);
+  const [resumeOverviewData, setResumeOverviewData] = useState<ResumeModel[]>([]);
   const [openConfirmation, setOpenConfirmation] = useState(false);
-  const [resumeToDelete, setResumeToDelete] = useState(null);
+  const [resumeToDelete, setResumeToDelete] = useState<ResumeModel | null>(null);
   const hasFetchError = !isLoading && error;
-  const normalizedSearchTerms = []
-    .concat(searchTerms)
-    .map((s) => s.toLowerCase().trim());
-  const resumes = useMemo(
-    () => (val ? val.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : []),
+  const normalizedSearchTerms = searchTerms.toLowerCase().trim();
+
+  const resumes: ResumeModel[] = useMemo(
+    () => (val ? val.docs.map((doc: any) => ({ ...doc.data(), id: doc.id })) : []),
     [val]
   );
   const classes = useSectionItemHeaderStyles();
 
   const deleteResume = () => {
-    if (!resumeToDelete.id) return;
+    if (!resumeToDelete?.id) return;
+
     firebase
       .firestore()
       .collection("resumes")
@@ -110,7 +124,7 @@ export const OverviewList = ({ firebase, query, searchTerms, userRecord }) => {
               const { id, personalia, isImport } = resume;
               const { firstName, lastName, avatar } = personalia;
 
-              let name =
+              const name =
                 firstName || lastName
                   ? `${firstName} ${lastName}`
                   : `No name - ${id}`;
@@ -184,6 +198,7 @@ export const OverviewList = ({ firebase, query, searchTerms, userRecord }) => {
 
   if (searchTerms.length) {
     const filteredResumes = resumes.filter(({ personalia }) => {
+      // TODO: why not just search by firstName + lastName, why all this trouble ?
       if (personalia) {
         const personaliaValues = Object.values(personalia);
         const isInPersonalia = personaliaValues.some((value) => {

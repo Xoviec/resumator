@@ -36,10 +36,10 @@ export const OverviewContent: VoidFunctionComponent<OverviewContentProps> = ({
   onToggleDrawer,
 }) => {
   const { firebase, userRecord } = useFirebaseApp();
-  const [searchTerms, setSearchTerms] = useState([]);
+  const [searchTerms, setSearchTerms] = useState("");
   const classes = useStyles();
 
-  const handleSearch = (val = []) => {
+  const handleSearch = (val = "") => {
     setSearchTerms(val);
   };
 
