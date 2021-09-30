@@ -8,7 +8,7 @@ import {
   makeStyles,
   OutlinedInput,
 } from "@material-ui/core";
-import avatars from "../../assets/images/avatars";
+import { avatars } from "../../assets/images/avatars/avatars";
 import { colors } from "../../config/theme";
 
 interface FormAvatarSelectProps extends FormControlProps {

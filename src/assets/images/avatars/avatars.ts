@@ -7,7 +7,7 @@ import avatar6 from "./6.png";
 import avatar7 from "./7.png";
 import avatar8 from "./8.png";
 
-export default [
+export const avatars = [
   {
     name: "1",
     img: avatar1,

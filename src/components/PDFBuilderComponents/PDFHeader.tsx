@@ -1,7 +1,7 @@
 import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Font } from "@react-pdf/renderer";
 import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
-import avatars from "../../assets/images/avatars";
+import { avatars } from "../../assets/images/avatars/avatars";
 import { formatDate } from "../../lib/date";
 import { VoidFunctionComponent } from "react";
 import { PersonaliaModel } from "../LivePreviewerComponents/TopSection";
