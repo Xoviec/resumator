@@ -36,12 +36,14 @@ interface FormModel extends PersonaliaModel {
 interface TopSectionProps {
   personalia: PersonaliaModel;
   introduction?: string;
+  isArchived?: boolean;
   onSubmit: (value: FormModel) => void;
 }
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({
   personalia,
   introduction,
+  isArchived = false,
   onSubmit,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -102,6 +104,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
                   marginBottom: "30px",
                 }}
               >
+                {isArchived && "(Archived) "}
                 {getFirstName()} {getLastName()}
               </Typography>
               <DetailWithIcon icon={<EmailIcon style={{ color: colors.midBlue }} />}>

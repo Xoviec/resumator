@@ -5,7 +5,9 @@ import downloadResume from "../../lib/downloadResume";
 // Icons
 import GetAppIcon from "@material-ui/icons/GetApp";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import ArchiveIcon from "@material-ui/icons/Archive";
 import { useHistory, NavLink } from "react-router-dom";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 
 interface PreviewControlsProps {
   resume: any;
@@ -16,8 +18,14 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
   setShowPDFModal,
 }) => {
+  const { firebase } = useFirebaseApp();
   const history = useHistory();
   const isCreatorPage = history.location.pathname.includes("new");
+
+  const archiveResume = (isArchived = true) => {
+    if (!resume.id) return;
+    firebase.firestore().collection("resumes").doc(resume.id).update({ isArchived });
+  };
 
   return (
     <Box
@@ -58,6 +66,22 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           color="primary"
         >
           Preview
+        </SpacedButton>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="flex-end"
+        flexWrap="wrap"
+        gridGap={15}
+        marginLeft={2}
+      >
+        <SpacedButton
+          variant="contained"
+          startIcon={<ArchiveIcon />}
+          onClick={() => archiveResume(!resume.isArchived)}
+          color="primary"
+        >
+          {!resume.isArchived ? "Archive" : "Unarchive"}
         </SpacedButton>
       </Box>
     </Box>
