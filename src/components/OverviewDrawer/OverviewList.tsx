@@ -66,10 +66,12 @@ function refreshResumeData(
   }
 }
 
-function twoWayFind(personaliaValue: string | undefined, searchTerm: string = "") {
-  if (typeof personaliaValue !== 'string') return false;
+function twoWayFind(personaliaValue: string | undefined, searchTerm = "") {
+  if (typeof personaliaValue !== "string") return false;
 
-  return searchTerm.includes(personaliaValue) || personaliaValue.includes(searchTerm);
+  return (
+    searchTerm.includes(personaliaValue) || personaliaValue.includes(searchTerm)
+  );
 }
 
 interface OverviewListProps {

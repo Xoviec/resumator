@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, VoidFunctionComponent } from "react";
 import { Search } from "@material-ui/icons";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import { InputBase } from "@material-ui/core";
@@ -32,12 +32,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const OverviewSearch = ({ handleSearch }) => {
+interface OverviewSearchProps {
+  handleSearch: (searchTerms: string) => void;
+}
+
+export const OverviewSearch: VoidFunctionComponent<OverviewSearchProps> = ({
+  handleSearch,
+}) => {
   const classes = useStyles();
   const [searchVal, setSearchVal] = useState("");
 
   const debouncedSearch = useMemo(() => {
-    return debounce((searchValue) => {
+    return debounce((searchValue: string) => {
       handleSearch(searchValue);
     }, 500);
   }, [handleSearch]);
@@ -56,7 +62,6 @@ export const OverviewSearch = ({ handleSearch }) => {
         <Search />
       </div>
       <InputBase
-        variant="outlined"
         className={classes.input}
         onChange={doSearch}
         value={searchVal}
