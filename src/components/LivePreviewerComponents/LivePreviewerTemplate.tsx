@@ -2,38 +2,23 @@ import { Box } from "@material-ui/core";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
-import { EducationModel } from "./EducationItem";
 import { Experience } from "./Experience";
-import { ExperienceModel } from "./ExperienceItem";
-import PDFPreviewModal from "./PDFPreviewModal";
+import { PDFPreviewModal } from "./PDFPreviewModal";
 import { PreviewControls } from "./PreviewControls";
-import { SideProjectModel } from "./SideProjectItem";
+import { ResumeModel } from "./ResumeModel";
 import { SideProjects } from "./SideProjects";
-import { SkillModel, Skills } from "./Skills";
-import { PersonaliaModel, TopSection } from "./TopSection";
-import { SocialLinks, SocialLinkModel } from "./SocialLinks";
-
-interface Resume {
-  id: string;
-  personalia: PersonaliaModel;
-  introduction: string | undefined;
-  projects: ExperienceModel[];
-  experience: ExperienceModel[];
-  skills: SkillModel[];
-  sideProjects: SideProjectModel[];
-  publications: SideProjectModel[];
-  education: EducationModel[];
-  socialLinks: SocialLinkModel[];
-}
+import { Skills } from "./Skills";
+import { SocialLinks } from "./SocialLinks";
+import { TopSection } from "./TopSection";
 
 interface LivePreviewerTemplateProps {
-  data: Resume;
+  data: ResumeModel;
 }
 
 const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   data,
 }) => {
-  const [resume, setResume] = useState<Resume>(data);
+  const [resume, setResume] = useState<ResumeModel>(data);
 
   useEffect(() => {
     setResume(data);
@@ -62,7 +47,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     .collection("resumes");
 
   const addResume = useCallback(
-    async (resume: Resume) => {
+    async (resume: ResumeModel) => {
       const doc = resumesRef.doc();
 
       try {
@@ -75,7 +60,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     [resumesRef]
   );
 
-  const updateResume = async (resume: Resume) => {
+  const updateResume = async (resume: ResumeModel) => {
     try {
       await resumesRef.doc(resume.id).update({
         ...resume,
@@ -95,7 +80,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   const [showPDFModal, setShowPDFModal] = useState(false);
 
-  const handleSubmit = (resumePartial: Partial<Resume>) => {
+  const handleSubmit = (resumePartial: Partial<ResumeModel>) => {
     const newResume = { ...resume, ...resumePartial };
     updateResume(newResume);
   };
@@ -167,7 +152,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         </Box>
       </Box>
       <PDFPreviewModal
-        data={resume}
+        resume={resume}
         setShowPDFModal={setShowPDFModal}
         showPDFModal={showPDFModal}
       />

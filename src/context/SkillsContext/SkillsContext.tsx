@@ -1,5 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import * as React from "react";
+import {
+  createContext,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useFirebaseApp } from "../FirebaseContext";
 
@@ -8,7 +13,7 @@ type SkillsContextType = {
   updateSkillList: (arg: string[]) => void;
 };
 
-const SkillsContext = React.createContext<SkillsContextType | undefined>(undefined);
+const SkillsContext = createContext<SkillsContextType | undefined>(undefined);
 
 export const useSkillsContext = (): SkillsContextType => {
   const context = useContext(SkillsContext);
@@ -19,9 +24,7 @@ export const useSkillsContext = (): SkillsContextType => {
   return context;
 };
 
-export const SkillsContextProvider: React.VFC<
-  React.PropsWithChildren<Record<string, never>>
-> = ({ children }) => {
+export const SkillsContextProvider: FunctionComponent = ({ children }) => {
   const { firebase } = useFirebaseApp();
 
   const [skillList, setSkillList] = useState<string[]>([]);

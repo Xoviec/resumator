@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import {
   Box,
@@ -8,7 +8,7 @@ import {
   makeStyles,
   OutlinedInput,
 } from "@material-ui/core";
-import avatars from "../../assets/images/avatars";
+import { avatars } from "../../assets/images/avatars/avatars";
 import { colors } from "../../config/theme";
 
 interface FormAvatarSelectProps extends FormControlProps {
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormAvatarSelect: FunctionComponent<FormAvatarSelectProps> = ({
+export const FormAvatarSelect: VoidFunctionComponent<FormAvatarSelectProps> = ({
   name,
   label,
   ...props

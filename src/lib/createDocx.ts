@@ -1,16 +1,13 @@
-/* eslint-disable @typescript-eslint/triple-slash-reference */
-/// <reference path="../../types/docxtemplater/index.d.ts" />
-/// <reference path="../../types/docxtemplater-image-module-free/index.d.ts" />
 import Docxtemplater from "docxtemplater";
 import ImageModule from "docxtemplater-image-module-free";
 import PizZip from "pizzip";
+import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
+import { LooseObject } from "../types/LooseObject";
 
-import Resume from "../../types/Resume";
-import LooseObject from "../../types/LooseObject";
 import { formatDatesInObject } from "./date";
 
 export default async function createDocx(
-  resume: Resume,
+  resume: ResumeModel,
   template: ArrayBuffer,
   avatar: ArrayBuffer
 ) {

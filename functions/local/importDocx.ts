@@ -11,7 +11,7 @@ import {
   SideProject,
   Skill,
   PartialResume,
-} from "../../types/Resume.d";
+} from "../../src/types/Resume";
 
 type CollectionBySection<T> = {
   certifications: T;

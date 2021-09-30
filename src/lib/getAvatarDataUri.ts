@@ -1,4 +1,4 @@
-import avatars from "../assets/images/avatars";
+import { avatars } from "../assets/images/avatars/avatars";
 
 export default function getAvatarDataUri(name: string) {
   const { img } = avatars.find((avatar) => avatar.name === name) || avatars[0]; // Fall back to first avatar folder

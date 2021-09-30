@@ -1,4 +1,10 @@
-import { FunctionComponent, MouseEvent, ReactNode, useRef, useState } from "react";
+import {
+  VoidFunctionComponent,
+  MouseEvent,
+  ReactNode,
+  useRef,
+  useState,
+} from "react";
 import { Box, Divider, makeStyles } from "@material-ui/core";
 import {
   ContentState,
@@ -40,7 +46,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const FormRichTextDraftEditor: FunctionComponent<FormRichTextDraftEditorProps> =
+export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEditorProps> =
   ({ value, onChange }) => {
     const classes = useStyles();
     let content;
