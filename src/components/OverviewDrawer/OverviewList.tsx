@@ -22,6 +22,7 @@ import {
   FirestoreQuery,
 } from "../../context/FirebaseContext";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import Fuse from "fuse.js";
 
 export const useSectionItemHeaderStyles = makeStyles({
   actions: {
@@ -54,26 +55,6 @@ export const useSectionItemHeaderStyles = makeStyles({
   },
 });
 
-function refreshResumeData(
-  oldData: ResumeModel[],
-  newData: ResumeModel[],
-  setData: (resume: ResumeModel[]) => void
-) {
-  const data1 = JSON.stringify(oldData);
-  const data2 = JSON.stringify(newData);
-  if (data1 !== data2) {
-    setData(newData);
-  }
-}
-
-function twoWayFind(personaliaValue: string | undefined, searchTerm = "") {
-  if (typeof personaliaValue !== "string") return false;
-
-  return (
-    searchTerm.includes(personaliaValue) || personaliaValue.includes(searchTerm)
-  );
-}
-
 interface OverviewListProps {
   firebase: FirebaseAppContextType["firebase"];
   query: FirestoreQuery;
@@ -87,17 +68,40 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
   searchTerms,
   userRecord,
 }) => {
-  const [val, isLoading, error] = useCollection(query);
-  const [resumeOverviewData, setResumeOverviewData] = useState<ResumeModel[]>([]);
+  const [resumeQueryResult, isLoading, error] = useCollection(query);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [resumeToDelete, setResumeToDelete] = useState<ResumeModel | null>(null);
   const hasFetchError = !isLoading && error;
-  const normalizedSearchTerms = searchTerms.toLowerCase().trim();
 
   const resumes: ResumeModel[] = useMemo(
-    () => (val ? val.docs.map((doc: any) => ({ ...doc.data(), id: doc.id })) : []),
-    [val]
+    () =>
+      resumeQueryResult
+        ? resumeQueryResult.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
+        : [],
+    [resumeQueryResult]
   );
+
+  const resumeFuseModel = useMemo(
+    () =>
+      new Fuse(resumes, {
+        keys: [
+          "personalia.firstName",
+          "personalia.lastName",
+          "personalia.email",
+          "personalia.city",
+        ],
+      }),
+    [resumes]
+  );
+
+  const filteredResumes = useMemo(
+    () =>
+      searchTerms.length
+        ? resumeFuseModel.search(searchTerms).map((r) => r.item)
+        : resumes,
+    [resumeFuseModel, resumes, searchTerms]
+  );
+
   const classes = useSectionItemHeaderStyles();
 
   const deleteResume = () => {
@@ -115,107 +119,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       });
   };
 
-  const renderResume = () => {
-    if (!resumeOverviewData.length) return;
-    return (
-      <>
-        <List dense={true} data-testid="overview-list">
-          {resumeOverviewData
-            .filter((resume) => resume.personalia && resume)
-            .map((resume) => {
-              const { id, personalia, isImport } = resume;
-              const { firstName, lastName, avatar } = personalia;
-
-              const name =
-                firstName || lastName
-                  ? `${firstName} ${lastName}`
-                  : `No name - ${id}`;
-
-              return (
-                <ListItem key={id} classes={{ container: classes.container }}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    <NavLink
-                      className={isImport ? classes.isImported : classes.link}
-                      activeClassName={classes.activeLink}
-                      to={`/resume/${id}`}
-                    >
-                      {name}
-                      {isImport && (
-                        <>
-                          &nbsp;
-                          <Tooltip title="is imported">
-                            <ReportProblemOutlinedIcon
-                              className={classes.importedWarning}
-                            />
-                          </Tooltip>
-                        </>
-                      )}
-                    </NavLink>
-                  </ListItemText>
-                  <ListItemSecondaryAction className={classes.actions}>
-                    <TooltipIconButton
-                      color="inherit"
-                      tooltip={"Delete resume"}
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => {
-                        setOpenConfirmation(true);
-                        setResumeToDelete(resume);
-                      }}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </TooltipIconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
-        </List>
-
-        <Confirmation
-          isOpen={openConfirmation}
-          denyClick={() => setOpenConfirmation(false)}
-          confirmClick={() => {
-            setOpenConfirmation(false);
-            deleteResume();
-          }}
-          title={"Delete item"}
-          message={`Are you sure you want to delete this item?
-            <br/>
-            <strong>"${resumeToDelete?.personalia?.firstName} ${resumeToDelete?.personalia?.lastName} - ${resumeToDelete?.id}"</strong>
-            <br/><br/>
-            This action cannot be reversed.`}
-        />
-      </>
-    );
-  };
-
-  if (!searchTerms.length && resumes.length) {
-    refreshResumeData(resumeOverviewData, resumes, setResumeOverviewData);
-  }
-
-  if (searchTerms.length) {
-    const filteredResumes = resumes.filter(({ personalia }) => {
-      // TODO: why not just search by firstName + lastName, why all this trouble ?
-      if (personalia) {
-        const personaliaValues = Object.values(personalia);
-        const isInPersonalia = personaliaValues.some((value) => {
-          const hasValue = twoWayFind(value, normalizedSearchTerms);
-          return hasValue;
-        });
-        if (isInPersonalia) return true;
-      }
-
-      return false;
-    });
-    refreshResumeData(resumeOverviewData, filteredResumes, setResumeOverviewData);
-  }
-
-  if (!userRecord?.isManager || !val) return null;
+  if (!userRecord?.isManager || !filteredResumes?.length) return null;
 
   return (
     <>
@@ -226,7 +130,75 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
         </span>
       )}
 
-      {renderResume()}
+      <List dense={true} data-testid="overview-list">
+        {filteredResumes
+          .filter((resume) => resume?.personalia)
+          .map((resume) => {
+            const { id, personalia, isImport } = resume;
+            const { firstName, lastName, avatar } = personalia;
+
+            const name =
+              firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
+
+            return (
+              <ListItem key={id} classes={{ container: classes.container }}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
+                  <NavLink
+                    className={isImport ? classes.isImported : classes.link}
+                    activeClassName={classes.activeLink}
+                    to={`/resume/${id}`}
+                  >
+                    {name}
+                    {isImport && (
+                      <>
+                        &nbsp;
+                        <Tooltip title="is imported">
+                          <ReportProblemOutlinedIcon
+                            className={classes.importedWarning}
+                          />
+                        </Tooltip>
+                      </>
+                    )}
+                  </NavLink>
+                </ListItemText>
+                <ListItemSecondaryAction className={classes.actions}>
+                  <TooltipIconButton
+                    color="inherit"
+                    tooltip={"Delete resume"}
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => {
+                      setOpenConfirmation(true);
+                      setResumeToDelete(resume);
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </TooltipIconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
+      </List>
+
+      <Confirmation
+        isOpen={openConfirmation}
+        denyClick={() => setOpenConfirmation(false)}
+        confirmClick={() => {
+          setOpenConfirmation(false);
+          deleteResume();
+        }}
+        title={"Delete item"}
+        message={`Are you sure you want to delete this item?
+            <br/>
+            <strong>"${resumeToDelete?.personalia?.firstName} ${resumeToDelete?.personalia?.lastName} - ${resumeToDelete?.id}"</strong>
+            <br/><br/>
+            This action cannot be reversed.`}
+      />
     </>
   );
 };
