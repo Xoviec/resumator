@@ -1,4 +1,3 @@
-import React from "react";
 import { Chip, Tooltip } from "@material-ui/core";
 
 const truncateLabel = (content: string) => {

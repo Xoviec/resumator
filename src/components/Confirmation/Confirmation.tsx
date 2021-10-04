@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import {
   Box,
   Button,
@@ -19,7 +19,7 @@ interface ConfirmationProps {
   confirmClick: () => any;
 }
 
-export const Confirmation: FunctionComponent<ConfirmationProps> = ({
+export const Confirmation: VoidFunctionComponent<ConfirmationProps> = ({
   isOpen,
   onClose = () => null,
   title = "Confirm action",

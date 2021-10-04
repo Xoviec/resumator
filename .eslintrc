@@ -5,28 +5,32 @@
     "es6": true
   },
   "extends": [
+    "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "react-app",
     "plugin:cypress/recommended"
   ],
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
-  },
   "rules": {
     "no-console": "warn",
     "no-eval": "error",
     "import/first": "error",
     "react/prop-types": 0,
-    "import/no-anonymous-default-export": 0
+    "import/no-anonymous-default-export": 0,
+    "react/react-in-jsx-scope": 0 // no longer necessary with "react-jsx" pragma
   },
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "plugins": [
-    "cypress"
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn"
+      }
+    }
   ]
 }

@@ -1,4 +1,4 @@
-import type { Personalia } from "../../../types/Resume";
+import { Personalia } from "../../../src/types/Resume";
 
 const getLinkName = (personalia: Personalia, id: string) =>
   personalia.firstName || personalia.lastName

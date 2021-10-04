@@ -1,19 +1,31 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { FirebaseAppContext } from "../FirebaseContext";
+import { useFirebaseApp } from "../FirebaseContext";
 
-export const SkillsContext: React.Context<{
+type SkillsContextType = {
   skillList: string[];
   updateSkillList: (arg: string[]) => void;
-}> = React.createContext({
-  skillList: [""],
-  updateSkillList: (arg: string[]) => {},
-});
+};
 
-export const SkillsContextProvider: FunctionComponent<
-  React.PropsWithChildren<{}>
-> = ({ children }) => {
-  const { firebase } = useContext(FirebaseAppContext) as any;
+const SkillsContext = createContext<SkillsContextType | undefined>(undefined);
+
+export const useSkillsContext = (): SkillsContextType => {
+  const context = useContext(SkillsContext);
+  if (context === undefined) {
+    throw new Error("Firebase context is used before initialization");
+  }
+
+  return context;
+};
+
+export const SkillsContextProvider: FunctionComponent = ({ children }) => {
+  const { firebase } = useFirebaseApp();
 
   const [skillList, setSkillList] = useState<string[]>([]);
   const [docId, setDocId] = useState<string>("");
@@ -26,15 +38,19 @@ export const SkillsContextProvider: FunctionComponent<
     }
   }, [val]);
 
+  const updateSkillList: SkillsContextType["updateSkillList"] = async (
+    newSkillList
+  ) => {
+    const ref = await firebase.firestore().collection("allSkills").doc(docId);
+    ref.update({ skills: newSkillList });
+    setSkillList(newSkillList);
+  };
+
   return (
     <SkillsContext.Provider
       value={{
-        skillList: skillList,
-        updateSkillList: async (newSkillList) => {
-          const ref = await firebase.firestore().collection("allSkills").doc(docId);
-          ref.update({ skills: newSkillList });
-          setSkillList(newSkillList);
-        },
+        skillList,
+        updateSkillList,
       }}
     >
       {children}

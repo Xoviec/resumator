@@ -1,43 +1,24 @@
-import React, {
-  useContext,
-  useState,
-  FunctionComponent,
-  useEffect,
-  useCallback,
-} from "react";
 import { Box } from "@material-ui/core";
-import { FirebaseAppContext } from "../../context/FirebaseContext";
-import { PreviewControls } from "./PreviewControls";
-import { TopSection, PersonaliaModel } from "./TopSection";
-import { Experience } from "./Experience";
-import { ExperienceModel } from "./ExperienceItem";
-import { Skills, SkillModel } from "./Skills";
-import { SideProjects } from "./SideProjects";
-import { SideProjectModel } from "./SideProjectItem";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
-import { EducationModel } from "./EducationItem";
-import PDFPreviewModal from "./PDFPreviewModal";
-
-interface Resume {
-  id: string;
-  personalia: PersonaliaModel;
-  introduction: string | undefined;
-  projects: ExperienceModel[];
-  experience: ExperienceModel[];
-  skills: SkillModel[];
-  sideProjects: SideProjectModel[];
-  publications: SideProjectModel[];
-  education: EducationModel[];
-}
+import { Experience } from "./Experience";
+import { PDFPreviewModal } from "./PDFPreviewModal";
+import { PreviewControls } from "./PreviewControls";
+import { ResumeModel } from "./ResumeModel";
+import { SideProjects } from "./SideProjects";
+import { Skills } from "./Skills";
+import { SocialLinks } from "./SocialLinks";
+import { TopSection } from "./TopSection";
 
 interface LivePreviewerTemplateProps {
-  data: Resume;
+  data: ResumeModel;
 }
 
 const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   data,
 }) => {
-  const [resume, setResume] = useState<Resume>(data);
+  const [resume, setResume] = useState<ResumeModel>(data);
 
   useEffect(() => {
     setResume(data);
@@ -59,34 +40,35 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     document.title = `${fullName}${defaultTitle}`;
   }, [personalia.firstName, personalia.lastName]);
 
-  const { firebase } = useContext(FirebaseAppContext) as any;
+  const { firebase } = useFirebaseApp();
 
-  const resumesRef = (firebase as any) // Remove this when typings are provided for the Firebase context.
+  const resumesRef = firebase // Remove this when typings are provided for the Firebase context.
     .firestore()
     .collection("resumes");
 
   const addResume = useCallback(
-    async (resume: Resume) => {
+    async (resume: ResumeModel) => {
       const doc = resumesRef.doc();
 
       try {
         await doc.set(resume);
         setResume({ ...resume, id: doc.id });
       } catch (e) {
-        alert(`Error adding document. ${e.message}`);
+        alert(`Error adding document. ${e instanceof Error ? `${e.message}` : ""}`);
       }
     },
     [resumesRef]
   );
 
-  const updateResume = async (resume: Resume) => {
+  const updateResume = async (resume: ResumeModel) => {
     try {
       await resumesRef.doc(resume.id).update({
         ...resume,
         isImport: false, // explicitly remove database import flag, but only when saving to firestore
       });
+      setResume(resume);
     } catch (e) {
-      alert(`Error updating document. ${e.message}`);
+      alert(`Error updating document. ${e instanceof Error ? `${e.message}` : ""}`);
     }
   };
 
@@ -98,10 +80,9 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   const [showPDFModal, setShowPDFModal] = useState(false);
 
-  const handleSubmit = (resumePartial: Partial<Resume>) => {
+  const handleSubmit = (resumePartial: Partial<ResumeModel>) => {
     const newResume = { ...resume, ...resumePartial };
     updateResume(newResume);
-    setResume(newResume);
   };
 
   return (
@@ -146,6 +127,10 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         </Box>
         {/* Right column */}
         <Box display="flex" flexDirection="column" flex={1} gridGap={16}>
+          <SocialLinks
+            socialLinks={resume.socialLinks}
+            onSubmit={(data) => handleSubmit({ socialLinks: data })}
+          />
           <Skills
             skills={resume.skills}
             onSubmit={(data) => handleSubmit({ skills: data })}
@@ -167,7 +152,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         </Box>
       </Box>
       <PDFPreviewModal
-        data={resume}
+        resume={resume}
         setShowPDFModal={setShowPDFModal}
         showPDFModal={showPDFModal}
       />

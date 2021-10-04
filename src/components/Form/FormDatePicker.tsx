@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -9,7 +9,7 @@ import {
 
 type FormDatePickerProps = Omit<DatePickerProps, "value" | "onChange">;
 
-export const FormDatePicker: FunctionComponent<FormDatePickerProps> = ({
+export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
   name,
   ...props
 }) => {
@@ -24,7 +24,6 @@ export const FormDatePicker: FunctionComponent<FormDatePickerProps> = ({
         render={({ value, onChange }) => (
           <KeyboardDatePicker
             fullWidth
-            disableFuture={true}
             autoOk={true}
             variant="inline"
             inputVariant="outlined"

@@ -1,6 +1,10 @@
 ![CI PR on MasterBranch](https://github.com/kevinegstorf/resumator/workflows/CI%20PR%20on%20MasterBranch/badge.svg?branch=resumator-patch-1)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Development environment
+
+A development firebase instance is created. To use it, add an .env.development file, based on the sample, with the appropriate credentials.
+
 ## Available Scripts
 
 In the project directory, you can run:

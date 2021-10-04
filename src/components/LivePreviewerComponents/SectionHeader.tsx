@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { TooltipIconButton } from "../Material";
 // Icons
@@ -40,7 +40,7 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
             <TooltipIconButton
               color="inherit"
               tooltip={actionTooltip || ""}
-              onClick={actionOnClick || (() => {})}
+              onClick={actionOnClick}
             >
               {action === "add" && (
                 <AddIcon fontSize="small" htmlColor={colors.midBlue} />

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import {
   FormControl,
@@ -14,7 +14,7 @@ interface FormRichTextEditorProps extends FormControlProps {
   rows?: number;
 }
 
-export const FormRichTextEditor: FunctionComponent<FormRichTextEditorProps> = ({
+export const FormRichTextEditor: VoidFunctionComponent<FormRichTextEditorProps> = ({
   name,
   label,
   rows,

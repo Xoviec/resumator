@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import { Box, Chip, makeStyles } from "@material-ui/core";
+import { FunctionComponent } from "react";
+import { Box, makeStyles } from "@material-ui/core";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { formatDate } from "../../lib/date";
@@ -11,13 +11,17 @@ import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
 import { colors } from "../../config/theme";
 import { TruncateChip } from "../Material/truncatedChip";
 
+export interface ExperienceStackItem {
+  name: string;
+}
+
 export interface ExperienceModel {
   role: string;
   company: string;
   startDate: Date;
   endDate: Date;
   description: string;
-  stackAndTechniques: { name: string }[];
+  stackAndTechniques: ExperienceStackItem[];
 }
 
 interface ExperienceItemProps {

@@ -1,4 +1,5 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
+import * as React from "react";
 import { Button, ButtonProps } from "@material-ui/core";
 import { Menu, MenuItem } from "@material-ui/core";
 

@@ -1,5 +1,5 @@
 import { Grid, InputBase, IconButton, Card, Box } from "@material-ui/core";
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 interface SkillItemProps {

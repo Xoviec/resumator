@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Box } from "@material-ui/core";
 import { formatDate } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
@@ -34,7 +34,7 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
 
     if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
     if (start && !end) return `${formatDate(start)} - present`;
-    if (!start && end) return `${formatDate(end)}`;
+    if (!start && end) return `Ended in ${formatDate(end, "yyyy")}`;
   };
 
   return (

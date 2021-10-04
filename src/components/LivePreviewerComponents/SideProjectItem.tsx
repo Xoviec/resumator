@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Box, Link } from "@material-ui/core";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 
@@ -31,7 +31,7 @@ export const SideProjectItem: FunctionComponent<SideProjectItemProps> = ({
         classes={sectionItemHeaderClasses}
         onDelete={() => onDelete()}
         onEdit={() => onEdit(projectItem)}
-      ></SectionItemHeader>
+      />
       <Box display="flex" flexDirection="column" gridGap={8}>
         {projectItem.description && <Box>{projectItem.description}</Box>}
         <Link

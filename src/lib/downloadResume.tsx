@@ -1,14 +1,14 @@
-import React from "react";
+/* eslint-disable no-case-declarations */
 import { pdf as createPdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 
 import formatResumeFilename from "./formatResumeFilename";
 import createDocx from "./createDocx";
 import getAvatarDataUri from "./getAvatarDataUri";
-import PDFTemplate from "../components/PDFTemplate/PDFTemplate";
-import Resume from "../../types/Resume";
+import { PDFTemplate } from "../components/PDFTemplate/PDFTemplate";
+import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 
-export default async function downloadResume(resume: Resume, type = "PDF") {
+export default async function downloadResume(resume: ResumeModel, type = "PDF") {
   const { firstName, lastName, avatar: avatarName } = resume.personalia;
   let file: Blob;
   switch (type.toLowerCase()) {
@@ -23,8 +23,7 @@ export default async function downloadResume(resume: Resume, type = "PDF") {
         avatar
       );
       file = new Blob([docx], {
-        type:
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       });
       break;
     case "pdf":

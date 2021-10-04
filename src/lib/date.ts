@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import firebase from "firebase/app";
-import LooseObject from "../../types/LooseObject";
+import { LooseObject } from "../types/LooseObject";
 
 type DateOrTimestamp = Date | firebase.firestore.Timestamp;
 
@@ -15,7 +15,8 @@ function isDateKey(key: string): boolean {
 }
 
 function isISODateString(timestamp: string): boolean {
-  const ISODateRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/gm;
+  const ISODateRegex =
+    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/gm;
   return ISODateRegex.test(timestamp);
 }
 
@@ -68,9 +69,12 @@ export function formatDatesInObject(
   return walkObject(object, (prop: any) => formatDate(prop, format));
 }
 
-function walkObject(object: LooseObject, callback: Function): LooseObject {
+function walkObject(
+  object: LooseObject,
+  callback: (prop: any) => void
+): LooseObject {
   for (const key in object) {
-    let prop = object[key];
+    const prop = object[key];
 
     if (prop && typeof prop === "object") {
       if (prop.seconds || prop instanceof Date) {
