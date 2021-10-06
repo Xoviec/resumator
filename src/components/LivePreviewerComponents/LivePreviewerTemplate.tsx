@@ -93,6 +93,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           ...resume.personalia,
         }}
         introduction={resume.introduction}
+        isArchived={resume.isArchived}
         onSubmit={(data) => {
           const { introduction, ...personalia } = data;
           handleSubmit({

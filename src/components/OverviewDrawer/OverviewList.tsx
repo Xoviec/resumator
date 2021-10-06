@@ -38,6 +38,9 @@ export const useSectionItemHeaderStyles = makeStyles({
       pointerEvents: "all",
     },
   },
+  isArchived: {
+    opacity: 0.6,
+  },
   link: {
     color: colors.darkBlue,
     textDecoration: "none",
@@ -133,15 +136,26 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       <List dense={true} data-testid="overview-list">
         {filteredResumes
           .filter((resume) => resume?.personalia)
+          // move archived resumes to bottom of list
+          .sort((docA: ResumeModel, docB: ResumeModel) =>
+            docA.isArchived === docB.isArchived ? 0 : docA.isArchived ? 1 : -1
+          )
           .map((resume) => {
-            const { id, personalia, isImport } = resume;
+            const { id, personalia, isImport, isArchived } = resume;
             const { firstName, lastName, avatar } = personalia;
 
             const name =
               firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
 
             return (
-              <ListItem key={id} classes={{ container: classes.container }}>
+              <ListItem
+                key={id}
+                classes={{
+                  container: `${classes.container} ${
+                    isArchived && classes.isArchived
+                  }`,
+                }}
+              >
                 <ListItemAvatar>
                   <Avatar>
                     <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
@@ -153,6 +167,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
                     activeClassName={classes.activeLink}
                     to={`/resume/${id}`}
                   >
+                    {isArchived && "(Archived) "}
                     {name}
                     {isImport && (
                       <>

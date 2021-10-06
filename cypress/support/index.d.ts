@@ -12,6 +12,7 @@ declare interface Resume {
     city: string;
   };
   isImport: false;
+  isArchived: false;
   skills: [];
   avatar: string;
   id: string;
