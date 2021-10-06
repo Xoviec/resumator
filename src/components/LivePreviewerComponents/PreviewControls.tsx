@@ -8,9 +8,10 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import { useHistory, NavLink } from "react-router-dom";
 import { useFirebaseApp } from "../../context/FirebaseContext";
+import { ResumeModel } from "./ResumeModel";
 
 interface PreviewControlsProps {
-  resume: any;
+  resume: ResumeModel;
   setShowPDFModal: (show: boolean) => void;
 }
 
