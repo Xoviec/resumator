@@ -1,7 +1,7 @@
 import { Fragment, VoidFunctionComponent } from "react";
 import styled from "@react-pdf/styled-components";
 import { PDFDescription } from "./PDFDescription";
-import { formatDate } from "../../lib/date";
+import { formatDate, formatTimespan } from "../../lib/date";
 import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 
 const Root = styled.View`
@@ -55,16 +55,10 @@ export const ProjectsExperienceCard: VoidFunctionComponent<ProjectsExperienceCar
   ({ project }) => {
     const { role, company, description, stackAndTechniques, startDate, endDate } =
       project;
-    const startDateFormatted = startDate ? formatDate(startDate, "MMMM yyyy") : "";
-    const endDateFormatted = endDate ? formatDate(endDate, "MMMM yyyy") : "";
     const shouldRenderTechniquesRow =
       !!project.stackAndTechniques && !!project.stackAndTechniques.length;
     const isEmpty =
-      !role &&
-      !company &&
-      !startDateFormatted &&
-      !endDateFormatted &&
-      !shouldRenderTechniquesRow;
+      !role && !company && !startDate && !endDate && !shouldRenderTechniquesRow;
 
     return (
       <>
@@ -74,7 +68,11 @@ export const ProjectsExperienceCard: VoidFunctionComponent<ProjectsExperienceCar
             <Flex wrap={false}>
               <SubText>{company}</SubText>
               <SubText>
-                {startDateFormatted} - {endDateFormatted}
+                {formatTimespan({
+                  startDate,
+                  endDate,
+                  dateFormat: "MMMM yyyy",
+                })}
               </SubText>
             </Flex>
             <PDFDescription description={description} />

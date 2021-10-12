@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { Box, makeStyles } from "@material-ui/core";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { formatDate } from "../../lib/date";
+import { formatDate, formatTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
@@ -62,15 +62,6 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
     description = experienceItem.description;
   }
 
-  const getTimespan = () => {
-    const start = experienceItem.startDate;
-    const end = experienceItem.endDate;
-
-    if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
-    if (start && !end) return `${formatDate(start)} - present`;
-    if (!start && end) return `somewhere in the past - ${formatDate(end)}`;
-  };
-
   return (
     <Box className={sectionItemHeaderClasses.container}>
       <SectionItemHeader
@@ -85,7 +76,10 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
           {experienceItem.company}
         </DetailWithIcon>
         <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.midBlue }} />}>
-          {getTimespan()}
+          {formatTimespan({
+            startDate: experienceItem.startDate,
+            endDate: experienceItem.endDate,
+          })}
         </DetailWithIcon>
         <Box
           marginTop={description ? 1.5 : 0}

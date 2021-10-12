@@ -90,3 +90,30 @@ function walkObject(
   }
   return object;
 }
+
+export function formatTimespan({
+  startDate,
+  endDate,
+  showEndYear = false,
+  dateFormat = "dd-MM-yyyy",
+}: {
+  startDate?: Date;
+  endDate?: Date;
+  showEndYear?: boolean;
+  dateFormat?: string;
+}): string {
+  if (startDate && endDate)
+    return `${formatDate(startDate, dateFormat)} - ${formatDate(
+      endDate,
+      dateFormat
+    )}`;
+
+  if (startDate && !endDate) return `${formatDate(startDate, dateFormat)} - present`;
+
+  if (!startDate && endDate)
+    return showEndYear
+      ? `Ended in ${formatDate(endDate, "yyyy")}`
+      : `somewhere in the past - ${formatDate(endDate, dateFormat)}`;
+
+  return "";
+}
