@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core";
-import { spacing } from "@material-ui/system";
-import { styled } from "@material-ui/core/styles";
+import { Button } from "@mui/material";
+import { spacing } from "@mui/system";
+import { styled } from "@mui/material/styles";
 
 export const SpacedButton = styled(Button)(spacing);

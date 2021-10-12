@@ -1,5 +1,5 @@
 import { useState, FunctionComponent } from "react";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider } from "@mui/material";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormTextField, FormDatePicker } from "../Form";
@@ -54,9 +54,9 @@ export const Education: FunctionComponent<EducationProps> = ({
       actionTooltip="Add education"
       actionOnClick={() => setIsEditing(true)}
     >
-      <Box display="flex" flexDirection="column" marginTop={-1} gridGap={8}>
+      <Box display="flex" flexDirection="column" marginTop={-1} gap={8}>
         {education.map((entry: EducationModel, index: number) => (
-          <Box display="flex" flexDirection="column" key={index} gridGap={16}>
+          <Box display="flex" flexDirection="column" key={index} gap={16}>
             <EducationItem
               educationItem={entry}
               onDelete={() => handleDelete(index)}

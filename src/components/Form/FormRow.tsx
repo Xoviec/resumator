@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 
 export const FormRow: FunctionComponent = ({ children }) => {
   return (
-    <Box display="flex" flexDirection="row" gridGap={8}>
+    <Box display="flex" flexDirection="row" gap="8px">
       {children}
     </Box>
   );

@@ -8,10 +8,10 @@ import {
   DialogContent,
   DialogProps,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { TooltipIconButton } from "../Material";
 // Icons
-import CloseIcon from "@material-ui/icons/Close";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface SectionEditDialogProps<T> extends DialogProps {
   title: string;

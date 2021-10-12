@@ -1,9 +1,9 @@
+import CssBaseline from "@mui/material/CssBaseline";
+import makeStyles from "@mui/styles/makeStyles";
 import { FunctionComponent } from "react";
-import { Nav } from "../components/layout/Nav";
 import "../assets/css/global.css";
-import theme, { colors } from "../config/theme";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { Nav } from "../components/layout/Nav";
+import { colors } from "../config/theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,15 +20,13 @@ const useStyles = makeStyles((theme) => ({
 export const MainLayout: FunctionComponent = ({ children }) => {
   const classes = useStyles();
   return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Nav />
-        <main className={classes.content}>
-          <div className={classes.spacer} />
-          {children}
-        </main>
-      </div>
-    </ThemeProvider>
+    <div className={classes.root}>
+      <CssBaseline />
+      <Nav />
+      <main className={classes.content}>
+        <div className={classes.spacer} />
+        {children}
+      </main>
+    </div>
   );
 };

@@ -1,18 +1,18 @@
-import { useState, VoidFunctionComponent } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { AccountCircle } from "@mui/icons-material";
 import {
   AppBar,
+  Avatar,
+  Divider,
   IconButton,
   Menu,
   MenuItem,
   Toolbar,
-  Avatar,
-  Divider,
-} from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
-import "firebase/firestore";
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import "firebase/auth";
+import "firebase/firestore";
+import { useState, VoidFunctionComponent } from "react";
+import { Link, useHistory } from "react-router-dom";
 import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 
@@ -114,6 +114,7 @@ export const Nav: VoidFunctionComponent = () => {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
+              size="large"
             >
               {avatarComponent}
             </IconButton>

@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { IconButton, IconButtonProps, Tooltip } from "@material-ui/core";
+import { IconButton, IconButtonProps, Tooltip } from "@mui/material";
 
 interface TooltipIconButtonProps extends IconButtonProps {
   tooltip: string;
@@ -18,6 +18,7 @@ export const TooltipIconButton: FunctionComponent<TooltipIconButtonProps> = ({
         aria-label={tooltip}
         color={active ? "secondary" : "default"}
         {...props}
+        size="large"
       >
         {children}
       </IconButton>

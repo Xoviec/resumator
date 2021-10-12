@@ -1,13 +1,14 @@
 import { FunctionComponent } from "react";
-import { Box, makeStyles } from "@material-ui/core";
+import { Box } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { formatDate, formatTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
-import BusinessIcon from "@material-ui/icons/Business";
-import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
+import BusinessIcon from "@mui/icons-material/Business";
+import DateRangeIcon from "@mui/icons-material/DateRangeOutlined";
 import { colors } from "../../config/theme";
 import { TruncateChip } from "../Material/truncatedChip";
 
@@ -71,7 +72,7 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
         onDelete={() => onDelete()}
         onEdit={() => onEdit(experienceItem)}
       ></SectionItemHeader>
-      <Box display="flex" flexDirection="column" gridGap={8}>
+      <Box display="flex" flexDirection="column" gap="8px">
         <DetailWithIcon icon={<BusinessIcon style={{ color: colors.midBlue }} />}>
           {experienceItem.company}
         </DetailWithIcon>
@@ -88,7 +89,7 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {experienceItem.stackAndTechniques && (
-          <Box display="flex" flexWrap="wrap" gridGap={8} marginBottom={1.5}>
+          <Box display="flex" flexWrap="wrap" gap="8px" marginBottom={1.5}>
             {experienceItem.stackAndTechniques.map((skill) => (
               <TruncateChip
                 key={skill.name}

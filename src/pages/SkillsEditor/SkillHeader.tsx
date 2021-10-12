@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, InputBase, Button } from "@material-ui/core";
+import { Grid, Box, Typography, InputBase, Button } from "@mui/material";
 import { SpacedButton } from "../../components/Material";
 import { colors } from "../../config/theme";
 import { FunctionComponent } from "react";

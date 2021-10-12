@@ -1,4 +1,4 @@
-import { Chip, Tooltip } from "@material-ui/core";
+import { Chip, Tooltip } from "@mui/material";
 
 const truncateLabel = (content: string) => {
   const maxLength = 12;

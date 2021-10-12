@@ -1,11 +1,10 @@
-import {
-  VoidFunctionComponent,
-  MouseEvent,
-  ReactNode,
-  useRef,
-  useState,
-} from "react";
-import { Box, Divider, makeStyles } from "@material-ui/core";
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import FormatItalicIcon from "@mui/icons-material/FormatItalic";
+// Icons
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
+import { Box, Divider } from "@mui/material";
 import {
   ContentState,
   convertFromHTML,
@@ -16,39 +15,22 @@ import {
   RichUtils,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
+import {
+  MouseEvent,
+  ReactNode,
+  useRef,
+  useState,
+  VoidFunctionComponent,
+} from "react";
 import { TooltipIconButton } from "../Material";
-// Icons
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
-import FormatBoldIcon from "@material-ui/icons/FormatBold";
-import FormatItalicIcon from "@material-ui/icons/FormatItalic";
-import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
 
 interface FormRichTextDraftEditorProps {
   value: string;
   onChange: (value: string) => void;
 }
 
-const useStyles = makeStyles({
-  editor: {
-    "& .DraftEditor-root": {
-      padding: "4.5px",
-      height: "unset",
-      overflow: "auto",
-    },
-    "& ul, ol": {
-      margin: 0,
-    },
-  },
-  verticalDivider: {
-    margin: "0 4px",
-    height: "80%",
-  },
-});
-
 export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEditorProps> =
   ({ value, onChange }) => {
-    const classes = useStyles();
     let content;
 
     // Setup the editor.
@@ -132,19 +114,34 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEdi
 
     return (
       <Box
-        display="flex"
-        flexDirection="column"
-        gridGap={4}
-        className={classes.editor}
-        paddingX={1}
-        paddingY={1}
-        height={400}
-        flex={1}
         onClick={handleFocus}
         onBlur={handleBlur}
+        sx={{
+          "& .DraftEditor-root": {
+            padding: "4.5px",
+            height: "unset",
+            overflow: "auto",
+          },
+          "& ul, ol": {
+            margin: 0,
+          },
+          display: "flex",
+          flexDirection: "column",
+          gridGap: 4,
+          paddingX: 1,
+          paddingY: 1,
+          height: 400,
+          flex: 1,
+        }}
       >
         {/* Styling options */}
-        <Box display="flex" flexDirection="row" alignItems="center">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           {/* Unordered list */}
           {renderBlockTypeButton(
             "unordered-list-item",
@@ -157,7 +154,13 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEdi
             "Ordered List",
             <FormatListNumberedIcon fontSize="small" />
           )}
-          <Divider orientation="vertical" className={classes.verticalDivider} />
+          <Divider
+            orientation="vertical"
+            sx={{
+              margin: "0 4px",
+              height: "80%",
+            }}
+          />
           {/* Bold */}
           {renderStyleButton("BOLD", "Bold", <FormatBoldIcon fontSize="small" />)}
           {/* Italic */}

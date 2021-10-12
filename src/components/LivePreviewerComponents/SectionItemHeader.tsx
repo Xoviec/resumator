@@ -1,9 +1,10 @@
 import { FunctionComponent, useState } from "react";
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, Typography } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { TooltipIconButton } from "../Material";
 // Icons
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { colors } from "../../config/theme";
 import { Confirmation } from "../Confirmation/Confirmation";
 

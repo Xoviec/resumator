@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Box, Link } from "@material-ui/core";
+import { Box, Link } from "@mui/material";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 
 export interface SideProjectModel {
@@ -32,7 +32,7 @@ export const SideProjectItem: FunctionComponent<SideProjectItemProps> = ({
         onDelete={() => onDelete()}
         onEdit={() => onEdit(projectItem)}
       />
-      <Box display="flex" flexDirection="column" gridGap={8}>
+      <Box display="flex" flexDirection="column" gap="8px">
         {projectItem.description && <Box>{projectItem.description}</Box>}
         <Link
           rel="noreferrer noopener"

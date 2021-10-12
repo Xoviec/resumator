@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactNode } from "react";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 
 interface DetailWithIconProps {
   icon: ReactNode;
@@ -10,7 +10,7 @@ export const DetailWithIcon: FunctionComponent<DetailWithIconProps> = ({
   children,
 }) => {
   return (
-    <Box display="flex" flexDirection="row" alignItems="center" gridGap={8}>
+    <Box display="flex" flexDirection="row" alignItems="center" gap="8px">
       {icon}
       {children ? children : "---"}
     </Box>

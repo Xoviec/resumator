@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import { Box, Card, Hidden, Typography } from "@material-ui/core";
+import { Box, Card, Hidden, Typography } from "@mui/material";
 import { formatDate } from "../../lib/date";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
@@ -14,10 +14,10 @@ import {
   FormTextField,
 } from "../Form";
 // Icons
-import CakeIcon from "@material-ui/icons/CakeOutlined";
-import EmailIcon from "@material-ui/icons/EmailOutlined";
-import EditIcon from "@material-ui/icons/Edit";
-import PlaceIcon from "@material-ui/icons/PlaceOutlined";
+import CakeIcon from "@mui/icons-material/CakeOutlined";
+import EmailIcon from "@mui/icons-material/EmailOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import PlaceIcon from "@mui/icons-material/PlaceOutlined";
 import { colors } from "../../config/theme";
 
 export interface PersonaliaModel {
@@ -66,7 +66,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
             alignItems="center"
             marginLeft={{ xs: 2, sm: 0 }}
             flexDirection={{ xs: "column", sm: "row" }}
-            gridGap={16}
+            gap="16px"
             flex={1}
           >
             {/* Avatar */}
@@ -95,7 +95,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
               />
             </Box>
             {/* Personalia */}
-            <Box display="flex" flexDirection="column" marginBottom={1} gridGap={8}>
+            <Box display="flex" flexDirection="column" marginBottom={1} gap="8px">
               <Typography
                 variant="h3"
                 align="left"
@@ -142,7 +142,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           maxWidth={{ md: "50%" }}
         >
           {/* Have the ability to edit the personalia when in normal view. */}
-          <Hidden smDown>
+          <Hidden mdDown>
             <SectionHeader
               title={`About ${getFirstName()}`}
               action="edit"

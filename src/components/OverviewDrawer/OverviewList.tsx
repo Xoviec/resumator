@@ -9,12 +9,12 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
-  makeStyles,
-} from "@material-ui/core/";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ReportProblemOutlinedIcon from "@material-ui/icons/ReportProblemOutlined";
+} from "@mui/material/";
+import makeStyles from "@mui/styles/makeStyles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import { TooltipIconButton } from "../Material";
-import Tooltip from "@material-ui/core/Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 import { colors } from "../../config/theme";
 import { Confirmation } from "../Confirmation/Confirmation";
 import {

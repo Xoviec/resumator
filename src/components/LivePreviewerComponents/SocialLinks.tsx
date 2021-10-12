@@ -6,9 +6,9 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  makeStyles,
   MenuItem,
-} from "@material-ui/core";
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { useState, VoidFunctionComponent } from "react";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
@@ -17,13 +17,13 @@ import { FormSelect } from "../Form/FormSelect";
 import { FormTextField } from "../Form/FormTextField";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import LinkIcon from "@material-ui/icons/Link";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import GithubIcon from "@material-ui/icons/GitHub";
-import BookIcon from "@material-ui/icons/Book";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkIcon from "@mui/icons-material/Link";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GithubIcon from "@mui/icons-material/GitHub";
+import BookIcon from "@mui/icons-material/Book";
 import { colors } from "../../config/theme";
 
 type OnSubmit = (data: SocialLinkModel[]) => void;
@@ -118,7 +118,7 @@ const SocialLinksFormContent: VoidFunctionComponent = () => {
                 <Box
                   display="flex"
                   flexDirection="row"
-                  gridGap={10}
+                  gap="10px"
                   alignItems="center"
                 >
                   {info.icon}
@@ -222,6 +222,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
                   edge="end"
                   aria-label="delete social link"
                   onClick={() => handleDelete(index)}
+                  size="large"
                 >
                   <DeleteIcon style={iconButtonStyle} />
                 </IconButton>
@@ -229,6 +230,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
                   edge="end"
                   aria-label="edit social link"
                   onClick={() => handleEdit(socialLinkItem, index)}
+                  size="large"
                 >
                   <EditIcon style={iconButtonStyle} />
                 </IconButton>

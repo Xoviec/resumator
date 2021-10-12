@@ -1,12 +1,6 @@
-import { Drawer, Hidden, makeStyles } from "@material-ui/core";
-import {
-  FunctionComponent,
-  KeyboardEvent,
-  KeyboardEventHandler,
-  MouseEvent,
-  MouseEventHandler,
-  useState,
-} from "react";
+import { Drawer, Hidden } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
+import { FunctionComponent, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { SpacedButton } from "../Material";
 import { OverviewContent } from "./OverviewContent";
@@ -64,7 +58,7 @@ export const OverviewDrawer: FunctionComponent = (props) => {
         </Hidden>
 
         <div className={classes.root}>
-          <Hidden mdDown>
+          <Hidden lgDown>
             <Drawer
               variant="permanent"
               className={classes.drawer}

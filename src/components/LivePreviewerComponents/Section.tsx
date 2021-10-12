@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Box, Card } from "@material-ui/core";
+import { Box, Card } from "@mui/material";
 import { SectionHeader, SectionHeaderProps } from "./SectionHeader";
 
 type SectionProps = SectionHeaderProps;

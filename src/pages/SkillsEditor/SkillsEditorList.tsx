@@ -1,4 +1,5 @@
-import { makeStyles, Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { useState } from "react";
 import * as React from "react";
 import { colors } from "../../config/theme";

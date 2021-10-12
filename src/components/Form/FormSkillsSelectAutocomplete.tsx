@@ -1,7 +1,9 @@
 import { VoidFunctionComponent } from "react";
 import * as React from "react";
-import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
-import { makeStyles, TextField } from "@material-ui/core";
+import { Autocomplete } from "@mui/material";
+import { AutocompleteChangeReason } from "@mui/material/useAutocomplete";
+import { TextField } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import FormSkillsSelectChip from "./FormSkillsSelectChip";
@@ -43,9 +45,8 @@ const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsA
      * Handle adding or deleting a skill through the autocomplete input.
      */
     const handleSkillChange = (
-      event: React.ChangeEvent<Record<string, unknown>>,
-      inputValue: string[],
-      reason: AutocompleteChangeReason
+      event: React.SyntheticEvent,
+      inputValue: string[]
     ) => {
       const skills = inputValue.map((name) => ({ name }));
       onChange(skills);
@@ -81,7 +82,7 @@ const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsA
           value={value.map((skill) => skill.name)}
           options={options}
           onChange={handleSkillChange}
-          getOptionSelected={getOptionSelected}
+          isOptionEqualToValue={getOptionSelected}
           renderInput={(params) => (
             <TextField
               variant="outlined"
