@@ -1,4 +1,4 @@
-import { createTheme, adaptV4Theme } from "@mui/material/styles";
+import { createTheme, adaptV4Theme, Theme as MuiTheme } from "@mui/material/styles";
 
 export const colors = {
   lightBlue: "#00cccc",
@@ -10,6 +10,16 @@ export const colors = {
   background: "#fafafa",
   darkGray: "#777",
 };
+
+declare module "@mui/styles/defaultTheme" {
+  interface DefaultTheme extends MuiTheme {
+    zIndex: {
+      drawer: number;
+    };
+  }
+}
+
+export type Theme = import("@mui/styles/defaultTheme").DefaultTheme;
 
 const theme = createTheme(
   adaptV4Theme({
