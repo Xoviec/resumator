@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState, VoidFunctionComponent } from "react";
-import { Search } from "@material-ui/icons";
-import { alpha, makeStyles } from "@material-ui/core/styles";
-import { InputBase } from "@material-ui/core";
+import { Search } from "@mui/icons-material";
+import { alpha } from "@mui/material/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { InputBase } from "@mui/material";
 import { debounce } from "debounce";
 
 const useStyles = makeStyles((theme) => ({

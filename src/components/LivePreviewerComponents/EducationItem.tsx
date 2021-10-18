@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
-import { Box } from "@material-ui/core";
-import { formatDate } from "../../lib/date";
+import { Box } from "@mui/material";
+import { formatDate, formatTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
-import SchoolIcon from "@material-ui/icons/School";
-import DateRangeIcon from "@material-ui/icons/DateRangeOutlined";
+import SchoolIcon from "@mui/icons-material/School";
+import DateRangeIcon from "@mui/icons-material/DateRangeOutlined";
 import { colors } from "../../config/theme";
 
 export interface EducationModel {
@@ -29,12 +29,11 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
   const sectionItemHeaderClasses = useSectionItemHeaderStyles();
 
   const getTimespan = () => {
-    const start = educationItem.startDate;
-    const end = educationItem.endDate;
-
-    if (start && end) return `${formatDate(start)} - ${formatDate(end)}`;
-    if (start && !end) return `${formatDate(start)} - present`;
-    if (!start && end) return `Ended in ${formatDate(end, "yyyy")}`;
+    return formatTimespan({
+      startDate: educationItem.startDate,
+      endDate: educationItem.endDate,
+      showEndYear: true,
+    });
   };
 
   return (
@@ -46,7 +45,7 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
         onDelete={() => onDelete()}
         onEdit={() => onEdit(educationItem)}
       ></SectionItemHeader>
-      <Box display="flex" flexDirection="column" gridGap={8}>
+      <Box display="flex" flexDirection="column" gap="8px">
         <DetailWithIcon icon={<SchoolIcon style={{ color: colors.midBlue }} />}>
           {educationItem.institute}
         </DetailWithIcon>

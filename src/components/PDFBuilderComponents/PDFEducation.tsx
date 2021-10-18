@@ -1,6 +1,6 @@
 import styled from "@react-pdf/styled-components";
 import { VoidFunctionComponent } from "react";
-import { formatDate } from "../../lib/date";
+import { formatDate, formatTimespan } from "../../lib/date";
 import { EducationModel } from "../LivePreviewerComponents/EducationItem";
 
 const Root = styled.View`
@@ -35,24 +35,18 @@ interface EducationProps {
 const Education: VoidFunctionComponent<EducationProps> = ({
   education: { name, institute, endDate, startDate },
 }) => {
-  let formattedDate = "";
-  const dateformat = "MMMM yyyy";
-  if (startDate && endDate) {
-    formattedDate = `${formatDate(startDate, dateformat)} - ${formatDate(
-      endDate,
-      dateformat
-    )}`;
-  } else if (startDate && !endDate) {
-    formattedDate = `${formatDate(startDate, dateformat)} - present`;
-  } else if (!startDate && endDate) {
-    formattedDate = `${formatDate(endDate, dateformat)}`;
-  }
-
   return (
     <Wrapper>
       <DegreeText>{name}</DegreeText>
       <CollegeText>{institute}</CollegeText>
-      <CollegeText>{formattedDate}</CollegeText>
+      <CollegeText>
+        {formatTimespan({
+          startDate,
+          endDate,
+          showEndYear: true,
+          dateFormat: "MMMM yyyy",
+        })}
+      </CollegeText>
     </Wrapper>
   );
 };

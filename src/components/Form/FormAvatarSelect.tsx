@@ -5,9 +5,8 @@ import {
   FormControl,
   FormControlProps,
   InputLabel,
-  makeStyles,
   OutlinedInput,
-} from "@material-ui/core";
+} from "@mui/material";
 import { avatars } from "../../assets/images/avatars/avatars";
 import { colors } from "../../config/theme";
 
@@ -16,30 +15,11 @@ interface FormAvatarSelectProps extends FormControlProps {
   label: string;
 }
 
-const useStyles = makeStyles({
-  avatar: {
-    width: "100px",
-    height: "200px",
-    margin: "16px",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    cursor: "pointer",
-
-    "&:hover": {
-      outline: `2px auto ${colors.darkBlue}`,
-    },
-  },
-  selected: {
-    outline: `2px auto ${colors.orange}`,
-  },
-});
-
 export const FormAvatarSelect: VoidFunctionComponent<FormAvatarSelectProps> = ({
   name,
   label,
   ...props
 }) => {
-  const classes = useStyles();
   const { control } = useFormContext();
 
   return (
@@ -67,13 +47,24 @@ export const FormAvatarSelect: VoidFunctionComponent<FormAvatarSelectProps> = ({
                 {avatars.map((avatar, i) => (
                   <Box
                     component="span"
-                    className={`${classes.avatar} ${
-                      avatar.name === value && classes.selected
-                    }`}
-                    key={i}
-                    style={{
+                    sx={{
+                      width: "100px",
+                      height: "200px",
+                      margin: "16px",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                      cursor: "pointer",
                       backgroundImage: `url(${avatar.img})`,
+
+                      "&:hover": {
+                        outline: `2px auto ${colors.darkBlue}`,
+                      },
+
+                      ...(avatar.name === value
+                        ? { outline: `2px auto ${colors.orange}` }
+                        : {}),
                     }}
+                    key={i}
                     onClick={() => onChange(avatar.name)}
                   />
                 ))}

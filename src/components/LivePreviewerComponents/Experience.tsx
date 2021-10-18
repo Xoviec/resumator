@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
-import { Box } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
+import { Box } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
@@ -100,9 +100,9 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
       actionTooltip={`Add ${type.toLowerCase()}`}
       actionOnClick={() => setIsEditing(true)}
     >
-      <Box display="flex" flexDirection="column" marginTop={-1} gridGap={8}>
+      <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
         {experience.map((entry: ExperienceModel, index: number) => (
-          <Box display="flex" flexDirection="column" key={index} gridGap={16}>
+          <Box display="flex" flexDirection="column" key={index} gap="16px">
             <ExperienceItem
               type={type}
               experienceItem={entry}

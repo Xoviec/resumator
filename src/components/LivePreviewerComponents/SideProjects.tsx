@@ -1,5 +1,5 @@
 import { useState, FunctionComponent } from "react";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider } from "@mui/material";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormTextField } from "../Form";
@@ -56,9 +56,9 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
       actionTooltip={`Add ${type.toLowerCase()}`}
       actionOnClick={() => setIsEditing(true)}
     >
-      <Box display="flex" flexDirection="column" marginTop={-1} gridGap={8}>
+      <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
         {projects.map((entry: SideProjectModel, index: number) => (
-          <Box display="flex" flexDirection="column" key={index} gridGap={16}>
+          <Box display="flex" flexDirection="column" key={index} gap="16px">
             <SideProjectItem
               type={type}
               projectItem={entry}

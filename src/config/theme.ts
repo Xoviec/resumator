@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, adaptV4Theme, Theme as MuiTheme } from "@mui/material/styles";
 
 export const colors = {
   lightBlue: "#00cccc",
@@ -11,12 +11,24 @@ export const colors = {
   darkGray: "#777",
 };
 
-const theme = createTheme({
-  palette: {
-    primary: { main: colors.darkBlue },
-    secondary: { main: colors.orange },
-    info: { main: colors.midBlue },
-  },
-});
+declare module "@mui/styles/defaultTheme" {
+  interface DefaultTheme extends MuiTheme {
+    zIndex: {
+      drawer: number;
+    };
+  }
+}
+
+export type Theme = import("@mui/styles/defaultTheme").DefaultTheme;
+
+const theme = createTheme(
+  adaptV4Theme({
+    palette: {
+      primary: { main: colors.darkBlue },
+      secondary: { main: colors.orange },
+      info: { main: colors.midBlue },
+    },
+  })
+);
 
 export default theme;

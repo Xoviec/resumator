@@ -8,6 +8,7 @@ import { PersonaliaModel } from "./TopSection";
 export interface ResumeModel {
   id: string;
   isImport: boolean;
+  isArchived: boolean;
   personalia: PersonaliaModel;
   introduction: string | undefined;
   projects: ExperienceModel[];

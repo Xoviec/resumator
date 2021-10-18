@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
@@ -93,6 +93,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           ...resume.personalia,
         }}
         introduction={resume.introduction}
+        isArchived={resume.isArchived}
         onSubmit={(data) => {
           const { introduction, ...personalia } = data;
           handleSubmit({
@@ -105,11 +106,10 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         display="flex"
         flexDirection={{ xs: "column", md: "row" }}
         marginTop={2}
-        // gridGap does not use the material spacing system, so 8 is needed here for 8px.
-        gridGap={16}
+        gap="16px"
       >
         {/* Left column */}
-        <Box display="flex" flexDirection="column" flex={2} gridGap={16}>
+        <Box display="flex" flexDirection="column" flex={2} gap="16px">
           <Experience
             type="Projects"
             experience={resume.projects}
@@ -126,7 +126,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           />
         </Box>
         {/* Right column */}
-        <Box display="flex" flexDirection="column" flex={1} gridGap={16}>
+        <Box display="flex" flexDirection="column" flex={1} gap="16px">
           <SocialLinks
             socialLinks={resume.socialLinks}
             onSubmit={(data) => handleSubmit({ socialLinks: data })}

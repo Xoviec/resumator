@@ -5,7 +5,7 @@ import {
   FormControlProps,
   InputLabel,
   OutlinedInput,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FormRichTextDraftEditor } from "./FormRichTextDraftEditor";
 
 interface FormRichTextEditorProps extends FormControlProps {

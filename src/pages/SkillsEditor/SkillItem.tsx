@@ -1,6 +1,6 @@
-import { Grid, InputBase, IconButton, Card, Box } from "@material-ui/core";
+import { Grid, InputBase, IconButton, Card, Box } from "@mui/material";
 import { FunctionComponent } from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface SkillItemProps {
   handleChangeSkill: (value: string) => any;
@@ -44,6 +44,7 @@ export const SkillItem: FunctionComponent<SkillItemProps> = ({
               setDeleteIndex();
               setOpenConfirmation();
             }}
+            size="large"
           >
             <DeleteIcon />
           </IconButton>

@@ -1,8 +1,8 @@
 import { RouteComponentProps } from "react-router-dom";
 import styled from "@emotion/styled";
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { Card } from "@material-ui/core";
+import Skeleton from "@mui/material/Skeleton";
+import { Card } from "@mui/material";
 import { VoidFunctionComponent } from "react";
 import { MainLayout } from "../../layouts/MainLayout";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
@@ -30,14 +30,44 @@ const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
   if (loading) {
     return (
       <div>
-        <StyledSkeleton animation="wave" variant="rect" width={1200} height={50} />
-        <StyledSkeleton animation="wave" variant="rect" width={1200} height={200} />
-        <StyledSkeleton animation="wave" variant="rect" width={1200} height={200} />
+        <StyledSkeleton
+          animation="wave"
+          variant="rectangular"
+          width={1200}
+          height={50}
+        />
+        <StyledSkeleton
+          animation="wave"
+          variant="rectangular"
+          width={1200}
+          height={200}
+        />
+        <StyledSkeleton
+          animation="wave"
+          variant="rectangular"
+          width={1200}
+          height={200}
+        />
 
-        <StyledSkeleton animation="wave" variant="rect" width={1200} height={300} />
+        <StyledSkeleton
+          animation="wave"
+          variant="rectangular"
+          width={1200}
+          height={300}
+        />
 
-        <StyledSkeleton animation="wave" variant="rect" width={1200} height={500} />
-        <StyledSkeleton animation="wave" variant="rect" width={1200} height={500} />
+        <StyledSkeleton
+          animation="wave"
+          variant="rectangular"
+          width={1200}
+          height={500}
+        />
+        <StyledSkeleton
+          animation="wave"
+          variant="rectangular"
+          width={1200}
+          height={500}
+        />
       </div>
     );
   }

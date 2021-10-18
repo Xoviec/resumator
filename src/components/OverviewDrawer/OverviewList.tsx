@@ -9,12 +9,12 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
-  makeStyles,
-} from "@material-ui/core/";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ReportProblemOutlinedIcon from "@material-ui/icons/ReportProblemOutlined";
+} from "@mui/material/";
+import makeStyles from "@mui/styles/makeStyles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import { TooltipIconButton } from "../Material";
-import Tooltip from "@material-ui/core/Tooltip";
+import Tooltip from "@mui/material/Tooltip";
 import { colors } from "../../config/theme";
 import { Confirmation } from "../Confirmation/Confirmation";
 import {
@@ -37,6 +37,9 @@ export const useSectionItemHeaderStyles = makeStyles({
       opacity: 1,
       pointerEvents: "all",
     },
+  },
+  isArchived: {
+    opacity: 0.6,
   },
   link: {
     color: colors.darkBlue,
@@ -133,15 +136,26 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       <List dense={true} data-testid="overview-list">
         {filteredResumes
           .filter((resume) => resume?.personalia)
+          // move archived resumes to bottom of list
+          .sort((docA: ResumeModel, docB: ResumeModel) =>
+            docA.isArchived === docB.isArchived ? 0 : docA.isArchived ? 1 : -1
+          )
           .map((resume) => {
-            const { id, personalia, isImport } = resume;
+            const { id, personalia, isImport, isArchived } = resume;
             const { firstName, lastName, avatar } = personalia;
 
             const name =
               firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
 
             return (
-              <ListItem key={id} classes={{ container: classes.container }}>
+              <ListItem
+                key={id}
+                classes={{
+                  container: `${classes.container} ${
+                    isArchived && classes.isArchived
+                  }`,
+                }}
+              >
                 <ListItemAvatar>
                   <Avatar>
                     <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
@@ -153,6 +167,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
                     activeClassName={classes.activeLink}
                     to={`/resume/${id}`}
                   >
+                    {isArchived && "(Archived) "}
                     {name}
                     {isImport && (
                       <>

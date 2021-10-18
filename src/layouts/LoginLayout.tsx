@@ -1,15 +1,12 @@
-import "../assets/css/global.css";
-import theme, { colors } from "../config/theme";
 import styled from "@emotion/styled";
-
-import frontmenLogo from "../assets/images/frontmenLogoIcon.png";
-import CssBaseline from "@material-ui/core/CssBaseline";
-
-import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import { FunctionComponent } from "react";
+import "../assets/css/global.css";
+import frontmenLogo from "../assets/images/frontmenLogoIcon.png";
+import { colors } from "../config/theme";
 
 export const LoginLayout: FunctionComponent = ({ children }) => (
-  <ThemeProvider theme={theme}>
+  <>
     <CssBaseline />
     <Layout bgColor={colors.lightGrey}>
       <Card>
@@ -19,7 +16,7 @@ export const LoginLayout: FunctionComponent = ({ children }) => (
         <div>{children}</div>
       </Card>
     </Layout>
-  </ThemeProvider>
+  </>
 );
 
 interface LayoutProps {

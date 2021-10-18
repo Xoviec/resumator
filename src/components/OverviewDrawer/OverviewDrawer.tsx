@@ -1,29 +1,26 @@
-import { Drawer, Hidden, makeStyles } from "@material-ui/core";
-import {
-  FunctionComponent,
-  KeyboardEvent,
-  KeyboardEventHandler,
-  MouseEvent,
-  MouseEventHandler,
-  useState,
-} from "react";
+import { Divider, Drawer, useMediaQuery } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import { FunctionComponent } from "react";
+import { Theme } from "../../config/theme";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useFirebaseApp } from "../../context/FirebaseContext";
-import { SpacedButton } from "../Material";
 import { OverviewContent } from "./OverviewContent";
 
 const drawerWidth = 380;
 
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    padding: "0 20px 0",
   },
   drawerContainer: {
     overflow: "auto",
@@ -44,61 +41,36 @@ const useStyles = makeStyles((theme) => ({
 
 export const OverviewDrawer: FunctionComponent = (props) => {
   const classes = useStyles();
+  const isLgUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up("lg"));
 
   const { userRecord } = useFirebaseApp();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isDrawerOpen, setIsDrawerOpen } = useAppState();
+
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
 
   const renderDrawer = () => {
     return (
       <>
-        <Hidden lgUp>
-          <SpacedButton
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setIsOpen(true);
+        <div className={classes.root}>
+          <Drawer
+            variant={isLgUp ? "permanent" : "temporary"}
+            anchor="left"
+            open={isDrawerOpen}
+            onClose={handleDrawerClose}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
             }}
           >
-            Overview
-          </SpacedButton>
-        </Hidden>
-
-        <div className={classes.root}>
-          <Hidden mdDown>
-            <Drawer
-              variant="permanent"
-              className={classes.drawer}
-              PaperProps={{ elevation: 2 }}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            >
-              <OverviewContent onToggleDrawer={() => setIsOpen(false)} />
-            </Drawer>
-          </Hidden>
-          <Hidden lgUp>
-            <Drawer
-              variant="temporary"
-              anchor="left"
-              className={classes.drawerMobile}
-              open={isOpen}
-              onClose={() => {
-                setIsOpen(false);
-              }}
-              PaperProps={{ elevation: 2 }}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-            >
-              <OverviewContent
-                onToggleDrawer={() => setIsOpen(false)}
-                isMobile={true}
-              />
-            </Drawer>
-          </Hidden>
+            <DrawerHeader />
+            <Divider />
+            <OverviewContent />
+          </Drawer>
           <div className={classes.content}>{props.children}</div>
         </div>
       </>

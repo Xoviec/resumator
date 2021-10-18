@@ -1,6 +1,6 @@
 import { VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { OutlinedInput, Select, SelectProps } from "@material-ui/core";
+import { OutlinedInput, Select, SelectProps } from "@mui/material";
 
 type FormSelectProps = SelectProps & {
   name: string;

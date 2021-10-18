@@ -1,6 +1,6 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import styled from "@emotion/styled";
-import Modal from "@material-ui/core/Modal";
+import Modal from "@mui/material/Modal";
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
 import { VoidFunctionComponent } from "react";
 import { ResumeModel } from "./ResumeModel";

@@ -1,25 +1,27 @@
-import { useState, VoidFunctionComponent } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { AccountCircle } from "@mui/icons-material";
 import {
   AppBar,
+  Avatar,
+  Divider,
   IconButton,
   Menu,
   MenuItem,
   Toolbar,
-  Avatar,
-  Divider,
-} from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
-import "firebase/firestore";
+  Box,
+  Typography,
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import "firebase/auth";
-import frontmenLogo from "../../assets/svg/frontmen-logo.svg";
+import "firebase/firestore";
+import { useState, VoidFunctionComponent } from "react";
+import { Link, useHistory } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useFirebaseApp } from "../../context/FirebaseContext";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
+import { FrontmenLogoIcon } from "./FrontmenLogoIcon";
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
   grow: {
     flexGrow: 1,
   },
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Nav: VoidFunctionComponent = () => {
   const { firebase, authUser, userRecord } = useFirebaseApp();
+  const { isDrawerOpen, setIsDrawerOpen } = useAppState();
 
   const history = useHistory();
   const goTo = (path: string) => history.push(path);
@@ -43,6 +46,10 @@ export const Nav: VoidFunctionComponent = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const isMenuOpen = Boolean(anchorEl);
+
+  const handleDrawerToggle = () => {
+    setIsDrawerOpen((isOpen) => !isOpen);
+  };
 
   const handleProfileMenuOpen = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -91,22 +98,34 @@ export const Nav: VoidFunctionComponent = () => {
     </Menu>
   );
 
-  const avatarComponent = authUser?.photoURL ? (
-    <Avatar alt={authUser.displayName || "User Avatar"} src={authUser.photoURL} />
-  ) : (
-    <AccountCircle />
-  );
-
   return (
-    <div>
-      <div className={classes.grow}>
-        <AppBar position="fixed" className={classes.appBar}>
+    <Box>
+      <Box>
+        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar>
-            <a href="/" title="Home">
-              <img className={classes.logo} src={frontmenLogo} alt="logo" />
-            </a>
-            <div className={[classes.grow].join(" ")} />
-            <div className={classes.grow} />
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ marginRight: 2, display: { lg: "none" } }}
+            >
+              {isDrawerOpen ? <ChevronLeftIcon /> : <MenuIcon />}
+            </IconButton>
+
+            <IconButton component={Link} to="/">
+              <FrontmenLogoIcon />
+            </IconButton>
+
+            <Typography
+              variant="h6"
+              color="inherit"
+              component="div"
+              sx={{ flexGrow: 1, marginLeft: 2 }}
+            >
+              Resumator
+            </Typography>
+
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -115,13 +134,20 @@ export const Nav: VoidFunctionComponent = () => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {avatarComponent}
+              {authUser?.photoURL ? (
+                <Avatar
+                  alt={authUser.displayName || "User Avatar"}
+                  src={authUser.photoURL}
+                />
+              ) : (
+                <AccountCircle />
+              )}
             </IconButton>
           </Toolbar>
         </AppBar>
-      </div>
+      </Box>
       {renderMenu}
-    </div>
+    </Box>
   );
 };
 

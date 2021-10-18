@@ -36,3 +36,4 @@ credentials.json
 .eslintcache
 serviceAccount.json
 cypress.env.json
+cypress/fixtures

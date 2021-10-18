@@ -1,5 +1,5 @@
 import { VoidFunctionComponent, useRef } from "react";
-import { makeStyles } from "@material-ui/core";
+import makeStyles from "@mui/styles/makeStyles";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { TruncateChip } from "../Material/truncatedChip";
 

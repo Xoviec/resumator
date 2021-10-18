@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography } from "@mui/material";
 import { TooltipIconButton } from "../Material";
 // Icons
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import { colors } from "../../config/theme";
 
 export interface SectionHeaderProps {

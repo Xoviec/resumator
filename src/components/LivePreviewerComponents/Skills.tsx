@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import { TruncateChip } from "../Material/truncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
@@ -25,7 +25,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       actionTooltip="Edit skills"
       actionOnClick={() => setIsEditing(true)}
     >
-      <Box display="flex" flexWrap="wrap" gridGap={8}>
+      <Box display="flex" flexWrap="wrap" gap="8px">
         {skills.map((skill) => (
           <TruncateChip
             key={skill.name}
