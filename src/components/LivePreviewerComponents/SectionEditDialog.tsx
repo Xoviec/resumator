@@ -13,7 +13,7 @@ import { TooltipIconButton } from "../Material";
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 
-interface SectionEditDialogProps<T> extends DialogProps {
+export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
   data: T;
   onCancel: () => void;

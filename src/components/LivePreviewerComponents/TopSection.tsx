@@ -1,24 +1,17 @@
-import { FunctionComponent, useState } from "react";
+// Icons
+import CakeIcon from "@mui/icons-material/CakeOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import EmailIcon from "@mui/icons-material/EmailOutlined";
+import PlaceIcon from "@mui/icons-material/PlaceOutlined";
 import { Box, Card, Hidden, Typography } from "@mui/material";
+import { FunctionComponent, useState } from "react";
+import { colors } from "../../config/theme";
 import { formatDate } from "../../lib/date";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
-import { SectionHeader } from "./SectionHeader";
-import { SectionEditDialog } from "./SectionEditDialog";
 import { DetailWithIcon } from "./DetailWithIcon";
-import {
-  FormAvatarSelect,
-  FormColumn,
-  FormDatePicker,
-  FormRow,
-  FormTextField,
-} from "../Form";
-// Icons
-import CakeIcon from "@mui/icons-material/CakeOutlined";
-import EmailIcon from "@mui/icons-material/EmailOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import PlaceIcon from "@mui/icons-material/PlaceOutlined";
-import { colors } from "../../config/theme";
+import { PersonaliaDialog } from "./PersonaliaDialog";
+import { SectionHeader } from "./SectionHeader";
 
 export interface PersonaliaModel {
   avatar: string;
@@ -42,7 +35,7 @@ interface TopSectionProps {
 
 export const TopSection: FunctionComponent<TopSectionProps> = ({
   personalia,
-  introduction,
+  introduction = "",
   isArchived = false,
   onSubmit,
 }) => {
@@ -163,8 +156,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
         </Box>
       </Box>
 
-      <SectionEditDialog
-        title="Personal details"
+      <PersonaliaDialog
         data={{ ...personalia, introduction }}
         open={isEditing}
         onCancel={() => setIsEditing(false)}
@@ -172,44 +164,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           setIsEditing(false);
           onSubmit(data);
         }}
-      >
-        <FormColumn>
-          <FormRow>
-            <FormTextField required name="firstName" label="First name" />
-            <FormTextField required name="lastName" label="Last name" />
-          </FormRow>
-          <FormRow>
-            <FormTextField required name="email" label="Email" />
-          </FormRow>
-          <FormRow>
-            <FormTextField name="city" label="City" />
-            <FormDatePicker name="dateOfBirth" label="Date of birth" />
-          </FormRow>
-          <FormRow>
-            <FormTextField
-              multiline
-              name="introduction"
-              label="Introduction"
-              rows={8}
-            />
-          </FormRow>
-          <FormRow>
-            <FormAvatarSelect name="avatar" label="Avatar" />
-          </FormRow>
-          <FormRow>
-            <Typography>
-              Want to add your own avatar? Make a PR{" "}
-              <a
-                href="https://github.com/FrontMen/resumator/tree/develop/src/assets/images/avatars"
-                target="_blank"
-                rel="noreferrer"
-              >
-                here
-              </a>
-            </Typography>
-          </FormRow>
-        </FormColumn>
-      </SectionEditDialog>
+      />
     </Card>
   );
 };

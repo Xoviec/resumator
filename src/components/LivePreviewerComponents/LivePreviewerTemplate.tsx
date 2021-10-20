@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
 import { Experience } from "./Experience";
@@ -46,20 +46,6 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     .firestore()
     .collection("resumes");
 
-  const addResume = useCallback(
-    async (resume: ResumeModel) => {
-      const doc = resumesRef.doc();
-
-      try {
-        await doc.set(resume);
-        setResume({ ...resume, id: doc.id });
-      } catch (e) {
-        alert(`Error adding document. ${e instanceof Error ? `${e.message}` : ""}`);
-      }
-    },
-    [resumesRef]
-  );
-
   const updateResume = async (resume: ResumeModel) => {
     try {
       await resumesRef.doc(resume.id).update({
@@ -71,12 +57,6 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       alert(`Error updating document. ${e instanceof Error ? `${e.message}` : ""}`);
     }
   };
-
-  useEffect(() => {
-    if (!resume.id) {
-      addResume(resume);
-    }
-  }, [addResume, resume]);
 
   const [showPDFModal, setShowPDFModal] = useState(false);
 
