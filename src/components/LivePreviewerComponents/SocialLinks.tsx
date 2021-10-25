@@ -9,7 +9,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
-import { useState, VoidFunctionComponent } from "react";
+import { useEffect, useState, VoidFunctionComponent } from "react";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
 import { FormColumn, FormRow } from "../Form";
@@ -25,6 +25,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GithubIcon from "@mui/icons-material/GitHub";
 import BookIcon from "@mui/icons-material/Book";
 import { colors } from "../../config/theme";
+import { isValidUrl, getDomain } from "../../lib/url";
 
 type OnSubmit = (data: SocialLinkModel[]) => void;
 
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 interface SocialLinkTypeInfo {
   title: string;
   icon: JSX.Element;
+  domain?: string;
 }
 
 export enum SocialLinkType {
@@ -66,22 +68,27 @@ export const SocialLinkTypeToInfoMapping: Record<
   [SocialLinkType.LinkedIn]: {
     title: "LinkedIn",
     icon: <LinkedInIcon />,
+    domain: "linkedin.com",
   },
   [SocialLinkType.Github]: {
     title: "Github",
     icon: <GithubIcon />,
+    domain: "github.com",
   },
   [SocialLinkType.Twitter]: {
     title: "Twitter",
     icon: <TwitterIcon />,
+    domain: "twitter.com",
   },
   [SocialLinkType.Medium]: {
     title: "Medium",
     icon: <LinkIcon />,
+    domain: "medium.com",
   },
   [SocialLinkType.DevTo]: {
     title: "Dev.to",
     icon: <LinkIcon />,
+    domain: "dev.to",
   },
   [SocialLinkType.Blog]: {
     title: "Blog",
@@ -100,8 +107,22 @@ export interface SocialLinkModel {
 }
 
 const SocialLinksFormContent: VoidFunctionComponent = () => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const linkType = watch("linkType") as SocialLinkType;
+  const link = watch("link") as string;
+
+  useEffect(() => {
+    if (!isValidUrl(link)) {
+      setValue("linkType", SocialLinkType.Other);
+      return;
+    }
+    const socialLinkType: string =
+      Object.keys(SocialLinkTypeToInfoMapping).find((key) => {
+        return getDomain(link) === (SocialLinkTypeToInfoMapping as any)[key].domain;
+      }) || SocialLinkType.Other;
+
+    setValue("linkType", socialLinkType || SocialLinkType.Other);
+  }, [link, setValue]);
 
   return (
     <FormColumn>
@@ -135,7 +156,7 @@ const SocialLinksFormContent: VoidFunctionComponent = () => {
         </FormRow>
       )}
       <FormRow>
-        <FormTextField required name="link" label="Link" />
+        <FormTextField required name="link" label="Link" autoFocus />
       </FormRow>
     </FormColumn>
   );
@@ -156,9 +177,9 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
 
   const handleDelete = (index: number) => {
-    const filteredEducation = [...socialLinks];
-    filteredEducation.splice(index, 1);
-    onSubmit(filteredEducation);
+    const filteredSocialLinks = [...socialLinks];
+    filteredSocialLinks.splice(index, 1);
+    onSubmit(filteredSocialLinks);
   };
 
   const handleEdit = (item: SocialLinkModel, index: number) => {
@@ -174,14 +195,14 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
   };
 
   const handleSave = (item: SocialLinkModel) => {
-    const updatedEducation = [...socialLinks];
-    if (editItemIndex !== null) updatedEducation.splice(editItemIndex!, 1, item);
-    else updatedEducation.push(item);
+    const updatedSocialLinks = [...socialLinks];
+    if (editItemIndex !== null) updatedSocialLinks.splice(editItemIndex!, 1, item);
+    else updatedSocialLinks.push(item);
 
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
-    onSubmit(updatedEducation);
+    onSubmit(updatedSocialLinks);
   };
 
   return (
