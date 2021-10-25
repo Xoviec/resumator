@@ -54,9 +54,9 @@ export const Education: FunctionComponent<EducationProps> = ({
       actionTooltip="Add education"
       actionOnClick={() => setIsEditing(true)}
     >
-      <Box display="flex" flexDirection="column" marginTop={-1} gap={8}>
+      <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
         {education.map((entry: EducationModel, index: number) => (
-          <Box display="flex" flexDirection="column" key={index} gap={16}>
+          <Box display="flex" flexDirection="column" key={index} gap="16px">
             <EducationItem
               educationItem={entry}
               onDelete={() => handleDelete(index)}

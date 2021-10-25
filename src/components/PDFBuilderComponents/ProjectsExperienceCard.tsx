@@ -1,7 +1,7 @@
 import { Fragment, VoidFunctionComponent } from "react";
 import styled from "@react-pdf/styled-components";
 import { PDFDescription } from "./PDFDescription";
-import { formatDate, formatTimespan } from "../../lib/date";
+import { formatTimespan } from "../../lib/date";
 import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 
 const Root = styled.View`
