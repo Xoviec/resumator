@@ -65,6 +65,10 @@ interface OverviewListProps {
   userRecord: FirebaseAppContextType["userRecord"];
 }
 
+interface ResumeModelWithDisplayName extends ResumeModel {
+  displayName: string;
+}
+
 export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
   firebase,
   query,
@@ -98,13 +102,47 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
     [resumes]
   );
 
-  const filteredResumes = useMemo(
-    () =>
-      searchTerms.length
-        ? resumeFuseModel.search(searchTerms).map((r) => r.item)
-        : resumes,
-    [resumeFuseModel, resumes, searchTerms]
-  );
+  const resumesToShow = useMemo(() => {
+    const searchResult = searchTerms.length
+      ? resumeFuseModel.search(searchTerms).map((r) => r.item)
+      : resumes;
+
+    const filteredResumes: ResumeModelWithDisplayName[] = searchResult
+      .filter((resume) => resume?.personalia)
+      .map((resume) => {
+        const {
+          id,
+          personalia: { firstName, lastName },
+        } = resume;
+
+        const displayName =
+          firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
+
+        return {
+          ...resume,
+          displayName,
+        };
+      });
+
+    const sortByName = (
+      a: ResumeModelWithDisplayName,
+      b: ResumeModelWithDisplayName
+    ) => {
+      if (a.displayName < b.displayName) return -1;
+      if (a.displayName > b.displayName) return 1;
+      return 0;
+    };
+
+    const archivedResumes = filteredResumes
+      .filter((resume) => resume.isArchived)
+      .sort(sortByName);
+
+    const unarchivedResumes = filteredResumes
+      .filter((resume) => !resume.isArchived)
+      .sort(sortByName);
+
+    return [...unarchivedResumes, ...archivedResumes];
+  }, [resumeFuseModel, resumes, searchTerms]);
 
   const classes = useSectionItemHeaderStyles();
 
@@ -123,7 +161,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       });
   };
 
-  if (!userRecord?.isManager || !filteredResumes?.length) return null;
+  if (!userRecord?.isManager || !resumesToShow?.length) return null;
 
   return (
     <>
@@ -135,70 +173,64 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       )}
 
       <List dense={true} data-testid="overview-list">
-        {filteredResumes
-          .filter((resume) => resume?.personalia)
-          // move archived resumes to bottom of list
-          .sort((docA: ResumeModel, docB: ResumeModel) =>
-            docA.isArchived === docB.isArchived ? 0 : docA.isArchived ? 1 : -1
-          )
-          .map((resume) => {
-            const { id, personalia, isImport, isArchived } = resume;
-            const { firstName, lastName, avatar } = personalia;
+        {resumesToShow.map((resume) => {
+          const { id, displayName, personalia, isImport, isArchived } = resume;
 
-            const name =
-              firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
-
-            return (
-              <ListItem
-                key={id}
-                classes={{
-                  container: `${classes.container} ${
-                    isArchived && classes.isArchived
-                  }`,
-                }}
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <img alt="avatar" width="15" src={getAvatarDataUri(avatar)} />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText>
-                  <NavLink
-                    className={isImport ? classes.isImported : classes.link}
-                    activeClassName={classes.activeLink}
-                    to={`/resume/${id}`}
-                  >
-                    {isArchived && "(Archived) "}
-                    {name}
-                    {isImport && (
-                      <>
-                        &nbsp;
-                        <Tooltip title="is imported">
-                          <ReportProblemOutlinedIcon
-                            className={classes.importedWarning}
-                          />
-                        </Tooltip>
-                      </>
-                    )}
-                  </NavLink>
-                </ListItemText>
-                <ListItemSecondaryAction className={classes.actions}>
-                  <TooltipIconButton
-                    color="inherit"
-                    tooltip={"Delete resume"}
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => {
-                      setOpenConfirmation(true);
-                      setResumeToDelete(resume);
-                    }}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </TooltipIconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
+          return (
+            <ListItem
+              key={id}
+              classes={{
+                container: `${classes.container} ${
+                  isArchived && classes.isArchived
+                }`,
+              }}
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <img
+                    alt="avatar"
+                    width="15"
+                    src={getAvatarDataUri(personalia.avatar)}
+                  />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText>
+                <NavLink
+                  className={isImport ? classes.isImported : classes.link}
+                  activeClassName={classes.activeLink}
+                  to={`/resume/${id}`}
+                >
+                  {isArchived && "(Archived) "}
+                  {displayName}
+                  {isImport && (
+                    <>
+                      &nbsp;
+                      <Tooltip title="is imported">
+                        <ReportProblemOutlinedIcon
+                          className={classes.importedWarning}
+                        />
+                      </Tooltip>
+                    </>
+                  )}
+                </NavLink>
+              </ListItemText>
+              <ListItemSecondaryAction className={classes.actions}>
+                <TooltipIconButton
+                  color="inherit"
+                  tooltip={"Delete resume"}
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => {
+                    setOpenConfirmation(true);
+                    setResumeToDelete(resume);
+                  }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </TooltipIconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
       </List>
 
       <Confirmation
