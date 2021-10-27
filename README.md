@@ -1,73 +1,91 @@
-![CI PR on MasterBranch](https://github.com/kevinegstorf/resumator/workflows/CI%20PR%20on%20MasterBranch/badge.svg?branch=resumator-patch-1)
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <a href="https://nextjs.org/">
+    <img alt="Frontmen" src="https://media-exp1.licdn.com/dms/image/C560BAQGsCDFl6RMZ5g/company-logo_200_200/0/1615889795418?e=2159024400&v=beta&t=QGInBgnqfc6EtuYldRpirgHdCu6yab5xGdu_1Ujhhg0" width="100" />
+  </a>
+</p>
+<h1 align="center">
+  Resumator
+</h1>
 
-## Development environment
+project bootstrapped with [`create-react-app with typescript`](https://create-react-app.dev/docs/adding-typescript/).
 
-A development firebase instance is created. To use it, add an .env.development file, based on the sample, with the appropriate credentials.
+## 🚀 Quick start
 
-## Available Scripts
+1.  **Start developing.**
 
-In the project directory, you can run:
+    Navigate into your new site’s directory and start it up.
 
-### `npm run start`
+    ```shell
+    cd project-name/
+    yarn start (npm run start)
+    ```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1.  **Open the source code and start editing!**
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### `npm run test`
+    You can start editing the page by modifying `src/pages/*`. The page auto-updates as you edit the file.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧐 What's inside?
 
-### `npm run build`
+A quick look at the top-level files and directories you'll see in a Next project.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    .
+    ├── node_modules
+    ├── .github
+    ├── .vscode
+    ├── cypress
+    ├── firebase
+    ├── functions
+    ├── src
+    ├── public
+    ├── .env
+    ├── .env.sample
+    ├── .eslintignore
+    ├── .eslintrc
+    ├── .firebaserc
+    ├── .gitignore
+    ├── .prettierrc
+    ├── CODING-GUIDELINE
+    ├── cypress.json
+    ├── firebase.json
+    ├── jest.config.js
+    ├── yarn.json
+    ├── package.json
+    └── README.md
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
 
-### `npm run eject`
+3.  **`/public`**: This directory will contain our static files
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4.  **`/.env`**: This file will contain environment variables. Always need to be in .gitignore [About env](https://medium.com/chingu/an-introduction-to-environment-variables-and-how-to-use-them-f602f66d15fa).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5.  **`/.env.sample`**: This file will contain environment variables. can be in git.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+6.  **`/.eslintignore`**: This file will contain path for eslint ignoring.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+7.  **`/.eslintrc`**: This file will contain rules for eslint config.
 
-## Learn More
+8.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for. [git ignore](https://git-scm.com/docs/gitignore)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+9.  **`.prettierrc`**: This is a configuration file for prettier. [Prettier](https://prettier.io/).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+10. **`CODING-GUIDELINE`**: This is a file for our code style.
 
-### Code Splitting
+11. **`yarn.lock`** (See `package.lock.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+12. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
 
-### Analyzing the Bundle Size
+13. **`README.md`**: A text file containing useful reference information about your project.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## 🎓 Learning React.JS
 
-### Making a Progressive Web App
+To learn more about Next.js, take a look at the following resources:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- [React.js Documentation](https://reactjs.org/docs/getting-started.html) - learn about Next.js features and API.
 
-### Advanced Configuration
+## 💫 Deploy
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Master branch will be deployed automatically
