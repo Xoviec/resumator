@@ -41,7 +41,12 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
             <FormTextField name="city" label="City" />
           </FormColumn>
           <FormColumn>
-            <FormDatePicker name="dateOfBirth" label="Date of birth" />
+            <FormDatePicker
+              name="dateOfBirth"
+              label="Date of birth"
+              inputFormat="dd-MM-yyyy"
+              views={["year", "month", "day"]}
+            />
           </FormColumn>
         </FormRow>
         <FormRow>

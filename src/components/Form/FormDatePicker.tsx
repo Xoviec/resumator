@@ -15,6 +15,8 @@ type FormDatePickerProps = Omit<
 export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
   name,
   label,
+  inputFormat = "MM-yyyy",
+  views = ["year", "month"],
   ...props
 }) => {
   const { control } = useFormContext();
@@ -27,7 +29,7 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
         name={name!}
         render={({ value, onChange }) => (
           <DesktopDatePicker
-            inputFormat="MM-yyyy"
+            inputFormat={inputFormat}
             value={value}
             onChange={onChange}
             renderInput={(textFieldProps) => (
@@ -39,7 +41,7 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
                 {...textFieldProps}
               />
             )}
-            views={["year", "month"]}
+            views={views}
             {...props}
           />
         )}
