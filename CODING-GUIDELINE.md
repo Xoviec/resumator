@@ -2,13 +2,14 @@
 
 ### General
 
-- use react and effector hooks
+- use react and libraries hooks
 - components folder should index file and contain subcomponents folders
 - functions in components should use useCallback hook
-- every folder should have new.js file which should export all files
+- every folder should have index.ts file which should export all files
 - any component in pages folder should wrapped instead Layout component
 
-```jsx
+```tsx
+import { FunctionComponent } from "react";
 import Lib from "libs";
 import { Box } from "@mui/material";
 
@@ -22,7 +23,7 @@ import { useFetch } from "/src/hooks";
 import Layout from "components/Layout";
 import NotFound from "components/NotFound";
 
-export const NotFoundPage = () => (
+export const NotFoundPage: FunctionComponent = () => (
   <Layout>
     <NotFound />
   </Layout>
@@ -31,7 +32,7 @@ export const NotFoundPage = () => (
 
 - component structure should be
 
-```jsx
+```tsx
 ... imports
 
 export const SomeComponent = () => {
@@ -98,7 +99,7 @@ export const SomeComponent = () => {
 ### EXTENSION For project
 
 - install TODO Highlight extension in your vs code
-- cope and paste code bellow in extension settings.json file
+- copy and paste code bellow in extension settings.json file
 
 ```json
 {
