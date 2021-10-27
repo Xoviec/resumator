@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { Box } from "@mui/material";
-import { TruncateChip } from "../Material/truncatedChip";
+import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
@@ -27,13 +27,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
         {skills.map((skill) => (
-          <TruncateChip
-            key={skill.name}
-            size="small"
-            variant="outlined"
-            label={skill.name}
-            color="secondary"
-          />
+          <TruncatedChip key={skill.name} label={skill.name} />
         ))}
       </Box>
 
@@ -49,7 +43,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       >
         <FormColumn>
           <FormRow>
-            <FormSkillsSelect name="skills" options={skillList} />
+            <FormSkillsSelect label="Skills" name="skills" options={skillList} />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>

@@ -3,14 +3,14 @@ import { Box } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import { convertFromRaw, EditorState } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { formatDate, formatTimespan } from "../../lib/date";
+import { formatTimespan } from "../../lib/date";
 import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
 import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
 import BusinessIcon from "@mui/icons-material/Business";
 import DateRangeIcon from "@mui/icons-material/DateRangeOutlined";
+import { TruncatedChip } from "../Material/TruncatedChip";
 import { colors } from "../../config/theme";
-import { TruncateChip } from "../Material/truncatedChip";
 
 export interface ExperienceStackItem {
   name: string;
@@ -92,13 +92,7 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
         {experienceItem.stackAndTechniques && (
           <Box display="flex" flexWrap="wrap" gap="8px" marginBottom={1.5}>
             {experienceItem.stackAndTechniques.map((skill) => (
-              <TruncateChip
-                key={skill.name}
-                label={skill.name}
-                size="small"
-                variant="outlined"
-                color="secondary"
-              />
+              <TruncatedChip key={skill.name} label={skill.name} />
             ))}
           </Box>
         )}
