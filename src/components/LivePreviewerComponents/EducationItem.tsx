@@ -33,6 +33,7 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
       startDate: educationItem.startDate,
       endDate: educationItem.endDate,
       showEndYear: true,
+      dateFormat: "MMMM yyyy",
     });
   };
 

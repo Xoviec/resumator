@@ -80,6 +80,7 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
           {formatTimespan({
             startDate: experienceItem.startDate,
             endDate: experienceItem.endDate,
+            dateFormat: "MMMM yyyy",
           })}
         </DetailWithIcon>
         <Box
