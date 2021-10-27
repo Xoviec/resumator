@@ -33,6 +33,10 @@ export const useSectionItemHeaderStyles = makeStyles({
     flexShrink: 0,
   },
   container: {
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: colors.darkGrayOpacity,
+    },
     "&:hover $actions": {
       opacity: 1,
       pointerEvents: "all",
@@ -177,29 +181,29 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
           const { id, displayName, personalia, isImport, isArchived } = resume;
 
           return (
-            <ListItem
+            <NavLink
               key={id}
-              classes={{
-                container: `${classes.container} ${
-                  isArchived && classes.isArchived
-                }`,
-              }}
+              className={isImport ? classes.isImported : classes.link}
+              activeClassName={classes.activeLink}
+              to={`/resume/${id}`}
             >
-              <ListItemAvatar>
-                <Avatar>
-                  <img
-                    alt="avatar"
-                    width="15"
-                    src={getAvatarDataUri(personalia.avatar)}
-                  />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText>
-                <NavLink
-                  className={isImport ? classes.isImported : classes.link}
-                  activeClassName={classes.activeLink}
-                  to={`/resume/${id}`}
-                >
+              <ListItem
+                classes={{
+                  container: `${classes.container} ${
+                    isArchived && classes.isArchived
+                  }`,
+                }}
+              >
+                <ListItemAvatar>
+                  <Avatar>
+                    <img
+                      alt="avatar"
+                      width="15"
+                      src={getAvatarDataUri(personalia.avatar)}
+                    />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
                   {isArchived && "(Archived) "}
                   {displayName}
                   {isImport && (
@@ -212,23 +216,23 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
                       </Tooltip>
                     </>
                   )}
-                </NavLink>
-              </ListItemText>
-              <ListItemSecondaryAction className={classes.actions}>
-                <TooltipIconButton
-                  color="inherit"
-                  tooltip={"Delete resume"}
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => {
-                    setOpenConfirmation(true);
-                    setResumeToDelete(resume);
-                  }}
-                >
-                  <DeleteIcon fontSize="small" />
-                </TooltipIconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
+                </ListItemText>
+                <ListItemSecondaryAction className={classes.actions}>
+                  <TooltipIconButton
+                    color="inherit"
+                    tooltip={"Delete resume"}
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => {
+                      setOpenConfirmation(true);
+                      setResumeToDelete(resume);
+                    }}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </TooltipIconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </NavLink>
           );
         })}
       </List>

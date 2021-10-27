@@ -9,6 +9,7 @@ export const colors = {
   mediumGrey: "#d1d1d1",
   background: "#fafafa",
   darkGray: "#777",
+  darkGrayOpacity: "rgba(119, 119, 119, .2)",
 };
 
 declare module "@mui/styles/defaultTheme" {
