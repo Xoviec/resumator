@@ -18,7 +18,9 @@ interface DragItem {
 const DNDTYPE = "SkillsChip";
 const useStyles = makeStyles({
   chip: {
-    margin: "4px",
+    "&.MuiButtonBase-root": {
+      margin: "4px",
+    },
     backgroundColor: "#ffffff",
     cursor: "move",
     // Needed to keep the rounded edged when dragging
@@ -98,7 +100,7 @@ const FormSkillsSelectChip: VoidFunctionComponent<FormSkillsSelectChipProps> = (
       // Stop propagation of the mouse event to avoid it being swallowed by the autocomplete.
       // If the event is swallowed, drag & drop doesn't work.
       onMouseDown={(event: any) => event.stopPropagation()}
-    ></TruncateChip>
+    />
   );
 };
 

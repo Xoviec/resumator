@@ -21,8 +21,13 @@ interface FormSkillsSelectPropsAutocomplete {
 
 const useStyles = makeStyles({
   autocomplete: {
+    "& .MuiOutlinedInput-root": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
     // Make sure the input is below the chips.
-    "& .MuiAutocomplete-input": {
+    "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input": {
       width: "inherit",
     },
   },
@@ -92,18 +97,20 @@ const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsA
               {...params}
             />
           )}
-          renderTags={(value: string[]) =>
-            value.map((skill, index) => (
-              // Add a chip for each skill.
-              <FormSkillsSelectChip
-                key={skill}
-                label={skill}
-                index={index}
-                onDrag={handleDrag}
-                onDelete={handleSkillDelete}
-              />
-            ))
-          }
+          renderTags={(value: string[]) => (
+            <div>
+              {value.map((skill, index) => (
+                // Add a chip for each skill.
+                <FormSkillsSelectChip
+                  key={skill}
+                  label={skill}
+                  index={index}
+                  onDrag={handleDrag}
+                  onDelete={handleSkillDelete}
+                />
+              ))}
+            </div>
+          )}
         />
       </DndProvider>
     );

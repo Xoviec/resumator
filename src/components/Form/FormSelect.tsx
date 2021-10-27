@@ -27,6 +27,6 @@ export const FormSelect: VoidFunctionComponent<FormSelectProps> = ({
           {...props}
         />
       )}
-    ></Controller>
+    />
   );
 };
