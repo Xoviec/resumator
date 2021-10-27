@@ -10,19 +10,26 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from "@mui/material/";
+import { TabPanel } from "@mui/lab";
 import makeStyles from "@mui/styles/makeStyles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
-import { TooltipIconButton } from "../Material";
 import Tooltip from "@mui/material/Tooltip";
+import Fuse from "fuse.js";
+
+// configs
 import { colors } from "../../config/theme";
-import { Confirmation } from "../Confirmation/Confirmation";
+
+// context
 import {
   FirebaseAppContextType,
   FirestoreQuery,
 } from "../../context/FirebaseContext";
+
+// components
+import { TooltipIconButton } from "../Material";
+import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import Fuse from "fuse.js";
 
 export const useSectionItemHeaderStyles = makeStyles({
   actions: {
@@ -145,7 +152,10 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       .filter((resume) => !resume.isArchived)
       .sort(sortByName);
 
-    return [...unarchivedResumes, ...archivedResumes];
+    return {
+      unarchivedResumes,
+      archivedResumes,
+    };
   }, [resumeFuseModel, resumes, searchTerms]);
 
   const classes = useSectionItemHeaderStyles();
@@ -165,7 +175,8 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       });
   };
 
-  if (!userRecord?.isManager || !resumesToShow?.length) return null;
+  if (!userRecord?.isManager || !resumesToShow?.unarchivedResumes.length)
+    return null;
 
   return (
     <>
@@ -175,68 +186,130 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
           maintainer
         </span>
       )}
+      <TabPanel value="1">
+        <List dense={true} data-testid="overview-list">
+          {resumesToShow?.unarchivedResumes.map((resume) => {
+            const { id, displayName, personalia, isImport, isArchived } = resume;
 
-      <List dense={true} data-testid="overview-list">
-        {resumesToShow.map((resume) => {
-          const { id, displayName, personalia, isImport, isArchived } = resume;
-
-          return (
-            <NavLink
-              key={id}
-              className={isImport ? classes.isImported : classes.link}
-              activeClassName={classes.activeLink}
-              to={`/resume/${id}`}
-            >
-              <ListItem
-                classes={{
-                  container: `${classes.container} ${
-                    isArchived && classes.isArchived
-                  }`,
-                }}
+            return (
+              <NavLink
+                key={id}
+                className={isImport ? classes.isImported : classes.link}
+                activeClassName={classes.activeLink}
+                to={`/resume/${id}`}
               >
-                <ListItemAvatar>
-                  <Avatar>
-                    <img
-                      alt="avatar"
-                      width="15"
-                      src={getAvatarDataUri(personalia.avatar)}
-                    />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText>
-                  {isArchived && "(Archived) "}
-                  {displayName}
-                  {isImport && (
-                    <>
-                      &nbsp;
-                      <Tooltip title="is imported">
-                        <ReportProblemOutlinedIcon
-                          className={classes.importedWarning}
-                        />
-                      </Tooltip>
-                    </>
-                  )}
-                </ListItemText>
-                <ListItemSecondaryAction className={classes.actions}>
-                  <TooltipIconButton
-                    color="inherit"
-                    tooltip={"Delete resume"}
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => {
-                      setOpenConfirmation(true);
-                      setResumeToDelete(resume);
-                    }}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </TooltipIconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </NavLink>
-          );
-        })}
-      </List>
+                <ListItem
+                  classes={{
+                    container: `${classes.container} ${
+                      isArchived && classes.isArchived
+                    }`,
+                  }}
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <img
+                        alt="avatar"
+                        width="15"
+                        src={getAvatarDataUri(personalia.avatar)}
+                      />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText>
+                    {/*{isArchived && "(Archived) "}*/}
+                    {displayName}
+                    {isImport && (
+                      <>
+                        &nbsp;
+                        <Tooltip title="is imported">
+                          <ReportProblemOutlinedIcon
+                            className={classes.importedWarning}
+                          />
+                        </Tooltip>
+                      </>
+                    )}
+                  </ListItemText>
+                  <ListItemSecondaryAction className={classes.actions}>
+                    <TooltipIconButton
+                      color="inherit"
+                      tooltip={"Delete resume"}
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => {
+                        setOpenConfirmation(true);
+                        setResumeToDelete(resume);
+                      }}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </TooltipIconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </NavLink>
+            );
+          })}
+        </List>
+      </TabPanel>
+      <TabPanel value="2">
+        <List dense={true} data-testid="overview-list">
+          {resumesToShow?.archivedResumes.map((resume) => {
+            const { id, displayName, personalia, isImport, isArchived } = resume;
 
+            return (
+              <NavLink
+                key={id}
+                className={isImport ? classes.isImported : classes.link}
+                activeClassName={classes.activeLink}
+                to={`/resume/${id}`}
+              >
+                <ListItem
+                  classes={{
+                    container: `${classes.container} ${
+                      isArchived && classes.isArchived
+                    }`,
+                  }}
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <img
+                        alt="avatar"
+                        width="15"
+                        src={getAvatarDataUri(personalia.avatar)}
+                      />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText>
+                    {isArchived && "(Archived) "}
+                    {displayName}
+                    {isImport && (
+                      <>
+                        &nbsp;
+                        <Tooltip title="is imported">
+                          <ReportProblemOutlinedIcon
+                            className={classes.importedWarning}
+                          />
+                        </Tooltip>
+                      </>
+                    )}
+                  </ListItemText>
+                  <ListItemSecondaryAction className={classes.actions}>
+                    <TooltipIconButton
+                      color="inherit"
+                      tooltip={"Delete resume"}
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => {
+                        setOpenConfirmation(true);
+                        setResumeToDelete(resume);
+                      }}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </TooltipIconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </NavLink>
+            );
+          })}
+        </List>
+      </TabPanel>
       <Confirmation
         isOpen={openConfirmation}
         denyClick={() => setOpenConfirmation(false)}

@@ -1,10 +1,16 @@
+import { FunctionComponent } from "react";
 import { Divider, Drawer, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import makeStyles from "@mui/styles/makeStyles";
-import { FunctionComponent } from "react";
+
+// config
 import { Theme } from "../../config/theme";
+
+// context
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useFirebaseApp } from "../../context/FirebaseContext";
+
+// components
 import { OverviewContent } from "./OverviewContent";
 
 const drawerWidth = 380;
