@@ -16,7 +16,7 @@ interface FormSkillsSelectPropsAutocomplete {
 }
 
 export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
-  ({ label, value, options }) => {
+  ({ label, value, options, onChange }) => {
     console.log({ label, value, options });
 
     return (
@@ -28,8 +28,7 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
         value={value.map((skill) => skill.name)}
         disableCloseOnSelect
         onChange={(event, newValue) => {
-          console.log("testtt");
-          console.log({ newValue });
+          onChange(newValue.map((skill) => ({ name: skill })));
         }}
         options={options}
         renderTags={(tagValue, getTagProps) =>
