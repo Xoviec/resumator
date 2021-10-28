@@ -12,6 +12,7 @@ import { pdfLogo } from "../PDFBuilderComponents/pdfLogo";
 import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
 import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
 import { PDFIntroduction } from "../PDFBuilderComponents/PDFIntroduction";
+import { PDFSocialLinks } from "../PDFBuilderComponents/PDFSocialLinks";
 import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
 import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
 import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
@@ -77,6 +78,7 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             </View>
 
             <View>
+              <PDFSocialLinks socialLinks={resume.socialLinks} />
               <PDFProjects projects={resume.projects} />
               <PDFWorkExperience experience={resume.experience} />
             </View>

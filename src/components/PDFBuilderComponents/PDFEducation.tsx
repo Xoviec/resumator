@@ -1,6 +1,6 @@
 import styled from "@react-pdf/styled-components";
 import { VoidFunctionComponent } from "react";
-import { formatDate, formatTimespan } from "../../lib/date";
+import { formatTimespan } from "../../lib/date";
 import { EducationModel } from "../LivePreviewerComponents/EducationItem";
 
 const Root = styled.View`
