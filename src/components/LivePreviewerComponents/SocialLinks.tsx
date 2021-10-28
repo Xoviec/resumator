@@ -207,9 +207,9 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
 
   return (
     <Section
-      title="Social Links"
+      title="Online presence"
       action="add"
-      actionTooltip="Add social link"
+      actionTooltip="Add link"
       actionOnClick={() => setIsEditing(true)}
     >
       <List className={classes.list}>
@@ -241,7 +241,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"
-                  aria-label="delete social link"
+                  aria-label="delete link"
                   onClick={() => handleDelete(index)}
                   size="large"
                 >
@@ -249,7 +249,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
                 </IconButton>
                 <IconButton
                   edge="end"
-                  aria-label="edit social link"
+                  aria-label="edit link"
                   onClick={() => handleEdit(socialLinkItem, index)}
                   size="large"
                 >
@@ -262,7 +262,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
       </List>
 
       <SectionEditDialog
-        title={editItem ? `Edit social link` : `Add social link`}
+        title={editItem ? `Edit link` : `Add link`}
         data={editItem!}
         open={isEditing}
         onCancel={handleEditCancel}

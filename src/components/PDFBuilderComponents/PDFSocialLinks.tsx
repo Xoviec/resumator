@@ -49,7 +49,7 @@ export const PDFSocialLinks: VoidFunctionComponent<PDFSocialLinks> = ({
 
   return (
     <Root>
-      <Header>SOCIAL LINKS</Header>
+      <Header>ONLINE PRESENCE</Header>
       {socialLinks.map((socialLink, index) => {
         const socialLinkItemInfo = SocialLinkTypeToInfoMapping[socialLink.linkType];
         return (
