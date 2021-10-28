@@ -27,12 +27,10 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
         id="skill-list-autocomplete"
         value={value.map((skill) => skill.name)}
         disableCloseOnSelect
-        // onChange={(event, newValue) => {
-        //   setValue([
-        //     ...fixedOptions,
-        //     ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-        //   ]);
-        // }}
+        onChange={(event, newValue) => {
+          console.log("testtt");
+          console.log({ newValue });
+        }}
         options={options}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => {
