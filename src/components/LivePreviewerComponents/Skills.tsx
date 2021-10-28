@@ -43,7 +43,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       >
         <FormColumn>
           <FormRow>
-            <FormSkillsSelect label="Skills" name="skills" options={skillList} />
+            <FormSkillsSelect name="skills" options={skillList} />
           </FormRow>
         </FormColumn>
       </SectionEditDialog>
