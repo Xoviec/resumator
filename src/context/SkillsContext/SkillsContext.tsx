@@ -3,6 +3,7 @@ import {
   FunctionComponent,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -10,7 +11,7 @@ import { useFirebaseApp } from "../FirebaseContext";
 
 type SkillsContextType = {
   skillList: string[];
-  updateSkillList: (arg: string[]) => void;
+  updateSkillList: (arg: string[]) => Promise<void>;
 };
 
 const SkillsContext = createContext<SkillsContextType | undefined>(undefined);
@@ -34,26 +35,38 @@ export const SkillsContextProvider: FunctionComponent = ({ children }) => {
   useEffect(() => {
     if (val) {
       setDocId(val.docs[0].id);
-      setSkillList(val.docs[0].data().skills);
+
+      const uniqueSkillList = [
+        ...Array.from(new Set(val.docs[0].data().skills)),
+      ] as string[];
+
+      setSkillList(uniqueSkillList);
     }
   }, [val]);
 
-  const updateSkillList: SkillsContextType["updateSkillList"] = async (
-    newSkillList
-  ) => {
-    const ref = await firebase.firestore().collection("allSkills").doc(docId);
-    ref.update({ skills: newSkillList });
-    setSkillList(newSkillList);
-  };
+  const updateSkillList: SkillsContextType["updateSkillList"] = useMemo(() => {
+    return async (newSkillList) => {
+      const uniqueNewSkillList = [...Array.from(new Set(newSkillList))];
+
+      await firebase
+        .firestore()
+        .collection("allSkills")
+        .doc(docId)
+        .update({ skills: uniqueNewSkillList });
+
+      setSkillList(uniqueNewSkillList);
+    };
+  }, [docId, firebase]);
+
+  const skillsContext: SkillsContextType = useMemo(
+    () => ({
+      skillList,
+      updateSkillList,
+    }),
+    [skillList, updateSkillList]
+  );
 
   return (
-    <SkillsContext.Provider
-      value={{
-        skillList,
-        updateSkillList,
-      }}
-    >
-      {children}
-    </SkillsContext.Provider>
+    <SkillsContext.Provider value={skillsContext}>{children}</SkillsContext.Provider>
   );
 };
