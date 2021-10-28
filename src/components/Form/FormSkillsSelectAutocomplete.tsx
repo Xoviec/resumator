@@ -3,6 +3,7 @@ import * as React from "react";
 import { Chip, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { TruncatedChip } from "../Material/TruncatedChip";
+import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 
 interface Skill {
   name: string;
@@ -12,12 +13,23 @@ interface FormSkillsSelectPropsAutocomplete {
   label?: string;
   value: Skill[];
   onChange: (skills: Skill[]) => void;
-  options: string[];
 }
 
 export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
-  ({ label, value, options, onChange }) => {
-    console.log({ label, value, options });
+  ({ label, value, onChange }) => {
+    const { skillList, updateSkillList } = useSkillsContext();
+
+    const autocompleteValue = value.map((skill) => ({
+      name: skill.name,
+      label: skill.name,
+      isNew: false,
+    }));
+
+    const autocompleteSkillList = skillList.map((skill) => ({
+      name: skill,
+      label: skill,
+      isNew: false,
+    }));
 
     return (
       <Autocomplete
@@ -25,12 +37,25 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
         size="small"
         multiple
         id="skill-list-autocomplete"
-        value={value.map((skill) => skill.name)}
+        value={autocompleteValue}
+        isOptionEqualToValue={(option, value) => option.name === value.name}
         disableCloseOnSelect
         onChange={(event, newValue) => {
-          onChange(newValue.map((skill) => ({ name: skill })));
+          const skillsToAdd = newValue
+            .filter((skill) => skill.isNew)
+            .map((skill) => skill.name);
+
+          onChange(newValue.map((skill) => ({ name: skill.name })));
+
+          if (skillsToAdd.length > 0) {
+            // this function already makes sure we have a unique list of skills, no need to check for duplicates
+            updateSkillList([...skillList, ...skillsToAdd]);
+          }
         }}
-        options={options}
+        filterOptions={(options, params) => {
+          return options;
+        }}
+        options={autocompleteSkillList}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => {
             const { key, ...tagProps } = getTagProps({ index });
@@ -38,7 +63,7 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
             return (
               <TruncatedChip
                 key={key}
-                label={option}
+                label={option.label}
                 sx={{ margin: 5 }}
                 {...tagProps}
               />
