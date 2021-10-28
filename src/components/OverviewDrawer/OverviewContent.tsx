@@ -1,4 +1,4 @@
-import { useState, VoidFunctionComponent } from "react";
+import { useCallback, useState, FunctionComponent, SyntheticEvent } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabList } from "@mui/lab";
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   sticky: {
     padding: "10px 0 10px",
     position: "sticky",
-    top: 0,
+    top: "64px",
     left: 0,
     background: "white",
     zIndex: 2,
@@ -32,29 +32,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const OverviewContent: VoidFunctionComponent = () => {
+export const OverviewContent: FunctionComponent = () => {
   const { firebase, userRecord } = useFirebaseApp();
   const classes = useStyles();
   const [searchTerms, setSearchTerms] = useState("");
-  const [value, setValue] = useState("1");
+  const [tab, setTab] = useState("1");
 
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
-  };
+  const handleChangeTab = useCallback((event: SyntheticEvent, newValue: string) => {
+    setTab(newValue);
+  }, []);
 
-  const handleSearch = (val = "") => {
-    setSearchTerms(val);
-  };
+  const handleSearch = useCallback((value: string) => {
+    setSearchTerms(value);
+  }, []);
 
   return (
-    <TabContext value={value}>
+    <TabContext value={tab}>
       <div className={classes.drawerContent}>
         <div className={classes.sticky}>
           <OverviewSearch handleSearch={handleSearch} />
         </div>
         <Box sx={{ width: "100%", typography: "body1" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
               <Tab label="Active Users" value="1" />
               <Tab label="Archived Users" value="2" />
             </TabList>
