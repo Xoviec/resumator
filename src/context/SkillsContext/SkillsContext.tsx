@@ -48,16 +48,13 @@ export const SkillsContextProvider: FunctionComponent = ({ children }) => {
     return async (newSkillList) => {
       const uniqueNewSkillList = [...Array.from(new Set(newSkillList))];
 
-      // it is very likely for the firebase update to be successful, so it covers most of the cases
-      // so we ensure faster user experience for majority of users
-      // in the unlikely scenario, it will be updated from firebase anyway
-      setSkillList(uniqueNewSkillList);
-
       await firebase
         .firestore()
         .collection("allSkills")
         .doc(docId)
         .update({ skills: uniqueNewSkillList });
+
+      setSkillList(uniqueNewSkillList);
     };
   }, [docId, firebase]);
 
