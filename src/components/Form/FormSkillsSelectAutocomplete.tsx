@@ -1,4 +1,10 @@
-import { useCallback, useMemo, VoidFunctionComponent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  VoidFunctionComponent,
+} from "react";
 import { TextField } from "@mui/material";
 import { TruncatedChip } from "../Material/TruncatedChip";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -6,6 +12,7 @@ import Autocomplete, {
   createFilterOptions,
   AutocompleteProps as MuiAutocompleteProps,
 } from "@mui/material/Autocomplete";
+import update from "immutability-helper";
 
 interface Skill {
   name: string;
@@ -27,26 +34,61 @@ type AutocompleteProps = MuiAutocompleteProps<AutocompleteSkill, true, true, fal
 
 const filter = createFilterOptions<AutocompleteSkill>();
 
+// TODO: fix types
+// TODO: drag'n drop doesn't work in Autocomplete component
+const TagValue = ({
+  tagValue,
+  getTagProps,
+}: {
+  tagValue: any[];
+  getTagProps: any;
+}) => {
+  const [cards, setCards] = useState(tagValue);
+
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = cards[dragIndex];
+      setCards(
+        update(cards, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        })
+      );
+    },
+    [cards]
+  );
+
+  useEffect(() => {
+    if (tagValue) {
+      setCards(tagValue);
+    }
+  }, [tagValue]);
+
+  return (
+    <>
+      {cards.map((option, index) => {
+        const { key, ...tagProps } = getTagProps({ index });
+
+        return (
+          <TruncatedChip
+            key={key}
+            label={option.label}
+            moveCard={moveCard}
+            sx={{ margin: 5 }}
+            index={index}
+            {...tagProps}
+          />
+        );
+      })}
+    </>
+  );
+};
+
 export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
   ({ label, value, onChange }) => {
     const { skillList, updateSkillList } = useSkillsContext();
-
-    const renderTags = useCallback<NonNullable<AutocompleteProps["renderTags"]>>(
-      (tagValue, getTagProps) =>
-        tagValue.map((option, index) => {
-          const { key, ...tagProps } = getTagProps({ index });
-
-          return (
-            <TruncatedChip
-              key={key}
-              label={option.label}
-              sx={{ margin: 5 }}
-              {...tagProps}
-            />
-          );
-        }),
-      []
-    );
 
     const renderInput = useCallback<NonNullable<AutocompleteProps["renderInput"]>>(
       (params) => (
@@ -126,11 +168,13 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
         value={autocompleteValue}
         isOptionEqualToValue={isOptionEqualToValue}
         disableCloseOnSelect
-        autoHighlight
+        autoHighlight={false}
         onChange={onChangeHandler}
         filterOptions={filterOptions}
         options={autocompleteSkillList}
-        renderTags={renderTags}
+        renderTags={(value, getTagProps) => (
+          <TagValue tagValue={value} getTagProps={getTagProps} />
+        )}
         renderInput={renderInput}
       />
     );

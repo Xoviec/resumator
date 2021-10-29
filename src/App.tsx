@@ -19,43 +19,56 @@ import { PDFPreviewerPage } from "./pages/PdfPreviewer/PDFPreviewerPage";
 import { SkillsEditorPage } from "./pages/SkillsEditor/SkillsEditorPage";
 import theme from "./config/theme";
 import { AppStateContextProvider } from "./context/AppStateContext/AppStateContext";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const App: VoidFunctionComponent = () => {
   return (
     <AppStateContextProvider>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <FirebaseAppContextProvider>
-            <BrowserRouter>
-              <Switch>
-                <Route
-                  exact
-                  type="private"
-                  path={["/", "/skills", "/new", "/resume/:id"]}
-                >
-                  <SkillsContextProvider>
-                    <RouterRoute exact path="/" component={LivePreviewerPage} />
-                    <RouterRoute
-                      exact
-                      path="/resume/:id"
-                      component={LivePreviewerPage}
-                    />
-                    <RouterRoute exact path="/skills" component={SkillsEditorPage} />
-                    <RouterRoute exact path="/new" component={CreatorPage} />
-                  </SkillsContextProvider>
-                </Route>
-                <Route
-                  type="private"
-                  exact
-                  path="/pdf-preview/:id/"
-                  component={PDFPreviewerPage}
-                />
-                <Route type="anonymous" exact path="/login" component={LoginPage} />
-              </Switch>
-            </BrowserRouter>
-          </FirebaseAppContextProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <DndProvider backend={HTML5Backend}>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <FirebaseAppContextProvider>
+              <BrowserRouter>
+                <Switch>
+                  <Route
+                    exact
+                    type="private"
+                    path={["/", "/skills", "/new", "/resume/:id"]}
+                  >
+                    <SkillsContextProvider>
+                      <RouterRoute exact path="/" component={LivePreviewerPage} />
+                      <RouterRoute
+                        exact
+                        path="/resume/:id"
+                        component={LivePreviewerPage}
+                      />
+                      <RouterRoute
+                        exact
+                        path="/skills"
+                        component={SkillsEditorPage}
+                      />
+                      <RouterRoute exact path="/new" component={CreatorPage} />
+                    </SkillsContextProvider>
+                  </Route>
+                  <Route
+                    type="private"
+                    exact
+                    path="/pdf-preview/:id/"
+                    component={PDFPreviewerPage}
+                  />
+                  <Route
+                    type="anonymous"
+                    exact
+                    path="/login"
+                    component={LoginPage}
+                  />
+                </Switch>
+              </BrowserRouter>
+            </FirebaseAppContextProvider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </DndProvider>
     </AppStateContextProvider>
   );
 };
