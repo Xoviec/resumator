@@ -1,18 +1,26 @@
 import {
-  useCallback,
-  useEffect,
-  useMemo,
   useState,
   VoidFunctionComponent,
+  MouseEventHandler,
+  ComponentClass,
+  useMemo,
+  useEffect,
 } from "react";
-import { TextField } from "@mui/material";
-import { TruncatedChip } from "../Material/TruncatedChip";
+import Select, {
+  components,
+  MultiValueGenericProps,
+  MultiValueProps,
+  OnChangeValue,
+  Props,
+} from "react-select";
+import {
+  SortableContainer,
+  SortableContainerProps,
+  SortableElement,
+  SortEndHandler,
+  SortableHandle,
+} from "react-sortable-hoc";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
-import Autocomplete, {
-  createFilterOptions,
-  AutocompleteProps as MuiAutocompleteProps,
-} from "@mui/material/Autocomplete";
-import update from "immutability-helper";
 
 interface Skill {
   name: string;
@@ -30,152 +38,95 @@ interface AutocompleteSkill {
   isNew: boolean;
 }
 
-type AutocompleteProps = MuiAutocompleteProps<AutocompleteSkill, true, true, false>;
+export interface ColourOption {
+  readonly value: string;
+  readonly label: string;
+}
 
-const filter = createFilterOptions<AutocompleteSkill>();
-
-// TODO: fix types
-// TODO: drag'n drop doesn't work in Autocomplete component
-const TagValue = ({
-  tagValue,
-  getTagProps,
-}: {
-  tagValue: any[];
-  getTagProps: any;
-}) => {
-  const [cards, setCards] = useState(tagValue);
-
-  const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragCard = cards[dragIndex];
-      setCards(
-        update(cards, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, dragCard],
-          ],
-        })
-      );
-    },
-    [cards]
+function arrayMove<T>(array: readonly T[], from: number, to: number) {
+  const slicedArray = array.slice();
+  slicedArray.splice(
+    to < 0 ? array.length + to : to,
+    0,
+    slicedArray.splice(from, 1)[0]
   );
+  return slicedArray;
+}
 
-  useEffect(() => {
-    if (tagValue) {
-      setCards(tagValue);
-    }
-  }, [tagValue]);
+const SortableMultiValue = SortableElement(
+  (props: MultiValueProps<ColourOption[]>) => {
+    const onMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    const innerProps = { ...props.innerProps, onMouseDown };
+    return <components.MultiValue {...props} innerProps={innerProps} />;
+  }
+);
 
-  return (
-    <>
-      {cards.map((option, index) => {
-        const { key, ...tagProps } = getTagProps({ index });
+const SortableMultiValueLabel = SortableHandle((props: MultiValueGenericProps) => {
+  return <components.MultiValueLabel {...props} />;
+});
 
-        return (
-          <TruncatedChip
-            key={key}
-            label={option.label}
-            moveCard={moveCard}
-            sx={{ margin: 5 }}
-            index={index}
-            {...tagProps}
-          />
-        );
-      })}
-    </>
-  );
-};
+const SortableSelect = SortableContainer(Select) as ComponentClass<
+  Props<ColourOption, true> & SortableContainerProps
+>;
 
 export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
-  ({ label, value, onChange }) => {
+  ({ label, value, onChange: ch }) => {
     const { skillList, updateSkillList } = useSkillsContext();
+    const [selected, setSelected] = useState<readonly ColourOption[]>([]);
 
-    const renderInput = useCallback<NonNullable<AutocompleteProps["renderInput"]>>(
-      (params) => (
-        <TextField
-          {...params}
-          size="small"
-          variant="outlined"
-          label={label}
-          placeholder="Add a library, framework, skill..."
-        />
-      ),
-      [label]
-    );
+    const onChange = (selectedOptions: OnChangeValue<ColourOption, true>) => {
+      ch(selectedOptions.map((skill) => ({ name: skill.label })));
+      setSelected(selectedOptions);
+    };
 
-    const filterOptions = useCallback<
-      NonNullable<AutocompleteProps["filterOptions"]>
-    >((options, params) => {
-      const { inputValue } = params;
-      // Suggest the creation of a new value
-      const isExisting = options.some(
-        (option) => inputValue.toLowerCase() === option.name.toLowerCase()
-      );
-      if (inputValue !== "" && !isExisting) {
-        return [
-          ...filter(options, params),
-          {
-            name: inputValue,
-            label: `Add "${inputValue}"`,
-            isNew: true,
-          },
-        ];
-      } else {
-        return filter(options, params);
+    const onSortEnd: SortEndHandler = ({ oldIndex, newIndex }) => {
+      const newVal = arrayMove(selected, oldIndex, newIndex);
+      ch(newVal.map((skill) => ({ name: skill.label })));
+      setSelected(newVal);
+    };
+
+    const options = useMemo(() => {
+      return skillList.map((skill) => ({
+        value: skill,
+        label: skill,
+      }));
+    }, [skillList]);
+
+    useEffect(() => {
+      if (value.length) {
+        const selectedValues = value.map((skill) => ({
+          value: skill.name,
+          label: skill.name,
+        }));
+
+        setSelected(selectedValues);
       }
-    }, []);
+    }, [value]);
 
-    const onChangeHandler = useMemo<
-      NonNullable<AutocompleteProps["onChange"]>
-    >(() => {
-      return async (event, newValue) => {
-        const skillsToAdd = newValue
-          .filter((skill) => skill.isNew)
-          .map((skill) => skill.name);
-
-        if (skillsToAdd.length > 0) {
-          // this function already makes sure we have a unique list of skills, no need to check for duplicates
-          await updateSkillList([...skillList, ...skillsToAdd]);
-        }
-
-        onChange(newValue.map((skill) => ({ name: skill.name })));
-      };
-    }, [onChange, skillList, updateSkillList]);
-
-    const isOptionEqualToValue = useCallback<
-      NonNullable<AutocompleteProps["isOptionEqualToValue"]>
-    >((option, value) => option.name === value.name, []);
-
-    const autocompleteValue = value.map((skill) => ({
-      name: skill.name,
-      label: skill.name,
-      isNew: false,
-    }));
-
-    const autocompleteSkillList = skillList.map((skill) => ({
-      name: skill,
-      label: skill,
-      isNew: false,
-    }));
-
+    // @ts-ignore
     return (
-      <Autocomplete
-        fullWidth
-        size="small"
-        multiple
-        handleHomeEndKeys
-        id="skill-list-autocomplete"
-        value={autocompleteValue}
-        isOptionEqualToValue={isOptionEqualToValue}
-        disableCloseOnSelect
-        autoHighlight={false}
-        onChange={onChangeHandler}
-        filterOptions={filterOptions}
-        options={autocompleteSkillList}
-        renderTags={(value, getTagProps) => (
-          <TagValue tagValue={value} getTagProps={getTagProps} />
-        )}
-        renderInput={renderInput}
-      />
+      <div style={{ width: "100%" }}>
+        <SortableSelect
+          useDragHandle
+          axis="xy"
+          onSortEnd={onSortEnd}
+          distance={4}
+          getHelperDimensions={({ node }) => node.getBoundingClientRect()}
+          isMulti
+          options={options}
+          value={selected}
+          menuPosition="fixed"
+          onChange={onChange}
+          components={{
+            // @ts-ignore
+            MultiValue: SortableMultiValue,
+            MultiValueLabel: SortableMultiValueLabel,
+          }}
+          closeMenuOnSelect={false}
+        />
+      </div>
     );
   };

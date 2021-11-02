@@ -21,6 +21,7 @@ import theme from "./config/theme";
 import { AppStateContextProvider } from "./context/AppStateContext/AppStateContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import "./App.css";
 
 export const App: VoidFunctionComponent = () => {
   return (

@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
@@ -32,6 +32,10 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
     },
     [cards]
   );
+
+  useEffect(() => {
+    setCards(skills);
+  }, [skills]);
 
   return (
     <Section
