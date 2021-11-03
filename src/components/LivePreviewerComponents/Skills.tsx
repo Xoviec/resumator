@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
@@ -15,6 +15,11 @@ interface SkillsProps {
 
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [cards, setCards] = useState(skills);
+
+  useEffect(() => {
+    setCards(skills);
+  }, [skills]);
 
   return (
     <Section
@@ -24,8 +29,8 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       actionOnClick={() => setIsEditing(true)}
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
-        {skills.map((skill) => (
-          <TruncatedChip key={skill.name} label={skill.name} />
+        {cards.map((skill, idx) => (
+          <TruncatedChip key={skill?.name} label={skill?.name} />
         ))}
       </Box>
 

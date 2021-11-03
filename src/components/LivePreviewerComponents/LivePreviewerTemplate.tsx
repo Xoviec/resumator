@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext";
 import { Education } from "./Education";
 import { Experience } from "./Experience";
@@ -24,7 +24,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     setResume(data);
   }, [data]);
 
-  const { personalia } = resume;
+  const { personalia } = useMemo(() => resume, [resume]);
 
   useEffect(() => {
     const defaultTitle = "CV | Frontmen";

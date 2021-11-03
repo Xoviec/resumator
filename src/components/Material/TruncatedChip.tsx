@@ -6,18 +6,22 @@ import { truncateLabel } from "../../helpers";
 
 export interface TruncatedChipProps extends ChipProps {
   label: string;
+  // TODO: fix any type
+  onDelete?: any;
 }
 
 export const TruncatedChip: VoidFunctionComponent<TruncatedChipProps> = (props) => {
-  const { label, ...rest } = props;
+  const { label, onDelete } = props;
+
   return (
     <Tooltip title={label}>
       <Chip
         size="small"
         color="secondary"
         variant="outlined"
-        {...rest}
         label={truncateLabel(label)}
+        onDelete={onDelete?.onClick}
+        {...onDelete}
       />
     </Tooltip>
   );
