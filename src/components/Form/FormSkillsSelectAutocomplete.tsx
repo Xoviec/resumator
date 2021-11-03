@@ -21,7 +21,13 @@ import {
   SortableHandle,
 } from "react-sortable-hoc";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { TruncatedChip } from "../Material/TruncatedChip";
+import { ClassNames } from "@emotion/react";
 
+// helpers
+import { arrayMove } from "../../helpers";
+
+// interfaces
 interface Skill {
   name: string;
 }
@@ -32,35 +38,57 @@ interface FormSkillsSelectPropsAutocomplete {
   onChange: (skills: Skill[]) => void;
 }
 
-interface AutocompleteSkill {
-  name: string;
+interface SkillsOption {
+  value: string;
   label: string;
-  isNew: boolean;
-}
-
-export interface ColourOption {
-  readonly value: string;
-  readonly label: string;
-}
-
-function arrayMove<T>(array: readonly T[], from: number, to: number) {
-  const slicedArray = array.slice();
-  slicedArray.splice(
-    to < 0 ? array.length + to : to,
-    0,
-    slicedArray.splice(from, 1)[0]
-  );
-  return slicedArray;
 }
 
 const SortableMultiValue = SortableElement(
-  (props: MultiValueProps<ColourOption[]>) => {
+  (props: MultiValueProps<SkillsOption>) => {
     const onMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
       e.preventDefault();
       e.stopPropagation();
     };
-    const innerProps = { ...props.innerProps, onMouseDown };
-    return <components.MultiValue {...props} innerProps={innerProps} />;
+    const {
+      data,
+      cx,
+      getStyles,
+      isDisabled,
+      className,
+      selectProps,
+      removeProps,
+      children,
+      ...rest
+    } = props;
+    const innerProps = { ...rest.innerProps, onMouseDown };
+    const { Container, Label } = rest.components;
+    return (
+      <ClassNames>
+        {({ css, cx: emotionCx }) => (
+          <Container
+            data={data}
+            innerProps={{
+              className: emotionCx(
+                css(getStyles("multiValue", props)),
+                cx(
+                  {
+                    "multi-value": true,
+                    "multi-value--is-disabled": isDisabled,
+                  },
+                  className
+                )
+              ),
+              ...innerProps,
+            }}
+            selectProps={selectProps}
+          >
+            <Label data={data} innerProps={{}} selectProps={selectProps}>
+              <TruncatedChip label={data.label} {...rest} onDelete={removeProps} />
+            </Label>
+          </Container>
+        )}
+      </ClassNames>
+    );
   }
 );
 
@@ -69,15 +97,15 @@ const SortableMultiValueLabel = SortableHandle((props: MultiValueGenericProps) =
 });
 
 const SortableSelect = SortableContainer(Select) as ComponentClass<
-  Props<ColourOption, true> & SortableContainerProps
+  Props<SkillsOption, true> & SortableContainerProps
 >;
 
 export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
   ({ label, value, onChange: ch }) => {
-    const { skillList, updateSkillList } = useSkillsContext();
-    const [selected, setSelected] = useState<readonly ColourOption[]>([]);
+    const { skillList } = useSkillsContext();
+    const [selected, setSelected] = useState<readonly SkillsOption[]>([]);
 
-    const onChange = (selectedOptions: OnChangeValue<ColourOption, true>) => {
+    const onChange = (selectedOptions: OnChangeValue<SkillsOption, true>) => {
       ch(selectedOptions.map((skill) => ({ name: skill.label })));
       setSelected(selectedOptions);
     };
@@ -106,7 +134,6 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
       }
     }, [value]);
 
-    // @ts-ignore
     return (
       <div style={{ width: "100%" }}>
         <SortableSelect
@@ -120,7 +147,9 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
           value={selected}
           menuPosition="fixed"
           onChange={onChange}
+          placeholder="Add a library, framework, skill..."
           components={{
+            // * TS ignore from documentation
             // @ts-ignore
             MultiValue: SortableMultiValue,
             MultiValueLabel: SortableMultiValueLabel,

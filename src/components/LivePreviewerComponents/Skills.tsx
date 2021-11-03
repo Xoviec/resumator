@@ -1,10 +1,9 @@
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
-import update from "immutability-helper";
 
 export interface SkillModel {
   name: string;
@@ -17,21 +16,6 @@ interface SkillsProps {
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [cards, setCards] = useState(skills);
-
-  const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragCard = cards[dragIndex];
-      setCards(
-        update(cards, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, dragCard],
-          ],
-        })
-      );
-    },
-    [cards]
-  );
 
   useEffect(() => {
     setCards(skills);
@@ -46,12 +30,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
         {cards.map((skill, idx) => (
-          <TruncatedChip
-            key={skill?.name}
-            label={skill?.name}
-            moveCard={moveCard}
-            index={idx}
-          />
+          <TruncatedChip key={skill?.name} label={skill?.name} />
         ))}
       </Box>
 
