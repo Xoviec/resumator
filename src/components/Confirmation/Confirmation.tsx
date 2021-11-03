@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-interface ConfirmationProps {
+export interface ConfirmationProps {
   isOpen: boolean;
   onClose?: () => any;
   title?: string;
@@ -37,8 +37,12 @@ export const Confirmation: VoidFunctionComponent<ConfirmationProps> = ({
         <Box dangerouslySetInnerHTML={{ __html: message }} />
       </DialogContent>
       <DialogActions>
-        <Button onClick={denyClick}>{denyText}</Button>
-        <Button onClick={confirmClick}>{confirmText}</Button>
+        <Button aria-label="deny button" onClick={denyClick}>
+          {denyText}
+        </Button>
+        <Button aria-label="confirm button" onClick={confirmClick}>
+          {confirmText}
+        </Button>
       </DialogActions>
     </Dialog>
   );

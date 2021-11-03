@@ -6,6 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
+    "coverage": "npm test -- --coverage --watchAll=false",
     "lint": "eslint src/",
     "cypress": "cypress open",
     "cypress:headless": "cypress run --browser chrome --headless",
@@ -102,11 +103,27 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm run coverage"
     }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
     "*.{md,html,css}": "prettier --write"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/components/constants.ts",
+      "!<rootDir>/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 12,
+        "functions": 3,
+        "lines": 4,
+        "statements": 4
+      }
+    }
   }
 }
