@@ -1,23 +1,40 @@
-import { RouteComponentProps } from "react-router-dom";
-import styled from "@emotion/styled";
-import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
-import Skeleton from "@mui/material/Skeleton";
-import { Card } from "@mui/material";
 import { VoidFunctionComponent } from "react";
+import { RouteComponentProps, Link } from "react-router-dom";
+import styled from "@emotion/styled";
+import Skeleton from "@mui/material/Skeleton";
+import { Card, Box, Button } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
+
+// hooks
+import { useResume } from "../../hooks/useResume";
+
+// components
+import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import { MainLayout } from "../../layouts/MainLayout";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
-import { useResume } from "../../hooks/useResume";
+
+const useStyles = makeStyles({
+  link: {
+    textDecoration: "none",
+  },
+});
 
 type LivePreviewerProps = RouteComponentProps<{ id: string }>;
 
 const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
+  const classes = useStyles();
   const { resume, loading, error } = useResume(props.match.params.id);
 
   if (!props.match.params.id) {
     return (
       <LivePreviewContainer>
         <Card>
-          <h2 style={{ textAlign: "center" }}>No resume to show</h2>
+          <h2 style={{ textAlign: "center" }}>No resume selected</h2>
+          <Box component="div" display="flex" justifyContent="center" sx={{ p: 2 }}>
+            <Link to="/new" className={classes.link}>
+              <Button variant="contained">Add New Resume</Button>
+            </Link>
+          </Box>
         </Card>
       </LivePreviewContainer>
     );
