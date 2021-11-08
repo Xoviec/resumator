@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, SyntheticEvent, useCallback, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import { TooltipIconButton } from "../Material";
@@ -43,6 +43,14 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
 }) => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
+  const handleOpenEditModal = useCallback(
+    (e: SyntheticEvent) => {
+      e.stopPropagation();
+      onEdit();
+    },
+    [onEdit]
+  );
+
   return (
     <Box
       display="flex"
@@ -61,8 +69,21 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
           <DeleteIcon fontSize="small" style={{ color: colors.midBlue }} />
         </TooltipIconButton>
         {/* Edit item */}
-        <TooltipIconButton color="inherit" tooltip={`Edit ${type}`} onClick={onEdit}>
-          <EditIcon fontSize="small" style={{ color: colors.midBlue }} />
+        {/* mouse events added for stop dragging propagation */}
+        <TooltipIconButton
+          color="inherit"
+          tooltip={`Edit ${type}`}
+          onMouseDown={handleOpenEditModal}
+          onMouseUp={handleOpenEditModal}
+          onClick={handleOpenEditModal}
+        >
+          <EditIcon
+            fontSize="small"
+            style={{ color: colors.midBlue }}
+            onMouseDown={handleOpenEditModal}
+            onMouseUp={handleOpenEditModal}
+            onClick={handleOpenEditModal}
+          />
         </TooltipIconButton>
       </Box>
 
