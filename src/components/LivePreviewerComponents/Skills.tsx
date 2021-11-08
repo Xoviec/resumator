@@ -21,11 +21,6 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
   const handleSubmitData = useCallback(
     (data) => {
       const { skills } = data;
-      // const mappedSkills = skills.map((skill: SkillModel) => ({
-      //   ...skill,
-      //   isActive: true,
-      // }));
-
       setIsEditing(false);
       onSubmit(skills);
     },
@@ -61,6 +56,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       action="edit"
       actionTooltip="Edit skills"
       actionOnClick={() => setIsEditing(true)}
+      isHelpTooltip
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
         {cards.map((skill, idx) => (

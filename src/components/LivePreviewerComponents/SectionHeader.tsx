@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { TooltipIconButton } from "../Material";
+import { HelpSharp } from "@mui/icons-material";
+
 // Icons
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,6 +13,7 @@ export interface SectionHeaderProps {
   action?: "add" | "edit";
   actionTooltip?: string;
   actionOnClick?: () => void;
+  isHelpTooltip?: boolean;
 }
 
 export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
@@ -18,6 +21,7 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
   action,
   actionTooltip,
   actionOnClick,
+  isHelpTooltip = false,
 }) => {
   return (
     <>
@@ -34,7 +38,16 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
           paddingLeft={2}
         >
           {/* Only show a title if we actually have a title. */}
-          {title && <Typography variant="h5">{title}</Typography>}
+          <Box display="flex" alignItems="center">
+            {title && <Typography variant="h5">{title}</Typography>}
+            {isHelpTooltip && (
+              <Tooltip title="Click a skill to show/hide them in the PDF resume">
+                <IconButton>
+                  <HelpSharp />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
           {/* Only show an action button if we actually have an action. */}
           {action && (
             <TooltipIconButton
