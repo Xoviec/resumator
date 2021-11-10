@@ -1,5 +1,8 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import { HelpSharp } from "@mui/icons-material";
+
+// components
 import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
@@ -7,6 +10,7 @@ import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
 
 export interface SkillModel {
   name: string;
+  isActive?: boolean;
 }
 interface SkillsProps {
   skills: SkillModel[];
@@ -16,6 +20,34 @@ interface SkillsProps {
 export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [cards, setCards] = useState(skills);
+
+  const handleSubmitData = useCallback(
+    (data) => {
+      const { skills } = data;
+      setIsEditing(false);
+      onSubmit(skills);
+    },
+    [onSubmit]
+  );
+
+  const handleChangeSkillStatus = useCallback(
+    (skillName: string) => {
+      const mappedSkills = skills.map((skill: SkillModel) => {
+        if (skill.name === skillName) {
+          return {
+            ...skill,
+            isActive: !skill.isActive,
+          };
+        }
+
+        return skill;
+      });
+
+      setCards(mappedSkills);
+      onSubmit(mappedSkills);
+    },
+    [skills, onSubmit]
+  );
 
   useEffect(() => {
     setCards(skills);
@@ -27,10 +59,17 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       action="edit"
       actionTooltip="Edit skills"
       actionOnClick={() => setIsEditing(true)}
+      tooltipTitle="Click a skill to show/hide them in the PDF resume"
+      tooltipIcon={<HelpSharp />}
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
         {cards.map((skill, idx) => (
-          <TruncatedChip key={skill?.name} label={skill?.name} />
+          <TruncatedChip
+            key={skill?.name}
+            label={skill?.name}
+            isActive={skill.isActive}
+            onActiveChange={handleChangeSkillStatus}
+          />
         ))}
       </Box>
 
@@ -39,10 +78,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
         data={{ skills }}
         open={isEditing}
         onCancel={() => setIsEditing(false)}
-        onSave={(data) => {
-          setIsEditing(false);
-          onSubmit(data.skills);
-        }}
+        onSave={handleSubmitData}
       >
         <FormColumn>
           <FormRow>

@@ -50,6 +50,10 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
     <Root>
       <Header>SKILLS</Header>
       {skills.map((skill) => {
+        if (!skill.isActive) {
+          return null;
+        }
+
         return (
           <LiWrapper key={skill.name}>
             <LiDot />

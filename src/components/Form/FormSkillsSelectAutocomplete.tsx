@@ -30,6 +30,7 @@ import { arrayMove } from "../../helpers";
 // interfaces
 interface Skill {
   name: string;
+  isActive?: boolean;
 }
 
 interface FormSkillsSelectPropsAutocomplete {
@@ -106,7 +107,7 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
     const [selected, setSelected] = useState<readonly SkillsOption[]>([]);
 
     const onChange = (selectedOptions: OnChangeValue<SkillsOption, true>) => {
-      ch(selectedOptions.map((skill) => ({ name: skill.label })));
+      ch(selectedOptions.map((skill) => ({ ...skill, name: skill.label })));
       setSelected(selectedOptions);
     };
 
@@ -120,12 +121,14 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
       return skillList.map((skill) => ({
         value: skill,
         label: skill,
+        isActive: true,
       }));
     }, [skillList]);
 
     useEffect(() => {
       if (value.length) {
         const selectedValues = value.map((skill) => ({
+          ...skill,
           value: skill.name,
           label: skill.name,
         }));
