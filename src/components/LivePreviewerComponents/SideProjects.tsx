@@ -6,6 +6,7 @@ import {
   SortableElement,
   SortEndHandler,
 } from "react-sortable-hoc";
+import { HelpSharp } from "@mui/icons-material";
 
 // helpers
 import { arrayMove } from "../../helpers";
@@ -152,6 +153,8 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
       action="add"
       actionTooltip={`Add ${type.toLowerCase()}`}
       actionOnClick={() => setIsEditing(true)}
+      tooltipTitle="You can change your publications ordering with drag and drop"
+      tooltipIcon={<HelpSharp />}
     >
       {isDraggable ? (
         <SortableList
