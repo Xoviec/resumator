@@ -10,11 +10,11 @@ export interface TruncatedChipProps extends ChipProps {
   // TODO: fix any type
   onDelete?: any;
   isActive?: boolean;
-  handleChangeSkillStatus?: any;
+  onActiveChange?: (label: string) => void;
 }
 
 export const TruncatedChip: VoidFunctionComponent<TruncatedChipProps> = (props) => {
-  const { label, onDelete, isActive, handleChangeSkillStatus } = props;
+  const { label, onDelete, isActive, onActiveChange } = props;
 
   return (
     <Tooltip title={label}>
@@ -25,9 +25,7 @@ export const TruncatedChip: VoidFunctionComponent<TruncatedChipProps> = (props) 
         icon={isActive && <DoneIcon />}
         label={truncateLabel(label)}
         onDelete={onDelete ? onDelete?.onClick : null}
-        onClick={
-          handleChangeSkillStatus ? () => handleChangeSkillStatus(label) : null
-        }
+        onClick={onActiveChange ? () => onActiveChange(label) : null}
         {...onDelete}
       />
     </Tooltip>

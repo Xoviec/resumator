@@ -1,5 +1,8 @@
-import { FunctionComponent, useCallback, useEffect, useMemo, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import { HelpSharp } from "@mui/icons-material";
+
+// components
 import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
@@ -56,7 +59,8 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
       action="edit"
       actionTooltip="Edit skills"
       actionOnClick={() => setIsEditing(true)}
-      isHelpTooltip
+      tooltipTitle="Click a skill to show/hide them in the PDF resume"
+      tooltipIcon={<HelpSharp />}
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
         {cards.map((skill, idx) => (
@@ -64,7 +68,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
             key={skill?.name}
             label={skill?.name}
             isActive={skill.isActive}
-            handleChangeSkillStatus={handleChangeSkillStatus}
+            onActiveChange={handleChangeSkillStatus}
           />
         ))}
       </Box>
