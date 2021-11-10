@@ -69,19 +69,14 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
           <DeleteIcon fontSize="small" style={{ color: colors.midBlue }} />
         </TooltipIconButton>
         {/* Edit item */}
-        {/* mouse events added for stop dragging propagation */}
         <TooltipIconButton
           color="inherit"
           tooltip={`Edit ${type}`}
-          onMouseDown={handleOpenEditModal}
-          onMouseUp={handleOpenEditModal}
           onClick={handleOpenEditModal}
         >
           <EditIcon
             fontSize="small"
             style={{ color: colors.midBlue }}
-            onMouseDown={handleOpenEditModal}
-            onMouseUp={handleOpenEditModal}
             onClick={handleOpenEditModal}
           />
         </TooltipIconButton>

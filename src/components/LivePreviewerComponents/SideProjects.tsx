@@ -1,4 +1,4 @@
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, useEffect } from "react";
 import { Box, Divider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import {
@@ -142,6 +142,10 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
     setItems(updatedItems);
   };
 
+  useEffect(() => {
+    setItems(projects);
+  }, [projects]);
+
   return (
     <Section
       title={type}
@@ -151,6 +155,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
     >
       {isDraggable ? (
         <SortableList
+          distance={1}
           items={items}
           onSortEnd={onSortEnd}
           axis="y"
