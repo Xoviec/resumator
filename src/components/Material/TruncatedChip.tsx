@@ -15,18 +15,18 @@ export interface TruncatedChipProps extends ChipProps {
 
 export const TruncatedChip: VoidFunctionComponent<TruncatedChipProps> = (props) => {
   const { label, onDelete, isActive, onActiveChange } = props;
-
+  // TODO: fix ts ignore
   return (
     <Tooltip title={label}>
       <Chip
         size="small"
         color="secondary"
         variant="outlined"
-        icon={isActive && <DoneIcon />}
         label={truncateLabel(label)}
+        // @ts-ignore
+        icon={isActive && <DoneIcon />}
         onDelete={onDelete ? onDelete?.onClick : null}
-        onClick={onActiveChange ? () => onActiveChange(label) : null}
-        {...onDelete}
+        onClick={onActiveChange ? () => onActiveChange(label) : () => null}
       />
     </Tooltip>
   );
