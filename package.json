@@ -101,6 +101,15 @@
     "ts-jest": "^27.0.2",
     "typescript": "^4.4.3"
   },
+  "resolutions": {
+    "react-scripts/**/set-value": "^4.1.0",
+    "react-scripts/**/glob-parent": "^6.0.2",
+    "react-scripts/**/immer": "^9.0.6",
+    "react-scripts/**/nth-check": "^2.0.1",
+    "**/json-ptr": "^3.0.0",
+    "**/node-fetch": "^3.1.0",
+    "**/browserslist": "^4.17.6"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && npm run coverage"
