@@ -121,6 +121,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
             onSubmit={(data) => handleSubmit({ sideProjects: data })}
           />
           <SideProjects
+            isDraggable
             type="Publications"
             projects={resume.publications}
             onSubmit={(data) => handleSubmit({ publications: data })}
