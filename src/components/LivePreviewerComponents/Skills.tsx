@@ -1,12 +1,11 @@
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
-import { Box } from "@mui/material";
 import { HelpSharp } from "@mui/icons-material";
-
+import { Box } from "@mui/material";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
 // components
-import { TruncatedChip } from "../Material/TruncatedChip";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { FormColumn, FormRow, FormSkillsSelect } from "../Form";
+import { SkillChip } from "./SkillChip";
 
 export interface SkillModel {
   name: string;
@@ -64,7 +63,7 @@ export const Skills: FunctionComponent<SkillsProps> = ({ skills, onSubmit }) => 
     >
       <Box display="flex" flexWrap="wrap" gap="8px">
         {cards.map((skill, idx) => (
-          <TruncatedChip
+          <SkillChip
             key={skill?.name}
             label={skill?.name}
             isActive={skill.isActive}

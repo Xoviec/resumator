@@ -21,11 +21,11 @@ import {
   SortableHandle,
 } from "react-sortable-hoc";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
-import { TruncatedChip } from "../Material/TruncatedChip";
 import { ClassNames } from "@emotion/react";
 
 // helpers
 import { arrayMove } from "../../helpers";
+import { SkillChip } from "../LivePreviewerComponents/SkillChip";
 
 // interfaces
 interface Skill {
@@ -42,6 +42,7 @@ interface FormSkillsSelectPropsAutocomplete {
 interface SkillsOption {
   value: string;
   label: string;
+  isActive?: boolean;
 }
 
 const SortableMultiValue = SortableElement(
@@ -84,7 +85,12 @@ const SortableMultiValue = SortableElement(
             selectProps={selectProps}
           >
             <Label data={data} innerProps={{}} selectProps={selectProps}>
-              <TruncatedChip label={data.label} {...rest} onDelete={removeProps} />
+              <SkillChip
+                label={data.label}
+                {...rest}
+                onDelete={removeProps.onClick}
+                isActive={data.isActive}
+              />
             </Label>
           </Container>
         )}
