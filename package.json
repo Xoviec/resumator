@@ -86,7 +86,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "cypress": "^7.4.0",
-    "cypress-firebase": "^1.9.1",
+    "cypress-firebase": "^2.0.0",
     "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-cypress": "^2.11.3",
