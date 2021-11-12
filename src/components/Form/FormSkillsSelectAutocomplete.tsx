@@ -42,6 +42,7 @@ interface FormSkillsSelectPropsAutocomplete {
 interface SkillsOption {
   value: string;
   label: string;
+  isActive?: boolean;
 }
 
 const SortableMultiValue = SortableElement(
@@ -88,6 +89,7 @@ const SortableMultiValue = SortableElement(
                 label={data.label}
                 {...rest}
                 onDelete={removeProps.onClick}
+                isActive={data.isActive}
               />
             </Label>
           </Container>

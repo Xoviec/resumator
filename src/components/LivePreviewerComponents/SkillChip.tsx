@@ -15,7 +15,7 @@ export const SkillChip: VoidFunctionComponent<SkillChipProps> = (props) => {
     <Chip
       size="small"
       color="secondary"
-      variant="outlined"
+      variant={isActive ? "filled" : "outlined"}
       label={label}
       onDelete={onDelete}
       onClick={onActiveChange ? () => onActiveChange(label) : () => null}
