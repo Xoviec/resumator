@@ -119,7 +119,14 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelec
 
     const onSortEnd: SortEndHandler = ({ oldIndex, newIndex }) => {
       const newVal = arrayMove(selected, oldIndex, newIndex);
-      ch(newVal.map((skill) => ({ name: skill.label })));
+      ch(
+        newVal.map((skill) => {
+          return {
+            ...skill,
+            name: skill.label,
+          };
+        })
+      );
       setSelected(newVal);
     };
 
