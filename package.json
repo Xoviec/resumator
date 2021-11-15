@@ -74,7 +74,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
     "@types/debounce": "^1.2.1",
-    "@types/draft-js": "^0.10.44",
+    "@types/draft-js": "^0.11.6",
     "@types/file-saver": "^2.0.1",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.9.6",
