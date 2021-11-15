@@ -45,7 +45,7 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
         classes={sectionItemHeaderClasses}
         onDelete={() => onDelete()}
         onEdit={() => onEdit(educationItem)}
-      ></SectionItemHeader>
+      />
       <Box display="flex" flexDirection="column" gap="8px">
         <DetailWithIcon icon={<SchoolIcon style={{ color: colors.midBlue }} />}>
           {educationItem.institute}
