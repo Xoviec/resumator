@@ -31,7 +31,7 @@
     "@rebass/forms": "^4.0.6",
     "date-fns": "^2.16.1",
     "debounce": "^1.2.1",
-    "docxtemplater": "^3.19.9",
+    "docxtemplater": "^3.26.4",
     "docxtemplater-image-module-free": "^1.1.1",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
