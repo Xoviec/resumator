@@ -35,7 +35,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Do you want to save data?
+          Your changes will be lost
         </Typography>
         <Box paddingTop={5} display="flex" justifyContent="flex-end">
           <Button
