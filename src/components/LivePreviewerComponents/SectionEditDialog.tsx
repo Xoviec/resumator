@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   Box,
@@ -13,11 +13,16 @@ import { TooltipIconButton } from "../Material";
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 
+// components
+import { Modal } from "../common/Modal";
+
 export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
   data: T;
-  onCancel: () => void;
+  onCancel: (isEmpty: boolean) => void;
   onSave: (data: T) => void;
+  isModalOpen?: boolean;
+  onCloseModals?: () => void;
 }
 
 // FunctionComponent doesn't work well with additional generics, so we use the props type directly.
@@ -28,9 +33,14 @@ export const SectionEditDialog = <T,>({
   onCancel,
   onSave,
   children,
+  isModalOpen = false,
+  onCloseModals,
   ...props
 }: PropsWithChildren<SectionEditDialogProps<T>>) => {
   const { reset, ...form } = useForm();
+
+  const isFilledData = (): boolean =>
+    Object.values(form.getValues()).some((item) => item);
 
   // Reset the form with new data if it changes.
   useEffect(() => reset({ ...data }), [reset, data]);
@@ -41,7 +51,7 @@ export const SectionEditDialog = <T,>({
       maxWidth="sm"
       aria-labelledby="section-edit-dialog-title"
       aria-describedby="section-edit-dialog-content"
-      onClose={onCancel}
+      onClose={() => onCancel(isFilledData())}
       {...props}
     >
       {/* Custom title to include a close button, example from material documentation doesn't work. */}
@@ -56,7 +66,7 @@ export const SectionEditDialog = <T,>({
             {title}
           </Typography>
         </Box>
-        <TooltipIconButton tooltip="Close" onClick={onCancel}>
+        <TooltipIconButton tooltip="Close" onClick={() => onCancel(isFilledData())}>
           <CloseIcon />
         </TooltipIconButton>
       </Box>
@@ -73,11 +83,17 @@ export const SectionEditDialog = <T,>({
       </DialogContent>
       {/* Actions for cancel and save. */}
       <DialogActions>
-        <Button onClick={onCancel}>Cancel</Button>
+        <Button onClick={() => onCancel(isFilledData())}>Cancel</Button>
         <Button type="submit" color="primary" form="section-edit-dialog-form">
           Save
         </Button>
       </DialogActions>
+      <Modal
+        isModalOpen={isModalOpen}
+        isFilledData={isFilledData()}
+        onClose={onCloseModals}
+        onSave={form.handleSubmit((formData) => onSave(formData as T))}
+      />
     </Dialog>
   );
 };
