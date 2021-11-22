@@ -1,9 +1,8 @@
 import { VoidFunctionComponent } from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
-import styled from "@emotion/styled";
+import { styled } from "@mui/system";
 import Skeleton from "@mui/material/Skeleton";
 import { Card, Box, Button } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 
 // hooks
 import { useResume } from "../../hooks/useResume";
@@ -13,16 +12,13 @@ import LivePreviewerTemplate from "../../components/LivePreviewerComponents/Live
 import { MainLayout } from "../../layouts/MainLayout";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
 
-const useStyles = makeStyles({
-  link: {
-    textDecoration: "none",
-  },
-});
+const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: "none",
+}));
 
 type LivePreviewerProps = RouteComponentProps<{ id: string }>;
 
 const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
-  const classes = useStyles();
   const { resume, loading, error } = useResume(props.match.params.id);
 
   if (!props.match.params.id) {
@@ -31,9 +27,9 @@ const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
         <Card>
           <h2 style={{ textAlign: "center" }}>No resume selected</h2>
           <Box component="div" display="flex" justifyContent="center" sx={{ p: 2 }}>
-            <Link to="/new" className={classes.link}>
+            <StyledLink to="/new">
               <Button variant="contained">Add New Resume</Button>
-            </Link>
+            </StyledLink>
           </Box>
         </Card>
       </LivePreviewContainer>
@@ -103,11 +99,11 @@ const StyledSkeleton = styled(Skeleton)`
   margin: 8px auto;
 `;
 
-const LivePreviewContainer = styled.div`
-  box-sizing: border-box;
-  margin: 0 auto;
-  max-width: 1200px;
-`;
+const LivePreviewContainer = styled("div")(({ theme }) => ({
+  boxSizing: "border-box",
+  margin: "0 auto",
+  maxWidth: 1200,
+}));
 
 export const LivePreviewerPage: VoidFunctionComponent<LivePreviewerProps> = (
   props

@@ -1,12 +1,12 @@
-import { FunctionComponent } from "react";
-import { Box } from "@mui/material";
-import { formatDate, formatTimespan } from "../../lib/date";
-import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
-import { DetailWithIcon } from "./DetailWithIcon";
+import DateRangeIcon from "@mui/icons-material/DateRangeOutlined";
 // Icons
 import SchoolIcon from "@mui/icons-material/School";
-import DateRangeIcon from "@mui/icons-material/DateRangeOutlined";
+import { Box } from "@mui/material";
+import { FunctionComponent } from "react";
 import { colors } from "../../config/theme";
+import { formatTimespan } from "../../lib/date";
+import { DetailWithIcon } from "./DetailWithIcon";
+import { SectionItemHeader } from "./SectionItemHeader";
 
 export interface EducationModel {
   name: string;
@@ -26,8 +26,6 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
   onDelete,
   onEdit,
 }) => {
-  const sectionItemHeaderClasses = useSectionItemHeaderStyles();
-
   const getTimespan = () => {
     return formatTimespan({
       startDate: educationItem.startDate,
@@ -38,14 +36,12 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
   };
 
   return (
-    <Box className={sectionItemHeaderClasses.container}>
-      <SectionItemHeader
-        type="education"
-        title={educationItem.name}
-        classes={sectionItemHeaderClasses}
-        onDelete={() => onDelete()}
-        onEdit={() => onEdit(educationItem)}
-      />
+    <SectionItemHeader
+      type="education"
+      title={educationItem.name}
+      onDelete={() => onDelete()}
+      onEdit={() => onEdit(educationItem)}
+    >
       <Box display="flex" flexDirection="column" gap="8px">
         <DetailWithIcon icon={<SchoolIcon style={{ color: colors.midBlue }} />}>
           {educationItem.institute}
@@ -54,6 +50,6 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
           {getTimespan()}
         </DetailWithIcon>
       </Box>
-    </Box>
+    </SectionItemHeader>
   );
 };

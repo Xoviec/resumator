@@ -2,6 +2,7 @@ import { useState, useMemo, VoidFunctionComponent } from "react";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { NavLink } from "react-router-dom";
+import { styled } from "@mui/system";
 import {
   Avatar,
   List,
@@ -11,11 +12,11 @@ import {
   ListItemSecondaryAction,
 } from "@mui/material/";
 import { TabPanel } from "@mui/lab";
-import makeStyles from "@mui/styles/makeStyles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import Fuse from "fuse.js";
+import clsx from "clsx";
 
 // configs
 import { colors } from "../../config/theme";
@@ -31,43 +32,55 @@ import { TooltipIconButton } from "../Material";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 
-export const useSectionItemHeaderStyles = makeStyles({
-  actions: {
+const PREFIX = "OverviewList";
+
+const classes = {
+  actions: `${PREFIX}-actions`,
+  container: `${PREFIX}-container`,
+  isArchived: `${PREFIX}-isArchived`,
+  link: `${PREFIX}-link`,
+  isImported: `${PREFIX}-isImported`,
+  importedWarning: `${PREFIX}-importedWarning`,
+  activeLink: `${PREFIX}-activeLink`,
+};
+
+const Root = styled("div")(({ theme }) => ({
+  [`& .${classes.actions}`]: {
     opacity: 0,
     transition: "opacity 150ms ease-out",
     pointerEvents: "none",
     alignSelf: "start",
     flexShrink: 0,
   },
-  container: {
+  [`& .${classes.container}`]: {
     cursor: "pointer",
     "&:hover": {
       backgroundColor: colors.darkGrayOpacity,
     },
-    "&:hover $actions": {
+    [`&:hover .${classes.actions}`]: {
       opacity: 1,
       pointerEvents: "all",
     },
   },
-  isArchived: {
+  [`& .${classes.isArchived}`]: {
     opacity: 0.6,
   },
-  link: {
+  [`& .${classes.link}`]: {
     color: colors.darkBlue,
     textDecoration: "none",
   },
-  isImported: {
+  [`& .${classes.isImported}`]: {
     color: colors.darkGray,
     textDecoration: "none",
   },
-  importedWarning: {
+  [`& .${classes.importedWarning}`]: {
     verticalAlign: "middle",
     fontSize: "1.2rem",
   },
-  activeLink: {
+  [`& .${classes.activeLink}`]: {
     color: colors.orange,
   },
-});
+}));
 
 interface OverviewListProps {
   firebase: FirebaseAppContextType["firebase"];
@@ -158,8 +171,6 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
     };
   }, [resumeFuseModel, resumes, searchTerms]);
 
-  const classes = useSectionItemHeaderStyles();
-
   const deleteResume = () => {
     if (!resumeToDelete?.id) return;
 
@@ -179,7 +190,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
     return null;
 
   return (
-    <>
+    <Root>
       {hasFetchError && (
         <span>
           Could not fetch resume data. If this problem persists, notify application
@@ -194,15 +205,18 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
             return (
               <NavLink
                 key={id}
-                className={isImport ? classes.isImported : classes.link}
+                className={clsx({
+                  [classes.isImported]: isImport,
+                  [classes.link]: !isImport,
+                })}
                 activeClassName={classes.activeLink}
                 to={`/resume/${id}`}
               >
                 <ListItem
                   classes={{
-                    container: `${classes.container} ${
-                      isArchived && classes.isArchived
-                    }`,
+                    container: clsx(classes.container, {
+                      [classes.isArchived]: isArchived,
+                    }),
                   }}
                 >
                   <ListItemAvatar>
@@ -215,7 +229,6 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText>
-                    {/*{isArchived && "(Archived) "}*/}
                     {displayName}
                     {isImport && (
                       <>
@@ -324,6 +337,6 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
             <br/><br/>
             This action cannot be reversed.`}
       />
-    </>
+    </Root>
   );
 };

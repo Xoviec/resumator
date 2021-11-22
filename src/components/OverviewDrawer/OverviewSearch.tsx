@@ -1,36 +1,36 @@
 import { useCallback, useMemo, useState, VoidFunctionComponent } from "react";
 import { Search } from "@mui/icons-material";
 import { alpha } from "@mui/material/styles";
-import makeStyles from "@mui/styles/makeStyles";
 import { InputBase } from "@mui/material";
 import { debounce } from "debounce";
+import { styled } from "@mui/system";
 
-const useStyles = makeStyles((theme) => ({
-  input: {
-    width: "100%",
-    paddingLeft: 50,
-    border: "1px solid",
+const StyledInput = styled(InputBase)(({ theme }) => ({
+  width: "100%",
+  paddingLeft: 50,
+  border: "1px solid",
+}));
+
+const StyledSearch = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.black, 0.05),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.black, 0.1),
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.05),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.black, 0.1),
-    },
-    marginBottom: theme.spacing(2),
-    width: "100%",
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    left: 0,
-  },
+  marginBottom: theme.spacing(2),
+  width: "100%",
+}));
+
+const StyledSearchIcon = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  left: 0,
 }));
 
 interface OverviewSearchProps {
@@ -40,7 +40,6 @@ interface OverviewSearchProps {
 export const OverviewSearch: VoidFunctionComponent<OverviewSearchProps> = ({
   handleSearch,
 }) => {
-  const classes = useStyles();
   const [searchVal, setSearchVal] = useState("");
 
   const debouncedSearch = useMemo(() => {
@@ -58,16 +57,11 @@ export const OverviewSearch: VoidFunctionComponent<OverviewSearchProps> = ({
   );
 
   return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
+    <StyledSearch>
+      <StyledSearchIcon>
         <Search />
-      </div>
-      <InputBase
-        className={classes.input}
-        onChange={doSearch}
-        value={searchVal}
-        placeholder="Search…"
-      />
-    </div>
+      </StyledSearchIcon>
+      <StyledInput onChange={doSearch} value={searchVal} placeholder="Search…" />
+    </StyledSearch>
   );
 };

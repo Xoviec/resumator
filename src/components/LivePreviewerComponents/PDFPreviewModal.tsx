@@ -1,14 +1,11 @@
-import { useCallback, VoidFunctionComponent } from "react";
-import { PDFViewer } from "@react-pdf/renderer";
-import styled from "@emotion/styled";
-import Modal from "@mui/material/Modal";
-import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import makeStyles from "@mui/styles/makeStyles";
-
+import { IconButton } from "@mui/material";
+import Modal from "@mui/material/Modal";
+import { styled } from "@mui/system";
+import { PDFViewer } from "@react-pdf/renderer";
+import { useCallback, VoidFunctionComponent } from "react";
 // configs
 import { colors } from "../../config/theme";
-
 // components
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
 import { ResumeModel } from "./ResumeModel";
@@ -19,15 +16,24 @@ interface PDFPreviewModalProps {
   resume: ResumeModel;
 }
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    "&.MuiButtonBase-root": {
-      backgroundColor: colors.darkGray,
-      marginBottom: "10px",
-    },
-    "&.MuiButtonBase-root:hover": {
-      backgroundColor: colors.darkGray,
-    },
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  "&.MuiButtonBase-root": {
+    backgroundColor: colors.darkGray,
+    marginBottom: "10px",
+  },
+  "&.MuiButtonBase-root:hover": {
+    backgroundColor: colors.darkGray,
+  },
+}));
+
+const ModalContent = styled("div")(({ theme }) => ({
+  maxWidth: 1440,
+  margin: "0 auto",
+  padding: 32,
+  height: "100%",
+
+  "&:focus": {
+    outline: "none",
   },
 }));
 
@@ -36,8 +42,6 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
   setShowPDFModal,
   resume,
 }) => {
-  const classes = useStyles();
-
   const handleClosePDFModal = useCallback(() => {
     setShowPDFModal(false);
   }, []);
@@ -51,15 +55,14 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
         aria-describedby="PDF Preview"
       >
         <ModalContent>
-          <IconButton
+          <StyledIconButton
             onClick={handleClosePDFModal}
-            className={classes.button}
             color="primary"
             aria-label="delete"
             size="large"
           >
             <Close fontSize="inherit" />
-          </IconButton>
+          </StyledIconButton>
           <PDFViewer width="100%" height="100%">
             <PDFTemplate resume={resume} />
           </PDFViewer>
@@ -69,14 +72,3 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
   }
   return null;
 };
-
-const ModalContent = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 32px;
-  height: 100%;
-
-  &:focus {
-    outline: none;
-  }
-`;

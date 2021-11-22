@@ -1,15 +1,9 @@
-import { FunctionComponent } from "react";
-import { Divider, Drawer, useMediaQuery } from "@mui/material";
+import { Divider, Drawer, Theme, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import makeStyles from "@mui/styles/makeStyles";
-
-// config
-import { Theme } from "../../config/theme";
-
+import { FunctionComponent } from "react";
 // context
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useFirebaseApp } from "../../context/FirebaseContext";
-
 // components
 import { OverviewContent } from "./OverviewContent";
 
@@ -24,29 +18,25 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
-  drawerMobile: {
-    width: "50vw",
-    flexShrink: 0,
-    padding: "0 20px 0",
-  },
-  drawerPaper: {
+const DrawerRoot = styled("div")(({ theme }) => ({
+  display: "flex",
+}));
+
+const Content = styled("div")(({ theme }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+}));
+
+const StyledDrawer = styled(Drawer)(({ theme }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+
+  "& .MuiDrawer-paper": {
     width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
   },
 }));
 
 export const OverviewDrawer: FunctionComponent = (props) => {
-  const classes = useStyles();
   const isLgUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up("lg"));
 
   const { userRecord } = useFirebaseApp();
@@ -59,26 +49,19 @@ export const OverviewDrawer: FunctionComponent = (props) => {
   const renderDrawer = () => {
     return (
       <>
-        <div className={classes.root}>
-          <Drawer
+        <DrawerRoot>
+          <StyledDrawer
             variant={isLgUp ? "permanent" : "temporary"}
             anchor="left"
             open={isDrawerOpen}
             onClose={handleDrawerClose}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-            }}
           >
             <DrawerHeader />
             <Divider />
             <OverviewContent />
-          </Drawer>
-          <div className={classes.content}>{props.children}</div>
-        </div>
+          </StyledDrawer>
+          <Content>{props.children}</Content>
+        </DrawerRoot>
       </>
     );
   };

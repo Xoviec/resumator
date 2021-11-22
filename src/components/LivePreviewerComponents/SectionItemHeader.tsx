@@ -1,45 +1,54 @@
-import { FunctionComponent, SyntheticEvent, useCallback, useState } from "react";
-import { Box, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import { TooltipIconButton } from "../Material";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Box, Typography } from "@mui/material";
+import { styled } from "@mui/system";
+import { FunctionComponent, SyntheticEvent, useCallback, useState } from "react";
 import { colors } from "../../config/theme";
 import { Confirmation } from "../Confirmation/Confirmation";
+import { TooltipIconButton } from "../Material";
 
-export interface SectionItemHeaderProps {
+const PREFIX = "SectionItemHeader";
+
+const classes = {
+  actions: `${PREFIX}-actions`,
+};
+
+const Actions = styled(Box)(({ theme }) => ({
+  opacity: 0,
+  transition: "opacity 150ms ease-out",
+  pointerEvents: "none",
+  alignSelf: "start",
+  flexShrink: 0,
+}));
+
+const OuterContainer = styled(Box)(({ theme }) => ({
+  [`&:hover .${classes.actions}`]: {
+    opacity: 1,
+    pointerEvents: "all",
+  },
+}));
+
+const InnerContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+}));
+
+interface SectionItemHeaderProps {
   title: string;
   type: string;
-  classes?: {
-    actions: string;
-  };
   onDelete: () => void;
   onEdit: () => void;
 }
 
-export const useSectionItemHeaderStyles = makeStyles({
-  actions: {
-    opacity: 0,
-    transition: "opacity 150ms ease-out",
-    pointerEvents: "none",
-    alignSelf: "start",
-    flexShrink: 0,
-  },
-  container: {
-    "&:hover $actions": {
-      opacity: 1,
-      pointerEvents: "all",
-    },
-  },
-});
-
 export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
   title,
   type,
-  classes,
   onDelete,
   onEdit,
+  children,
 }) => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
@@ -52,48 +61,46 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
   );
 
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-    >
-      <Typography variant="h6">{title}</Typography>
-      <Box className={classes?.actions} marginRight={-1}>
-        {/* Delete item */}
-        <TooltipIconButton
-          color="inherit"
-          tooltip={`Delete ${type}`}
-          onClick={() => setDeleteConfirmationOpen(true)}
-        >
-          <DeleteIcon fontSize="small" style={{ color: colors.midBlue }} />
-        </TooltipIconButton>
-        {/* Edit item */}
-        <TooltipIconButton
-          color="inherit"
-          tooltip={`Edit ${type}`}
-          onClick={handleOpenEditModal}
-        >
-          <EditIcon
-            fontSize="small"
-            style={{ color: colors.midBlue }}
+    <OuterContainer>
+      <InnerContainer>
+        <Typography variant="h6">{title}</Typography>
+        <Actions marginRight={-1} className={classes.actions}>
+          {/* Delete item */}
+          <TooltipIconButton
+            color="inherit"
+            tooltip={`Delete ${type}`}
+            onClick={() => setDeleteConfirmationOpen(true)}
+          >
+            <DeleteIcon fontSize="small" style={{ color: colors.midBlue }} />
+          </TooltipIconButton>
+          {/* Edit item */}
+          <TooltipIconButton
+            color="inherit"
+            tooltip={`Edit ${type}`}
             onClick={handleOpenEditModal}
-          />
-        </TooltipIconButton>
-      </Box>
+          >
+            <EditIcon
+              fontSize="small"
+              style={{ color: colors.midBlue }}
+              onClick={handleOpenEditModal}
+            />
+          </TooltipIconButton>
+        </Actions>
 
-      <Confirmation
-        isOpen={deleteConfirmationOpen}
-        denyClick={() => setDeleteConfirmationOpen(false)}
-        confirmClick={() => {
-          setDeleteConfirmationOpen(false);
-          onDelete();
-        }}
-        title={"Delete item"}
-        message={`Are you sure you want to delete this item?
+        <Confirmation
+          isOpen={deleteConfirmationOpen}
+          denyClick={() => setDeleteConfirmationOpen(false)}
+          confirmClick={() => {
+            setDeleteConfirmationOpen(false);
+            onDelete();
+          }}
+          title={"Delete item"}
+          message={`Are you sure you want to delete this item?
           <br/>
           This action cannot be reversed.`}
-      />
-    </Box>
+        />
+      </InnerContainer>
+      {children}
+    </OuterContainer>
   );
 };

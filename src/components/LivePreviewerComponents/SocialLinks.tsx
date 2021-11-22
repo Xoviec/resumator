@@ -1,3 +1,10 @@
+import BookIcon from "@mui/icons-material/Book";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import GithubIcon from "@mui/icons-material/GitHub";
+import LinkIcon from "@mui/icons-material/Link";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import {
   Box,
   IconButton,
@@ -8,42 +15,35 @@ import {
   ListItemText,
   MenuItem,
 } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import { useEffect, useState, VoidFunctionComponent } from "react";
+import { styled } from "@mui/system";
 import * as React from "react";
+import { useEffect, useState, VoidFunctionComponent } from "react";
 import { useFormContext } from "react-hook-form";
+import { colors } from "../../config/theme";
+import { getDomain, isValidUrl } from "../../lib/url";
 import { FormColumn, FormRow } from "../Form";
 import { FormSelect } from "../Form/FormSelect";
 import { FormTextField } from "../Form/FormTextField";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkIcon from "@mui/icons-material/Link";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GithubIcon from "@mui/icons-material/GitHub";
-import BookIcon from "@mui/icons-material/Book";
-import { colors } from "../../config/theme";
-import { isValidUrl, getDomain } from "../../lib/url";
+
+const StyledList = styled(List)`
+  width: "100%";
+  background-color: ${({ theme }) => theme.palette.background.paper};
+  min-width: 420px;
+`;
+
+const StyledListItemIcon = styled(ListItemIcon)`
+  min-width: 50px;
+`;
+
+const StyledListItemText = styled(ListItemText)`
+  max-width: 280px;
+`;
 
 type OnSubmit = (data: SocialLinkModel[]) => void;
 
 const iconButtonStyle = { color: colors.midBlue };
-
-const useStyles = makeStyles((theme) => ({
-  list: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-    minWidth: 420,
-  },
-  listItemIcon: {
-    minWidth: 50,
-  },
-  listItemText: {
-    maxWidth: 280,
-  },
-}));
 
 interface SocialLinkTypeInfo {
   title: string;
@@ -171,7 +171,6 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
   socialLinks,
   onSubmit,
 }) => {
-  const classes = useStyles();
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<SocialLinkModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
@@ -212,7 +211,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
       actionTooltip="Add link"
       actionOnClick={() => setIsEditing(true)}
     >
-      <List className={classes.list}>
+      <StyledList>
         {socialLinks.map((socialLinkItem: SocialLinkModel, index: number) => {
           const socialLinkItemInfo =
             SocialLinkTypeToInfoMapping[socialLinkItem.linkType];
@@ -226,11 +225,8 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
               color="secondary"
               href={socialLinkItem.link}
             >
-              <ListItemIcon className={classes.listItemIcon}>
-                {socialLinkItemInfo.icon}
-              </ListItemIcon>
-              <ListItemText
-                className={classes.listItemText}
+              <StyledListItemIcon>{socialLinkItemInfo.icon}</StyledListItemIcon>
+              <StyledListItemText
                 primary={
                   socialLinkItem.linkType === SocialLinkType.Other
                     ? socialLinkItem.title
@@ -259,7 +255,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
             </ListItem>
           );
         })}
-      </List>
+      </StyledList>
 
       <SectionEditDialog
         title={editItem ? `Edit link` : `Add link`}

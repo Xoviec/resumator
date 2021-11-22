@@ -10,7 +10,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/system";
 import "firebase/auth";
 import "firebase/firestore";
 import { useState, VoidFunctionComponent } from "react";
@@ -21,18 +21,9 @@ import { useFirebaseApp } from "../../context/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { FrontmenLogoIcon } from "./FrontmenLogoIcon";
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-  logo: {
-    width: 40,
-    height: 40,
-  },
-  linkItem: {
-    color: theme.palette.primary.main,
-    textDecoration: "none",
-  },
+const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  textDecoration: "none",
 }));
 
 export const Nav: VoidFunctionComponent = () => {
@@ -42,7 +33,6 @@ export const Nav: VoidFunctionComponent = () => {
   const history = useHistory();
   const goTo = (path: string) => history.push(path);
 
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -69,14 +59,10 @@ export const Nav: VoidFunctionComponent = () => {
   const adminMenuItems = userRecord?.isManager ? (
     <div>
       <MenuItem>
-        <Link to="/new" className={classes.linkItem}>
-          Add Resume
-        </Link>
+        <StyledLink to="/new">Add Resume</StyledLink>
       </MenuItem>
       <MenuItem>
-        <Link to="/skills" className={classes.linkItem}>
-          Manage Skills
-        </Link>
+        <StyledLink to="/skills">Manage Skills</StyledLink>
       </MenuItem>
       <Divider />
     </div>

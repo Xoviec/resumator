@@ -1,29 +1,17 @@
 import { Grid } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import { useState } from "react";
 import * as React from "react";
-import { colors } from "../../config/theme";
+
 import { SkillItem } from "./SkillItem";
 import { SkillHeader } from "./SkillHeader";
 import { Confirmation } from "../../components/Confirmation/Confirmation";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
-
-const useStyles = makeStyles({
-  input: {
-    borderBottom: "1px solid",
-  },
-  inputEdited: {
-    borderBottom: "1px solid",
-    color: colors.orange,
-  },
-});
 
 interface EditedSkillDictionary {
   [key: number]: string;
 }
 
 const SkillsEditorList: React.VFC = () => {
-  const classes = useStyles();
   const [openConfirmation, setOpenConfirmation] = useState<boolean>(false);
   const [deleteIndex, setDeleteIndex] = useState<number>(-1);
   const [newSkill, setNewSkill] = useState<string>("");
@@ -140,7 +128,6 @@ const SkillsEditorList: React.VFC = () => {
           hasError={hasError}
           saveNewSkill={saveNewSkill}
           newSkill={newSkill}
-          classes={classes}
           handleNewSkill={handleNewSkill}
           editCount={editCount}
           saveEditedSkills={saveEditedSkills}
@@ -156,7 +143,6 @@ const SkillsEditorList: React.VFC = () => {
               setDeleteIndex={() => setDeleteIndex(index)}
               setOpenConfirmation={() => setOpenConfirmation(true)}
               skill={skill}
-              classes={classes}
             />
           ))}
         </Grid>

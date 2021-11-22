@@ -1,32 +1,33 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/system";
 import { FunctionComponent } from "react";
 import "../assets/css/global.css";
 import { Nav } from "../components/layout/Nav";
 import { colors } from "../config/theme";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  spacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: colors.background,
-    padding: theme.spacing(3),
-  },
+const Root = styled("div")(({ theme }) => ({
+  display: "flex",
+}));
+
+// TODO: fix toolbar
+// @ts-ignore
+const Spacer = styled("div")(({ theme }) => theme.mixins?.toolbar);
+
+const Content = styled("main")(({ theme }) => ({
+  flexGrow: 1,
+  backgroundColor: colors.background,
+  padding: theme.spacing(3),
 }));
 
 export const MainLayout: FunctionComponent = ({ children }) => {
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Root>
       <CssBaseline />
       <Nav />
-      <main className={classes.content}>
-        <div className={classes.spacer} />
+      <Content>
+        <Spacer />
         {children}
-      </main>
-    </div>
+      </Content>
+    </Root>
   );
 };

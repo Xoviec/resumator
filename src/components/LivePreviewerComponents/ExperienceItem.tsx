@@ -1,15 +1,15 @@
-import { FunctionComponent } from "react";
-import { Box } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import { convertFromRaw, EditorState } from "draft-js";
-import { stateToHTML } from "draft-js-export-html";
-import { formatTimespan } from "../../lib/date";
-import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
-import { DetailWithIcon } from "./DetailWithIcon";
 // Icons
 import BusinessIcon from "@mui/icons-material/Business";
 import DateRangeIcon from "@mui/icons-material/DateRangeOutlined";
+import { Box } from "@mui/material";
+import { styled } from "@mui/system";
+import { convertFromRaw, EditorState } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
+import { FunctionComponent } from "react";
 import { colors } from "../../config/theme";
+import { formatTimespan } from "../../lib/date";
+import { DetailWithIcon } from "./DetailWithIcon";
+import { SectionItemHeader } from "./SectionItemHeader";
 import { SkillChip } from "./SkillChip";
 
 export interface ExperienceStackItem {
@@ -32,16 +32,14 @@ interface ExperienceItemProps {
   onEdit: (item: ExperienceModel) => void;
 }
 
-const useStyles = makeStyles({
-  description: {
-    "& p": {
-      margin: 0,
-    },
-    "& ul, ol": {
-      margin: 0,
-    },
+const DescriptionBox = styled(Box)(({ theme }) => ({
+  "& p": {
+    margin: 0,
   },
-});
+  "& ul, ol": {
+    margin: 0,
+  },
+}));
 
 export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
   type,
@@ -49,8 +47,6 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
   onDelete,
   onEdit,
 }) => {
-  const classes = useStyles();
-  const sectionItemHeaderClasses = useSectionItemHeaderStyles();
   let description;
 
   // Parse the description.
@@ -64,14 +60,12 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
   }
 
   return (
-    <Box className={sectionItemHeaderClasses.container}>
-      <SectionItemHeader
-        title={experienceItem.role}
-        type={type.toLowerCase()}
-        classes={sectionItemHeaderClasses}
-        onDelete={() => onDelete()}
-        onEdit={() => onEdit(experienceItem)}
-      ></SectionItemHeader>
+    <SectionItemHeader
+      title={experienceItem.role}
+      type={type.toLowerCase()}
+      onDelete={() => onDelete()}
+      onEdit={() => onEdit(experienceItem)}
+    >
       <Box display="flex" flexDirection="column" gap="8px">
         <DetailWithIcon icon={<BusinessIcon style={{ color: colors.midBlue }} />}>
           {experienceItem.company}
@@ -83,10 +77,9 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
             dateFormat: "MMMM yyyy",
           })}
         </DetailWithIcon>
-        <Box
+        <DescriptionBox
           marginTop={description ? 1.5 : 0}
           marginBottom={1.5}
-          className={classes.description}
           dangerouslySetInnerHTML={{ __html: description }}
         />
         {experienceItem.stackAndTechniques && (
@@ -97,6 +90,6 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
           </Box>
         )}
       </Box>
-    </Box>
+    </SectionItemHeader>
   );
 };

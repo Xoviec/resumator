@@ -1,6 +1,7 @@
 import { Grid, InputBase, IconButton, Card, Box } from "@mui/material";
 import { FunctionComponent } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { inputEditedStyle, inputStyle } from "./skillsEditorStyles";
 
 interface SkillItemProps {
   handleChangeSkill: (value: string) => any;
@@ -8,7 +9,6 @@ interface SkillItemProps {
   setDeleteIndex: () => any;
   setOpenConfirmation: () => any;
   skill: string;
-  classes: any;
 }
 
 export const SkillItem: FunctionComponent<SkillItemProps> = ({
@@ -17,7 +17,6 @@ export const SkillItem: FunctionComponent<SkillItemProps> = ({
   setDeleteIndex,
   setOpenConfirmation,
   skill,
-  classes,
   ...props
 }) => {
   return (
@@ -35,7 +34,7 @@ export const SkillItem: FunctionComponent<SkillItemProps> = ({
               handleChangeSkill(event.target.value);
             }}
             placeholder="Skill"
-            className={didChange ? classes.inputEdited : classes.input}
+            sx={didChange ? inputEditedStyle : inputStyle}
           />
           <IconButton
             edge="end"

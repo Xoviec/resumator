@@ -1,7 +1,7 @@
 import { useState, FunctionComponent } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { Box, Divider } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/system";
 
 // components
 import { Section } from "./Section";
@@ -21,12 +21,10 @@ interface EducationProps {
   isDraggable: boolean;
 }
 
-const useStyles = makeStyles({
-  root: {
-    cursor: "move",
-    backgroundColor: colors.white,
-  },
-});
+const Root = styled(Box)(({ theme }) => ({
+  cursor: "move",
+  backgroundColor: colors.white,
+}));
 
 // TODO: create Sortable item component with dynamic props.
 const SortableItem = SortableElement(
@@ -43,22 +41,15 @@ const SortableItem = SortableElement(
     handleEdit: (item: EducationModel, idx: number) => void;
     idx: number;
   }) => {
-    const classes = useStyles();
     return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        key={idx}
-        gap="16px"
-        className={classes.root}
-      >
+      <Root display="flex" flexDirection="column" key={idx} gap="16px">
         <EducationItem
           educationItem={entry}
           onDelete={() => handleDelete(idx)}
           onEdit={(item) => handleEdit(item, idx)}
         />
         {idx < education.length - 1 && <Divider />}
-      </Box>
+      </Root>
     );
   }
 );
@@ -76,17 +67,15 @@ const SortableList = SortableContainer(
     return (
       <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
         {items.map((value: EducationModel, index: number) => (
-          <>
-            <SortableItem
-              index={index}
-              key={`item-${value.name}-${index}`}
-              education={items}
-              idx={index}
-              entry={value}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-            />
-          </>
+          <SortableItem
+            index={index}
+            key={`item-${value.name}-${index}`}
+            education={items}
+            idx={index}
+            entry={value}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
         ))}
       </Box>
     );

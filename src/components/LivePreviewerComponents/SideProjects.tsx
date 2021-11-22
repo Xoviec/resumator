@@ -1,12 +1,12 @@
 import { useState, FunctionComponent, useEffect } from "react";
 import { Box, Divider } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import {
   SortableContainer,
   SortableElement,
   SortEndHandler,
 } from "react-sortable-hoc";
 import { HelpSharp } from "@mui/icons-material";
+import { styled } from "@mui/system";
 
 // helpers
 import { arrayMove } from "../../helpers";
@@ -25,12 +25,13 @@ interface SideProjectProps {
   isDraggable?: boolean;
 }
 
-const useStyles = makeStyles({
-  root: {
-    cursor: "move",
-    backgroundColor: colors.white,
-  },
-});
+const Container = styled(Box)(({ theme }) => ({
+  cursor: "move",
+  backgroundColor: colors.white,
+  display: "flex",
+  flexDirection: "column",
+  gap: 16,
+}));
 
 const SortableItem = SortableElement(
   ({
@@ -48,10 +49,8 @@ const SortableItem = SortableElement(
     handleEdit: (item: SideProjectModel, idx: number) => void;
     idx: number;
   }) => {
-    const classes = useStyles();
-
     return (
-      <Box display="flex" flexDirection="column" gap="16px" className={classes.root}>
+      <Container>
         <SideProjectItem
           type={type}
           projectItem={entry}
@@ -59,7 +58,7 @@ const SortableItem = SortableElement(
           onEdit={(item) => handleEdit(item, idx)}
         />
         {idx < projects.length - 1 && <Divider />}
-      </Box>
+      </Container>
     );
   }
 );
@@ -79,18 +78,16 @@ const SortableList = SortableContainer(
     return (
       <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
         {items.map((value: SideProjectModel, index: number) => (
-          <>
-            <SortableItem
-              index={index}
-              key={`item-${value.title}-${index}`}
-              projects={items}
-              idx={index}
-              type={type}
-              entry={value}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-            />
-          </>
+          <SortableItem
+            index={index}
+            key={`item-${value.title}-${index}`}
+            projects={items}
+            idx={index}
+            type={type}
+            entry={value}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+          />
         ))}
       </Box>
     );

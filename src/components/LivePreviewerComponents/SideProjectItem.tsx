@@ -1,6 +1,6 @@
-import { FunctionComponent } from "react";
 import { Box, Link } from "@mui/material";
-import { SectionItemHeader, useSectionItemHeaderStyles } from "./SectionItemHeader";
+import { FunctionComponent } from "react";
+import { SectionItemHeader } from "./SectionItemHeader";
 
 export interface SideProjectModel {
   title: string;
@@ -21,17 +21,13 @@ export const SideProjectItem: FunctionComponent<SideProjectItemProps> = ({
   onDelete,
   onEdit,
 }) => {
-  const sectionItemHeaderClasses = useSectionItemHeaderStyles();
-
   return (
-    <Box className={sectionItemHeaderClasses.container}>
-      <SectionItemHeader
-        title={projectItem.title}
-        type={type.toLowerCase()}
-        classes={sectionItemHeaderClasses}
-        onDelete={() => onDelete()}
-        onEdit={() => onEdit(projectItem)}
-      />
+    <SectionItemHeader
+      title={projectItem.title}
+      type={type.toLowerCase()}
+      onDelete={() => onDelete()}
+      onEdit={() => onEdit(projectItem)}
+    >
       <Box display="flex" flexDirection="column" gap="8px">
         {projectItem.description && <Box>{projectItem.description}</Box>}
         <Link
@@ -43,6 +39,6 @@ export const SideProjectItem: FunctionComponent<SideProjectItemProps> = ({
           {projectItem.link}
         </Link>
       </Box>
-    </Box>
+    </SectionItemHeader>
   );
 };

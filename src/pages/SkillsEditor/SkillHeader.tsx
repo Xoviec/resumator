@@ -3,12 +3,12 @@ import { SpacedButton } from "../../components/Material";
 import { colors } from "../../config/theme";
 import { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
+import { inputStyle } from "./skillsEditorStyles";
 
 interface SkillHeaderProps {
   hasError: boolean;
   saveNewSkill: (event: any) => any;
   newSkill: string;
-  classes: any;
   editCount: number;
   saveEditedSkills: () => any;
   handleNewSkill: (event: any) => any;
@@ -18,7 +18,6 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
   hasError,
   saveNewSkill,
   newSkill,
-  classes,
   handleNewSkill,
   editCount,
   saveEditedSkills,
@@ -58,7 +57,7 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
                 <InputBase
                   placeholder="Skill name"
                   value={newSkill}
-                  className={classes.input}
+                  sx={inputStyle}
                   onChange={handleNewSkill}
                 />
                 <SpacedButton
