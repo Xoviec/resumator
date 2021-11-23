@@ -110,6 +110,7 @@ export const Education: FunctionComponent<EducationProps> = ({
       setIsEditing(false);
       setEditItem(null);
       setEditItemIndex(null);
+      setIsModalOpen(false);
       return;
     }
 
@@ -124,6 +125,7 @@ export const Education: FunctionComponent<EducationProps> = ({
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
+    setIsModalOpen(false);
     onSubmit(updatedEducation);
   };
 

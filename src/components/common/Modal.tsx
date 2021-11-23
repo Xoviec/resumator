@@ -35,7 +35,10 @@ export const Modal: FunctionComponent<ModalProps> = ({
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Your changes will be lost
+          Are you sure?
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Your changes will be lost if you close now
         </Typography>
         <Box paddingTop={5} display="flex" justifyContent="flex-end">
           <Button
@@ -49,7 +52,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
             Close
           </Button>
           <Button variant="contained" onClick={onSave}>
-            Save and Close
+            Continue Editing
           </Button>
         </Box>
       </Box>
