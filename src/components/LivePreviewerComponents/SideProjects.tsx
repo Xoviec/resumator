@@ -104,6 +104,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
   const [editItem, setEditItem] = useState<SideProjectModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
   const [items, setItems] = useState<SideProjectModel[]>(projects);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDelete = (index: number) => {
     const filteredProjects = [...projects];
@@ -117,10 +118,22 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
     setIsEditing(true);
   };
 
-  const handleEditCancel = () => {
+  const handleEditCancel = (isEmpty: boolean) => {
+    if (!isEmpty) {
+      setIsEditing(false);
+      setEditItem(null);
+      setEditItemIndex(null);
+      return;
+    }
+
+    setIsModalOpen(true);
+  };
+
+  const handleCloseAllModals = () => {
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
+    setIsModalOpen(false);
   };
 
   const handleSave = (item: SideProjectModel) => {
@@ -128,6 +141,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
     if (editItemIndex !== null) updatedProjects.splice(editItemIndex!, 1, item);
     else updatedProjects.push(item);
 
+    setIsModalOpen(false);
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -185,6 +199,8 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
         open={isEditing}
         onCancel={handleEditCancel}
         onSave={handleSave}
+        isModalOpen={isModalOpen}
+        onCloseModals={handleCloseAllModals}
       >
         <FormColumn>
           <FormRow>

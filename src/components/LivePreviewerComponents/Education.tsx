@@ -91,6 +91,7 @@ export const Education: FunctionComponent<EducationProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState<EducationModel | null>(null);
   const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDelete = (index: number) => {
     const filteredEducation = [...education];
@@ -104,10 +105,16 @@ export const Education: FunctionComponent<EducationProps> = ({
     setIsEditing(true);
   };
 
-  const handleEditCancel = () => {
-    setIsEditing(false);
-    setEditItem(null);
-    setEditItemIndex(null);
+  const handleEditCancel = (isEmpty: boolean) => {
+    if (!isEmpty) {
+      setIsEditing(false);
+      setEditItem(null);
+      setEditItemIndex(null);
+      setIsModalOpen(false);
+      return;
+    }
+
+    setIsModalOpen(true);
   };
 
   const handleSave = (item: EducationModel) => {
@@ -118,7 +125,15 @@ export const Education: FunctionComponent<EducationProps> = ({
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
+    setIsModalOpen(false);
     onSubmit(updatedEducation);
+  };
+
+  const handleCloseAllModals = () => {
+    setIsEditing(false);
+    setEditItem(null);
+    setEditItemIndex(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -157,6 +172,8 @@ export const Education: FunctionComponent<EducationProps> = ({
         open={isEditing}
         onCancel={handleEditCancel}
         onSave={handleSave}
+        isModalOpen={isModalOpen}
+        onCloseModals={handleCloseAllModals}
       >
         <FormColumn>
           <FormRow>
