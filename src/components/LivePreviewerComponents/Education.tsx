@@ -136,6 +136,10 @@ export const Education: FunctionComponent<EducationProps> = ({
     setIsModalOpen(false);
   };
 
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Section
       title="Education"
@@ -174,6 +178,7 @@ export const Education: FunctionComponent<EducationProps> = ({
         onSave={handleSave}
         isModalOpen={isModalOpen}
         onCloseModals={handleCloseAllModals}
+        onCloseModal={onCloseModal}
       >
         <FormColumn>
           <FormRow>
