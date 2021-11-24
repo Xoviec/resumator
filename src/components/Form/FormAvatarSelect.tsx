@@ -27,7 +27,7 @@ export const FormAvatarSelect: VoidFunctionComponent<FormAvatarSelectProps> = ({
       defaultValue="1"
       control={control}
       name={name!}
-      render={({ value, onChange }) => (
+      render={({ field: { onChange, value } }) => (
         <FormControl fullWidth size="small" {...props}>
           <InputLabel shrink variant="outlined" htmlFor="form-avatar-selector-input">
             {label}
