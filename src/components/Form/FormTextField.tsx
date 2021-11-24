@@ -8,12 +8,6 @@ export const FormTextField: VoidFunctionComponent<TextFieldProps> = ({
   const { register } = useFormContext();
 
   return (
-    <TextField
-      fullWidth
-      variant="outlined"
-      size="small"
-      {...register}
-      {...props}
-    />
+    <TextField fullWidth variant="outlined" size="small" {...register} {...props} />
   );
 };
