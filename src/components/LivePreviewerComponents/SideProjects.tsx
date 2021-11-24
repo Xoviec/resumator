@@ -17,6 +17,7 @@ import { SectionEditDialog } from "./SectionEditDialog";
 import { FormColumn, FormRow, FormTextField } from "../Form";
 import { SideProjectModel, SideProjectItem } from "./SideProjectItem";
 import { colors } from "../../config/theme";
+import { useModal } from "../../hooks/useModal";
 
 interface SideProjectProps {
   type: string;
@@ -100,40 +101,26 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
   onSubmit,
   isDraggable = false,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editItem, setEditItem] = useState<SideProjectModel | null>(null);
-  const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const {
+    isEditing,
+    editItem,
+    editItemIndex,
+    onCloseModal,
+    setIsModalOpen,
+    handleEdit,
+    handleEditCancel,
+    handleCloseAllModals,
+    isModalOpen,
+    setEditItem,
+    setEditItemIndex,
+    setIsEditing,
+  } = useModal();
   const [items, setItems] = useState<SideProjectModel[]>(projects);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleDelete = (index: number) => {
     const filteredProjects = [...projects];
     filteredProjects.splice(index, 1);
     onSubmit(filteredProjects);
-  };
-
-  const handleEdit = (item: SideProjectModel, index: number) => {
-    setEditItem(item);
-    setEditItemIndex(index);
-    setIsEditing(true);
-  };
-
-  const handleEditCancel = (isEmpty: boolean) => {
-    if (!isEmpty) {
-      setIsEditing(false);
-      setEditItem(null);
-      setEditItemIndex(null);
-      return;
-    }
-
-    setIsModalOpen(true);
-  };
-
-  const handleCloseAllModals = () => {
-    setIsEditing(false);
-    setEditItem(null);
-    setEditItemIndex(null);
-    setIsModalOpen(false);
   };
 
   const handleSave = (item: SideProjectModel) => {
@@ -197,10 +184,11 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
         title={editItem ? `Edit ${type}` : `Add ${type}`}
         data={editItem!}
         open={isEditing}
+        isModalOpen={isModalOpen}
         onCancel={handleEditCancel}
         onSave={handleSave}
-        isModalOpen={isModalOpen}
         onCloseModals={handleCloseAllModals}
+        onCloseModal={onCloseModal}
       >
         <FormColumn>
           <FormRow>

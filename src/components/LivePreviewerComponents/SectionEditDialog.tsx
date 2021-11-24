@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useMemo } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   Box,
@@ -15,6 +15,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 // components
 import { Modal } from "../common/Modal";
+import { isEmpty } from "ramda";
 
 export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
@@ -23,6 +24,7 @@ export interface SectionEditDialogProps<T> extends DialogProps {
   onSave: (data: T) => void;
   isModalOpen?: boolean;
   onCloseModals?: () => void;
+  onCloseModal?: () => void;
 }
 
 // FunctionComponent doesn't work well with additional generics, so we use the props type directly.
@@ -35,14 +37,13 @@ export const SectionEditDialog = <T,>({
   children,
   isModalOpen = false,
   onCloseModals,
+  onCloseModal,
   ...props
 }: PropsWithChildren<SectionEditDialogProps<T>>) => {
   const { reset, ...form } = useForm();
 
-  const isFilledData = (): boolean =>
-    Object.values(form.getValues()).some((item) => item);
+  const isFilledData = (): boolean => !isEmpty(form.formState.dirtyFields);
 
-  // Reset the form with new data if it changes.
   useEffect(() => reset({ ...data }), [reset, data]);
 
   return (
@@ -83,7 +84,9 @@ export const SectionEditDialog = <T,>({
       </DialogContent>
       {/* Actions for cancel and save. */}
       <DialogActions>
-        <Button onClick={() => onCancel(isFilledData())}>Cancel</Button>
+        <Button type="button" onClick={() => onCancel(isFilledData())}>
+          Cancel
+        </Button>
         <Button type="submit" color="primary" form="section-edit-dialog-form">
           Save
         </Button>
@@ -92,7 +95,13 @@ export const SectionEditDialog = <T,>({
         isModalOpen={isModalOpen}
         isFilledData={isFilledData()}
         onClose={onCloseModals}
-        onSave={form.handleSubmit((formData) => onSave(formData as T))}
+        onSave={
+          onCloseModal
+            ? onCloseModal
+            : () => {
+                return null;
+              }
+        }
       />
     </Dialog>
   );

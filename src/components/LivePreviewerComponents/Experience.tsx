@@ -12,6 +12,7 @@ import {
   FormTextField,
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
+import { useModal } from "../../hooks/useModal";
 
 interface ExperienceProps {
   type: string;
@@ -24,26 +25,25 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
   experience,
   onSubmit,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editItem, setEditItem] = useState<ExperienceModel | null>(null);
-  const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const {
+    isEditing,
+    editItem,
+    editItemIndex,
+    onCloseModal,
+    handleEdit,
+    handleEditCancel,
+    handleCloseAllModals,
+    isModalOpen,
+    setEditItem,
+    setEditItemIndex,
+    setIsEditing,
+    setIsModalOpen,
+  } = useModal();
 
   const handleDelete = (index: number) => {
     const filteredExperience = [...experience];
     filteredExperience.splice(index, 1);
     onSubmit(filteredExperience);
-  };
-
-  const handleEdit = (item: ExperienceModel, index: number) => {
-    setEditItem(item);
-    setEditItemIndex(index);
-    setIsEditing(true);
-  };
-
-  const handleEditCancel = () => {
-    setIsEditing(false);
-    setEditItem(null);
-    setEditItemIndex(null);
   };
 
   const handleSave = (item: ExperienceModel) => {
@@ -53,6 +53,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
 
     updatedExperience = sortDateDescending(updatedExperience);
 
+    setIsModalOpen(false);
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -116,8 +117,11 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
         title={editItem ? `Edit ${type}` : `Add ${type}`}
         data={editItem!}
         open={isEditing}
+        isModalOpen={isModalOpen}
         onCancel={handleEditCancel}
         onSave={handleSave}
+        onCloseModals={handleCloseAllModals}
+        onCloseModal={onCloseModal}
       >
         <FormColumn>
           <FormRow>

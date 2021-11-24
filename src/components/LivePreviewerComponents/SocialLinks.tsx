@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import * as React from "react";
-import { useEffect, useState, VoidFunctionComponent } from "react";
+import { useEffect, VoidFunctionComponent } from "react";
 import { useFormContext } from "react-hook-form";
 import { colors } from "../../config/theme";
 import { getDomain, isValidUrl } from "../../lib/url";
@@ -26,9 +26,9 @@ import { FormSelect } from "../Form/FormSelect";
 import { FormTextField } from "../Form/FormTextField";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
+import { useModal } from "../../hooks/useModal";
 
 const StyledList = styled(List)`
-  width: "100%";
   background-color: ${({ theme }) => theme.palette.background.paper};
   min-width: 420px;
 `;
@@ -156,7 +156,7 @@ const SocialLinksFormContent: VoidFunctionComponent = () => {
         </FormRow>
       )}
       <FormRow>
-        <FormTextField required name="link" label="Link" autoFocus />
+        <FormTextField required name="link" label="Link" />
       </FormRow>
     </FormColumn>
   );
@@ -171,9 +171,20 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
   socialLinks,
   onSubmit,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editItem, setEditItem] = useState<SocialLinkModel | null>(null);
-  const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const {
+    isEditing,
+    editItem,
+    editItemIndex,
+    onCloseModal,
+    handleEdit,
+    handleEditCancel,
+    handleCloseAllModals,
+    isModalOpen,
+    setEditItem,
+    setEditItemIndex,
+    setIsEditing,
+    setIsModalOpen,
+  } = useModal();
 
   const handleDelete = (index: number) => {
     const filteredSocialLinks = [...socialLinks];
@@ -181,23 +192,12 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
     onSubmit(filteredSocialLinks);
   };
 
-  const handleEdit = (item: SocialLinkModel, index: number) => {
-    setEditItem(item);
-    setEditItemIndex(index);
-    setIsEditing(true);
-  };
-
-  const handleEditCancel = () => {
-    setIsEditing(false);
-    setEditItem(null);
-    setEditItemIndex(null);
-  };
-
   const handleSave = (item: SocialLinkModel) => {
     const updatedSocialLinks = [...socialLinks];
     if (editItemIndex !== null) updatedSocialLinks.splice(editItemIndex!, 1, item);
     else updatedSocialLinks.push(item);
 
+    setIsModalOpen(false);
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -261,8 +261,11 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
         title={editItem ? `Edit link` : `Add link`}
         data={editItem!}
         open={isEditing}
+        isModalOpen={isModalOpen}
         onCancel={handleEditCancel}
         onSave={handleSave}
+        onCloseModals={handleCloseAllModals}
+        onCloseModal={onCloseModal}
       >
         <SocialLinksFormContent />
       </SectionEditDialog>
