@@ -1,4 +1,4 @@
-import { VoidFunctionComponent } from "react";
+import { useEffect, VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormControlProps } from "@mui/material";
 import { FormSkillsSelectAutocomplete } from "./FormSkillsSelectAutocomplete";
@@ -13,7 +13,9 @@ export const FormSkillsSelect: VoidFunctionComponent<FormSkillsSelectProps> = ({
   label,
   ...props
 }) => {
-  const { control } = useFormContext();
+  const { control, resetField } = useFormContext();
+
+  useEffect(() => () => resetField(name), [resetField, name]);
 
   return (
     <Controller
