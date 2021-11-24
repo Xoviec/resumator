@@ -27,7 +27,7 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
         defaultValue={null}
         control={control}
         name={name!}
-        render={({ value, onChange }) => (
+        render={({field: { onChange, value }}) => (
           <DesktopDatePicker
             inputFormat={inputFormat}
             value={value}
