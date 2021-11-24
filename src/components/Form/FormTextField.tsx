@@ -12,7 +12,7 @@ export const FormTextField: VoidFunctionComponent<TextFieldProps> = ({
       fullWidth
       variant="outlined"
       size="small"
-      {...register("texfield", { required: true })}
+      {...register}
       {...props}
     />
   );
