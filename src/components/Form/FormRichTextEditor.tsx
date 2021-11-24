@@ -27,7 +27,7 @@ export const FormRichTextEditor: VoidFunctionComponent<FormRichTextEditorProps> 
       defaultValue=""
       control={control}
       name={name!}
-      render={({field: { onChange, value }}) => (
+      render={({ field: { onChange, value } }) => (
         <FormControl fullWidth size="small" {...props}>
           <InputLabel
             shrink

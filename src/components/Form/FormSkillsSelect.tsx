@@ -20,7 +20,7 @@ export const FormSkillsSelect: VoidFunctionComponent<FormSkillsSelectProps> = ({
       defaultValue={[]}
       control={control}
       name={name!}
-      render={({field: { onChange, value }}) => (
+      render={({ field: { onChange, value } }) => (
         <FormSkillsSelectAutocomplete
           {...props}
           label={label}
