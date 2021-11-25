@@ -51,46 +51,47 @@ interface ProjectsExperienceCardProps {
   project: ExperienceModel;
 }
 
-export const ProjectsExperienceCard: VoidFunctionComponent<ProjectsExperienceCardProps> =
-  ({ project }) => {
-    const { role, company, description, stackAndTechniques, startDate, endDate } =
-      project;
-    const shouldRenderTechniquesRow =
-      !!project.stackAndTechniques && !!project.stackAndTechniques.length;
-    const isEmpty =
-      !role && !company && !startDate && !endDate && !shouldRenderTechniquesRow;
+export const ProjectsExperienceCard: VoidFunctionComponent<
+  ProjectsExperienceCardProps
+> = ({ project }) => {
+  const { role, company, description, stackAndTechniques, startDate, endDate } =
+    project;
+  const shouldRenderTechniquesRow =
+    !!project.stackAndTechniques && !!project.stackAndTechniques.length;
+  const isEmpty =
+    !role && !company && !startDate && !endDate && !shouldRenderTechniquesRow;
 
-    return (
-      <>
-        {!isEmpty && (
-          <Root wrap={true}>
-            <Header>{role}</Header>
-            <Flex wrap={false}>
-              <SubText>{company}</SubText>
-              <SubText>
-                {formatTimespan({
-                  startDate,
-                  endDate,
-                  dateFormat: "MMMM yyyy",
-                })}
-              </SubText>
-            </Flex>
-            <PDFDescription description={description} />
-            {shouldRenderTechniquesRow && (
-              <TechniquesWrapper wrap={false}>
-                {stackAndTechniques.map((tech, index) => {
-                  const shouldAddHypen = index < stackAndTechniques.length - 1;
-                  return (
-                    <Fragment key={tech.name}>
-                      <Plain>{tech.name}</Plain>
-                      {shouldAddHypen && <Plain>-</Plain>}
-                    </Fragment>
-                  );
-                })}
-              </TechniquesWrapper>
-            )}
-          </Root>
-        )}
-      </>
-    );
-  };
+  return (
+    <>
+      {!isEmpty && (
+        <Root wrap={true}>
+          <Header>{role}</Header>
+          <Flex wrap={false}>
+            <SubText>{company}</SubText>
+            <SubText>
+              {formatTimespan({
+                startDate,
+                endDate,
+                dateFormat: "MMMM yyyy",
+              })}
+            </SubText>
+          </Flex>
+          <PDFDescription description={description} />
+          {shouldRenderTechniquesRow && (
+            <TechniquesWrapper wrap={false}>
+              {stackAndTechniques.map((tech, index) => {
+                const shouldAddHypen = index < stackAndTechniques.length - 1;
+                return (
+                  <Fragment key={tech.name}>
+                    <Plain>{tech.name}</Plain>
+                    {shouldAddHypen && <Plain>-</Plain>}
+                  </Fragment>
+                );
+              })}
+            </TechniquesWrapper>
+          )}
+        </Root>
+      )}
+    </>
+  );
+};

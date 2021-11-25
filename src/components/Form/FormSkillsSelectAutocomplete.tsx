@@ -107,71 +107,72 @@ const SortableSelect = SortableContainer(Select) as ComponentClass<
   Props<SkillsOption, true> & SortableContainerProps
 >;
 
-export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
-  ({ label, value, onChange: ch }) => {
-    const { skillList } = useSkillsContext();
-    const [selected, setSelected] = useState<readonly SkillsOption[]>([]);
+export const FormSkillsSelectAutocomplete: VoidFunctionComponent<
+  FormSkillsSelectPropsAutocomplete
+> = ({ label, value, onChange: ch }) => {
+  const { skillList } = useSkillsContext();
+  const [selected, setSelected] = useState<readonly SkillsOption[]>([]);
 
-    const onChange = (selectedOptions: OnChangeValue<SkillsOption, true>) => {
-      ch(selectedOptions.map((skill) => ({ ...skill, name: skill.label })));
-      setSelected(selectedOptions);
-    };
-
-    const onSortEnd: SortEndHandler = ({ oldIndex, newIndex }) => {
-      const newVal = arrayMove(selected, oldIndex, newIndex);
-      ch(
-        newVal.map((skill) => {
-          return {
-            ...skill,
-            name: skill.label,
-          };
-        })
-      );
-      setSelected(newVal);
-    };
-
-    const options = useMemo(() => {
-      return skillList.map((skill) => ({
-        value: skill,
-        label: skill,
-        isActive: true,
-      }));
-    }, [skillList]);
-
-    useEffect(() => {
-      if (value.length) {
-        const selectedValues = value.map((skill) => ({
-          ...skill,
-          value: skill.name,
-          label: skill.name,
-        }));
-
-        setSelected(selectedValues);
-      }
-    }, [value]);
-
-    return (
-      <div style={{ width: "100%" }}>
-        <SortableSelect
-          useDragHandle
-          axis="xy"
-          onSortEnd={onSortEnd}
-          distance={4}
-          getHelperDimensions={({ node }) => node.getBoundingClientRect()}
-          isMulti
-          options={options}
-          value={selected}
-          menuPosition="fixed"
-          onChange={onChange}
-          placeholder="Add a library, framework, skill..."
-          components={{
-            // * TS ignore from documentation
-            // @ts-ignore
-            MultiValue: SortableMultiValue,
-            MultiValueLabel: SortableMultiValueLabel,
-          }}
-          closeMenuOnSelect={false}
-        />
-      </div>
-    );
+  const onChange = (selectedOptions: OnChangeValue<SkillsOption, true>) => {
+    ch(selectedOptions.map((skill) => ({ ...skill, name: skill.label })));
+    setSelected(selectedOptions);
   };
+
+  const onSortEnd: SortEndHandler = ({ oldIndex, newIndex }) => {
+    const newVal = arrayMove(selected, oldIndex, newIndex);
+    ch(
+      newVal.map((skill) => {
+        return {
+          ...skill,
+          name: skill.label,
+        };
+      })
+    );
+    setSelected(newVal);
+  };
+
+  const options = useMemo(() => {
+    return skillList.map((skill) => ({
+      value: skill,
+      label: skill,
+      isActive: true,
+    }));
+  }, [skillList]);
+
+  useEffect(() => {
+    if (value.length) {
+      const selectedValues = value.map((skill) => ({
+        ...skill,
+        value: skill.name,
+        label: skill.name,
+      }));
+
+      setSelected(selectedValues);
+    }
+  }, [value]);
+
+  return (
+    <div style={{ width: "100%" }}>
+      <SortableSelect
+        useDragHandle
+        axis="xy"
+        onSortEnd={onSortEnd}
+        distance={4}
+        getHelperDimensions={({ node }) => node.getBoundingClientRect()}
+        isMulti
+        options={options}
+        value={selected}
+        menuPosition="fixed"
+        onChange={onChange}
+        placeholder="Add a library, framework, skill..."
+        components={{
+          // * TS ignore from documentation
+          // @ts-ignore
+          MultiValue: SortableMultiValue,
+          MultiValueLabel: SortableMultiValueLabel,
+        }}
+        closeMenuOnSelect={false}
+      />
+    </div>
+  );
+};
