@@ -1,13 +1,24 @@
-import { VoidFunctionComponent } from "react";
+import { useEffect, VoidFunctionComponent } from "react";
 import { useFormContext } from "react-hook-form";
 import { TextField, TextFieldProps } from "@mui/material";
 
-export const FormTextField: VoidFunctionComponent<TextFieldProps> = ({
+type FieldProps = TextFieldProps & { name: string };
+
+export const FormTextField: VoidFunctionComponent<FieldProps> = ({
+  name,
   ...props
 }) => {
-  const { register } = useFormContext();
+  const { register, resetField } = useFormContext();
+
+  useEffect(() => () => resetField(name), [resetField, name]);
 
   return (
-    <TextField fullWidth variant="outlined" size="small" {...register} {...props} />
+    <TextField
+      fullWidth
+      variant="outlined"
+      size="small"
+      {...register(name, { required: true })}
+      {...props}
+    />
   );
 };

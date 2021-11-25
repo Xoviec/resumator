@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, VoidFunctionComponent } from "react";
 import { Box } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
@@ -19,6 +19,27 @@ interface ExperienceProps {
   experience: ExperienceModel[];
   onSubmit: (value: ExperienceModel[]) => void;
 }
+
+const ExperienceFormFields: VoidFunctionComponent = () => {
+  return (
+    <FormColumn>
+      <FormRow>
+        <FormTextField required name="role" label="Role" />
+        <FormTextField required name="company" label="Company" />
+      </FormRow>
+      <FormRow>
+        <FormDatePicker name="startDate" label="Start" />
+        <FormDatePicker name="endDate" label="End" />
+      </FormRow>
+      <FormRow>
+        <FormRichTextEditor name="description" label="Description" />
+      </FormRow>
+      <FormRow>
+        <FormSkillsSelect name="stackAndTechniques" label="Skills" />
+      </FormRow>
+    </FormColumn>
+  );
+};
 
 export const Experience: FunctionComponent<ExperienceProps> = ({
   type,
@@ -123,22 +144,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
         onCloseModals={handleCloseAllModals}
         onCloseModal={onCloseModal}
       >
-        <FormColumn>
-          <FormRow>
-            <FormTextField required name="role" label="Role" />
-            <FormTextField required name="company" label="Company" />
-          </FormRow>
-          <FormRow>
-            <FormDatePicker name="startDate" label="Start" />
-            <FormDatePicker name="endDate" label="End" />
-          </FormRow>
-          <FormRow>
-            <FormRichTextEditor name="description" label="Description" />
-          </FormRow>
-          <FormRow>
-            <FormSkillsSelect name="stackAndTechniques" label="Skills" />
-          </FormRow>
-        </FormColumn>
+        <ExperienceFormFields />
       </SectionEditDialog>
     </Section>
   );

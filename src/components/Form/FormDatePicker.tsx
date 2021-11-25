@@ -1,4 +1,4 @@
-import { VoidFunctionComponent } from "react";
+import { useEffect, VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { DesktopDatePicker, DatePickerProps } from "@mui/lab";
 import { TextField } from "@mui/material";
@@ -19,7 +19,9 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
   views = ["year", "month"],
   ...props
 }) => {
-  const { control } = useFormContext();
+  const { control, resetField } = useFormContext();
+
+  useEffect(() => () => resetField(name), [resetField, name]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>

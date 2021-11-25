@@ -1,4 +1,4 @@
-import { VoidFunctionComponent } from "react";
+import { useEffect, VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import {
   FormControl,
@@ -20,7 +20,9 @@ export const FormRichTextEditor: VoidFunctionComponent<FormRichTextEditorProps> 
   rows,
   ...props
 }) => {
-  const { control } = useFormContext();
+  const { control, resetField } = useFormContext();
+
+  useEffect(() => () => resetField(name), [resetField, name]);
 
   return (
     <Controller

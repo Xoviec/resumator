@@ -1,4 +1,4 @@
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, VoidFunctionComponent } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { Box, Divider } from "@mui/material";
 import { styled } from "@mui/system";
@@ -81,6 +81,21 @@ const SortableList = SortableContainer(
     );
   }
 );
+
+const EducationFormFields: VoidFunctionComponent = () => {
+  return (
+    <FormColumn>
+      <FormRow>
+        <FormTextField required name="name" label="Name" />
+        <FormTextField label="Institute" name="institute" />
+      </FormRow>
+      <FormRow>
+        <FormDatePicker name="startDate" label="Start" />
+        <FormDatePicker name="endDate" label="End" />
+      </FormRow>
+    </FormColumn>
+  );
+};
 
 export const Education: FunctionComponent<EducationProps> = ({
   education,
@@ -180,16 +195,7 @@ export const Education: FunctionComponent<EducationProps> = ({
         onCloseModals={handleCloseAllModals}
         onCloseModal={onCloseModal}
       >
-        <FormColumn>
-          <FormRow>
-            <FormTextField required name="name" label="Name" />
-            <FormTextField required name="institute" label="Institute" />
-          </FormRow>
-          <FormRow>
-            <FormDatePicker name="startDate" label="Start" />
-            <FormDatePicker name="endDate" label="End" />
-          </FormRow>
-        </FormColumn>
+        <EducationFormFields />
       </SectionEditDialog>
     </Section>
   );
