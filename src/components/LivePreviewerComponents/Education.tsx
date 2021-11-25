@@ -1,4 +1,4 @@
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, VoidFunctionComponent } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { Box, Divider } from "@mui/material";
 import { styled } from "@mui/system";
@@ -82,7 +82,7 @@ const SortableList = SortableContainer(
   }
 );
 
-const EducationFormFields = () => {
+const EducationFormFields: VoidFunctionComponent = () => {
   return (
     <FormColumn>
       <FormRow>
