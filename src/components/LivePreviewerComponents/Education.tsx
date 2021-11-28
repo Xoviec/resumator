@@ -14,6 +14,7 @@ import { colors } from "../../config/theme";
 
 // hooks
 import { useDragDrop } from "../../hooks/useDragDrop";
+import { useModal } from "../../hooks/useModal";
 
 interface EducationProps {
   education: EducationModel[];
@@ -101,26 +102,21 @@ export const Education: FunctionComponent<EducationProps> = ({
   onSubmit,
 }) => {
   const { onSortEnd, items } = useDragDrop({ elems: education, onSubmit });
-  const [isEditing, setIsEditing] = useState(false);
-  const [editItem, setEditItem] = useState<EducationModel | null>(null);
-  const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+  const {
+    isEditing,
+    editItem,
+    editItemIndex,
+    handleEdit,
+    handleEditCancel,
+    setEditItem,
+    setEditItemIndex,
+    setIsEditing,
+  } = useModal();
 
   const handleDelete = (index: number) => {
     const filteredEducation = [...education];
     filteredEducation.splice(index, 1);
     onSubmit(filteredEducation);
-  };
-
-  const handleEdit = (item: EducationModel, index: number) => {
-    setEditItem(item);
-    setEditItemIndex(index);
-    setIsEditing(true);
-  };
-
-  const handleEditCancel = () => {
-    setIsEditing(false);
-    setEditItem(null);
-    setEditItemIndex(null);
   };
 
   const handleSave = (item: EducationModel) => {
