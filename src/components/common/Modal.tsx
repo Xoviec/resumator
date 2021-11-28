@@ -4,8 +4,8 @@ import { Box, Button, Typography, Modal as MuiModal } from "@mui/material";
 interface ModalProps {
   isModalOpen: boolean;
   isFilledData: boolean;
-  onClose?: () => void;
-  onSave: () => void;
+  onClose: () => void;
+  onContinue: () => void;
 }
 
 const style = {
@@ -20,11 +20,11 @@ const style = {
   p: 4,
 };
 
-export const Modal: FunctionComponent<ModalProps> = ({
+export const EditConfirmationModal: FunctionComponent<ModalProps> = ({
   isModalOpen,
   isFilledData,
   onClose,
-  onSave,
+  onContinue,
 }) => {
   return (
     <MuiModal
@@ -51,7 +51,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
           >
             Close
           </Button>
-          <Button variant="contained" onClick={onSave}>
+          <Button variant="contained" onClick={onContinue}>
             Continue Editing
           </Button>
         </Box>

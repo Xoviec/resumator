@@ -175,15 +175,11 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
     isEditing,
     editItem,
     editItemIndex,
-    onCloseModal,
     handleEdit,
     handleEditCancel,
-    handleCloseAllModals,
-    isModalOpen,
     setEditItem,
     setEditItemIndex,
     setIsEditing,
-    setIsModalOpen,
   } = useModal();
 
   const handleDelete = (index: number) => {
@@ -197,7 +193,6 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
     if (editItemIndex !== null) updatedSocialLinks.splice(editItemIndex!, 1, item);
     else updatedSocialLinks.push(item);
 
-    setIsModalOpen(false);
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -261,11 +256,8 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
         title={editItem ? `Edit link` : `Add link`}
         data={editItem!}
         open={isEditing}
-        isModalOpen={isModalOpen}
         onCancel={handleEditCancel}
         onSave={handleSave}
-        onCloseModals={handleCloseAllModals}
-        onCloseModal={onCloseModal}
       >
         <SocialLinksFormContent />
       </SectionEditDialog>

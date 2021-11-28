@@ -105,12 +105,8 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
     isEditing,
     editItem,
     editItemIndex,
-    onCloseModal,
-    setIsModalOpen,
     handleEdit,
     handleEditCancel,
-    handleCloseAllModals,
-    isModalOpen,
     setEditItem,
     setEditItemIndex,
     setIsEditing,
@@ -128,7 +124,6 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
     if (editItemIndex !== null) updatedProjects.splice(editItemIndex!, 1, item);
     else updatedProjects.push(item);
 
-    setIsModalOpen(false);
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -184,11 +179,8 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
         title={editItem ? `Edit ${type}` : `Add ${type}`}
         data={editItem!}
         open={isEditing}
-        isModalOpen={isModalOpen}
         onCancel={handleEditCancel}
         onSave={handleSave}
-        onCloseModals={handleCloseAllModals}
-        onCloseModal={onCloseModal}
       >
         <FormColumn>
           <FormRow>
