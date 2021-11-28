@@ -23,7 +23,6 @@ interface SideProjectProps {
   type: string;
   projects: SideProjectModel[];
   onSubmit: (value: SideProjectModel[]) => void;
-  isDraggable?: boolean;
 }
 
 const Container = styled(Box)(({ theme }) => ({
@@ -99,7 +98,6 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
   type,
   projects,
   onSubmit,
-  isDraggable = false,
 }) => {
   const {
     isEditing,
@@ -149,31 +147,15 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
       tooltipTitle="You can change your publications ordering with drag and drop"
       tooltipIcon={<HelpSharp />}
     >
-      {isDraggable ? (
-        <SortableList
-          distance={1}
-          items={items}
-          onSortEnd={onSortEnd}
-          axis="y"
-          type={type}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-        />
-      ) : (
-        <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
-          {projects.map((entry: SideProjectModel, index: number) => (
-            <Box display="flex" flexDirection="column" key={index} gap="16px">
-              <SideProjectItem
-                type={type}
-                projectItem={entry}
-                onDelete={() => handleDelete(index)}
-                onEdit={(item) => handleEdit(item, index)}
-              />
-              {index < projects.length - 1 && <Divider />}
-            </Box>
-          ))}
-        </Box>
-      )}
+      <SortableList
+        distance={1}
+        items={items}
+        onSortEnd={onSortEnd}
+        axis="y"
+        type={type}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
 
       <SectionEditDialog
         title={editItem ? `Edit ${type}` : `Add ${type}`}

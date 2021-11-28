@@ -20,13 +20,13 @@ import { isEmpty } from "ramda";
 export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
   data: T;
-  onCancel: (isEmpty: boolean) => void;
+  onCancel: () => void;
   onSave: (data: T) => void;
 }
 
 // FunctionComponent doesn't work well with additional generics, so we use the props type directly.
 // To have generics work in TSX with an arrow function, we have to hint the compiler to use generics, thus the trailing comma.
-export const SectionEditDialog = <T,>({
+const SectionEditDialogInternal = <T,>({
   title,
   data,
   onCancel,
@@ -45,7 +45,7 @@ export const SectionEditDialog = <T,>({
     if (isFormDirty) {
       setIsConfirmModalOpen(true);
     } else {
-      onCancel(false);
+      onCancel();
     }
   };
 
@@ -97,11 +97,17 @@ export const SectionEditDialog = <T,>({
       <EditConfirmationModal
         isModalOpen={isConfirmModalOpen}
         isFilledData={isFormDirty}
-        onClose={() => onCancel(true)}
+        onClose={() => onCancel()}
         onContinue={() => {
           setIsConfirmModalOpen(false);
         }}
       />
     </Dialog>
   );
+};
+
+export const SectionEditDialog = <T,>(
+  props: PropsWithChildren<SectionEditDialogProps<T>>
+): JSX.Element | null => {
+  return props.open ? <SectionEditDialogInternal {...props} /> : null;
 };

@@ -18,7 +18,6 @@ import { useDragDrop } from "../../hooks/useDragDrop";
 interface EducationProps {
   education: EducationModel[];
   onSubmit: (value: EducationModel[]) => void;
-  isDraggable: boolean;
 }
 
 const Root = styled(Box)(({ theme }) => ({
@@ -100,7 +99,6 @@ const EducationFormFields: VoidFunctionComponent = () => {
 export const Education: FunctionComponent<EducationProps> = ({
   education,
   onSubmit,
-  isDraggable,
 }) => {
   const { onSortEnd, items } = useDragDrop({ elems: education, onSubmit });
   const [isEditing, setIsEditing] = useState(false);
@@ -119,7 +117,7 @@ export const Education: FunctionComponent<EducationProps> = ({
     setIsEditing(true);
   };
 
-  const handleEditCancel = (isEmpty: boolean) => {
+  const handleEditCancel = () => {
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -143,29 +141,15 @@ export const Education: FunctionComponent<EducationProps> = ({
       actionTooltip="Add education"
       actionOnClick={() => setIsEditing(true)}
     >
-      {isDraggable ? (
-        <SortableList
-          distance={1}
-          items={items}
-          onSortEnd={onSortEnd}
-          axis="y"
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-        />
-      ) : (
-        <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
-          {education.map((entry: EducationModel, index: number) => (
-            <Box display="flex" flexDirection="column" key={index} gap="16px">
-              <EducationItem
-                educationItem={entry}
-                onDelete={() => handleDelete(index)}
-                onEdit={(item) => handleEdit(item, index)}
-              />
-              {index < education.length - 1 && <Divider />}
-            </Box>
-          ))}
-        </Box>
-      )}
+      <SortableList
+        distance={1}
+        items={items}
+        onSortEnd={onSortEnd}
+        axis="y"
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
+
       <SectionEditDialog
         title={editItem ? `Edit education` : `Add education`}
         data={editItem!}

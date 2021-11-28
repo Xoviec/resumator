@@ -11,13 +11,10 @@ export const useModal = () => {
     setIsEditing(true);
   };
 
-  const handleEditCancel = (isEmpty: boolean) => {
-    if (!isEmpty) {
-      setIsEditing(false);
-      setEditItem(null);
-      setEditItemIndex(null);
-      return;
-    }
+  const handleEditCancel = () => {
+    setIsEditing(false);
+    setEditItem(null);
+    setEditItemIndex(null);
   };
 
   const handleCloseAllModals = () => {
