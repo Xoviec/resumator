@@ -33,7 +33,7 @@
     "clsx": "^1.1.1",
     "date-fns": "^2.26.0",
     "debounce": "^1.2.1",
-    "docxtemplater": "^3.26.4",
+    "docxtemplater": "^3.28.0",
     "docxtemplater-image-module-free": "^1.1.1",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
