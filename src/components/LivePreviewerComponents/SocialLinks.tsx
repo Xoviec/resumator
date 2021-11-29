@@ -102,7 +102,7 @@ export const SocialLinkTypeToInfoMapping: Record<
 
 export interface SocialLinkModel {
   linkType: SocialLinkType;
-  title?: string;
+  title: string | null;
   link: string;
 }
 
@@ -189,6 +189,9 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
   };
 
   const handleSave = (item: SocialLinkModel) => {
+    if (!item.title) {
+      item.title = null;
+    }
     const updatedSocialLinks = [...socialLinks];
     if (editItemIndex !== null) updatedSocialLinks.splice(editItemIndex!, 1, item);
     else updatedSocialLinks.push(item);
