@@ -14,11 +14,11 @@ import { colors } from "../../config/theme";
 
 // hooks
 import { useDragDrop } from "../../hooks/useDragDrop";
+import { useModal } from "../../hooks/useModal";
 
 interface EducationProps {
   education: EducationModel[];
   onSubmit: (value: EducationModel[]) => void;
-  isDraggable: boolean;
 }
 
 const Root = styled(Box)(({ theme }) => ({
@@ -100,36 +100,23 @@ const EducationFormFields: VoidFunctionComponent = () => {
 export const Education: FunctionComponent<EducationProps> = ({
   education,
   onSubmit,
-  isDraggable,
 }) => {
   const { onSortEnd, items } = useDragDrop({ elems: education, onSubmit });
-  const [isEditing, setIsEditing] = useState(false);
-  const [editItem, setEditItem] = useState<EducationModel | null>(null);
-  const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const {
+    isEditing,
+    editItem,
+    editItemIndex,
+    handleEdit,
+    handleEditCancel,
+    setEditItem,
+    setEditItemIndex,
+    setIsEditing,
+  } = useModal();
 
   const handleDelete = (index: number) => {
     const filteredEducation = [...education];
     filteredEducation.splice(index, 1);
     onSubmit(filteredEducation);
-  };
-
-  const handleEdit = (item: EducationModel, index: number) => {
-    setEditItem(item);
-    setEditItemIndex(index);
-    setIsEditing(true);
-  };
-
-  const handleEditCancel = (isEmpty: boolean) => {
-    if (!isEmpty) {
-      setIsEditing(false);
-      setEditItem(null);
-      setEditItemIndex(null);
-      setIsModalOpen(false);
-      return;
-    }
-
-    setIsModalOpen(true);
   };
 
   const handleSave = (item: EducationModel) => {
@@ -140,19 +127,7 @@ export const Education: FunctionComponent<EducationProps> = ({
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
-    setIsModalOpen(false);
     onSubmit(updatedEducation);
-  };
-
-  const handleCloseAllModals = () => {
-    setIsEditing(false);
-    setEditItem(null);
-    setEditItemIndex(null);
-    setIsModalOpen(false);
-  };
-
-  const onCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -162,38 +137,21 @@ export const Education: FunctionComponent<EducationProps> = ({
       actionTooltip="Add education"
       actionOnClick={() => setIsEditing(true)}
     >
-      {isDraggable ? (
-        <SortableList
-          distance={1}
-          items={items}
-          onSortEnd={onSortEnd}
-          axis="y"
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-        />
-      ) : (
-        <Box display="flex" flexDirection="column" marginTop={-1} gap="8px">
-          {education.map((entry: EducationModel, index: number) => (
-            <Box display="flex" flexDirection="column" key={index} gap="16px">
-              <EducationItem
-                educationItem={entry}
-                onDelete={() => handleDelete(index)}
-                onEdit={(item) => handleEdit(item, index)}
-              />
-              {index < education.length - 1 && <Divider />}
-            </Box>
-          ))}
-        </Box>
-      )}
+      <SortableList
+        distance={1}
+        items={items}
+        onSortEnd={onSortEnd}
+        axis="y"
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
+
       <SectionEditDialog
         title={editItem ? `Edit education` : `Add education`}
         data={editItem!}
         open={isEditing}
         onCancel={handleEditCancel}
         onSave={handleSave}
-        isModalOpen={isModalOpen}
-        onCloseModals={handleCloseAllModals}
-        onCloseModal={onCloseModal}
       >
         <EducationFormFields />
       </SectionEditDialog>

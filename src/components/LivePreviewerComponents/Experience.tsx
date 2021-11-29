@@ -1,9 +1,7 @@
-import { FunctionComponent, useState, VoidFunctionComponent } from "react";
 import { Box } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import { ExperienceModel, ExperienceItem } from "./ExperienceItem";
-import { Section } from "./Section";
-import { SectionEditDialog } from "./SectionEditDialog";
+import { FunctionComponent, VoidFunctionComponent } from "react";
+import { useModal } from "../../hooks/useModal";
 import {
   FormColumn,
   FormDatePicker,
@@ -12,7 +10,9 @@ import {
   FormTextField,
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
-import { useModal } from "../../hooks/useModal";
+import { ExperienceItem, ExperienceModel } from "./ExperienceItem";
+import { Section } from "./Section";
+import { SectionEditDialog } from "./SectionEditDialog";
 
 interface ExperienceProps {
   type: string;
@@ -50,15 +50,11 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
     isEditing,
     editItem,
     editItemIndex,
-    onCloseModal,
     handleEdit,
     handleEditCancel,
-    handleCloseAllModals,
-    isModalOpen,
     setEditItem,
     setEditItemIndex,
     setIsEditing,
-    setIsModalOpen,
   } = useModal();
 
   const handleDelete = (index: number) => {
@@ -74,7 +70,6 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
 
     updatedExperience = sortDateDescending(updatedExperience);
 
-    setIsModalOpen(false);
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
@@ -138,11 +133,8 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
         title={editItem ? `Edit ${type}` : `Add ${type}`}
         data={editItem!}
         open={isEditing}
-        isModalOpen={isModalOpen}
         onCancel={handleEditCancel}
         onSave={handleSave}
-        onCloseModals={handleCloseAllModals}
-        onCloseModal={onCloseModal}
       >
         <ExperienceFormFields />
       </SectionEditDialog>

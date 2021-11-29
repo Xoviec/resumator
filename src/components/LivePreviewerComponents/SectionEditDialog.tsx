@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   Box,
@@ -14,37 +14,40 @@ import { TooltipIconButton } from "../Material";
 import CloseIcon from "@mui/icons-material/Close";
 
 // components
-import { Modal } from "../common/Modal";
+import { EditConfirmationModal } from "../common/Modal";
 import { isEmpty } from "ramda";
 
 export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
   data: T;
-  onCancel: (isEmpty: boolean) => void;
+  onCancel: () => void;
   onSave: (data: T) => void;
-  isModalOpen?: boolean;
-  onCloseModals?: () => void;
-  onCloseModal?: () => void;
 }
 
 // FunctionComponent doesn't work well with additional generics, so we use the props type directly.
 // To have generics work in TSX with an arrow function, we have to hint the compiler to use generics, thus the trailing comma.
-export const SectionEditDialog = <T,>({
+const SectionEditDialogInternal = <T,>({
   title,
   data,
   onCancel,
   onSave,
   children,
-  isModalOpen = false,
-  onCloseModals,
-  onCloseModal,
   ...props
 }: PropsWithChildren<SectionEditDialogProps<T>>) => {
   const { reset, ...form } = useForm();
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState<boolean>(false);
 
-  const isFilledData = (): boolean => !isEmpty(form.formState.dirtyFields);
+  const isFormDirty = !isEmpty(form.formState.dirtyFields);
 
   useEffect(() => reset({ ...data }), [reset, data]);
+
+  const handleCloseAttempt = () => {
+    if (isFormDirty) {
+      setIsConfirmModalOpen(true);
+    } else {
+      onCancel();
+    }
+  };
 
   return (
     <Dialog
@@ -52,7 +55,7 @@ export const SectionEditDialog = <T,>({
       maxWidth="sm"
       aria-labelledby="section-edit-dialog-title"
       aria-describedby="section-edit-dialog-content"
-      onClose={() => onCancel(isFilledData())}
+      onClose={handleCloseAttempt}
       {...props}
     >
       {/* Custom title to include a close button, example from material documentation doesn't work. */}
@@ -67,7 +70,7 @@ export const SectionEditDialog = <T,>({
             {title}
           </Typography>
         </Box>
-        <TooltipIconButton tooltip="Close" onClick={() => onCancel(isFilledData())}>
+        <TooltipIconButton tooltip="Close" onClick={handleCloseAttempt}>
           <CloseIcon />
         </TooltipIconButton>
       </Box>
@@ -84,25 +87,27 @@ export const SectionEditDialog = <T,>({
       </DialogContent>
       {/* Actions for cancel and save. */}
       <DialogActions>
-        <Button type="button" onClick={() => onCancel(isFilledData())}>
+        <Button type="button" onClick={handleCloseAttempt}>
           Cancel
         </Button>
         <Button type="submit" color="primary" form="section-edit-dialog-form">
           Save
         </Button>
       </DialogActions>
-      <Modal
-        isModalOpen={isModalOpen}
-        isFilledData={isFilledData()}
-        onClose={onCloseModals}
-        onSave={
-          onCloseModal
-            ? onCloseModal
-            : () => {
-                return null;
-              }
-        }
+      <EditConfirmationModal
+        isModalOpen={isConfirmModalOpen}
+        isFilledData={isFormDirty}
+        onClose={() => onCancel()}
+        onContinue={() => {
+          setIsConfirmModalOpen(false);
+        }}
       />
     </Dialog>
   );
+};
+
+export const SectionEditDialog = <T,>(
+  props: PropsWithChildren<SectionEditDialogProps<T>>
+): JSX.Element | null => {
+  return props.open ? <SectionEditDialogInternal {...props} /> : null;
 };
