@@ -115,13 +115,8 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
   const resumeFuseModel = useMemo(
     () =>
       new Fuse(resumes, {
-        minMatchCharLength: 3,
-        keys: [
-          "personalia.firstName",
-          "personalia.lastName",
-          "personalia.email",
-          "personalia.city",
-        ],
+        threshold: 0,
+        keys: ["personalia.firstName", "personalia.lastName"],
       }),
     [resumes]
   );

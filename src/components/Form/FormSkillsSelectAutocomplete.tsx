@@ -107,12 +107,9 @@ const SortableSelect = SortableContainer(Select) as ComponentClass<
   Props<SkillsOption, true> & SortableContainerProps
 >;
 
-export const FormSkillsSelectAutocomplete: VoidFunctionComponent<FormSkillsSelectPropsAutocomplete> =
-({ 
-  label, 
-  value, 
-  onChange: ch 
-}) => {
+export const FormSkillsSelectAutocomplete: VoidFunctionComponent<
+  FormSkillsSelectPropsAutocomplete
+> = ({ label, value, onChange: ch }) => {
   const { skillList } = useSkillsContext();
   const [selected, setSelected] = useState<readonly SkillsOption[]>([]);
 

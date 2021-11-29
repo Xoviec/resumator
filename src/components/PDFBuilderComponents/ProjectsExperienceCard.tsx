@@ -51,10 +51,9 @@ interface ProjectsExperienceCardProps {
   project: ExperienceModel;
 }
 
-export const ProjectsExperienceCard: VoidFunctionComponent<ProjectsExperienceCardProps> =
-({ 
-  project 
-}) => {
+export const ProjectsExperienceCard: VoidFunctionComponent<
+  ProjectsExperienceCardProps
+> = ({ project }) => {
   const { role, company, description, stackAndTechniques, startDate, endDate } =
     project;
   const shouldRenderTechniquesRow =
