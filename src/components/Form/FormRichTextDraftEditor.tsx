@@ -29,10 +29,9 @@ interface FormRichTextDraftEditorProps {
   onChange: (value: string) => void;
 }
 
-export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEditorProps> = ({ 
-  value, 
-  onChange 
-}) => {
+export const FormRichTextDraftEditor: VoidFunctionComponent<
+  FormRichTextDraftEditorProps
+> = ({ value, onChange }) => {
   let content;
 
   // Setup the editor.
@@ -63,11 +62,7 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEdi
     onChange(JSON.stringify(raw));
   };
 
-  const renderBlockTypeButton = (
-    type: string,
-    tooltip: string,
-    icon: ReactNode
-  ) => (
+  const renderBlockTypeButton = (type: string, tooltip: string, icon: ReactNode) => (
     <TooltipIconButton
       tooltip={tooltip}
       active={hasBlockType(type)}
@@ -111,8 +106,7 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<FormRichTextDraftEdi
     setEditorState(RichUtils.toggleInlineStyle(editorState, style));
   };
 
-  const hasStyle = (style: string) =>
-    editorState.getCurrentInlineStyle().has(style);
+  const hasStyle = (style: string) => editorState.getCurrentInlineStyle().has(style);
 
   return (
     <Box
