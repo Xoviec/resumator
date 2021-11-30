@@ -1426,10 +1426,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
   integrity sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==
 
-"@emotion/react@^11.1.1", "@emotion/react@^11.1.5", "@emotion/react@^11.6.0":
-  version "11.6.0"
-  resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.6.0.tgz#61fcb95c1e01255734c2c721cb9beabcf521eb0f"
-  integrity sha512-23MnRZFBN9+D1lHXC5pD6z4X9yhPxxtHr6f+iTGz6Fv6Rda0GdefPrsHL7otsEf+//7uqCdT5QtHeRxHCERzuw==
+"@emotion/react@^11.1.1", "@emotion/react@^11.1.5", "@emotion/react@^11.7.0":
+  version "11.7.0"
+  resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.7.0.tgz#b179da970ac0e8415de3ac165deadf8d9c4bf89f"
+  integrity sha512-WL93hf9+/2s3cA1JVJlz8+Uy6p6QWukqQFOm2OZO5ki51hfucHMOmbSjiyC3t2Y4RI8XUmBoepoc/24ny/VBbA==
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@emotion/cache" "^11.6.0"
@@ -3234,10 +3234,10 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
   integrity sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==
 
-"@types/ramda@^0.27.51":
-  version "0.27.51"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.51.tgz#d285a15cc57aa9d3d799bfec6920a65ed90e82b2"
-  integrity sha512-H2JeQidZI4qvIRj6QroImn4PQNNNApPNh2dIXZDli0lCDKbdS9lA9lIWypT+pFygM51d5uvbhad//xOqEnjfZA==
+"@types/ramda@^0.27.54":
+  version "0.27.54"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.54.tgz#8406b3a71f53806ae44b503b22307a8d7c6ad2cb"
+  integrity sha512-vm/FH3MGPBLFzpN1lrF/L6PtQ4saKSagzhfVGvPkw65XeZn8kLg8rarCo1MYkqQRgMcneuWDwNpVjEjZRUhEyA==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -6577,10 +6577,10 @@ docxtemplater-image-module-free@^1.1.1:
   dependencies:
     xmldom "^0.1.27"
 
-docxtemplater@^3.26.4:
-  version "3.27.1"
-  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.27.1.tgz#2dc4ca1f5e4c9d7bffea1489c225e0b31096cd0d"
-  integrity sha512-3YyYcDEcuv2Mvsxn6bunYO0cI0K2nQu4Ma6TpR0JQ99cWGZ5EM+AebqpL7ov/sIvAwpq+gPGfmknXyyP0LunaQ==
+docxtemplater@^3.28.0:
+  version "3.28.0"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.28.0.tgz#44e89ddb88ca5dd358130f3de3f2115549a4c4d9"
+  integrity sha512-ecY2q848XrFHq11nCuOS2KshNzvIKKrLRsLjR8cVP4J39KVIHTjqNlZqW+W3/fiYu90y3dA7zBC/B/YcvE89JQ==
   dependencies:
     "@xmldom/xmldom" "^0.7.5"
 
