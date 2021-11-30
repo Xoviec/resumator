@@ -3234,10 +3234,10 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
   integrity sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==
 
-"@types/ramda@^0.27.51":
-  version "0.27.51"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.51.tgz#d285a15cc57aa9d3d799bfec6920a65ed90e82b2"
-  integrity sha512-H2JeQidZI4qvIRj6QroImn4PQNNNApPNh2dIXZDli0lCDKbdS9lA9lIWypT+pFygM51d5uvbhad//xOqEnjfZA==
+"@types/ramda@^0.27.54":
+  version "0.27.54"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.54.tgz#8406b3a71f53806ae44b503b22307a8d7c6ad2cb"
+  integrity sha512-vm/FH3MGPBLFzpN1lrF/L6PtQ4saKSagzhfVGvPkw65XeZn8kLg8rarCo1MYkqQRgMcneuWDwNpVjEjZRUhEyA==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -6577,10 +6577,10 @@ docxtemplater-image-module-free@^1.1.1:
   dependencies:
     xmldom "^0.1.27"
 
-docxtemplater@^3.26.4:
-  version "3.27.1"
-  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.27.1.tgz#2dc4ca1f5e4c9d7bffea1489c225e0b31096cd0d"
-  integrity sha512-3YyYcDEcuv2Mvsxn6bunYO0cI0K2nQu4Ma6TpR0JQ99cWGZ5EM+AebqpL7ov/sIvAwpq+gPGfmknXyyP0LunaQ==
+docxtemplater@^3.28.0:
+  version "3.28.0"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.28.0.tgz#44e89ddb88ca5dd358130f3de3f2115549a4c4d9"
+  integrity sha512-ecY2q848XrFHq11nCuOS2KshNzvIKKrLRsLjR8cVP4J39KVIHTjqNlZqW+W3/fiYu90y3dA7zBC/B/YcvE89JQ==
   dependencies:
     "@xmldom/xmldom" "^0.7.5"
 
@@ -7924,10 +7924,10 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
-firebase-admin@^9.9.0:
-  version "9.12.0"
-  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-9.12.0.tgz#d7e889e97c9c31610efbcd131bb6d06a783af757"
-  integrity sha512-AtA7OH5RbIFGoc0gZOQgaYC6cdjdhZv4w3XgWoupkPKO1HY+0GzixOuXDa75kFeoVyhIyo4PkLg/GAC1dC1P6w==
+firebase-admin@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-10.0.0.tgz#0638cd50d2395fddc9d8af4e1699d0a10b1b22d8"
+  integrity sha512-EOAk5ZaqXhBBvx9ZyXd28kw8glMTt3xl0g3BepGRCy0RSSUPGOzfAqjGhc65guSKgFOpT5mAUycYcJbqullKUQ==
   dependencies:
     "@firebase/database-compat" "^0.1.1"
     "@firebase/database-types" "^0.7.2"
