@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import EmailIcon from "@mui/icons-material/EmailOutlined";
 import PlaceIcon from "@mui/icons-material/PlaceOutlined";
 import { Box, Card, Hidden, Typography } from "@mui/material";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useMemo, useState } from "react";
 import { colors } from "../../config/theme";
 import { formatDate } from "../../lib/date";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
@@ -19,7 +19,7 @@ export interface PersonaliaModel {
   lastName: string;
   email: string;
   city: string;
-  dateOfBirth: Date;
+  dateOfBirth: Date | string | null;
 }
 
 interface FormModel extends PersonaliaModel {
@@ -48,6 +48,8 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
   const getFirstName = () =>
     personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane");
   const getLastName = () => personalia.lastName || "Doe";
+
+  const dateOfBirth = useMemo(() => personalia.dateOfBirth || "", [personalia]);
 
   return (
     // We use a card directly here instead of a section because this is a custom full width section.
@@ -107,7 +109,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
                 {personalia.city}
               </DetailWithIcon>
               <DetailWithIcon icon={<CakeIcon style={{ color: colors.midBlue }} />}>
-                {formatDate(personalia.dateOfBirth)}
+                {formatDate(dateOfBirth)}
               </DetailWithIcon>
             </Box>
           </Box>

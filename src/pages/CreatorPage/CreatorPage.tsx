@@ -24,7 +24,7 @@ export const CreatorPage: VoidFunctionComponent = () => {
     avatar: "",
     city: "",
     introduction: "",
-    dateOfBirth: new Date(),
+    dateOfBirth: null,
   };
 
   return (
