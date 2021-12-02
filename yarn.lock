@@ -6570,10 +6570,10 @@ docxtemplater-image-module-free@^1.1.1:
   dependencies:
     xmldom "^0.1.27"
 
-docxtemplater@^3.28.0:
-  version "3.28.0"
-  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.28.0.tgz#44e89ddb88ca5dd358130f3de3f2115549a4c4d9"
-  integrity sha512-ecY2q848XrFHq11nCuOS2KshNzvIKKrLRsLjR8cVP4J39KVIHTjqNlZqW+W3/fiYu90y3dA7zBC/B/YcvE89JQ==
+docxtemplater@^3.28.1:
+  version "3.28.1"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.28.1.tgz#7d6fb2df191f9091a91bdf994150c467e6cc8d67"
+  integrity sha512-knwhQOUiaIjBqjH7Q0VVyiPlFYjBTLR3yikBJzVdTbq2QuZb27EbbQOCBSJiLQoQZMHzcHL9CQ96bbAIUPSODw==
   dependencies:
     "@xmldom/xmldom" "^0.7.5"
 
