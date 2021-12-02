@@ -20,6 +20,7 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
   onSave,
   onCancel,
 }) => {
+  console.log(data, "DATA");
   return (
     <SectionEditDialog
       title="Personal details"
