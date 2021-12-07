@@ -10,6 +10,9 @@ import {
 } from "draft-js";
 import { VoidFunctionComponent } from "react";
 
+// helpers
+import { checkListType } from "../../helpers";
+
 const styles = StyleSheet.create({
   bold: {
     fontFamily: "Helvetica-Bold",
@@ -129,10 +132,25 @@ export const PDFDescription: VoidFunctionComponent<PDFDescriptionProps> = ({
           counter = 0;
         }
         return (
-          <TextArea key={`${index}`} style={styles[block.type]}>
-            {generatePrefix(block, counter)}
-            {generateInlineStyle(block)}
-          </TextArea>
+          <View key={`${index}`} style={{ position: "relative" }}>
+            <TextArea
+              style={{
+                position: "absolute",
+                left: "-10px",
+                ...styles[block.type],
+              }}
+            >
+              {generatePrefix(block, counter)}
+            </TextArea>
+            <TextArea
+              style={{
+                ...styles[block.type],
+                marginLeft: checkListType(block.type) ? "10px" : "0",
+              }}
+            >
+              {generateInlineStyle(block)}
+            </TextArea>
+          </View>
         );
       })}
     </View>
