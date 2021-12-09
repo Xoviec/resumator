@@ -37,9 +37,9 @@ const getFirebaseAuthProvider = (): firebase.auth.AuthProvider => {
   }
 };
 
-export const FirebaseAppContext = React.createContext<
-  FirebaseAppContextType | undefined
->(undefined);
+const FirebaseAppContext = React.createContext<FirebaseAppContextType | undefined>(
+  undefined
+);
 
 export const useFirebaseApp = (): FirebaseAppContextType => {
   const context = useContext(FirebaseAppContext);
@@ -50,7 +50,7 @@ export const useFirebaseApp = (): FirebaseAppContextType => {
   return context;
 };
 
-const FirebaseAppContextProvider: React.FC = ({ children }) => {
+export const FirebaseAppContextProvider: React.FC = ({ children }) => {
   const [firebaseApp, setFirebaseApp] = useState<firebase.app.App | undefined>(
     undefined
   );
@@ -133,5 +133,3 @@ const FirebaseAppContextProvider: React.FC = ({ children }) => {
     </FirebaseAppContext.Provider>
   );
 };
-
-export default FirebaseAppContextProvider;

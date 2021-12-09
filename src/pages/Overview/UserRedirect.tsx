@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import {
   FirebaseAppContextType,
   FirestoreQuery,
-} from "../../context/FirebaseContext";
+} from "../../context/FirebaseContext/FirebaseContext";
 
 interface UserRedirectProps {
   query: FirestoreQuery;

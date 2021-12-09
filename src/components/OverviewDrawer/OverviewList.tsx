@@ -1,36 +1,30 @@
-import { useState, useMemo, VoidFunctionComponent } from "react";
-import getAvatarDataUri from "../../lib/getAvatarDataUri";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { NavLink } from "react-router-dom";
-import { styled } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import { TabPanel } from "@mui/lab";
 import {
   Avatar,
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
   ListItemSecondaryAction,
+  ListItemText,
 } from "@mui/material/";
-import { TabPanel } from "@mui/lab";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import Fuse from "fuse.js";
+import { styled } from "@mui/system";
 import clsx from "clsx";
-
+import Fuse from "fuse.js";
+import { useMemo, useState, VoidFunctionComponent } from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { NavLink } from "react-router-dom";
 // configs
 import { colors } from "../../config/theme";
-
 // context
-import {
-  FirebaseAppContextType,
-  FirestoreQuery,
-} from "../../context/FirebaseContext";
-
-// components
-import { TooltipIconButton } from "../Material";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+// components
+import { TooltipIconButton } from "../Material";
 
 const PREFIX = "OverviewList";
 
@@ -83,23 +77,78 @@ const Root = styled("div")(({ theme }) => ({
 }));
 
 interface OverviewListProps {
-  firebase: FirebaseAppContextType["firebase"];
-  query: FirestoreQuery;
   searchTerms: string;
-  userRecord: FirebaseAppContextType["userRecord"];
 }
 
 interface ResumeModelWithDisplayName extends ResumeModel {
   displayName: string;
 }
 
-export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
-  firebase,
-  query,
-  searchTerms,
-  userRecord,
+interface ResumeItemProps {
+  resume: ResumeModelWithDisplayName;
+  onDelete: VoidFunction;
+}
+
+const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
+  resume: { id, displayName, personalia, isImport, isArchived },
+  onDelete,
 }) => {
-  const [resumeQueryResult, isLoading, error] = useCollection(query);
+  return (
+    <NavLink
+      className={clsx({
+        [classes.isImported]: isImport,
+        [classes.link]: !isImport,
+      })}
+      activeClassName={classes.activeLink}
+      to={`/resume/${id}`}
+    >
+      <ListItem
+        classes={{
+          container: clsx(classes.container, {
+            [classes.isArchived]: isArchived,
+          }),
+        }}
+      >
+        <ListItemAvatar>
+          <Avatar>
+            <img alt="avatar" width="15" src={getAvatarDataUri(personalia.avatar)} />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText>
+          {isArchived && "(Archived) "}
+          {displayName}
+          {isImport && (
+            <>
+              &nbsp;
+              <Tooltip title="is imported">
+                <ReportProblemOutlinedIcon className={classes.importedWarning} />
+              </Tooltip>
+            </>
+          )}
+        </ListItemText>
+        <ListItemSecondaryAction className={classes.actions}>
+          <TooltipIconButton
+            color="inherit"
+            tooltip={"Delete resume"}
+            edge="end"
+            aria-label="delete"
+            onClick={onDelete}
+          >
+            <DeleteIcon fontSize="small" />
+          </TooltipIconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </NavLink>
+  );
+};
+
+export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
+  searchTerms,
+}) => {
+  const { firebase, userRecord } = useFirebaseApp();
+  const [resumeQueryResult, isLoading, error] = useCollection(
+    firebase.firestore().collection("resumes")
+  );
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [resumeToDelete, setResumeToDelete] = useState<ResumeModel | null>(null);
   const hasFetchError = !isLoading && error;
@@ -185,137 +234,39 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
     return null;
 
   return (
-    <Root>
+    <Root data-testid="overview-list-container">
       {hasFetchError && (
         <span>
           Could not fetch resume data. If this problem persists, notify application
           maintainer
         </span>
       )}
-      <TabPanel value="1">
-        <List dense={true} data-testid="overview-list">
-          {resumesToShow?.unarchivedResumes.map((resume) => {
-            const { id, displayName, personalia, isImport, isArchived } = resume;
-
-            return (
-              <NavLink
-                key={id}
-                className={clsx({
-                  [classes.isImported]: isImport,
-                  [classes.link]: !isImport,
-                })}
-                activeClassName={classes.activeLink}
-                to={`/resume/${id}`}
-              >
-                <ListItem
-                  classes={{
-                    container: clsx(classes.container, {
-                      [classes.isArchived]: isArchived,
-                    }),
-                  }}
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <img
-                        alt="avatar"
-                        width="15"
-                        src={getAvatarDataUri(personalia.avatar)}
-                      />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    {displayName}
-                    {isImport && (
-                      <>
-                        &nbsp;
-                        <Tooltip title="is imported">
-                          <ReportProblemOutlinedIcon
-                            className={classes.importedWarning}
-                          />
-                        </Tooltip>
-                      </>
-                    )}
-                  </ListItemText>
-                  <ListItemSecondaryAction className={classes.actions}>
-                    <TooltipIconButton
-                      color="inherit"
-                      tooltip={"Delete resume"}
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => {
-                        setOpenConfirmation(true);
-                        setResumeToDelete(resume);
-                      }}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </TooltipIconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </NavLink>
-            );
-          })}
+      <TabPanel value="active-users-tab">
+        <List dense={true} data-testid="overview-list-active-resumes">
+          {resumesToShow?.unarchivedResumes.map((resume) => (
+            <ResumeItem
+              key={resume.id}
+              resume={resume}
+              onDelete={() => {
+                setOpenConfirmation(true);
+                setResumeToDelete(resume);
+              }}
+            />
+          ))}
         </List>
       </TabPanel>
-      <TabPanel value="2">
-        <List dense={true} data-testid="overview-list">
-          {resumesToShow?.archivedResumes.map((resume) => {
-            const { id, displayName, personalia, isImport, isArchived } = resume;
-
-            return (
-              <NavLink
-                key={id}
-                className={isImport ? classes.isImported : classes.link}
-                activeClassName={classes.activeLink}
-                to={`/resume/${id}`}
-              >
-                <ListItem
-                  classes={{
-                    container: `${classes.container} ${
-                      isArchived && classes.isArchived
-                    }`,
-                  }}
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <img
-                        alt="avatar"
-                        width="15"
-                        src={getAvatarDataUri(personalia.avatar)}
-                      />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    {isArchived && "(Archived) "}
-                    {displayName}
-                    {isImport && (
-                      <>
-                        &nbsp;
-                        <Tooltip title="is imported">
-                          <ReportProblemOutlinedIcon
-                            className={classes.importedWarning}
-                          />
-                        </Tooltip>
-                      </>
-                    )}
-                  </ListItemText>
-                  <ListItemSecondaryAction className={classes.actions}>
-                    <TooltipIconButton
-                      color="inherit"
-                      tooltip={"Delete resume"}
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => {
-                        setOpenConfirmation(true);
-                        setResumeToDelete(resume);
-                      }}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </TooltipIconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </NavLink>
-            );
-          })}
+      <TabPanel value="archived-users-tab">
+        <List dense={true} data-testid="overview-list-archived-resumes">
+          {resumesToShow?.archivedResumes.map((resume) => (
+            <ResumeItem
+              key={resume.id}
+              resume={resume}
+              onDelete={() => {
+                setOpenConfirmation(true);
+                setResumeToDelete(resume);
+              }}
+            />
+          ))}
         </List>
       </TabPanel>
       <Confirmation

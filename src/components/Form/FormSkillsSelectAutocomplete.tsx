@@ -103,15 +103,19 @@ const SortableMultiValueLabel = SortableHandle((props: MultiValueGenericProps) =
   return <components.MultiValueLabel {...props} />;
 });
 
-const SortableSelect = SortableContainer(Select) as ComponentClass<
-  Props<SkillsOption, true> & SortableContainerProps
->;
-
 export const FormSkillsSelectAutocomplete: VoidFunctionComponent<
   FormSkillsSelectPropsAutocomplete
 > = ({ label, value, onChange: ch }) => {
   const { skillList } = useSkillsContext();
   const [selected, setSelected] = useState<readonly SkillsOption[]>([]);
+
+  const SortableSelect = useMemo(
+    () =>
+      SortableContainer(Select) as ComponentClass<
+        Props<SkillsOption, true> & SortableContainerProps
+      >,
+    []
+  );
 
   const onChange = (selectedOptions: OnChangeValue<SkillsOption, true>) => {
     ch(selectedOptions.map((skill) => ({ ...skill, name: skill.label })));

@@ -36,6 +36,7 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
             onChange={onChange}
             renderInput={(textFieldProps) => (
               <TextField
+                role="input"
                 name={name}
                 label={label}
                 size="small"

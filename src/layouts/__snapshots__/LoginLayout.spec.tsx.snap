@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginLayout renders correctly 1`] = `
+<div
+  class="css-va4j7j"
+>
+  <div
+    class="css-nf597f"
+  >
+    <div
+      class="css-ee05cj"
+    >
+      <img
+        alt="logo"
+        src="frontmenLogoIcon.png"
+      />
+    </div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`LoginLayout renders correctly with children 1`] = `
+<div
+  class="css-va4j7j"
+>
+  <div
+    class="css-nf597f"
+  >
+    <div
+      class="css-ee05cj"
+    >
+      <img
+        alt="logo"
+        src="frontmenLogoIcon.png"
+      />
+    </div>
+    <div>
+      <div>
+        test-content
+      </div>
+    </div>
+  </div>
+</div>
+`;

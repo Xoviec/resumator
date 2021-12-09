@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { useFirebaseApp } from "../FirebaseContext";
+import { useFirebaseApp } from "../FirebaseContext/FirebaseContext";
 
 type SkillsContextType = {
   skillList: string[];

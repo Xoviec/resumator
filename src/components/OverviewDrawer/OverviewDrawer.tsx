@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import { FunctionComponent } from "react";
 // context
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
-import { useFirebaseApp } from "../../context/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 // components
 import { OverviewContent } from "./OverviewContent";
 
@@ -36,9 +36,8 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
   },
 }));
 
-export const OverviewDrawer: FunctionComponent = (props) => {
+export const OverviewDrawer: FunctionComponent = ({ children }) => {
   const isLgUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up("lg"));
-
   const { userRecord } = useFirebaseApp();
   const { isDrawerOpen, setIsDrawerOpen } = useAppState();
 
@@ -60,11 +59,11 @@ export const OverviewDrawer: FunctionComponent = (props) => {
             <Divider />
             <OverviewContent />
           </StyledDrawer>
-          <Content>{props.children}</Content>
+          <Content>{children}</Content>
         </DrawerRoot>
       </>
     );
   };
 
-  return <>{userRecord?.isManager ? renderDrawer() : props.children}</>;
+  return <>{userRecord?.isManager ? renderDrawer() : children}</>;
 };

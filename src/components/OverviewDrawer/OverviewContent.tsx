@@ -4,9 +4,6 @@ import Tab from "@mui/material/Tab";
 import { TabContext, TabList } from "@mui/lab";
 import { styled } from "@mui/system";
 
-// context
-import { useFirebaseApp } from "../../context/FirebaseContext";
-
 // components
 import { OverviewList } from "./OverviewList";
 import { OverviewSearch } from "./OverviewSearch";
@@ -27,9 +24,8 @@ const Sticky = styled("div")(({ theme }) => ({
 }));
 
 export const OverviewContent: FunctionComponent = () => {
-  const { firebase, userRecord } = useFirebaseApp();
   const [searchTerms, setSearchTerms] = useState("");
-  const [tab, setTab] = useState("1");
+  const [tab, setTab] = useState("active-users-tab");
 
   const handleChangeTab = useCallback((event: SyntheticEvent, newValue: string) => {
     setTab(newValue);
@@ -43,22 +39,25 @@ export const OverviewContent: FunctionComponent = () => {
     <TabContext value={tab}>
       <DrawerContent>
         <Sticky>
-          <OverviewSearch handleSearch={handleSearch} />
+          <OverviewSearch onSearchChange={handleSearch} />
         </Sticky>
         <Box sx={{ width: "100%", typography: "body1" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
-              <Tab label="Active Users" value="1" />
-              <Tab label="Archived Users" value="2" />
+            <TabList onChange={handleChangeTab} aria-label="User overview tabs">
+              <Tab
+                data-testid="tab-1"
+                label="Active Users"
+                value="active-users-tab"
+              />
+              <Tab
+                data-testid="tab-2"
+                label="Archived Users"
+                value="archived-users-tab"
+              />
             </TabList>
           </Box>
         </Box>
-        <OverviewList
-          firebase={firebase}
-          userRecord={userRecord}
-          searchTerms={searchTerms}
-          query={firebase.firestore().collection("resumes")}
-        />
+        <OverviewList searchTerms={searchTerms} />
       </DrawerContent>
     </TabContext>
   );

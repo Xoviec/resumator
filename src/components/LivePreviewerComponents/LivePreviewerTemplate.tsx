@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
-import { useFirebaseApp } from "../../context/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { Education } from "./Education";
 import { Experience } from "./Experience";
 import { PDFPreviewModal } from "./PDFPreviewModal";

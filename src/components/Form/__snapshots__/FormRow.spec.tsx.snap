@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormRow should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-5ax1kt"
+  >
+    test-content
+  </div>
+</DocumentFragment>
+`;

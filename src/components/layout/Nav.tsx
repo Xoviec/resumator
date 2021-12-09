@@ -11,13 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import "firebase/auth";
-import "firebase/firestore";
 import { useState, VoidFunctionComponent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { useFirebaseApp } from "../../context/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { FrontmenLogoIcon } from "./FrontmenLogoIcon";
 
@@ -31,7 +29,6 @@ export const Nav: VoidFunctionComponent = () => {
   const { isDrawerOpen, setIsDrawerOpen } = useAppState();
 
   const history = useHistory();
-  const goTo = (path: string) => history.push(path);
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -53,7 +50,7 @@ export const Nav: VoidFunctionComponent = () => {
 
   const signOut = async () => {
     await firebase.auth().signOut();
-    goTo("/");
+    history.push("/");
   };
 
   const adminMenuItems = userRecord?.isManager ? (
@@ -80,7 +77,9 @@ export const Nav: VoidFunctionComponent = () => {
       onClose={handleMenuClose}
     >
       {adminMenuItems}
-      <MenuItem onClick={signOut}>Sign out</MenuItem>
+      <MenuItem role="button" aria-label="sign out" onClick={signOut}>
+        Sign out
+      </MenuItem>
     </Menu>
   );
 
@@ -91,7 +90,7 @@ export const Nav: VoidFunctionComponent = () => {
           <Toolbar>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label={isDrawerOpen ? "close drawer" : "open drawer"}
               edge="start"
               onClick={handleDrawerToggle}
               sx={{ marginRight: 2, display: { lg: "none" } }}
@@ -120,13 +119,10 @@ export const Nav: VoidFunctionComponent = () => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {authUser?.photoURL ? (
-                <Avatar
-                  alt={authUser.displayName || "User Avatar"}
-                  src={authUser.photoURL}
-                />
+              {authUser?.photoURL && authUser?.displayName ? (
+                <Avatar alt={authUser.displayName} src={authUser.photoURL} />
               ) : (
-                <AccountCircle />
+                <AccountCircle aria-label="user avatar" />
               )}
             </IconButton>
           </Toolbar>
@@ -136,5 +132,3 @@ export const Nav: VoidFunctionComponent = () => {
     </Box>
   );
 };
-
-export default Nav;

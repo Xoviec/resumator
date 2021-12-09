@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginLayout renders correctly 1`] = `
+<div
+  class="css-k008qs"
+>
+  <div
+    data-testid="test-nav"
+  />
+  <main
+    class="css-15dnej8"
+  >
+    <div
+      class="css-0"
+    />
+  </main>
+</div>
+`;

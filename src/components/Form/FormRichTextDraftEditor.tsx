@@ -64,6 +64,7 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<
 
   const renderBlockTypeButton = (type: string, tooltip: string, icon: ReactNode) => (
     <TooltipIconButton
+      data-testid={`${type}-block-type-button`}
       tooltip={tooltip}
       active={hasBlockType(type)}
       onClick={() => toggleBlockType(type)}
@@ -90,6 +91,7 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<
 
   const renderStyleButton = (style: string, tooltip: string, icon: ReactNode) => (
     <TooltipIconButton
+      data-testid={`${style}-style-button`}
       tooltip={tooltip}
       active={hasStyle(style)}
       onClick={() => toggleStyle(style)}
@@ -110,6 +112,7 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<
 
   return (
     <Box
+      data-testid="form-rich-text-draft-editor-container"
       onClick={handleFocus}
       onBlur={handleBlur}
       sx={{

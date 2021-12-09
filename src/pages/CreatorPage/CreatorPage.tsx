@@ -5,7 +5,7 @@ import { PersonaliaDialog } from "../../components/LivePreviewerComponents/Perso
 import { PersonaliaModel } from "../../components/LivePreviewerComponents/TopSection";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
 import { initialResumeData } from "../../config/initialData";
-import { useFirebaseApp } from "../../context/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { MainLayout } from "../../layouts/MainLayout";
 
 interface PersonaliaAndIntroduction extends PersonaliaModel {

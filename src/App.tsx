@@ -7,9 +7,10 @@ import {
   Switch,
 } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
-import FirebaseAppContextProvider, {
+import {
+  FirebaseAppContextProvider,
   useFirebaseApp,
-} from "./context/FirebaseContext";
+} from "./context/FirebaseContext/FirebaseContext";
 import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
 import { CreatorPage } from "./pages/CreatorPage/CreatorPage";
 import { LivePreviewerPage } from "./pages/LivePreviewerPage/LivePreviewerPage";

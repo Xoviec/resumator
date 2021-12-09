@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormSelect should render correctly 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="select-field"
+    value="test"
+  />
+</DocumentFragment>
+`;

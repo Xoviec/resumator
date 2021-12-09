@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormSkillsSelectAutocomplete should render SortableSelect with correct props 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "axis": "xy",
+        "closeMenuOnSelect": false,
+        "components": Object {
+          "MultiValue": undefined,
+          "MultiValueLabel": undefined,
+        },
+        "distance": 4,
+        "getHelperDimensions": [Function],
+        "isMulti": true,
+        "menuPosition": "fixed",
+        "onChange": [Function],
+        "onSortEnd": [Function],
+        "options": Array [],
+        "placeholder": "Add a library, framework, skill...",
+        "useDragHandle": true,
+        "value": Array [],
+      },
+      Object {},
+    ],
+    Array [
+      Object {
+        "axis": "xy",
+        "closeMenuOnSelect": false,
+        "components": Object {
+          "MultiValue": undefined,
+          "MultiValueLabel": undefined,
+        },
+        "distance": 4,
+        "getHelperDimensions": [Function],
+        "isMulti": true,
+        "menuPosition": "fixed",
+        "onChange": [Function],
+        "onSortEnd": [Function],
+        "options": Array [],
+        "placeholder": "Add a library, framework, skill...",
+        "useDragHandle": true,
+        "value": Array [
+          Object {
+            "label": "test-skill1",
+            "name": "test-skill1",
+            "value": "test-skill1",
+          },
+        ],
+      },
+      Object {},
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": <div>
+        sortable-container
+      </div>,
+    },
+    Object {
+      "type": "return",
+      "value": <div>
+        sortable-container
+      </div>,
+    },
+  ],
+}
+`;

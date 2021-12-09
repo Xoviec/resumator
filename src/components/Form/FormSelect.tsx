@@ -21,7 +21,7 @@ export const FormSelect: VoidFunctionComponent<FormSelectProps> = ({
       render={({ field }) => (
         <Select
           fullWidth
-          input={<OutlinedInput margin="dense" />}
+          input={<OutlinedInput role="input" margin="dense" />}
           defaultValue={defaultValue}
           {...field}
           {...props}

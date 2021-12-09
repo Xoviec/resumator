@@ -1,4 +1,4 @@
-import { createTheme, Theme as MuiTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const colors = {
   lightBlue: "#00cccc",

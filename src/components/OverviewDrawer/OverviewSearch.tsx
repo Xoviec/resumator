@@ -34,19 +34,19 @@ const StyledSearchIcon = styled("div")(({ theme }) => ({
 }));
 
 interface OverviewSearchProps {
-  handleSearch: (searchTerms: string) => void;
+  onSearchChange: (searchTerms: string) => void;
 }
 
 export const OverviewSearch: VoidFunctionComponent<OverviewSearchProps> = ({
-  handleSearch,
+  onSearchChange,
 }) => {
   const [searchVal, setSearchVal] = useState("");
 
   const debouncedSearch = useMemo(() => {
     return debounce((searchValue: string) => {
-      handleSearch(searchValue);
+      onSearchChange(searchValue);
     }, 500);
-  }, [handleSearch]);
+  }, [onSearchChange]);
 
   const doSearch = useCallback(
     (event) => {

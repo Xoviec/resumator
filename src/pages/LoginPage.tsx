@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "react-router-dom";
-import { useFirebaseApp } from "../context/FirebaseContext";
+import { useFirebaseApp } from "../context/FirebaseContext/FirebaseContext";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";

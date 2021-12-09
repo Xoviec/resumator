@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormColumn renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-5sp1us"
+  >
+    test-content
+  </div>
+</DocumentFragment>
+`;

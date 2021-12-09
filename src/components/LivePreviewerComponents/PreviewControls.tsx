@@ -7,7 +7,7 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { useHistory, NavLink } from "react-router-dom";
-import { useFirebaseApp } from "../../context/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { ResumeModel } from "./ResumeModel";
 
 interface PreviewControlsProps {

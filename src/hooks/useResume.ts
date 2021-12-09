@@ -3,7 +3,7 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { useHistory } from "react-router-dom";
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 import { initialResumeData } from "../config/initialData";
-import { useFirebaseApp } from "../context/FirebaseContext";
+import { useFirebaseApp } from "../context/FirebaseContext/FirebaseContext";
 import { castDatesInObject } from "../lib/date";
 
 interface ResumeResult {

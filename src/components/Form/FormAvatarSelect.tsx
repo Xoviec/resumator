@@ -66,6 +66,7 @@ export const FormAvatarSelect: VoidFunctionComponent<FormAvatarSelectProps> = ({
                     }}
                     key={i}
                     onClick={() => onChange(avatar.name)}
+                    data-testid={`avatar-${avatar.name}`}
                   />
                 ))}
               </Box>
