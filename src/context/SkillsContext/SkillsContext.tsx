@@ -19,7 +19,7 @@ const SkillsContext = createContext<SkillsContextType | undefined>(undefined);
 export const useSkillsContext = (): SkillsContextType => {
   const context = useContext(SkillsContext);
   if (context === undefined) {
-    throw new Error("Firebase context is used before initialization");
+    throw new Error("Skills context is used before initialization");
   }
 
   return context;
