@@ -5,7 +5,7 @@ import { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { inputStyle } from "./skillsEditorStyles";
 
-interface SkillHeaderProps {
+export interface SkillHeaderProps {
   hasError: boolean;
   saveNewSkill: (event: any) => any;
   newSkill: string;
