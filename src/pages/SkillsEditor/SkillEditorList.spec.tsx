@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import { SkillsEditorPage } from "./SkillsEditorPage";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { FunctionComponent } from "react";
@@ -8,6 +7,7 @@ import { mocked } from "jest-mock";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
+import SkillsEditorList from "./SkillsEditorList";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});
@@ -18,14 +18,14 @@ jest.mock("../../context/FirebaseContext/FirebaseContext");
 jest.mock("../../context/SkillsContext/SkillsContext");
 jest.mock("../../context/AppStateContext/AppStateContext");
 
-describe("Skill Editor Page", () => {
+describe("Skill List", () => {
   const history = createMemoryHistory();
 
   beforeEach(() => {
     jest.resetAllMocks();
 
     mocked(useSkillsContext).mockReturnValue({
-      skillList: [],
+      skillList: ["JS"],
       updateSkillList: jest.fn(),
     });
 
@@ -42,13 +42,21 @@ describe("Skill Editor Page", () => {
     );
   });
 
-  it("Should render page", () => {
-    render(
+  it("Should render page", async () => {
+    const handleChangeSkill = jest.fn();
+
+    const { getByTestId, getByText } = render(
       <Router history={history}>
         <ThemeProviderWrapper>
-          <SkillsEditorPage />
+          <SkillsEditorList />
         </ThemeProviderWrapper>
       </Router>
     );
+
+    // await waitFor(() => {
+    //   const input = getByTestId("content-input") as HTMLInputElement;
+    //   fireEvent.input(input);
+    //   expect(input).toBeInTheDocument();
+    // });
   });
 });
