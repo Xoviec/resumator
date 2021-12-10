@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { prettyDOM } from "@testing-library/dom";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { FunctionComponent } from "react";
@@ -21,8 +22,6 @@ jest.mock("../../context/AppStateContext/AppStateContext");
 // jest.mock("../../components/LivePreviewerComponents/PersonaliaDialog");
 
 describe("Skill List", () => {
-  const history = createMemoryHistory();
-
   beforeEach(() => {
     jest.resetAllMocks();
 
@@ -45,6 +44,9 @@ describe("Skill List", () => {
   });
 
   it("Should render page", async () => {
+    const history = createMemoryHistory();
+    history.push = jest.fn();
+
     render(
       <Router history={history}>
         <ThemeProviderWrapper>
@@ -52,5 +54,10 @@ describe("Skill List", () => {
         </ThemeProviderWrapper>
       </Router>
     );
+
+    expect(screen.queryByRole("dialog")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Cancel"));
+
+    expect(history.push).toHaveBeenCalledWith("/");
   });
 });
