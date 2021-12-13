@@ -53,7 +53,7 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
               alignItems="center"
               marginBottom={{ xs: 2, md: 0 }}
             >
-              <form onSubmit={saveNewSkill}>
+              <form onSubmit={saveNewSkill} data-testid="form">
                 <InputBase
                   placeholder="Skill name"
                   value={newSkill}

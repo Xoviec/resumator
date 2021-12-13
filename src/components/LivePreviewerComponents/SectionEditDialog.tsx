@@ -78,6 +78,7 @@ const SectionEditDialogInternal = <T,>({
       <DialogContent id="section-edit-dialog-content">
         <FormProvider reset={reset} {...form}>
           <form
+            data-testid="form"
             id="section-edit-dialog-form"
             onSubmit={form.handleSubmit((formData) => onSave(formData as T))}
           >

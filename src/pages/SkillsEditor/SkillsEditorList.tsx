@@ -106,7 +106,6 @@ const SkillsEditorList: React.VFC = () => {
   const renderConfirmation = () => {
     return (
       <Confirmation
-        data-testid="confirmation"
         isOpen={openConfirmation}
         denyClick={() => setOpenConfirmation(false)}
         confirmClick={() => {

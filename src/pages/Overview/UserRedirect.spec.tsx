@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { FunctionComponent } from "react";
@@ -6,8 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { mocked } from "jest-mock";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
-import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
-import { CreatorPage } from "./CreatorPage";
+import { UserRedirect, UserRedirectProps } from "./UserRedirect";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});
@@ -15,17 +14,11 @@ const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
 };
 
 jest.mock("../../context/FirebaseContext/FirebaseContext");
-jest.mock("../../context/SkillsContext/SkillsContext");
 jest.mock("../../context/AppStateContext/AppStateContext");
 
-describe("Skill List", () => {
+describe("PDFPreview", () => {
   beforeEach(() => {
     jest.resetAllMocks();
-
-    mocked(useSkillsContext).mockReturnValue({
-      skillList: ["JS"],
-      updateSkillList: jest.fn(),
-    });
 
     mocked(useAppState).mockReturnValue({
       isDrawerOpen: false,
@@ -36,51 +29,52 @@ describe("Skill List", () => {
       () =>
         ({
           firebase: {
+            userRecord: { isManager: true },
             firestore: jest.fn().mockReturnValue({
               collection: jest.fn(),
+              doc: jest.fn(),
             }),
           },
         } as any)
     );
   });
 
-  it("Should render page and click on cancel", async () => {
-    const history = createMemoryHistory();
-    history.push = jest.fn();
-
-    render(
-      <Router history={history}>
-        <ThemeProviderWrapper>
-          <CreatorPage />
-        </ThemeProviderWrapper>
-      </Router>
-    );
-
-    expect(screen.queryByRole("dialog")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("Cancel"));
-
-    expect(history.push).toHaveBeenCalledWith("/");
-  });
-  // it("Should render page and click on save", async () => {
+  // it("Should render", async () => {
+  //   const props = { userRecord: { isManager: false } } as UserRedirectProps;
   //   const history = createMemoryHistory();
-  //   history.push = jest.fn();
-  //   global.alert = jest.fn();
+  //   const useCollection = jest.fn();
+  //   useCollection.mockReturnValue({
+  //     val: null,
+  //     isLoading: true,
+  //     error: undefined,
+  //   });
   //
   //   render(
   //     <Router history={history}>
   //       <ThemeProviderWrapper>
-  //         <CreatorPage />
+  //         <UserRedirect {...props} />
   //       </ThemeProviderWrapper>
   //     </Router>
   //   );
-  //
-  //   expect(screen.queryByRole("dialog")).toBeInTheDocument();
-  //   fireEvent.submit(screen.getByTestId("form"));
-  //
-  //   try {
-  //     expect(history.push).toBeCalledTimes(1);
-  //   } catch (e) {
-  //     // expect(global.alert).toBeCalledTimes(1);
-  //   }
   // });
+  it("Should render has value", async () => {
+    const props = { userRecord: { isManager: true } } as UserRedirectProps;
+    const history = createMemoryHistory();
+    const useCollection = jest.fn();
+    useCollection.mockReturnValue({
+      val: {
+        docs: [{ data: jest.fn(), id: "Cool Id" }],
+      },
+      isLoading: false,
+      error: undefined,
+    });
+
+    render(
+      <Router history={history}>
+        <ThemeProviderWrapper>
+          <UserRedirect {...props} />
+        </ThemeProviderWrapper>
+      </Router>
+    );
+  });
 });
