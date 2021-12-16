@@ -89,7 +89,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.7",
     "@types/rebass": "^4.0.9",
-    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.6.0",
     "cypress": "^9.1.1",
     "cypress-firebase": "^2.2.0",
