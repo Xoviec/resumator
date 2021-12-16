@@ -23,7 +23,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@hookform/devtools": "^4.0.1",
-    "@hookform/resolvers": "^2.8.4",
+    "@hookform/resolvers": "^2.8.5",
     "@mui/icons-material": "^5.2.1",
     "@mui/lab": "^5.0.0-alpha.59",
     "@mui/material": "^5.2.3",
