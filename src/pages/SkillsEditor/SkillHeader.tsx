@@ -5,7 +5,7 @@ import { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { inputStyle } from "./skillsEditorStyles";
 
-interface SkillHeaderProps {
+export interface SkillHeaderProps {
   hasError: boolean;
   saveNewSkill: (event: any) => any;
   newSkill: string;
@@ -53,7 +53,7 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
               alignItems="center"
               marginBottom={{ xs: 2, md: 0 }}
             >
-              <form onSubmit={saveNewSkill}>
+              <form onSubmit={saveNewSkill} data-testid="form">
                 <InputBase
                   placeholder="Skill name"
                   value={newSkill}

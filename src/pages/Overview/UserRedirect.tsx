@@ -6,7 +6,7 @@ import {
   FirestoreQuery,
 } from "../../context/FirebaseContext/FirebaseContext";
 
-interface UserRedirectProps {
+export interface UserRedirectProps {
   query: FirestoreQuery;
   userRecord: FirebaseAppContextType["userRecord"];
 }

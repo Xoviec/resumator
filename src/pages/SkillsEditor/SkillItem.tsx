@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { inputEditedStyle, inputStyle } from "./skillsEditorStyles";
 
-interface SkillItemProps {
+export interface SkillItemProps {
   handleChangeSkill: (value: string) => any;
   didChange: boolean;
   setDeleteIndex: () => any;
@@ -29,6 +29,7 @@ export const SkillItem: FunctionComponent<SkillItemProps> = ({
           padding={2}
         >
           <InputBase
+            inputProps={{ "data-testid": "content-input" }}
             defaultValue={skill}
             onChange={(event: any) => {
               handleChangeSkill(event.target.value);

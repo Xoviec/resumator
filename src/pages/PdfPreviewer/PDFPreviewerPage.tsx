@@ -5,7 +5,7 @@ import { ResumeModel } from "../../components/LivePreviewerComponents/ResumeMode
 import { PDFTemplate } from "../../components/PDFTemplate/PDFTemplate";
 import { useResume } from "../../hooks/useResume";
 
-interface PDFTemplateWrapperProps {
+export interface PDFTemplateWrapperProps {
   resume: ResumeModel;
 }
 
@@ -22,7 +22,7 @@ const PDFTemplateWrapper: VoidFunctionComponent<PDFTemplateWrapperProps> = memo(
 
 PDFTemplateWrapper.displayName = "PDFTemplateWrapper";
 
-type PDFPreviewerPageProps = RouteComponentProps<{ id: string }>;
+export type PDFPreviewerPageProps = RouteComponentProps<{ id: string }>;
 
 export const PDFPreviewerPage: VoidFunctionComponent<PDFPreviewerPageProps> = (
   props

@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.12.1",
+    "@babel/runtime": "^7.16.5",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -88,8 +89,8 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.7",
     "@types/rebass": "^4.0.9",
-    "@typescript-eslint/parser": "^5.6.0",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
     "cypress": "^9.1.1",
     "cypress-firebase": "^2.2.0",
     "env-cmd": "^10.1.0",
