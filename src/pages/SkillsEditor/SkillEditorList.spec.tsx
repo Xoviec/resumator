@@ -51,15 +51,14 @@ describe("Skill List", () => {
       </Router>
     );
 
-    await waitFor(() => {
-      const input = screen.getByPlaceholderText("Skill name") as HTMLInputElement;
-      expect(input).toBeInTheDocument();
-      fireEvent.input(input, { target: { value: "new" } });
-      expect(input.value).toBe("new");
-
-      const form = screen.getByTestId("form");
-      fireEvent.submit(form);
-    });
+    await waitFor(() =>
+      expect(screen.getByPlaceholderText("Skill name")).toBeInTheDocument()
+    );
+    const input = screen.getByPlaceholderText("Skill name") as HTMLInputElement;
+    fireEvent.input(input, { target: { value: "new" } });
+    expect(input.value).toBe("new");
+    const form = screen.getByTestId("form");
+    fireEvent.submit(form);
   });
   it("Should render page and skill list include skill name", async () => {
     render(
@@ -71,14 +70,14 @@ describe("Skill List", () => {
     );
 
     await waitFor(() => {
-      const input = screen.getByPlaceholderText("Skill name") as HTMLInputElement;
-      expect(input).toBeInTheDocument();
-      fireEvent.input(input, { target: { value: "JS" } });
-      expect(input.value).toBe("JS");
-
-      const form = screen.getByTestId("form");
-      fireEvent.submit(form);
+      expect(screen.getByPlaceholderText("Skill name")).toBeInTheDocument();
     });
+
+    const input = screen.getByPlaceholderText("Skill name") as HTMLInputElement;
+    fireEvent.input(input, { target: { value: "JS" } });
+    expect(input.value).toBe("JS");
+    const form = screen.getByTestId("form");
+    fireEvent.submit(form);
   });
   it("Should render Confirmation and click on deny", async () => {
     render(

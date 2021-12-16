@@ -61,26 +61,4 @@ describe("Skill List", () => {
 
     expect(history.push).toHaveBeenCalledWith("/");
   });
-  // it("Should render page and click on save", async () => {
-  //   const history = createMemoryHistory();
-  //   history.push = jest.fn();
-  //   global.alert = jest.fn();
-  //
-  //   render(
-  //     <Router history={history}>
-  //       <ThemeProviderWrapper>
-  //         <CreatorPage />
-  //       </ThemeProviderWrapper>
-  //     </Router>
-  //   );
-  //
-  //   expect(screen.queryByRole("dialog")).toBeInTheDocument();
-  //   fireEvent.submit(screen.getByTestId("form"));
-  //
-  //   try {
-  //     expect(history.push).toBeCalledTimes(1);
-  //   } catch (e) {
-  //     // expect(global.alert).toBeCalledTimes(1);
-  //   }
-  // });
 });

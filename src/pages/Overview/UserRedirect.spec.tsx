@@ -39,24 +39,6 @@ describe("PDFPreview", () => {
     );
   });
 
-  // it("Should render", async () => {
-  //   const props = { userRecord: { isManager: false } } as UserRedirectProps;
-  //   const history = createMemoryHistory();
-  //   const useCollection = jest.fn();
-  //   useCollection.mockReturnValue({
-  //     val: null,
-  //     isLoading: true,
-  //     error: undefined,
-  //   });
-  //
-  //   render(
-  //     <Router history={history}>
-  //       <ThemeProviderWrapper>
-  //         <UserRedirect {...props} />
-  //       </ThemeProviderWrapper>
-  //     </Router>
-  //   );
-  // });
   it("Should render has value", async () => {
     const props = { userRecord: { isManager: true } } as UserRedirectProps;
     const history = createMemoryHistory();
