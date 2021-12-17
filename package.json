@@ -72,7 +72,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.12.1",
+    "@babel/preset-typescript": "^7.16.5",
     "@babel/runtime": "^7.16.5",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.16.1",
