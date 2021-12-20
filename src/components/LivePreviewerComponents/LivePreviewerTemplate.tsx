@@ -92,17 +92,15 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         <Box display="flex" flexDirection="column" flex={2} gap="16px">
           <Experience
             type="Projects"
+            skills={resume.skills}
             experience={resume.projects}
-            onSubmit={(data) =>
-              handleSubmit({
-                projects: data,
-              })
-            }
+            onSubmit={(projects, skills) => handleSubmit({ projects, skills })}
           />
           <Experience
             type="Work Experience"
+            skills={resume.skills}
             experience={resume.experience}
-            onSubmit={(data) => handleSubmit({ experience: data })}
+            onSubmit={(experience, skills) => handleSubmit({ experience, skills })}
           />
         </Box>
         {/* Right column */}
