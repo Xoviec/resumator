@@ -10,6 +10,7 @@ import { SideProjects } from "./SideProjects";
 import { Skills } from "./Skills";
 import { SocialLinks } from "./SocialLinks";
 import { TopSection } from "./TopSection";
+import { Introduction } from "./Introduction";
 
 interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -79,6 +80,14 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           handleSubmit({
             personalia,
             introduction,
+          });
+        }}
+      />
+      <Introduction
+        introText={resume.motivation ? resume.motivation : ""}
+        onSubmit={(data) => {
+          handleSubmit({
+            motivation: data.motivation,
           });
         }}
       />
