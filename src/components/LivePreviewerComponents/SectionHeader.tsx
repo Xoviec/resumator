@@ -33,7 +33,6 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
           flexDirection="row"
           alignItems="center"
           justifyContent="space-between"
-          height={52}
           paddingTop={1}
           paddingRight={1}
           paddingLeft={2}
