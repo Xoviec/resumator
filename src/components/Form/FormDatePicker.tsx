@@ -10,6 +10,7 @@ type FormDatePickerProps = Omit<
   "value" | "onChange" | "renderInput"
 > & {
   name: string;
+  onDateSet?: (val: Date) => void;
 };
 
 export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
@@ -33,6 +34,11 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
           <DesktopDatePicker
             inputFormat={inputFormat}
             value={value}
+            onAccept={(val) => {
+              if (props.onDateSet) {
+                props.onDateSet(val);
+              }
+            }}
             onChange={onChange}
             renderInput={(textFieldProps) => (
               <TextField
