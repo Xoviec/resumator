@@ -15,7 +15,8 @@ import { SkillModel } from "./Skills";
 import { appendSkills } from "../../utils/Skills";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-
+// libs
+import { setYear } from "../../lib/date";
 interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];
@@ -24,7 +25,7 @@ interface ExperienceProps {
 }
 
 const ExperienceFormFields: VoidFunctionComponent = () => {
-  const startMinDate = new Date().setFullYear(1970);
+  const startMinDate = setYear(1970);
   const { startDate, onStartDateChange } = useStartDate();
   return (
     <FormColumn>

@@ -117,3 +117,18 @@ export function formatTimespan({
 
   return "";
 }
+/**
+ * Set the year for current date and month
+ * @param year year to be set
+ * @returns date
+ */
+export function setYear(year: number): number {
+  return new Date().setFullYear(year);
+}
+/**
+ * Get current full year
+ * @returns current year
+ */
+export function getCurrentYear(): number {
+  return new Date().getFullYear();
+}

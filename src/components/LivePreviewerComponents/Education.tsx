@@ -15,6 +15,9 @@ import { colors } from "../../config/theme";
 // hooks
 import { useDragDrop, useStartDate, useModal } from "../../hooks";
 
+// libs
+import { setYear } from "../../lib/date";
+
 interface EducationProps {
   education: EducationModel[];
   onSubmit: (value: EducationModel[]) => void;
@@ -82,7 +85,7 @@ const SortableList = SortableContainer(
 );
 
 const EducationFormFields: VoidFunctionComponent = () => {
-  const startMinDate = new Date().setFullYear(1970);
+  const startMinDate = setYear(1970);
   const { startDate, onStartDateChange } = useStartDate();
   return (
     <FormColumn>
