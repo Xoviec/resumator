@@ -25,9 +25,7 @@ interface ExperienceProps {
 }
 
 const ExperienceFormFields: VoidFunctionComponent = () => {
-  const currentDate = new Date();
   const startMinDate = new Date().setFullYear(1970);
-
   return (
     <FormColumn>
       <FormRow>
@@ -37,11 +35,11 @@ const ExperienceFormFields: VoidFunctionComponent = () => {
       <FormRow>
         <FormDatePicker
           minDate={startMinDate}
-          maxDate={currentDate}
+          disableFuture
           name="startDate"
           label="Start"
         />
-        <FormDatePicker maxDate={currentDate} name="endDate" label="End" />
+        <FormDatePicker disableFuture name="endDate" label="End" />
       </FormRow>
       <FormRow>
         <FormRichTextEditor name="description" label="Description" />
