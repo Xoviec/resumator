@@ -166,13 +166,26 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
       new Fuse(resumes, {
         threshold: 0,
         keys: ["personalia.firstName", "personalia.lastName"],
+        useExtendedSearch: true,
       }),
     [resumes]
   );
 
+  /**
+   * Formats the search terms (e.g. First name and last name),
+   * to search for both terms in the Fuse Model.
+   * See: https://fusejs.io/examples.html#extended-search
+   * @param searchTerms - search terms
+   * @returns - search terms splitted with `|`
+   */
+  const formatSearchTermsForExtendedSearch = (searchTerms: string) =>
+    searchTerms.split(" ").join(" | ");
+
   const resumesToShow = useMemo(() => {
     const searchResult = searchTerms.length
-      ? resumeFuseModel.search(searchTerms).map((r) => r.item)
+      ? resumeFuseModel
+          .search(formatSearchTermsForExtendedSearch(searchTerms))
+          .map((r) => r.item)
       : resumes;
 
     const filteredResumes: ResumeModelWithDisplayName[] = searchResult
