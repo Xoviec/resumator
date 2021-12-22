@@ -20,6 +20,8 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
   onSave,
   onCancel,
 }) => {
+  const currentDate = new Date();
+  const minDate = new Date().setFullYear(currentDate.getFullYear() - 100);
   return (
     <SectionEditDialog
       title="Personal details"
@@ -45,6 +47,8 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
               name="dateOfBirth"
               label="Date of birth"
               inputFormat="dd-MM-yyyy"
+              maxDate={currentDate}
+              minDate={minDate}
               views={["year", "month", "day"]}
             />
           </FormColumn>
