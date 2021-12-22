@@ -11,10 +11,7 @@ import { formatTimespan } from "../../lib/date";
 import { DetailWithIcon } from "./DetailWithIcon";
 import { SectionItemHeader } from "./SectionItemHeader";
 import { SkillChip } from "./SkillChip";
-
-export interface ExperienceStackItem {
-  name: string;
-}
+import { SkillModel } from "./Skills";
 
 export interface ExperienceModel {
   role: string;
@@ -22,7 +19,7 @@ export interface ExperienceModel {
   startDate: Date;
   endDate: Date;
   description: string;
-  stackAndTechniques: ExperienceStackItem[];
+  stackAndTechniques: SkillModel[]; // TODO: rename it to skills?
 }
 
 interface ExperienceItemProps {
