@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import { FunctionComponent, VoidFunctionComponent, useState } from "react";
-import { useModal } from "../../hooks/useModal";
+import { FunctionComponent, VoidFunctionComponent } from "react";
+import { useModal, useStartDate } from "../../hooks/";
 import {
   FormColumn,
   FormDatePicker,
@@ -25,8 +25,7 @@ interface ExperienceProps {
 
 const ExperienceFormFields: VoidFunctionComponent = () => {
   const startMinDate = new Date().setFullYear(1970);
-  const [startDate, setStartDate] = useState<Date>();
-  const onStartDateChange = (date: Date) => setStartDate(date);
+  const { startDate, onStartDateChange } = useStartDate();
   return (
     <FormColumn>
       <FormRow>
