@@ -18,4 +18,5 @@ export interface ResumeModel {
   publications: SideProjectModel[];
   education: EducationModel[];
   socialLinks: SocialLinkModel[];
+  motivation: string | undefined;
 }

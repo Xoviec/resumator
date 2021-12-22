@@ -10,6 +10,7 @@ import { SideProjects } from "./SideProjects";
 import { Skills } from "./Skills";
 import { SocialLinks } from "./SocialLinks";
 import { TopSection } from "./TopSection";
+import { Introduction } from "./Introduction";
 
 interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -82,6 +83,14 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           });
         }}
       />
+      <Introduction
+        introText={resume.motivation ? resume.motivation : ""}
+        onSubmit={(data) => {
+          handleSubmit({
+            motivation: data.motivation,
+          });
+        }}
+      />
       <Box
         display="flex"
         flexDirection={{ xs: "column", md: "row" }}
@@ -92,17 +101,15 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         <Box display="flex" flexDirection="column" flex={2} gap="16px">
           <Experience
             type="Projects"
+            skills={resume.skills}
             experience={resume.projects}
-            onSubmit={(data) =>
-              handleSubmit({
-                projects: data,
-              })
-            }
+            onSubmit={(projects, skills) => handleSubmit({ projects, skills })}
           />
           <Experience
             type="Work Experience"
+            skills={resume.skills}
             experience={resume.experience}
-            onSubmit={(data) => handleSubmit({ experience: data })}
+            onSubmit={(experience, skills) => handleSubmit({ experience, skills })}
           />
         </Box>
         {/* Right column */}

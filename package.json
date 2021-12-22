@@ -39,7 +39,7 @@
     "draft-js-export-html": "^1.4.1",
     "draft-js-import-html": "^1.4.1",
     "emotion-theming": "^11.0.0",
-    "eslint-config-react-app": "^6.0.0",
+    "eslint-config-react-app": "^7.0.0",
     "file-saver": "^2.0.5",
     "firebase": "^8.2.3",
     "fuse.js": "^6.4.6",

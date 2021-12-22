@@ -15,6 +15,8 @@ import {
   ListItemText,
   MenuItem,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { styled } from "@mui/system";
 import * as React from "react";
 import { useEffect, VoidFunctionComponent } from "react";
@@ -31,6 +33,9 @@ import { useModal } from "../../hooks/useModal";
 const StyledList = styled(List)`
   background-color: ${({ theme }) => theme.palette.background.paper};
   min-width: 420px;
+  ${({ theme: { breakpoints } }) => breakpoints.between(1200, 1400)} {
+    min-width: 260px;
+  }
 `;
 
 const StyledListItemIcon = styled(ListItemIcon)`
@@ -202,6 +207,10 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
     onSubmit(updatedSocialLinks);
   };
 
+  const { breakpoints } = useTheme();
+  const matches = useMediaQuery(breakpoints.between(1200, 1400));
+  const secondaryListItem = (link: string) => (matches ? {} : { secondary: link });
+
   return (
     <Section
       title="Online presence"
@@ -230,7 +239,7 @@ export const SocialLinks: React.VFC<SocialLinksProps> = ({
                     ? socialLinkItem.title
                     : socialLinkItemInfo.title
                 }
-                secondary={socialLinkItem.link}
+                {...secondaryListItem(socialLinkItem.link)}
               />
               <ListItemSecondaryAction>
                 <IconButton

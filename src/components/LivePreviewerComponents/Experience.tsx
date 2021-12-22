@@ -11,13 +11,16 @@ import {
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
 import { ExperienceItem, ExperienceModel } from "./ExperienceItem";
+import { SkillModel } from "./Skills";
+import { appendSkills } from "../../utils/Skills";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 
 interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];
-  onSubmit: (value: ExperienceModel[]) => void;
+  skills: SkillModel[];
+  onSubmit: (value: ExperienceModel[], skills: SkillModel[]) => void;
 }
 
 const ExperienceFormFields: VoidFunctionComponent = () => {
@@ -44,6 +47,7 @@ const ExperienceFormFields: VoidFunctionComponent = () => {
 export const Experience: FunctionComponent<ExperienceProps> = ({
   type,
   experience,
+  skills,
   onSubmit,
 }) => {
   const {
@@ -60,7 +64,7 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
   const handleDelete = (index: number) => {
     const filteredExperience = [...experience];
     filteredExperience.splice(index, 1);
-    onSubmit(filteredExperience);
+    onSubmit(filteredExperience, skills);
   };
 
   const handleSave = (item: ExperienceModel) => {
@@ -69,11 +73,12 @@ export const Experience: FunctionComponent<ExperienceProps> = ({
     else updatedExperience.push(item);
 
     updatedExperience = sortDateDescending(updatedExperience);
+    const updatedSkills = appendSkills(skills, item.stackAndTechniques);
 
     setIsEditing(false);
     setEditItem(null);
     setEditItemIndex(null);
-    onSubmit(updatedExperience);
+    onSubmit(updatedExperience, updatedSkills);
   };
 
   /**
