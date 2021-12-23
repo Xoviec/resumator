@@ -20,16 +20,19 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
   views = ["year", "month"],
   ...props
 }) => {
-  const { control, resetField } = useFormContext();
-  const [error, setError] = useState<string>();
+  const {
+    control,
+    resetField,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useFormContext();
   const handleError = (errorType: string | null) => {
     const type = errorType || "";
-    if (["disablePast", "minDate"].includes(type)) {
-      setError("Looks like the date is from the past.🤔");
-    } else if (["disableFuture", "maxDate"].includes(type)) {
-      setError("No future date, please!😅");
+    if (["disableFuture", "maxDate", "disablePast", "minDate"].includes(type)) {
+      setError(name, { type: "custom", message: "Please enter valid date." });
     } else {
-      setError("");
+      clearErrors(name);
     }
   };
 
@@ -57,7 +60,7 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
               <TextField
                 role="input"
                 name={name}
-                helperText={error}
+                helperText={errors[name] && errors[name]["message"]}
                 size="small"
                 sx={{ flex: 1 }}
                 {...textFieldProps}

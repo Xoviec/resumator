@@ -91,7 +91,12 @@ const SectionEditDialogInternal = <T,>({
         <Button type="button" onClick={handleCloseAttempt}>
           Cancel
         </Button>
-        <Button type="submit" color="primary" form="section-edit-dialog-form">
+        <Button
+          type="submit"
+          disabled={Object.keys(form.formState.errors).length > 0}
+          color="primary"
+          form="section-edit-dialog-form"
+        >
           Save
         </Button>
       </DialogActions>
