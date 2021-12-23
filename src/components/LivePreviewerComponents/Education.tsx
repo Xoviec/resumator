@@ -99,13 +99,13 @@ const EducationFormFields: VoidFunctionComponent = () => {
           onDateSet={onStartDateChange}
           disableFuture
           name="startDate"
-          label="Start"
+          label="Start date"
         />
         <FormDatePicker
           minDate={startDate}
           disableFuture
           name="endDate"
-          label="End"
+          label="End date"
         />
       </FormRow>
     </FormColumn>

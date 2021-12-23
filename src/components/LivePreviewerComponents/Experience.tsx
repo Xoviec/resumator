@@ -39,13 +39,13 @@ const ExperienceFormFields: VoidFunctionComponent = () => {
           minDate={startMinDate}
           disableFuture
           name="startDate"
-          label="Start"
+          label="Start date"
         />
         <FormDatePicker
           disableFuture
           minDate={startDate}
           name="endDate"
-          label="End"
+          label="End date"
         />
       </FormRow>
       <FormRow>

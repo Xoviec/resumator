@@ -1,4 +1,4 @@
-import { useEffect, VoidFunctionComponent } from "react";
+import { useEffect, useState, VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { DesktopDatePicker, DatePickerProps } from "@mui/lab";
 import { TextField } from "@mui/material";
@@ -21,6 +21,17 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
   ...props
 }) => {
   const { control, resetField } = useFormContext();
+  const [error, setError] = useState<string>();
+  const handleError = (errorType: string | null) => {
+    const type = errorType || "";
+    if (["disablePast", "minDate"].includes(type)) {
+      setError("Looks like the date is from the past.🤔");
+    } else if (["disableFuture", "maxDate"].includes(type)) {
+      setError("No future date, please!😅");
+    } else {
+      setError("");
+    }
+  };
 
   useEffect(() => () => resetField(name), [resetField, name]);
 
@@ -34,6 +45,8 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
           <DesktopDatePicker
             inputFormat={inputFormat}
             value={value}
+            label={label}
+            onError={handleError}
             onAccept={(val) => {
               if (props.onDateSet) {
                 props.onDateSet(val);
@@ -44,7 +57,7 @@ export const FormDatePicker: VoidFunctionComponent<FormDatePickerProps> = ({
               <TextField
                 role="input"
                 name={name}
-                label={label}
+                helperText={error}
                 size="small"
                 sx={{ flex: 1 }}
                 {...textFieldProps}

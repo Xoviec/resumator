@@ -7,6 +7,14 @@ exports[`FormDatePicker should render correctly 1`] = `
       class="MuiFormControl-root MuiTextField-root css-1vs1jgp-MuiFormControl-root-MuiTextField-root"
       role="input"
     >
+      <label
+        class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink="false"
+        for="mui-1"
+        id="mui-1-label"
+      >
+        test-form-label
+      </label>
       <div
         class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall MuiInputBase-adornedEnd css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root"
       >
@@ -49,12 +57,10 @@ exports[`FormDatePicker should render correctly 1`] = `
           class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="css-nnbavb"
+            class="css-173wfxe"
           >
-            <span
-              class="notranslate"
-            >
-              ​
+            <span>
+              test-form-label
             </span>
           </legend>
         </fieldset>
