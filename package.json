@@ -27,7 +27,7 @@
     "@hookform/resolvers": "^2.8.5",
     "@mui/icons-material": "^5.2.5",
     "@mui/lab": "^5.0.0-alpha.59",
-    "@mui/material": "^5.2.3",
+    "@mui/material": "^5.2.7",
     "@react-pdf/renderer": "^1.6.12",
     "@react-pdf/styled-components": "^1.4.0",
     "@rebass/forms": "^4.0.6",
