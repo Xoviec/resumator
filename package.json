@@ -6,6 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "env TZ=UTC react-scripts test",
+    "test:update-snapshot": "env TZ=UTC react-scripts test --updateSnapshot",
     "coverage": "npm test -- --coverage --watchAll=false",
     "lint": "eslint src/",
     "cypress": "cypress open",

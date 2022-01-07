@@ -1,4 +1,4 @@
-import { useState, FunctionComponent, VoidFunctionComponent } from "react";
+import { FunctionComponent, VoidFunctionComponent } from "react";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { Box, Divider } from "@mui/material";
 import { styled } from "@mui/system";
@@ -13,8 +13,10 @@ import { EducationModel, EducationItem } from "./EducationItem";
 import { colors } from "../../config/theme";
 
 // hooks
-import { useDragDrop } from "../../hooks/useDragDrop";
-import { useModal } from "../../hooks/useModal";
+import { useDragDrop, useStartDate, useModal } from "../../hooks";
+
+// libs
+import { setYear } from "../../lib/date";
 
 interface EducationProps {
   education: EducationModel[];
@@ -83,6 +85,8 @@ const SortableList = SortableContainer(
 );
 
 const EducationFormFields: VoidFunctionComponent = () => {
+  const startMinDate = setYear(1970);
+  const { startDate, onStartDateChange } = useStartDate();
   return (
     <FormColumn>
       <FormRow>
@@ -90,8 +94,19 @@ const EducationFormFields: VoidFunctionComponent = () => {
         <FormTextField label="Institute" name="institute" />
       </FormRow>
       <FormRow>
-        <FormDatePicker name="startDate" label="Start" />
-        <FormDatePicker name="endDate" label="End" />
+        <FormDatePicker
+          minDate={startMinDate}
+          onDateSet={onStartDateChange}
+          disableFuture
+          name="startDate"
+          label="Start date"
+        />
+        <FormDatePicker
+          minDate={startDate}
+          disableFuture
+          name="endDate"
+          label="End date"
+        />
       </FormRow>
     </FormColumn>
   );

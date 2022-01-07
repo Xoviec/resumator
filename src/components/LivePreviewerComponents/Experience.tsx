@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { FunctionComponent, VoidFunctionComponent } from "react";
-import { useModal } from "../../hooks/useModal";
+import { useModal, useStartDate } from "../../hooks/";
 import {
   FormColumn,
   FormDatePicker,
@@ -15,7 +15,8 @@ import { SkillModel } from "./Skills";
 import { appendSkills } from "../../utils/Skills";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-
+// libs
+import { setYear } from "../../lib/date";
 interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];
@@ -24,6 +25,8 @@ interface ExperienceProps {
 }
 
 const ExperienceFormFields: VoidFunctionComponent = () => {
+  const startMinDate = setYear(1970);
+  const { startDate, onStartDateChange } = useStartDate();
   return (
     <FormColumn>
       <FormRow>
@@ -31,8 +34,19 @@ const ExperienceFormFields: VoidFunctionComponent = () => {
         <FormTextField required name="company" label="Company" />
       </FormRow>
       <FormRow>
-        <FormDatePicker name="startDate" label="Start" />
-        <FormDatePicker name="endDate" label="End" />
+        <FormDatePicker
+          onDateSet={onStartDateChange}
+          minDate={startMinDate}
+          disableFuture
+          name="startDate"
+          label="Start date"
+        />
+        <FormDatePicker
+          disableFuture
+          minDate={startDate}
+          name="endDate"
+          label="End date"
+        />
       </FormRow>
       <FormRow>
         <FormRichTextEditor name="description" label="Description" />

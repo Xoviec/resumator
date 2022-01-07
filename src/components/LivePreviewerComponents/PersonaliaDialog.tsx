@@ -9,6 +9,7 @@ import {
 } from "../Form";
 import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 import { PersonaliaModel } from "./TopSection";
+import { setYear, getCurrentYear } from "../../lib/date";
 
 type DialogFormData = PersonaliaModel & { introduction: string };
 
@@ -20,6 +21,7 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
   onSave,
   onCancel,
 }) => {
+  const minDate = setYear(getCurrentYear() - 100);
   return (
     <SectionEditDialog
       title="Personal details"
@@ -45,6 +47,8 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
               name="dateOfBirth"
               label="Date of birth"
               inputFormat="dd-MM-yyyy"
+              disableFuture
+              minDate={minDate}
               views={["year", "month", "day"]}
             />
           </FormColumn>
