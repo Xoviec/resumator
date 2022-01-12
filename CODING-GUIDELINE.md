@@ -77,6 +77,10 @@ export const SomeComponent = () => {
 - git rebase develop
 - if have conflict resolve it and do git rebase --continue
 
+#### How to test
+1. We follow code reviews, each PR needs to have minimum of 2 approvals.
+2. Has there been a major UI change / Functionallity the reviewers are expected to test it locally on their machine as well. Any issues? contact the PR's creator.
+
 ### Folder structure
 
 - src
