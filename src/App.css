@@ -1,5 +1,5 @@
 /* for the widgets component API doesnt support custom styles */
 .css-1rhbuit-multiValue {
   z-index: 9999;
-  background-color: #fff;
+  background-color: transparent;
 }
