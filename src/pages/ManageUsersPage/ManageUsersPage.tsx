@@ -66,21 +66,25 @@ export const ManageUsersPage: FC = () => {
 
   const handleCellEditCommit = useCallback(
     async (params: GridCellEditCommitParams) => {
+      const { id, value, field } = params;
+      const rowIndexToBeUpdated = rows.findIndex((row) => row.id === id);
+      const isValueChanged = value !== rows[rowIndexToBeUpdated][field];
+      if (!isValueChanged) return;
       try {
-        if (params.id === userRecord?.id) {
+        if (id === userRecord?.id) {
           throw new Error("You cannot edit your own user record");
         }
         // Make the HTTP request to save in the backend
         const response = await mutateRow({
-          id: `${params.id}`,
-          [params.field]: params.value,
+          id: `${id}`,
+          [field]: value,
         });
         setSnackbar({
           children: `UserID: "${response?.id}" has been updated successfully`,
           severity: "success",
         });
         setRows((prev) =>
-          prev.map((row) => (row.id === params.id ? { ...row, ...response } : row))
+          prev.map((row) => (row.id === id ? { ...row, ...response } : row))
         );
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -89,7 +93,7 @@ export const ManageUsersPage: FC = () => {
         setRows((prev) => [...prev]);
       }
     },
-    [mutateRow, userRecord?.id]
+    [mutateRow, rows, userRecord?.id]
   );
 
   useEffect(() => {
