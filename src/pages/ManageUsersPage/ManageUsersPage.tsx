@@ -67,6 +67,9 @@ export const ManageUsersPage: FC = () => {
   const handleCellEditCommit = useCallback(
     async (params: GridCellEditCommitParams) => {
       try {
+        if (params.id === userRecord?.id) {
+          throw new Error("You cannot edit your own user record");
+        }
         // Make the HTTP request to save in the backend
         const response = await mutateRow({
           id: `${params.id}`,
@@ -79,13 +82,14 @@ export const ManageUsersPage: FC = () => {
         setRows((prev) =>
           prev.map((row) => (row.id === params.id ? { ...row, ...response } : row))
         );
-      } catch (error) {
-        setSnackbar({ children: "Error while saving user", severity: "error" });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setSnackbar({ children: `${error?.message}`, severity: "error" });
         // Restore the row in case of error
         setRows((prev) => [...prev]);
       }
     },
-    [mutateRow]
+    [mutateRow, userRecord?.id]
   );
 
   useEffect(() => {
