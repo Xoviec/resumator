@@ -10,7 +10,7 @@ interface IntroductionProps {
   introText: string;
 }
 
-interface IntroductionDialog {
+interface IntroductionDialogProps {
   data: {
     motivation: string;
   };
@@ -19,7 +19,7 @@ interface IntroductionDialog {
   open: boolean;
 }
 
-const IntroductionDialog: FunctionComponent<IntroductionDialog> = ({
+const IntroductionDialog: FunctionComponent<IntroductionDialogProps> = ({
   data,
   onCancel,
   onSave,
@@ -65,7 +65,7 @@ export const Introduction: FunctionComponent<IntroductionProps> = ({
           data={{ motivation: introText }}
           open={isEditing}
           onCancel={() => setIsEditing(false)}
-          onSave={(data: any) => {
+          onSave={(data) => {
             onSubmit(data);
             setIsEditing(false);
           }}
