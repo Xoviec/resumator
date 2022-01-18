@@ -64,10 +64,6 @@ export const FirebaseAppContextProvider: React.FC = ({ children }) => {
     undefined
   );
 
-  const [usersRecords, setUsersRecords] = useState<FirebaseUserRecord[] | undefined>(
-    undefined
-  );
-
   useEffect(() => {
     const initApp = async () => {
       if (firebase.apps.length) {
@@ -107,17 +103,6 @@ export const FirebaseAppContextProvider: React.FC = ({ children }) => {
         .collection("users")
         .doc(authUser.uid)
         .get();
-
-      if (userRec?.data()?.isManager) {
-        const usersRec = await firebase.firestore().collection("users").get();
-        const usersWithIDs = usersRec.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        // eslint-disable-next-line no-console
-        console.log(usersWithIDs);
-        setUsersRecords(usersWithIDs as FirebaseUserRecord[]);
-      }
 
       if (userRec) {
         setUserRecord(userRec.data() as FirebaseUserRecord);

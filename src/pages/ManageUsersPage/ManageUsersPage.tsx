@@ -1,114 +1,49 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import firebase from "firebase/app";
+import "firebase/firestore";
+
+import { FirebaseUserRecord } from "../../context/FirebaseContext/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+
 import { MainLayout } from "../../layouts/MainLayout";
+
+import Alert, { AlertProps } from "@mui/material/Alert";
 import {
   DataGrid,
   GridCellEditCommitParams,
   GridColumns,
-  GridRowId,
   GridRowsProp,
   GridCellParams,
 } from "@mui/x-data-grid";
 import Snackbar from "@mui/material/Snackbar";
-// import { getAuth } from "firebase/auth";
-import Alert, { AlertProps } from "@mui/material/Alert";
-
-interface User {
-  name: string;
-  registered: boolean;
-  id: string | GridRowId;
-  isManager: boolean;
-  email: string;
-}
-
-const useFakeMutation = () => {
-  return useCallback(
-    (user: Partial<User>) =>
-      new Promise<Partial<User>>((resolve) =>
-        setTimeout(() => {
-          resolve(user);
-        }, 200)
-      ),
-    []
-  );
-};
-
-// const useListAllUsers = (nextPageToken) => {
-//   // List batch of users, 1000 at a time.
-//   getAuth()
-//     .listUsers(1000, nextPageToken)
-//     .then((listUsersResult) => {
-//       listUsersResult.users.forEach((userRecord) => {
-//         console.log("user", userRecord.toJSON());
-//       });
-//       if (listUsersResult.pageToken) {
-//         // List next batch of users.
-//         listAllUsers(listUsersResult.pageToken);
-//       }
-//     })
-//     .catch((error) => {
-//       console.log("Error listing users:", error);
-//     });
-// };
 
 const columns: GridColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "id", headerName: "ID", width: 290 },
   { field: "name", headerName: "Name", width: 130 },
   {
-    field: "emailAddress",
+    field: "email",
     headerName: "Email Address",
     width: 250,
   },
   {
-    field: "rule",
-    headerName: "Rule",
-    type: "string",
+    field: "roles",
+    headerName: "Roles",
     width: 90,
+  },
+  {
+    field: "isManager",
+    headerName: "Is Manager?",
+    type: "boolean",
+    width: 150,
     editable: true,
   },
 ];
 
-const INITIAL_ROWS: GridRowsProp = [
-  {
-    id: 1,
-    name: "Rodney Kemp",
-    emailAddress: "rodney.kemp@frontmen.nl",
-    rule: "Admin",
-  },
-  {
-    id: 2,
-    name: "Sander de Jong",
-    emailAddress: "sander@frontmen.nl",
-    rule: "Manager",
-  },
-  {
-    id: 3,
-    name: "Daniel Frey",
-    emailAddress: "daniel.frey@frontmen.nl",
-    rule: "User",
-  },
-  {
-    id: 4,
-    name: "Arman Sarkisov",
-    emailAddress: "Arman.Sarkisov@frontmen.nl",
-    rule: "User",
-  },
-  {
-    id: 5,
-    name: "Boluwatife Fakorede",
-    emailAddress: "Boluwatife.Fakorede@frontmen.nl",
-    rule: "User",
-  },
-  {
-    id: 6,
-    name: "Suwigya Rathore",
-    emailAddress: "Suwigya.Rathore@frontmen.nl",
-    rule: "User",
-  },
-];
-
 export const ManageUsersPage: FC = () => {
-  const mutateRow = useFakeMutation();
-  const [rows, setRows] = useState(INITIAL_ROWS);
+  const { userRecord } = useFirebaseApp();
+  const [rows, setRows] = useState<GridRowsProp>([]);
 
   const [snackbar, setSnackbar] = useState<Pick<
     AlertProps,
@@ -116,17 +51,29 @@ export const ManageUsersPage: FC = () => {
   > | null>(null);
 
   const handleCloseSnackbar = () => setSnackbar(null);
+  const mutateRow = useCallback(async (user: Partial<FirebaseUserRecord>) => {
+    const { id } = user;
+    if (!id) {
+      throw new Error("User record is missing an ID");
+    }
+
+    const db = firebase.firestore();
+    const userRef = db.collection("users").doc(id);
+
+    await userRef.update(user);
+    return user;
+  }, []);
 
   const handleCellEditCommit = useCallback(
     async (params: GridCellEditCommitParams) => {
       try {
         // Make the HTTP request to save in the backend
         const response = await mutateRow({
-          id: params.id,
+          id: `${params.id}`,
           [params.field]: params.value,
         });
         setSnackbar({
-          children: "User successfully saved",
+          children: `UserID: "${response?.id}" has been updated successfully`,
           severity: "success",
         });
         setRows((prev) =>
@@ -141,28 +88,50 @@ export const ManageUsersPage: FC = () => {
     [mutateRow]
   );
 
-  function handleCellEditable(params: GridCellParams, details?: any) {
-    return params.row.rule !== "Admin";
-  }
+  useEffect(() => {
+    if (!userRecord?.isManager) return;
+    async function fetchData() {
+      try {
+        const usersRec = await firebase.firestore().collection("users").get();
+        const usersWithIDs = usersRec.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setRows(usersWithIDs);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setSnackbar({ children: `${error?.message}`, severity: "error" });
+      }
+    }
+    fetchData();
+    return () => {
+      setRows([]);
+    };
+  }, [userRecord]);
 
   return (
     <MainLayout>
-      <div style={{ width: "100%" }}>
+      {userRecord?.isManager ? (
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={3}
-          rowsPerPageOptions={[3]}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
           onCellEditCommit={handleCellEditCommit}
-          isCellEditable={handleCellEditable}
+          isCellEditable={(params: GridCellParams) => params.row.rule !== "Admin"}
           autoHeight
         />
-        {!!snackbar && (
-          <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
-            <Alert {...snackbar} onClose={handleCloseSnackbar} />
-          </Snackbar>
-        )}
-      </div>
+      ) : (
+        <Alert severity="info">
+          You are not authorized to manage users. Go back to the{" "}
+          <Link to="/">home page</Link>.
+        </Alert>
+      )}
+      {snackbar && (
+        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
     </MainLayout>
   );
 };
