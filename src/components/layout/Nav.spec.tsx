@@ -195,9 +195,7 @@ describe("Nav", () => {
     );
 
     expect(getByAltText("John Doe")).toBeInTheDocument();
-    expect(getByAltText("John Doe").getAttribute("src")).toEqual(
-      "https://example.com"
-    );
+    expect(getByAltText("John Doe")).toHaveAttribute("src", "https://example.com");
   });
 
   it("shows default avatar when user photo not present", () => {
