@@ -44,6 +44,7 @@ const columns: GridColumns = [
 export const ManageUsersPage: FC = () => {
   const { userRecord } = useFirebaseApp();
   const [rows, setRows] = useState<GridRowsProp>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [snackbar, setSnackbar] = useState<Pick<
     AlertProps,
@@ -109,6 +110,8 @@ export const ManageUsersPage: FC = () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setSnackbar({ children: `${error?.message}`, severity: "error" });
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -125,6 +128,7 @@ export const ManageUsersPage: FC = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10]}
+          loading={isLoading}
           onCellEditCommit={handleCellEditCommit}
           isCellEditable={(params: GridCellParams) => params.row.rule !== "Admin"}
           autoHeight
