@@ -1,21 +1,25 @@
 import { Grid, Box, Typography, InputBase, Button } from "@mui/material";
 import { SpacedButton } from "../../components/Material";
 import { colors } from "../../config/theme";
-import { FunctionComponent } from "react";
+import { ChangeEvent, FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { inputStyle } from "./skillsEditorStyles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 export interface SkillHeaderProps {
-  hasError: boolean;
-  saveNewSkill: (event: any) => any;
+  isBtnDisabled: boolean;
+  saveNewSkill: (event: React.FormEvent<HTMLFormElement>) => void;
   newSkill: string;
   editCount: number;
-  saveEditedSkills: () => any;
-  handleNewSkill: (event: any) => any;
+  saveEditedSkills: () => void;
+  handleNewSkill: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
-  hasError,
+  isBtnDisabled,
   saveNewSkill,
   newSkill,
   handleNewSkill,
@@ -36,7 +40,6 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
               Go to overview
             </Button>
           </Box>
-          {hasError && <p color={colors.orange}>Something went wrong</p>}
         </Grid>
         <Grid item xs={12} md={8}>
           <Box
@@ -59,12 +62,14 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
                   value={newSkill}
                   sx={inputStyle}
                   onChange={handleNewSkill}
+                  color={isBtnDisabled ? "error" : "info"}
                 />
                 <SpacedButton
+                  startIcon={<AddIcon />}
                   variant="contained"
                   color="secondary"
                   marginLeft={2}
-                  disabled={!newSkill}
+                  disabled={isBtnDisabled}
                   type="submit"
                 >
                   Add skill
@@ -78,13 +83,14 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
               alignItems="center"
             >
               <SpacedButton
+                startIcon={<DeleteIcon />}
                 variant="contained"
                 color="secondary"
                 marginLeft={{ md: 2 }}
                 disabled={!editCount}
                 onClick={saveEditedSkills}
               >
-                Update skills ({editCount})
+                Delete selected skills ({editCount})
               </SpacedButton>
             </Box>
           </Box>

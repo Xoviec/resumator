@@ -51,7 +51,6 @@ export const ManageUsersPage: FC = () => {
     "children" | "severity"
   > | null>(null);
 
-  const handleCloseSnackbar = () => setSnackbar(null);
   const mutateRow = useCallback(async (user: Partial<FirebaseUserRecord>) => {
     const { id } = user;
     if (!id) {
@@ -140,8 +139,8 @@ export const ManageUsersPage: FC = () => {
         </Alert>
       )}
       {snackbar && (
-        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
-          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        <Snackbar open onClose={() => setSnackbar(null)} autoHideDuration={6000}>
+          <Alert {...snackbar} onClose={() => setSnackbar(null)} />
         </Snackbar>
       )}
     </MainLayout>
