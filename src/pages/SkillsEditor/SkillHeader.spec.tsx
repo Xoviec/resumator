@@ -18,9 +18,9 @@ describe("Skill Header", () => {
       saveEditedSkills: jest.fn(),
       editCount: 0,
       newSkill: "",
+      isBtnDisabled: false,
       handleNewSkill: jest.fn(),
       saveNewSkill: jest.fn(),
-      hasError: false,
     } as SkillHeaderProps;
 
     render(
@@ -39,9 +39,9 @@ describe("Skill Header", () => {
       saveEditedSkills: jest.fn(),
       editCount: 0,
       newSkill: "",
+      isBtnDisabled: true,
       handleNewSkill: jest.fn(),
       saveNewSkill: jest.fn(),
-      hasError: true,
     } as SkillHeaderProps;
 
     render(

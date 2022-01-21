@@ -1,6 +1,5 @@
 import { Grid, Box, Typography, InputBase, Button } from "@mui/material";
 import { SpacedButton } from "../../components/Material";
-import { colors } from "../../config/theme";
 import { ChangeEvent, FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
 import { inputStyle } from "./skillsEditorStyles";
