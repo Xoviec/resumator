@@ -3,6 +3,7 @@ import { FC, useState, useEffect } from "react";
 import { MainLayout } from "../../layouts/MainLayout";
 import {
   DataGrid,
+  GridState,
   GridColDef,
   GridRowsProp,
   GridToolbar,
@@ -24,7 +25,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-const filterModeDefault: GridFilterModel = {
+const filterModelDefault: GridFilterModel = {
   items: [
     {
       columnField: "skillName",
@@ -36,8 +37,8 @@ const filterModeDefault: GridFilterModel = {
 
 export const SkillsEditorPage: FC = () => {
   const { userRecord } = useFirebaseApp();
-  const [rows, setRows] = useState<GridRowsProp>([]);
   const { skillList, updateSkillList } = useSkillsContext();
+  const [rows, setRows] = useState<GridRowsProp>([]);
   const [rowsToDelete, setRowsToDelete] = useState<GridRowId[]>([]);
   const [newSkill, setNewSkill] = useState("");
   const [isSkillUnique, setIsSkillUnique] = useState(true);
@@ -45,7 +46,7 @@ export const SkillsEditorPage: FC = () => {
     AlertProps,
     "children" | "severity"
   > | null>(null);
-  const [filterModel, setFilterModel] = useState(filterModeDefault);
+  const [filterModel, setFilterModel] = useState(filterModelDefault);
 
   useEffect(() => {
     const skillsWithIDs = skillList.map((skill, index) => ({
@@ -55,20 +56,7 @@ export const SkillsEditorPage: FC = () => {
     setRows(skillsWithIDs);
   }, [skillList]);
 
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      const checkDOM =
-        document?.querySelector(".MuiDataGrid-overlay")?.textContent ===
-        "No results found.";
-      setIsSkillUnique(checkDOM);
-      return checkDOM;
-    }, 0);
-    return () => {
-      clearTimeout(timeOut);
-    };
-  }, [filterModel]);
-
-  function handleDelete() {
+  function handleDeleteBtn() {
     const rowsToKeep = rows.filter(
       (row) => !rowsToDelete.find((rowToDelete) => rowToDelete === row.id)
     );
@@ -79,11 +67,11 @@ export const SkillsEditorPage: FC = () => {
   function handleNewSkill(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    const newSkill = event.target.value;
-    setNewSkill(newSkill);
+    const { value } = event.target;
+    setNewSkill(value);
     setFilterModel({
       ...filterModel,
-      items: [{ ...filterModel.items[0], value: newSkill }],
+      items: [{ ...filterModel.items[0], value }],
     });
   }
 
@@ -93,6 +81,7 @@ export const SkillsEditorPage: FC = () => {
       return setSnackbar({ children: "Skill already exists", severity: "error" });
     }
     setRows(rows.concat({ id: `${rows.length}-${newSkill}`, skillName: newSkill }));
+    //TODO: save new skill to firestore
     setSnackbar({
       children: `Skill "${newSkill}" has been added successfully`,
       severity: "success",
@@ -100,9 +89,17 @@ export const SkillsEditorPage: FC = () => {
     clearSearch();
   }
 
+  function handleStateChange(state: GridState) {
+    const { pagination, filter } = state;
+    setNewSkill(filter.filterModel.items[0].value);
+    const isSearchRowCount = pagination.rowCount === 0;
+    if (isSearchRowCount) return setIsSkillUnique(true);
+    return setIsSkillUnique(false);
+  }
+
   function clearSearch() {
     setNewSkill("");
-    setFilterModel(filterModeDefault);
+    setFilterModel(filterModelDefault);
   }
 
   return (
@@ -111,10 +108,10 @@ export const SkillsEditorPage: FC = () => {
         <>
           <SkillHeader
             isBtnDisabled={!newSkill || !isSkillUnique}
-            saveNewSkill={handleSave}
             newSkill={newSkill}
             editCount={rowsToDelete.length}
-            saveEditedSkills={handleDelete}
+            saveNewSkill={handleSave}
+            saveEditedSkills={handleDeleteBtn}
             handleNewSkill={handleNewSkill}
           />
           <DataGrid
@@ -124,15 +121,17 @@ export const SkillsEditorPage: FC = () => {
             rowsPerPageOptions={[20]}
             autoHeight
             checkboxSelection
-            onSelectionModelChange={(selectionModel) =>
-              setRowsToDelete(selectionModel)
-            }
-            loading={skillList.length === 0}
+            loading={rows.length === 0}
+            filterModel={filterModel}
+            density="compact"
             components={{
               Toolbar: GridToolbar,
             }}
-            filterModel={filterModel}
-            onFilterModelChange={(newFilterModel) => setFilterModel(newFilterModel)}
+            onSelectionModelChange={setRowsToDelete}
+            onStateChange={handleStateChange}
+            onFilterModelChange={(filterModel) =>
+              setTimeout(() => setFilterModel(filterModel), 0)
+            }
           />
         </>
       ) : (
@@ -141,9 +140,13 @@ export const SkillsEditorPage: FC = () => {
           <Link to="/">home page</Link>.
         </Alert>
       )}
-
       {snackbar && (
-        <Snackbar open onClose={() => setSnackbar(null)} autoHideDuration={6000}>
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          onClose={() => setSnackbar(null)}
+          autoHideDuration={6000}
+        >
           <Alert {...snackbar} onClose={() => setSnackbar(null)} />
         </Snackbar>
       )}

@@ -157,7 +157,12 @@ export const ManageUsersPage: FC = () => {
         </Alert>
       )}
       {snackbar && (
-        <Snackbar open onClose={() => setSnackbar(null)} autoHideDuration={6000}>
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          onClose={() => setSnackbar(null)}
+          autoHideDuration={6000}
+        >
           <Alert {...snackbar} onClose={() => setSnackbar(null)} />
         </Snackbar>
       )}

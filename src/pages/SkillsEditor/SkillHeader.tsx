@@ -61,15 +61,14 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
                   value={newSkill}
                   sx={inputStyle}
                   onChange={handleNewSkill}
-                  color={isBtnDisabled ? "error" : "info"}
                 />
                 <SpacedButton
                   startIcon={<AddIcon />}
                   variant="contained"
                   color="secondary"
-                  marginLeft={2}
                   disabled={isBtnDisabled}
                   type="submit"
+                  mx={2}
                 >
                   Add skill
                 </SpacedButton>
@@ -85,7 +84,6 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
                 startIcon={<DeleteIcon />}
                 variant="contained"
                 color="secondary"
-                marginLeft={{ md: 2 }}
                 disabled={!editCount}
                 onClick={saveEditedSkills}
               >
