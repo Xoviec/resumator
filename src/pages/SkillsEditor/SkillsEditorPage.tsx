@@ -12,6 +12,7 @@ import {
 } from "@mui/x-data-grid";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import Alert, { AlertProps } from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import { SkillHeader } from "./SkillHeader";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
@@ -40,6 +41,7 @@ export const SkillsEditorPage: FC = () => {
   const { skillList, updateSkillList } = useSkillsContext();
   const [rows, setRows] = useState<GridRowsProp>([]);
   const [rowsToDelete, setRowsToDelete] = useState<GridRowId[]>([]);
+  const [rowsBackup, setRowsBackup] = useState<GridRowsProp>([]);
   const [newSkill, setNewSkill] = useState("");
   const [isSkillUnique, setIsSkillUnique] = useState(true);
   const [snackbar, setSnackbar] = useState<Pick<
@@ -56,12 +58,26 @@ export const SkillsEditorPage: FC = () => {
     setRows(skillsWithIDs);
   }, [skillList]);
 
-  function handleDeleteBtn() {
+  async function handleDeleteBtn() {
+    setRowsBackup(rows);
     const rowsToKeep = rows.filter(
       (row) => !rowsToDelete.find((rowToDelete) => rowToDelete === row.id)
     );
-    setRows(rowsToKeep);
-    setRowsToDelete([]);
+    try {
+      await updateSkillList(rowsToKeep.map((row) => row.skillName));
+      setRows(rowsToKeep);
+      setSnackbar({
+        children: `Skills "${rowsToDelete.join(
+          ", "
+        )}" has been deleted successfully`,
+        severity: "success",
+      });
+    } catch (e: any) {
+      setSnackbar({
+        children: `Server Error: ${e.message}`,
+        severity: "error",
+      });
+    }
   }
 
   function handleNewSkill(
@@ -75,18 +91,29 @@ export const SkillsEditorPage: FC = () => {
     });
   }
 
-  function handleSave(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSave(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!isSkillUnique) {
       return setSnackbar({ children: "Skill already exists", severity: "error" });
     }
-    setRows(rows.concat({ id: `${rows.length}-${newSkill}`, skillName: newSkill }));
-    //TODO: save new skill to firestore
-    setSnackbar({
-      children: `Skill "${newSkill}" has been added successfully`,
-      severity: "success",
+    const newRows = rows.concat({
+      id: `${rows.length}-${newSkill}`,
+      skillName: newSkill,
     });
-    clearSearch();
+    setRowsBackup(rows);
+    try {
+      await updateSkillList(newRows.map((row) => row.skillName));
+      setRows(newRows);
+      setSnackbar({
+        children: `Skill "${newSkill}" has been added successfully`,
+        severity: "success",
+      });
+    } catch (e: any) {
+      setSnackbar({
+        children: `Server Error: ${e.message}`,
+        severity: "error",
+      });
+    }
   }
 
   function handleStateChange(state: GridState) {
@@ -97,9 +124,25 @@ export const SkillsEditorPage: FC = () => {
     return setIsSkillUnique(false);
   }
 
-  function clearSearch() {
-    setNewSkill("");
-    setFilterModel(filterModelDefault);
+  async function handleUndoChanges() {
+    if (rowsBackup.length > 0) {
+      try {
+        await updateSkillList(rowsBackup.map((row) => row.skillName));
+        setRows(rowsBackup);
+        handleSnackbarClose();
+      } catch (e: any) {
+        setSnackbar({
+          children: `Server Error: ${e.message}`,
+          severity: "error",
+        });
+      }
+    }
+  }
+
+  function handleSnackbarClose() {
+    setSnackbar(null);
+    setRowsBackup([]);
+    setRowsToDelete([]);
   }
 
   return (
@@ -144,10 +187,20 @@ export const SkillsEditorPage: FC = () => {
         <Snackbar
           open
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          onClose={() => setSnackbar(null)}
+          onClose={handleSnackbarClose}
           autoHideDuration={6000}
         >
-          <Alert {...snackbar} onClose={() => setSnackbar(null)} />
+          <Alert
+            {...snackbar}
+            onClose={handleSnackbarClose}
+            action={
+              <>
+                {snackbar.severity !== "error" && (
+                  <Button onClick={handleUndoChanges}>Undo changes</Button>
+                )}
+              </>
+            }
+          />
         </Snackbar>
       )}
     </MainLayout>
