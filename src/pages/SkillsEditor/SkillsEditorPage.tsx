@@ -22,7 +22,6 @@ const columns: GridColDef[] = [
     field: "skillName",
     headerName: "Skill Name",
     width: 150,
-    editable: true,
   },
 ];
 
@@ -72,6 +71,7 @@ export const SkillsEditorPage: FC = () => {
         )}" has been deleted successfully`,
         severity: "success",
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       setSnackbar({
         children: `Server Error: ${e.message}`,
@@ -108,6 +108,7 @@ export const SkillsEditorPage: FC = () => {
         children: `Skill "${newSkill}" has been added successfully`,
         severity: "success",
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       setSnackbar({
         children: `Server Error: ${e.message}`,
@@ -130,6 +131,7 @@ export const SkillsEditorPage: FC = () => {
         await updateSkillList(rowsBackup.map((row) => row.skillName));
         setRows(rowsBackup);
         handleSnackbarClose();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (e: any) {
         setSnackbar({
           children: `Server Error: ${e.message}`,
