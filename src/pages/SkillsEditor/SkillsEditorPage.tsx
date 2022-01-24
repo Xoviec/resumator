@@ -84,6 +84,7 @@ export const SkillsEditorPage: FC = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     const { value } = event.target;
+    handleSnackbarClose();
     setNewSkill(value);
     setFilterModel({
       ...filterModel,
@@ -142,9 +143,11 @@ export const SkillsEditorPage: FC = () => {
   }
 
   function handleSnackbarClose() {
-    setSnackbar(null);
-    setRowsBackup([]);
-    setRowsToDelete([]);
+    if (snackbar) {
+      setSnackbar(null);
+      setRowsBackup([]);
+      setRowsToDelete([]);
+    }
   }
 
   return (
@@ -172,7 +175,10 @@ export const SkillsEditorPage: FC = () => {
             components={{
               Toolbar: GridToolbar,
             }}
-            onSelectionModelChange={setRowsToDelete}
+            onSelectionModelChange={(selectionModel) => {
+              handleSnackbarClose();
+              setRowsToDelete(selectionModel);
+            }}
             onStateChange={handleStateChange}
             onFilterModelChange={(filterModel) =>
               setTimeout(() => setFilterModel(filterModel), 0)
