@@ -13,6 +13,7 @@ export type FirebaseUserRecord = {
   name: string;
   registered: boolean;
   isManager: boolean;
+  id?: string;
 };
 
 export type FirebaseAppContextType = {

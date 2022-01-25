@@ -9,7 +9,8 @@
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "react-app",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "plugin:jest-dom/recommended"
   ],
   "rules": {
     "no-console": "warn",

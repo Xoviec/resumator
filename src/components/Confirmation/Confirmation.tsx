@@ -10,13 +10,13 @@ import {
 
 export interface ConfirmationProps {
   isOpen: boolean;
-  onClose?: () => any;
+  onClose?: () => React.MouseEventHandler<HTMLButtonElement> | undefined | null;
   title?: string;
   message?: string;
   denyText?: string;
   confirmText?: string;
-  denyClick: () => any;
-  confirmClick: () => any;
+  denyClick: () => React.MouseEventHandler<HTMLButtonElement> | undefined | void;
+  confirmClick: () => React.MouseEventHandler<HTMLButtonElement> | undefined | void;
 }
 
 export const Confirmation: VoidFunctionComponent<ConfirmationProps> = ({
