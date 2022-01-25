@@ -13,6 +13,7 @@ import {
 } from "./context/FirebaseContext/FirebaseContext";
 import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
 import { CreatorPage } from "./pages/CreatorPage/CreatorPage";
+import { ManageUsersPage } from "./pages/ManageUsersPage/ManageUsersPage";
 import { LivePreviewerPage } from "./pages/LivePreviewerPage/LivePreviewerPage";
 import { LoginPage } from "./pages/LoginPage";
 import { UserRedirect } from "./pages/Overview/UserRedirect";
@@ -36,7 +37,7 @@ export const App: VoidFunctionComponent = () => {
                   <Route
                     exact
                     type="private"
-                    path={["/", "/skills", "/new", "/resume/:id"]}
+                    path={["/", "/skills", "/new", "/resume/:id", "/users"]}
                   >
                     <SkillsContextProvider>
                       <RouterRoute exact path="/" component={LivePreviewerPage} />
@@ -51,6 +52,7 @@ export const App: VoidFunctionComponent = () => {
                         component={SkillsEditorPage}
                       />
                       <RouterRoute exact path="/new" component={CreatorPage} />
+                      <RouterRoute exact path="/users" component={ManageUsersPage} />
                     </SkillsContextProvider>
                   </Route>
                   <Route

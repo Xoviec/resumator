@@ -5,7 +5,10 @@ import userEvent from "@testing-library/user-event";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 import { FunctionComponent } from "react";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import {
+  useFirebaseApp,
+  FirebaseAppContextType,
+} from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { mocked } from "jest-mock";
 import { Nav } from "./Nav";
@@ -36,7 +39,7 @@ describe("Nav", () => {
       () =>
         ({
           firebase: {},
-        } as any)
+        } as FirebaseAppContextType)
     );
 
     const { asFragment, getByLabelText } = render(
@@ -67,7 +70,7 @@ describe("Nav", () => {
       () =>
         ({
           firebase: {},
-        } as any)
+        } as FirebaseAppContextType)
     );
 
     const { asFragment, getByLabelText } = render(
@@ -99,6 +102,7 @@ describe("Nav", () => {
               signOut: signOutMock,
             }),
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any)
     );
 
@@ -127,7 +131,7 @@ describe("Nav", () => {
         ({
           firebase: {},
           userRecord: { isManager: true },
-        } as any)
+        } as FirebaseAppContextType)
     );
 
     const { getByText } = render(
@@ -153,7 +157,7 @@ describe("Nav", () => {
         ({
           firebase: {},
           userRecord: { isManager: false },
-        } as any)
+        } as FirebaseAppContextType)
     );
 
     const { queryByText } = render(
@@ -179,7 +183,7 @@ describe("Nav", () => {
         ({
           firebase: {},
           authUser: { displayName: "John Doe", photoURL: "https://example.com" },
-        } as any)
+        } as FirebaseAppContextType)
     );
 
     const { getByAltText } = render(
@@ -191,9 +195,7 @@ describe("Nav", () => {
     );
 
     expect(getByAltText("John Doe")).toBeInTheDocument();
-    expect(getByAltText("John Doe").getAttribute("src")).toEqual(
-      "https://example.com"
-    );
+    expect(getByAltText("John Doe")).toHaveAttribute("src", "https://example.com");
   });
 
   it("shows default avatar when user photo not present", () => {
@@ -206,7 +208,7 @@ describe("Nav", () => {
       () =>
         ({
           firebase: {},
-        } as any)
+        } as FirebaseAppContextType)
     );
 
     const { getByLabelText } = render(
