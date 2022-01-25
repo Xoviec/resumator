@@ -1,11 +1,14 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { SkillsEditorPage } from "./SkillsEditorPage";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { mocked } from "jest-mock";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import {
+  useFirebaseApp,
+  FirebaseAppContextType,
+} from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 
@@ -20,6 +23,13 @@ jest.mock("../../context/AppStateContext/AppStateContext");
 
 describe("Skill Editor Page", () => {
   const history = createMemoryHistory();
+  const SkillsEditorPageManageToRender = (
+    <Router history={history}>
+      <ThemeProviderWrapper>
+        <SkillsEditorPage />
+      </ThemeProviderWrapper>
+    </Router>
+  );
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -34,12 +44,9 @@ describe("Skill Editor Page", () => {
       setIsDrawerOpen: jest.fn(),
     });
 
-    mocked(useFirebaseApp).mockImplementation(
-      () =>
-        ({
-          firebase: {},
-        } as any)
-    );
+    mocked(useFirebaseApp).mockReturnValue({
+      userRecord: { isManager: true },
+    } as FirebaseAppContextType);
   });
 
   it("Should render page", () => {
@@ -50,5 +57,23 @@ describe("Skill Editor Page", () => {
         </ThemeProviderWrapper>
       </Router>
     );
+  });
+
+  it("Should render page with an error if isManager false", () => {
+    mocked(useFirebaseApp).mockReturnValue({
+      userRecord: { isManager: false },
+    } as FirebaseAppContextType);
+
+    render(SkillsEditorPageManageToRender);
+
+    expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      /You are not authorized to manage skills. Go back to the home page./
+    );
+  });
+
+  it("Should render page with table if isManager true", async () => {
+    render(SkillsEditorPageManageToRender);
+    expect(screen.getByRole("grid")).toBeInTheDocument();
   });
 });
