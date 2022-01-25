@@ -1,5 +1,5 @@
 import { FC, useCallback, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -10,11 +10,15 @@ import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { MainLayout } from "../../layouts/MainLayout";
 
 import Alert, { AlertProps } from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import {
   DataGrid,
   GridCellEditCommitParams,
   GridColumns,
   GridRowsProp,
+  GridToolbar,
   GridCellParams,
 } from "@mui/x-data-grid";
 import Snackbar from "@mui/material/Snackbar";
@@ -51,7 +55,6 @@ export const ManageUsersPage: FC = () => {
     "children" | "severity"
   > | null>(null);
 
-  const handleCloseSnackbar = () => setSnackbar(null);
   const mutateRow = useCallback(async (user: Partial<FirebaseUserRecord>) => {
     const { id } = user;
     if (!id) {
@@ -123,16 +126,30 @@ export const ManageUsersPage: FC = () => {
   return (
     <MainLayout>
       {userRecord?.isManager ? (
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          loading={isLoading}
-          onCellEditCommit={handleCellEditCommit}
-          isCellEditable={(params: GridCellParams) => params.row.rule !== "Admin"}
-          autoHeight
-        />
+        <>
+          <Box display="flex" justifyContent="flex-start" alignItems="center" mb={4}>
+            <Typography variant="h3" component="h1">
+              Manage Users &nbsp;
+            </Typography>
+
+            <Button color="primary" variant="contained" component={NavLink} to="/">
+              Go to overview
+            </Button>
+          </Box>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            loading={isLoading}
+            onCellEditCommit={handleCellEditCommit}
+            components={{
+              Toolbar: GridToolbar,
+            }}
+            isCellEditable={(params: GridCellParams) => params.row.rule !== "Admin"}
+            autoHeight
+          />
+        </>
       ) : (
         <Alert severity="info">
           You are not authorized to manage users. Go back to the{" "}
@@ -140,8 +157,13 @@ export const ManageUsersPage: FC = () => {
         </Alert>
       )}
       {snackbar && (
-        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
-          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          onClose={() => setSnackbar(null)}
+          autoHideDuration={6000}
+        >
+          <Alert {...snackbar} onClose={() => setSnackbar(null)} />
         </Snackbar>
       )}
     </MainLayout>

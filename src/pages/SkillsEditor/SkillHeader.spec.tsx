@@ -10,19 +10,19 @@ const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
+const props = {
+  saveEditedSkills: jest.fn(),
+  editCount: 0,
+  newSkill: "",
+  isBtnDisabled: false,
+  handleNewSkill: jest.fn(),
+  saveNewSkill: jest.fn(),
+} as SkillHeaderProps;
+
 describe("Skill Header", () => {
   const history = createMemoryHistory();
 
-  it("should always render content without error", () => {
-    const props = {
-      saveEditedSkills: jest.fn(),
-      editCount: 0,
-      newSkill: "",
-      handleNewSkill: jest.fn(),
-      saveNewSkill: jest.fn(),
-      hasError: false,
-    } as SkillHeaderProps;
-
+  it("should always render content", () => {
     render(
       <Router history={history}>
         <ThemeProviderWrapper>
@@ -31,27 +31,16 @@ describe("Skill Header", () => {
       </Router>
     );
 
-    // expect(screen.getByText(/Page content/)).toBeInTheDocument();
-  });
-
-  it("should always render content with error", () => {
-    const props = {
-      saveEditedSkills: jest.fn(),
-      editCount: 0,
-      newSkill: "",
-      handleNewSkill: jest.fn(),
-      saveNewSkill: jest.fn(),
-      hasError: true,
-    } as SkillHeaderProps;
-
-    render(
-      <Router history={history}>
-        <ThemeProviderWrapper>
-          <SkillHeader {...props} />
-        </ThemeProviderWrapper>
-      </Router>
+    expect(screen.getByRole("heading", { name: "Skills" })).toHaveTextContent(
+      "Skills"
     );
-
-    expect(screen.getByText(/Something went wrong/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Go to overview" })).toHaveTextContent(
+      "Go to overview"
+    );
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Add skill" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Delete selected skills (0)" })
+    ).toBeInTheDocument();
   });
 });
