@@ -47,7 +47,7 @@
     "fuse.js": "^6.4.6",
     "immutability-helper": "^3.1.1",
     "pizzip": "^3.0.6",
-    "ramda": "^0.27.1",
+    "ramda": "^0.28.0",
     "react": "^17.0.2",
     "react-dnd": "^14.0.4",
     "react-dnd-html5-backend": "^14.0.2",
