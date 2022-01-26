@@ -10,24 +10,16 @@ Font.register({ family: "Stratum", src: Stratum1 });
 
 const Root = styled(View)`
   width: 100%;
-  background-color: #e0e0e0;
+  background-color: #873170
   height: 145px;
   padding: 0 0 0 20px;
-  font-family: "Titillium Web";
-  font-weight: 300;
+  font-family: "TT Commons Pro";
   margin-bottom: 10px;
+  color: white;
 `;
 
 const Heading = styled(Text)`
   font-size: 36px;
-`;
-
-const HeadingName = styled(Text)`
-  font-family: "Stratum";
-  font-size: 36px;
-  font-weight: 800;
-  position: relative;
-  top: 9px;
 `;
 
 const PersonalInfoText = styled(View)`
@@ -39,7 +31,6 @@ const PersonalInfoText = styled(View)`
 
 const SubHeading = styled(Text)`
   font-size: 10px;
-  color: #ff450d;
 `;
 
 const HeaderBlockTop = styled(View)`
@@ -48,15 +39,19 @@ const HeaderBlockTop = styled(View)`
   line-height: 1.2;
 `;
 
-const Avatar = styled(Image)`
+const PersonalInfoBox = styled(Text)`
+  font-family: "Reckless";
+  font-weight: 300;
+  font-size: 10px;
+  font-style: italic;
   position: absolute;
-  right: 40px;
-  bottom: 0;
-  width: 65px;
+  width: 221px;
+  height: 212px;
+  background: #f5b3cc;
 `;
 
 export const PDFHeader: VoidFunctionComponent<{ personalia: PersonaliaModel }> = ({
-  personalia: { avatar, firstName, city, dateOfBirth },
+  personalia: { firstName, city, dateOfBirth, lastName, email },
 }) => {
   const month = dateOfBirth ? formatDate(dateOfBirth, "MMMM")?.toUpperCase() : "";
   const year = dateOfBirth ? formatDate(dateOfBirth, "yyyy") : "";
@@ -66,20 +61,19 @@ export const PDFHeader: VoidFunctionComponent<{ personalia: PersonaliaModel }> =
     <Root>
       <PersonalInfoText>
         <HeaderBlockTop>
-          <Heading>Hi, I am </Heading>
-          <HeadingName>{firstName}</HeadingName>
+          <Heading>
+            {firstName} {lastName}
+          </Heading>
         </HeaderBlockTop>
 
-        <View>
-          <Heading>Frontend expert</Heading>
-        </View>
-
-        <SubHeading>
-          {city.toUpperCase()} REGION - NL - {month} {year}
-        </SubHeading>
+        <SubHeading>Senior frontend developer</SubHeading>
       </PersonalInfoText>
 
-      <Avatar src={(avatars.find((x) => x.name === avatar) || avatars[0]).img} />
+      <PersonalInfoBox>
+        {email}
+        {city.toUpperCase()} REGION - NL - {month} {year}
+        {year}
+      </PersonalInfoBox>
     </Root>
   );
 };

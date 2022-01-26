@@ -12,7 +12,7 @@ const Root = styled.View`
 const Header = styled.Text`
   color: #ff450d;
   font-size: 10px;
-  font-family: "Titillium Web";
+  font-family: "TT Commons Pro";
 `;
 
 const DegreeText = styled.Text`

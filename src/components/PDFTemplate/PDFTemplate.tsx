@@ -1,8 +1,8 @@
 import { memo, VoidFunctionComponent } from "react";
 import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
-import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
-import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Light.ttf";
+import Reckless from "../../assets/fonts/Reckless/TTF/Reckless-Regular.ttf";
+import TTCommonsPro from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Regular.ttf";
 import {
   PDFSideProjects,
   PDFSideProjectType,
@@ -17,15 +17,13 @@ import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
 import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
 import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
 
-Font.register({ family: "Stratum", src: Stratum1 });
+Font.register({ family: "Reckless", src: Reckless });
 Font.register({
-  family: "Titillium Web",
-  format: "truetype",
-  src: Tillium,
+  family: "TT Commons Pro",
+  src: TTCommonsPro,
 });
 
 const CustomPage = styled(Page)`
-  padding: 20px 20px 70px;
   position: relative;
 `;
 
