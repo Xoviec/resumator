@@ -11,12 +11,12 @@ const Root = styled.View`
 
 const Header = styled.Text`
   color: #000;
-  font-family: "Stratum";
+  font-family: "TTCommonsPro";
   font-size: 10px;
 `;
 const SubText = styled.Text`
   color: #000;
-  font-family: "Stratum";
+  font-family: "TTCommonsPro";
   font-weight: 400;
   font-size: 8px;
 `;

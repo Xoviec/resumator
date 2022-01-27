@@ -2,7 +2,12 @@ import { memo, VoidFunctionComponent } from "react";
 import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
 import Reckless from "../../assets/fonts/Reckless/TTF/Reckless-Regular.ttf";
+import RecklessBold from "../../assets/fonts/Reckless/TTF/Reckless-Bold.ttf";
+import RecklessItalic from "../../assets/fonts/Reckless/TTF/Reckless-RegularItalic.ttf";
 import TTCommonsPro from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Regular.ttf";
+import TTCommonsProMedium from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Medium.ttf";
+import TTCommonsProBold from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Bold.ttf";
+import TTCommonsProItalic from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Italic.ttf";
 import {
   PDFSideProjects,
   PDFSideProjectType,
@@ -17,10 +22,23 @@ import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
 import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
 import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
 
-Font.register({ family: "Reckless", src: Reckless });
 Font.register({
-  family: "TT Commons Pro",
-  src: TTCommonsPro,
+  family: "Reckless",
+  fonts: [
+    { src: Reckless, fontWeight: "normal", fontStyle: "normal" },
+    { src: RecklessBold, fontWeight: "bold", fontStyle: "bold" },
+    { src: RecklessItalic, fontWeight: "normal", fontStyle: "italic" },
+  ],
+});
+
+Font.register({
+  family: "TTCommonsPro",
+  fonts: [
+    { src: TTCommonsPro, fontWeight: "normal", fontStyle: "normal" },
+    { src: TTCommonsProMedium, fontWeight: "medium", fontStyle: "medium" },
+    { src: TTCommonsProBold, fontWeight: "bold", fontStyle: "bold" },
+    { src: TTCommonsProItalic, fontWeight: "normal", fontStyle: "italic" },
+  ],
 });
 
 const CustomPage = styled(Page)`
@@ -57,11 +75,15 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
     return (
       <Document>
         <CustomPage size="A4">
-          <PDFHeader personalia={resume.personalia} />
+          <PDFHeader
+            personalia={resume.personalia}
+            socialLinks={resume.socialLinks}
+            introduction={resume.introduction}
+          />
 
           <FlexView>
             <View>
-              <PDFIntroduction introduction={resume.introduction} />
+              {/* <PDFIntroduction introduction={resume.introduction} /> */}
               <PDFSkills skills={resume.skills} />
               <PDFEducation education={resume.education} />
               <PDFSideProjects
@@ -76,7 +98,7 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             </View>
 
             <View>
-              <PDFSocialLinks socialLinks={resume.socialLinks} />
+              {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
               <PDFProjects projects={resume.projects} />
               <PDFWorkExperience experience={resume.experience} />
             </View>

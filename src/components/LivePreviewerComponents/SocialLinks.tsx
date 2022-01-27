@@ -5,6 +5,7 @@ import GithubIcon from "@mui/icons-material/GitHub";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import logos from "../../assets/images/socials";
 import {
   Box,
   IconButton,
@@ -54,6 +55,7 @@ interface SocialLinkTypeInfo {
   title: string;
   icon: JSX.Element;
   domain?: string;
+  image: string;
 }
 
 export enum SocialLinkType {
@@ -74,34 +76,41 @@ export const SocialLinkTypeToInfoMapping: Record<
     title: "LinkedIn",
     icon: <LinkedInIcon />,
     domain: "linkedin.com",
+    image: logos.linkedin,
   },
   [SocialLinkType.Github]: {
     title: "Github",
     icon: <GithubIcon />,
     domain: "github.com",
+    image: logos.github,
   },
   [SocialLinkType.Twitter]: {
     title: "Twitter",
     icon: <TwitterIcon />,
     domain: "twitter.com",
+    image: logos.twitter,
   },
   [SocialLinkType.Medium]: {
     title: "Medium",
     icon: <LinkIcon />,
     domain: "medium.com",
+    image: logos.medium,
   },
   [SocialLinkType.DevTo]: {
     title: "Dev.to",
     icon: <LinkIcon />,
     domain: "dev.to",
+    image: logos.devto,
   },
   [SocialLinkType.Blog]: {
     title: "Blog",
     icon: <BookIcon />,
+    image: logos.blogging,
   },
   [SocialLinkType.Other]: {
     title: "Other",
     icon: <LinkIcon />,
+    image: logos.other,
   },
 };
 
