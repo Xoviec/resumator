@@ -1,5 +1,13 @@
 import { memo, VoidFunctionComponent } from "react";
-import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
+import {
+  Document,
+  Font,
+  Page,
+  View,
+  Image,
+  Text,
+  StyleSheet,
+} from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
 import Reckless from "../../assets/fonts/Reckless/TTF/Reckless-Regular.ttf";
 import RecklessBold from "../../assets/fonts/Reckless/TTF/Reckless-Bold.ttf";
@@ -13,7 +21,7 @@ import {
   PDFSideProjectType,
 } from "../PDFBuilderComponents/PDFSideProjects";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import { pdfLogo } from "../PDFBuilderComponents/pdfLogo";
+import LogoBlack from "../../assets/images/iO-logo-black.png";
 import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
 import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
 import { PDFIntroduction } from "../PDFBuilderComponents/PDFIntroduction";
@@ -45,21 +53,30 @@ const CustomPage = styled(Page)`
   position: relative;
 `;
 
-const Footer = styled(View)`
+const SecondaryHeader = styled(View)`
   position: absolute;
-  left: 0;
-  right: 20px;
-  bottom: 10px;
-  height: 60px;
-  text-align: right;
+  top: 0;
+  left: 28px;
 `;
 
-const Logo = styled(Image)`
-  position: absolute;
-  right: 0;
-  bottom: 10px;
-  height: 40px;
-`;
+const styles = StyleSheet.create({
+  flexView: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  logo: {
+    width: 48,
+    height: 48,
+  },
+  text: {
+    fontFamily: "TTCommonsPro",
+    fontSize: 18,
+  },
+  mb_72: {
+    marginBottom: 72,
+  },
+});
 
 interface PDFTemplateProps {
   resume: ResumeModel;
@@ -79,6 +96,12 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
           <View>
             {/* <PDFIntroduction introduction={resume.introduction} /> */}
             <PDFSkills skills={resume.skills} />
+            <View
+              render={({ pageNumber }) =>
+                pageNumber >= 2 ? <View style={styles.mb_72} /> : null
+              }
+              fixed
+            />
             <PDFWorkExperience experience={resume.experience} />
             <PDFEducation education={resume.education} />
             {/* <PDFSideProjects
@@ -89,14 +112,25 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
               type={PDFSideProjectType.Publication}
               sideProjects={resume.publications}
             />
-            <View style={{ width: "200px", height: "100vh" }}></View>
             {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
             {/* <PDFProjects projects={resume.projects} /> */}
           </View>
 
-          {/* <Footer fixed>
-            <Logo src={pdfLogo} />
-          </Footer> */}
+          <SecondaryHeader fixed>
+            <View
+              render={({ pageNumber }) =>
+                pageNumber >= 2 ? (
+                  <View style={styles.flexView}>
+                    <Image src={LogoBlack} style={styles.logo} />
+                    <Text style={styles.text}>
+                      {resume.personalia.firstName} {resume.personalia.lastName}
+                    </Text>
+                  </View>
+                ) : null
+              }
+              fixed
+            />
+          </SecondaryHeader>
         </CustomPage>
       </Document>
     );

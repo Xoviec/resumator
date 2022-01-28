@@ -26,8 +26,6 @@ const Header = styled.Text`
   padding-bottom: 10px;
 `;
 
-const View = styled.View``;
-
 const Hr = styled.View`
   height: 1px;
   border: 0.5px solid #000000;
@@ -49,7 +47,7 @@ export const PDFSection: FC<Props> = ({ children, title }) => {
         </ColumnView>
 
         <ColumnView>
-          <Hr style={{ width: "100%" }} fixed />
+          <Hr style={{ width: "388px" }} fixed />
           {children}
         </ColumnView>
       </FlexView>

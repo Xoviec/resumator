@@ -71,12 +71,18 @@ export const ProjectsExperienceCard: VoidFunctionComponent<
     <>
       {!isEmpty && (
         <Root wrap={true}>
-          <Flex>
+          <Flex style={{ width: 383 }}>
             <Column>
               <Header>{role}</Header>
               <SubText>{company}</SubText>
             </Column>
-            <SubText style={{ fontFamily: "TTCommonsPro", fontStyle: "normal" }}>
+            <SubText
+              style={{
+                fontFamily: "TTCommonsPro",
+                fontStyle: "normal",
+                marginLeft: "auto",
+              }}
+            >
               {formatTimespan({
                 startDate,
                 endDate,
