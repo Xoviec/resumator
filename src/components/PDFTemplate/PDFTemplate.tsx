@@ -45,11 +45,6 @@ const CustomPage = styled(Page)`
   position: relative;
 `;
 
-const FlexView = styled(View)`
-  display: flex;
-  flex-direction: row;
-`;
-
 const Footer = styled(View)`
   position: absolute;
   left: 0;
@@ -81,32 +76,27 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             introduction={resume.introduction}
           />
 
-          <FlexView>
-            <View>
-              {/* <PDFIntroduction introduction={resume.introduction} /> */}
-              <PDFSkills skills={resume.skills} />
-              <PDFEducation education={resume.education} />
-              <PDFSideProjects
-                type={PDFSideProjectType.SideProject}
-                sideProjects={resume.sideProjects}
-              />
-              <PDFSideProjects
-                type={PDFSideProjectType.Publication}
-                sideProjects={resume.publications}
-              />
-              <View style={{ width: "200px", height: "100vh" }}></View>
-            </View>
+          <View>
+            {/* <PDFIntroduction introduction={resume.introduction} /> */}
+            <PDFSkills skills={resume.skills} />
+            <PDFWorkExperience experience={resume.experience} />
+            <PDFEducation education={resume.education} />
+            {/* <PDFSideProjects
+              type={PDFSideProjectType.SideProject}
+              sideProjects={resume.sideProjects}
+            /> */}
+            <PDFSideProjects
+              type={PDFSideProjectType.Publication}
+              sideProjects={resume.publications}
+            />
+            <View style={{ width: "200px", height: "100vh" }}></View>
+            {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
+            {/* <PDFProjects projects={resume.projects} /> */}
+          </View>
 
-            <View>
-              {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
-              <PDFProjects projects={resume.projects} />
-              <PDFWorkExperience experience={resume.experience} />
-            </View>
-          </FlexView>
-
-          <Footer fixed>
+          {/* <Footer fixed>
             <Logo src={pdfLogo} />
-          </Footer>
+          </Footer> */}
         </CustomPage>
       </Document>
     );
