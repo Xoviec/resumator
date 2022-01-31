@@ -1,38 +1,64 @@
 import styled from "@react-pdf/styled-components";
-import { VoidFunctionComponent } from "react";
+import { VoidFunctionComponent, Fragment } from "react";
 import { SideProjectModel } from "../LivePreviewerComponents/SideProjectItem";
 
-const Root = styled.View`
-  background-color: #e0e0e0;
-  padding: 20px;
-  width: 200px;
-  margin: 8px 0;
-`;
+const RightView = styled.View``;
 
 const Header = styled.Text`
-  color: #ff450d;
   font-size: 10px;
   font-family: "TTCommonsPro";
+  font-weight: bold;
+  font-style: bold;
+  color: #fff;
 `;
 
 const DegreeText = styled.Text`
-  font-size: 10px;
   font-family: "TTCommonsPro";
-`;
-const CollegeText = styled.Text`
-  margin-top: 4px;
+  font-weight: medium;
+  fonts-style: medium;
   font-size: 10px;
 `;
 
-const LinkText = styled.Text`
-  font-size: 9px;
-  color: #181626;
-  margin-top: 4px;
+const CollegeText = styled.Text`
+  font-family: "Reckless";
+  font-size: 10px;
+  font-style: italic;
 `;
 
-const Wrapper = styled.View`
-  margin-top: 5px;
-  margin-bottom: 5px;
+const DateText = styled.Text`
+  font-family: "TTCommonsPro";
+  font-size: 10px;
+  width: 180px;
+`;
+
+const Row = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const WrapperColumn = styled.View`
+  display: flex;
+  flex-direction: column;
+`;
+
+const HrGray = styled.View`
+  width: 363px;
+  opacity: 0.2;
+  margin: 10px 0;
+  border: 0.5px solid #000;
+`;
+
+const HrBold = styled.View`
+  width: 363px;
+  margin-bottom: 10px;
+  border: 0.5px solid #000;
+`;
+
+const HrWhite = styled.View`
+  width: 87px;
+  margin-bottom: 10px;
+  border: 0.5px solid #fff;
 `;
 
 interface SideProjectItemProps {
@@ -43,11 +69,13 @@ const SideProjectItem: VoidFunctionComponent<SideProjectItemProps> = ({
   sideProjectItem: { title, description, link },
 }) => {
   return (
-    <Wrapper>
-      <DegreeText>{title}</DegreeText>
-      <CollegeText>{description}</CollegeText>
-      <LinkText>{link}</LinkText>
-    </Wrapper>
+    <Row>
+      <WrapperColumn style={{ marginRight: "auto", width: 150 }}>
+        <DegreeText>{title}</DegreeText>
+        <CollegeText>{link}</CollegeText>
+      </WrapperColumn>
+      <DateText>{description}</DateText>
+    </Row>
   );
 };
 
@@ -70,14 +98,26 @@ export const PDFSideProjects: VoidFunctionComponent<PDFSideProjectsProps> = ({
   }
 
   const title =
-    type === PDFSideProjectType.SideProject ? "SIDE PROJECTS" : "PUBLICATIONS";
+    type === PDFSideProjectType.SideProject ? "Side Projects" : "Publications";
 
   return (
-    <Root wrap={true}>
-      <Header>{title}</Header>
-      {sideProjects.map((sideProjectItem, i) => {
-        return <SideProjectItem key={i} sideProjectItem={sideProjectItem} />;
-      })}
-    </Root>
+    <Row style={{ paddingRight: 24, marginTop: 17 }}>
+      <WrapperColumn style={{ flexGrow: 1 }} fixed>
+        <HrWhite />
+        <Header>{title}</Header>
+      </WrapperColumn>
+
+      <RightView>
+        <HrBold fixed />
+        {sideProjects.map((sideProjectItem, i) => {
+          return (
+            <Fragment key={i}>
+              {i >= 1 && <HrGray fixed />}
+              <SideProjectItem sideProjectItem={sideProjectItem} />
+            </Fragment>
+          );
+        })}
+      </RightView>
+    </Row>
   );
 };

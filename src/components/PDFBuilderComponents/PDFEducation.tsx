@@ -29,6 +29,7 @@ const CollegeText = styled.Text`
 const DateText = styled.Text`
   font-family: "TTCommonsPro";
   font-size: 10px;
+  width: 180px;
 `;
 
 const Row = styled.View`
@@ -46,13 +47,13 @@ const HrGray = styled.View`
   width: 363px;
   opacity: 0.2;
   margin: 10px 0;
-  border: 0.5px solid #000000;
+  border: 0.5px solid #000;
 `;
 
 const HrBold = styled.View`
   width: 363px;
   margin-bottom: 10px;
-  border: 0.5px solid #000000;
+  border: 0.5px solid #000;
 `;
 
 interface EducationProps {
@@ -93,13 +94,15 @@ export const PDFEducation: VoidFunctionComponent<PDFEducationProps> = ({
 
   return (
     <Row style={{ paddingRight: 24 }}>
-      <Header style={{ flexGrow: 1 }}>Education</Header>
+      <Header style={{ flexGrow: 1, marginTop: 10 }} fixed>
+        Education
+      </Header>
       <RightView>
-        <HrBold />
+        <HrBold fixed />
         {education.map((education, i) => {
           return (
             <Fragment key={i}>
-              {i >= 1 && <HrGray />}
+              {i >= 1 && <HrGray fixed />}
               <Education education={education} />
             </Fragment>
           );

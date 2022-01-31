@@ -47,7 +47,7 @@ export const PDFExperinceSection: FC<Props> = ({ children, title }) => {
         </ColumnView>
 
         <ColumnView>
-          <Hr style={{ width: "388px" }} fixed />
+          <Hr style={{ width: "388px" }} />
           {children}
         </ColumnView>
       </FlexView>
