@@ -23,6 +23,7 @@ const CollegeText = styled.Text`
   font-family: "Reckless";
   font-size: 10px;
   font-style: italic;
+  color: #000;
 `;
 
 const DateText = styled.Text`
@@ -72,7 +73,9 @@ const SideProjectItem: VoidFunctionComponent<SideProjectItemProps> = ({
     <Row>
       <WrapperColumn style={{ marginRight: "auto", width: 150 }}>
         <DegreeText>{title}</DegreeText>
-        <CollegeText>{link}</CollegeText>
+        <CollegeText href={link} style={{ textDecoration: "none" }}>
+          {link}
+        </CollegeText>
       </WrapperColumn>
       <DateText>{description}</DateText>
     </Row>
