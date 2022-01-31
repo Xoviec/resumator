@@ -55,8 +55,25 @@ const CustomPage = styled(Page)`
 
 const SecondaryHeader = styled(View)`
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 28px;
+`;
+
+const FooterWrapper = styled(View)`
+  margin-top: 55px;
+  height: 400px;
+  background: #873170;
+  position: relative;
+  padding: 15px 37px;
+`;
+
+const FooterWrapperBlock = styled(View)`
+  width: 412px;
+  height: 401px;
+  background: #f5b3cc;
+  position: absolute;
+  right: 36px;
+  bottom: 36px;
 `;
 
 const styles = StyleSheet.create({
@@ -98,20 +115,25 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             <PDFSkills skills={resume.skills} />
             <View
               render={({ pageNumber }) =>
-                pageNumber >= 2 ? <View style={styles.mb_72} /> : null
+                pageNumber >= 2 && resume.experience.length >= 1 ? (
+                  <View style={styles.mb_72} />
+                ) : null
               }
               fixed
             />
             <PDFWorkExperience experience={resume.experience} />
-            <PDFEducation education={resume.education} />
+            <FooterWrapper>
+              <FooterWrapperBlock />
+              <PDFEducation education={resume.education} />
+              <PDFSideProjects
+                type={PDFSideProjectType.Publication}
+                sideProjects={resume.publications}
+              />
+            </FooterWrapper>
             {/* <PDFSideProjects
               type={PDFSideProjectType.SideProject}
               sideProjects={resume.sideProjects}
             /> */}
-            <PDFSideProjects
-              type={PDFSideProjectType.Publication}
-              sideProjects={resume.publications}
-            />
             {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
             {/* <PDFProjects projects={resume.projects} /> */}
           </View>

@@ -2,7 +2,7 @@ import styled from "@react-pdf/styled-components";
 import { Fragment, VoidFunctionComponent } from "react";
 import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
-import { PDFSection } from "./PDFSection";
+import { PDFExperinceSection } from "./PDFExperinceSection";
 
 const ViewWrapper = styled.View`
   margin-top: 30px;
@@ -27,20 +27,17 @@ export const PDFWorkExperience: VoidFunctionComponent<PDFWorkExperienceProps> = 
   }
 
   return (
-    <ViewWrapper>
-      <PDFSection title="Work experience">
+    <ViewWrapper wrap>
+      <PDFExperinceSection title="Work experience">
         {experience.map((project, i) => {
-          if (i >= 2) {
-            return (
-              <Fragment key={i}>
-                <Hr />
-                <ProjectsExperienceCard project={project} />
-              </Fragment>
-            );
-          }
-          return <ProjectsExperienceCard key={i} project={project} />;
+          return (
+            <Fragment key={i}>
+              {i >= 1 && <Hr />}
+              <ProjectsExperienceCard project={project} />
+            </Fragment>
+          );
         })}
-      </PDFSection>
+      </PDFExperinceSection>
     </ViewWrapper>
   );
 };

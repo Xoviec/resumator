@@ -37,7 +37,7 @@ type Props = {
   title: string;
 };
 
-export const PDFSection: FC<Props> = ({ children, title }) => {
+export const PDFExperinceSection: FC<Props> = ({ children, title }) => {
   return (
     <Root>
       <FlexView>

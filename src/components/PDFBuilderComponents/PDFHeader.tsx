@@ -73,7 +73,7 @@ export const PDFHeader: VoidFunctionComponent<{
   socialLinks,
 }) => {
   const year = dateOfBirth ? formatDate(dateOfBirth, "yyyy") : "";
-  const age = dateOfBirth && year ? new Date().getFullYear() - Number(year) : "";
+  const age = dateOfBirth && year ? new Date().getFullYear() - +year : "";
   city = city ? city : "";
 
   const getSocialMediaProfileLink = (socialLink: SocialLinkModel) => {

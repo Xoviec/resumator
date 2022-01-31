@@ -1,7 +1,7 @@
 import styled from "@react-pdf/styled-components";
 import { Fragment, VoidFunctionComponent } from "react";
 import { SkillModel } from "../LivePreviewerComponents/Skills";
-import { PDFSection } from "./PDFSection";
+import { PDFExperinceSection } from "./PDFExperinceSection";
 
 const ViewWrapper = styled.View`
   margin-top: 86px;
@@ -10,8 +10,7 @@ const ViewWrapper = styled.View`
 const ColumnViewSkills = styled.View`
   display: flex;
   flex-direction: column;
-  flex-wrap: "wrap";
-  flex-grow: 1;
+  flex-wrap: wrap;
   flex-shrink: 0;
   flex-basis: 25%;
 `;
@@ -23,11 +22,7 @@ const LiWrapper = styled.View`
   flex-wrap: wrap;
 `;
 
-const Li = styled.Text`
-  margin: 5px;
-  margin-top: 0;
-  margin-left: 0;
-`;
+const Li = styled.Text``;
 
 const Space = styled.Text`
   margin-bottom: 15px;
@@ -52,7 +47,7 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
 
   return (
     <ViewWrapper>
-      <PDFSection title="Skills">
+      <PDFExperinceSection title="Skills">
         <LiWrapper>
           {devideSkillsToRows.map((row, idx) => (
             <Fragment key={idx}>
@@ -65,7 +60,7 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
             </Fragment>
           ))}
         </LiWrapper>
-      </PDFSection>
+      </PDFExperinceSection>
     </ViewWrapper>
   );
 };
