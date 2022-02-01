@@ -2,6 +2,7 @@ import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Link, StyleSheet } from "@react-pdf/renderer";
 import LogoWhite from "../../assets/images/iO-logo-white.png";
 import { formatDate } from "../../lib/date";
+import { formatSocialMediaLink } from "../../lib/formatSocialMediaLink";
 import { VoidFunctionComponent } from "react";
 import { PersonaliaModel } from "../LivePreviewerComponents/TopSection";
 import {
@@ -76,19 +77,6 @@ export const PDFHeader: VoidFunctionComponent<{
   const age = dateOfBirth && year ? new Date().getFullYear() - +year : "";
   city = city ? city : "";
 
-  const getSocialMediaProfileLink = (socialLink: SocialLinkModel) => {
-    switch (socialLink.linkType) {
-      case "linkedin":
-        return `https://www.linkedin.com/in/${socialLink.link}`;
-      case "github":
-        return `https://github.com/${socialLink.link}`;
-      case "twitter":
-        return `https://twitter.com/${socialLink.link}`;
-      default:
-        return socialLink.link;
-    }
-  };
-
   const styles = StyleSheet.create({
     row: {
       display: "flex",
@@ -146,9 +134,9 @@ export const PDFHeader: VoidFunctionComponent<{
                 <Image src={socialLinkItem.image} style={styles.socialsIcons} />
                 <Link
                   style={{ textDecoration: "none" }}
-                  src={getSocialMediaProfileLink(socialLink)}
+                  src={formatSocialMediaLink(socialLink).link}
                 >
-                  {socialLink.link}
+                  {formatSocialMediaLink(socialLink).userName}
                 </Link>
               </View>
             );

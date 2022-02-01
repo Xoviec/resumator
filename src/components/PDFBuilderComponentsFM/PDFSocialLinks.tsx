@@ -1,5 +1,6 @@
 import styled from "@react-pdf/styled-components";
 import { VoidFunctionComponent } from "react";
+import { formatSocialMediaLink } from "../../lib/formatSocialMediaLink";
 import {
   SocialLinkModel,
   SocialLinkTypeToInfoMapping,
@@ -60,7 +61,7 @@ export const PDFSocialLinks: VoidFunctionComponent<PDFSocialLinks> = ({
                 : socialLinkItemInfo.title}
             </SocialLinkTitle>
 
-            <SocialLinkUrl>{socialLink.link}</SocialLinkUrl>
+            <SocialLinkUrl>{formatSocialMediaLink(socialLink).link}</SocialLinkUrl>
           </SocialLinkWrapper>
         );
       })}
