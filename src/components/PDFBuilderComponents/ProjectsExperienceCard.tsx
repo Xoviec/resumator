@@ -70,8 +70,8 @@ export const ProjectsExperienceCard: VoidFunctionComponent<
   return (
     <>
       {!isEmpty && (
-        <Root wrap={true}>
-          <Flex style={{ width: 383 }}>
+        <Root>
+          <Flex style={{ width: 383, marginBottom: 16 }}>
             <Column>
               <Header>{role}</Header>
               <SubText>{company}</SubText>
