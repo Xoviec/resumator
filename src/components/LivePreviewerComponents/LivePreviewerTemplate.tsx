@@ -105,7 +105,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         {/* Left column */}
         <Box display="flex" flexDirection="column" flex={2} gap="16px">
           <Experience
-            type="Projects"
+            type="Projects via iO/FrontMen"
             skills={resume.skills}
             experience={resume.projects}
             onSubmit={(projects, skills) => handleSubmit({ projects, skills })}

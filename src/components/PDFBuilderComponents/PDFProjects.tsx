@@ -1,18 +1,18 @@
 import styled from "@react-pdf/styled-components";
-import { VoidFunctionComponent } from "react";
+import { Fragment, VoidFunctionComponent } from "react";
 import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
+import { PDFExperinceSection } from "./PDFExperinceSection";
 
-const Root = styled.View`
-  padding: 20px;
-  width: 350px;
-  margin-bottom: -40px;
+const ViewWrapper = styled.View`
+  margin-top: 30px;
 `;
 
-const Header = styled.Text`
-  color: #ff450d;
-  font-size: 8px;
-  margin-bottom: 12px;
+const Hr = styled.View`
+  width: 386px;
+  opacity: 0.2;
+  margin-bottom: 16px;
+  border: 0.5px solid #000000;
 `;
 
 interface PDFProjectsProps {
@@ -27,13 +27,17 @@ export const PDFProjects: VoidFunctionComponent<PDFProjectsProps> = ({
   }
 
   return (
-    <Root wrap={true}>
-      <Header>PROJECTS</Header>
-      {projects.map((project, index) => {
-        return (
-          <ProjectsExperienceCard key={`project.id-${index}`} project={project} />
-        );
-      })}
-    </Root>
+    <ViewWrapper wrap>
+      <PDFExperinceSection title="Projects via iO">
+        {projects.map((project, i) => {
+          return (
+            <Fragment key={i}>
+              {i >= 1 && <Hr />}
+              <ProjectsExperienceCard project={project} />
+            </Fragment>
+          );
+        })}
+      </PDFExperinceSection>
+    </ViewWrapper>
   );
 };

@@ -130,19 +130,21 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             <PDFSkills skills={resume.skills} />
             <View
               render={({ pageNumber }) =>
-                pageNumber >= 2 && resume.experience.length >= 1 ? (
+                pageNumber >= 2 &&
+                resume.experience.length >= 1 &&
+                resume.projects.length >= 1 ? (
                   <View style={styles.mb_72} />
                 ) : null
               }
               fixed
             />
+            <PDFProjects projects={resume.projects} />
             <PDFWorkExperience experience={resume.experience} />
             {/* <PDFSideProjects
               type={PDFSideProjectType.SideProject}
               sideProjects={resume.sideProjects}
             /> */}
             {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
-            {/* <PDFProjects projects={resume.projects} /> */}
           </View>
           <FooterWrapper break>
             <FooterWrapperBlock />
