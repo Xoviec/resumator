@@ -60,6 +60,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   };
 
   const [showPDFModal, setShowPDFModal] = useState(false);
+  const [themeStyle, setThemeStyle] = useState<"iO" | "FrontMen">("iO");
 
   const handleSubmit = (resumePartial: Partial<ResumeModel>) => {
     const newResume = { ...resume, ...resumePartial };
@@ -68,7 +69,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   return (
     <>
-      <PreviewControls setShowPDFModal={setShowPDFModal} resume={resume} />
+      <PreviewControls
+        setShowPDFModal={setShowPDFModal}
+        setThemeStyle={setThemeStyle}
+        resume={resume}
+      />
       <TopSection
         personalia={{
           ...resume.personalia,
@@ -141,6 +146,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       <PDFPreviewModal
         resume={resume}
         setShowPDFModal={setShowPDFModal}
+        themeStyle={themeStyle}
         showPDFModal={showPDFModal}
       />
     </>

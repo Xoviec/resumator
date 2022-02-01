@@ -8,12 +8,14 @@ import { useCallback, VoidFunctionComponent } from "react";
 import { colors } from "../../config/theme";
 // components
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
+import { PDFTemplateFM } from "../PDFTemplate/PDFTemplateFM";
 import { ResumeModel } from "./ResumeModel";
 
 interface PDFPreviewModalProps {
   showPDFModal: boolean;
   setShowPDFModal: (s: boolean) => void;
   resume: ResumeModel;
+  themeStyle: "iO" | "FrontMen";
 }
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -41,10 +43,26 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
   showPDFModal,
   setShowPDFModal,
   resume,
+  themeStyle,
 }) => {
   const handleClosePDFModal = useCallback(() => {
     setShowPDFModal(false);
   }, []);
+
+  const renderPDF = useCallback(() => {
+    if (themeStyle === "iO") {
+      return (
+        <PDFViewer width="100%" height="100%">
+          <PDFTemplate resume={resume} />
+        </PDFViewer>
+      );
+    }
+    return (
+      <PDFViewer width="100%" height="100%">
+        <PDFTemplateFM resume={resume} />
+      </PDFViewer>
+    );
+  }, [resume, themeStyle]);
 
   if (showPDFModal && resume) {
     return (
@@ -63,9 +81,7 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
           >
             <Close fontSize="inherit" />
           </StyledIconButton>
-          <PDFViewer width="100%" height="100%">
-            <PDFTemplate resume={resume} />
-          </PDFViewer>
+          {renderPDF()}
         </ModalContent>
       </Modal>
     );
