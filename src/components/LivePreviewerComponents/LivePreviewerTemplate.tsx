@@ -11,6 +11,7 @@ import { Skills } from "./Skills";
 import { SocialLinks } from "./SocialLinks";
 import { TopSection } from "./TopSection";
 import { Introduction } from "./Introduction";
+import { ThemeStyle } from "./PreviewControls";
 
 interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -146,7 +147,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       <PDFPreviewModal
         resume={resume}
         setShowPDFModal={setShowPDFModal}
-        themeStyle={themeStyle}
+        themeStyle={themeStyle as ThemeStyle}
         showPDFModal={showPDFModal}
       />
     </>

@@ -10,12 +10,13 @@ import { colors } from "../../config/theme";
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
 import { PDFTemplateFM } from "../PDFTemplate/PDFTemplateFM";
 import { ResumeModel } from "./ResumeModel";
+import { ThemeStyle } from "./PreviewControls";
 
 interface PDFPreviewModalProps {
   showPDFModal: boolean;
   setShowPDFModal: (s: boolean) => void;
   resume: ResumeModel;
-  themeStyle: "iO" | "FrontMen";
+  themeStyle: ThemeStyle;
 }
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -50,16 +51,13 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
   }, []);
 
   const renderPDF = useCallback(() => {
-    if (themeStyle === "iO") {
-      return (
-        <PDFViewer width="100%" height="100%">
-          <PDFTemplate resume={resume} />
-        </PDFViewer>
-      );
-    }
     return (
       <PDFViewer width="100%" height="100%">
-        <PDFTemplateFM resume={resume} />
+        {themeStyle === "FrontMen" ? (
+          <PDFTemplateFM resume={resume} />
+        ) : (
+          <PDFTemplate resume={resume} />
+        )}
       </PDFViewer>
     );
   }, [resume, themeStyle]);

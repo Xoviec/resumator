@@ -114,7 +114,7 @@ export const PDFSideProjects: VoidFunctionComponent<PDFSideProjectsProps> = ({
         <HrBold fixed />
         {sideProjects.map((sideProjectItem, i) => {
           return (
-            <Fragment key={i}>
+            <Fragment key={sideProjectItem.title + i}>
               {i >= 1 && <HrGray fixed />}
               <SideProjectItem sideProjectItem={sideProjectItem} />
             </Fragment>

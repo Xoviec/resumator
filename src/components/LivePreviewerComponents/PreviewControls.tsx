@@ -10,10 +10,15 @@ import { useHistory, NavLink } from "react-router-dom";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { ResumeModel } from "./ResumeModel";
 
+export enum ThemeStyle {
+  FrontMen = "FrontMen",
+  iO = "iO",
+}
+
 interface PreviewControlsProps {
   resume: ResumeModel;
   setShowPDFModal: (show: boolean) => void;
-  setThemeStyle: (themeStyle: "iO" | "FrontMen") => void;
+  setThemeStyle: (themeStyle: ThemeStyle) => void;
 }
 
 export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
@@ -70,7 +75,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           startIcon={<VisibilityIcon />}
           onClick={(action) => {
             setShowPDFModal(true);
-            setThemeStyle(action as "iO" | "FrontMen");
+            setThemeStyle(action as ThemeStyle);
           }}
           color="primary"
         >

@@ -31,7 +31,7 @@ export const PDFWorkExperience: VoidFunctionComponent<PDFWorkExperienceProps> = 
       <PDFExperinceSection title="Work experience">
         {experience.map((project, i) => {
           return (
-            <Fragment key={i}>
+            <Fragment key={project.company + i}>
               {i >= 1 && <Hr />}
               <ProjectsExperienceCard project={project} />
             </Fragment>
