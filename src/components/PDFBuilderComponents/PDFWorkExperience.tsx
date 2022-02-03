@@ -1,18 +1,18 @@
 import styled from "@react-pdf/styled-components";
-import { VoidFunctionComponent } from "react";
+import { Fragment, VoidFunctionComponent } from "react";
 import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
+import { PDFExperinceSection } from "./PDFExperinceSection";
 
-const Root = styled.View`
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 350px;
+const ViewWrapper = styled.View`
+  margin-top: 30px;
 `;
 
-const Header = styled.Text`
-  color: #ff450d;
-  font-size: 8px;
-  margin-bottom: 10px;
+const Hr = styled.View`
+  width: 386px;
+  opacity: 0.2;
+  margin-bottom: 16px;
+  border: 0.5px solid #000000;
 `;
 
 interface PDFWorkExperienceProps {
@@ -27,11 +27,17 @@ export const PDFWorkExperience: VoidFunctionComponent<PDFWorkExperienceProps> = 
   }
 
   return (
-    <Root wrap={true}>
-      <Header>WORK EXPERIENCE</Header>
-      {experience.map((project, i) => {
-        return <ProjectsExperienceCard key={i} project={project} />;
-      })}
-    </Root>
+    <ViewWrapper wrap>
+      <PDFExperinceSection title="Work experience">
+        {experience.map((project, i) => {
+          return (
+            <Fragment key={project.company + i}>
+              {i >= 1 && <Hr />}
+              <ProjectsExperienceCard project={project} />
+            </Fragment>
+          );
+        })}
+      </PDFExperinceSection>
+    </ViewWrapper>
   );
 };

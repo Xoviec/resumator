@@ -15,13 +15,15 @@ import { checkListType } from "../../helpers";
 
 const styles = StyleSheet.create({
   bold: {
-    fontFamily: "Helvetica-Bold",
+    fontWeight: "bold",
+    fontStyle: "bold",
   },
   underline: {
     textDecoration: "underline",
   },
   italic: {
-    fontFamily: "Times-Italic",
+    fontWeight: "normal",
+    fontStyle: "italic",
   },
   "header-one": {
     fontSize: 18,
@@ -46,8 +48,7 @@ const TextArea = styled.Text`
   font-size: 8px;
   width: 280px;
   margin-top: 6px;
-  font-weight: bold;
-  font-family: "Helvetica";
+  font-family: "TTCommonsPro";
 `;
 
 const generateInlineStyle = (block: RawDraftContentBlock) => {

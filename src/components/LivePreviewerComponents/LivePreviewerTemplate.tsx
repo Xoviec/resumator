@@ -11,6 +11,7 @@ import { Skills } from "./Skills";
 import { SocialLinks } from "./SocialLinks";
 import { TopSection } from "./TopSection";
 import { Introduction } from "./Introduction";
+import { ThemeStyle } from "./PreviewControls";
 
 interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -60,6 +61,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   };
 
   const [showPDFModal, setShowPDFModal] = useState(false);
+  const [themeStyle, setThemeStyle] = useState<"iO" | "FrontMen">("iO");
 
   const handleSubmit = (resumePartial: Partial<ResumeModel>) => {
     const newResume = { ...resume, ...resumePartial };
@@ -68,7 +70,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   return (
     <>
-      <PreviewControls setShowPDFModal={setShowPDFModal} resume={resume} />
+      <PreviewControls
+        setShowPDFModal={setShowPDFModal}
+        setThemeStyle={setThemeStyle}
+        resume={resume}
+      />
       <TopSection
         personalia={{
           ...resume.personalia,
@@ -100,7 +106,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         {/* Left column */}
         <Box display="flex" flexDirection="column" flex={2} gap="16px">
           <Experience
-            type="Projects"
+            type="Projects via iO/FrontMen"
             skills={resume.skills}
             experience={resume.projects}
             onSubmit={(projects, skills) => handleSubmit({ projects, skills })}
@@ -141,6 +147,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
       <PDFPreviewModal
         resume={resume}
         setShowPDFModal={setShowPDFModal}
+        themeStyle={themeStyle as ThemeStyle}
         showPDFModal={showPDFModal}
       />
     </>

@@ -7,18 +7,25 @@ import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 const Root = styled.View`
   margin-bottom: 20px;
   width: 330px;
+  color: #000;
+  font-size: 10px;
+`;
+
+const Column = styled.View`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 const Header = styled.Text`
-  color: #000;
-  font-family: "Stratum";
-  font-size: 10px;
+  font-family: "TTCommonsPro";
+  font-style: bold;
+  font-weight: bold;
 `;
 const SubText = styled.Text`
-  color: #000;
-  font-family: "Stratum";
+  font-family: "Reckless";
+  font-style: italic;
   font-weight: 400;
-  font-size: 8px;
 `;
 
 const Flex = styled.View`
@@ -29,20 +36,19 @@ const Flex = styled.View`
 `;
 
 const TechniquesWrapper = styled.View`
+  font-family: "Reckless";
+  font-style: italic;
+  font-weight: normal;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #e0e0e0;
-  padding-top: 2px;
-  padding-bottom: 2px;
   width: 330px;
   margin-top: 10px;
+  margin-left: -3px;
 `;
 
 const Plain = styled.Text`
   display: inline;
-  font-size: 8px;
-  color: #5a5b5e;
   margin-right: 3px;
   margin-left: 3px;
 `;
@@ -64,11 +70,19 @@ export const ProjectsExperienceCard: VoidFunctionComponent<
   return (
     <>
       {!isEmpty && (
-        <Root wrap={true}>
-          <Header>{role}</Header>
-          <Flex wrap={false}>
-            <SubText>{company}</SubText>
-            <SubText>
+        <Root>
+          <Flex style={{ width: 383, marginBottom: 16 }}>
+            <Column>
+              <Header>{role}</Header>
+              <SubText>{company}</SubText>
+            </Column>
+            <SubText
+              style={{
+                fontFamily: "TTCommonsPro",
+                fontStyle: "normal",
+                marginLeft: "auto",
+              }}
+            >
               {formatTimespan({
                 startDate,
                 endDate,

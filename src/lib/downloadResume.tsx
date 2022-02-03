@@ -6,13 +6,14 @@ import formatResumeFilename from "./formatResumeFilename";
 import createDocx from "./createDocx";
 import getAvatarDataUri from "./getAvatarDataUri";
 import { PDFTemplate } from "../components/PDFTemplate/PDFTemplate";
+import { PDFTemplateFM } from "../components/PDFTemplate/PDFTemplateFM";
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 
-export default async function downloadResume(resume: ResumeModel, type = "PDF") {
+export default async function downloadResume(resume: ResumeModel, type: string) {
   const { firstName, lastName, avatar: avatarName } = resume.personalia;
   let file: Blob;
   switch (type.toLowerCase()) {
-    case "docx":
+    case "docx_frontmen":
       const [docxTemplate, avatar] = await Promise.all([
         fetch("/template.docx").then((res) => res.arrayBuffer()),
         fetch(getAvatarDataUri(avatarName)).then((res) => res.arrayBuffer()),
@@ -26,16 +27,24 @@ export default async function downloadResume(resume: ResumeModel, type = "PDF") 
         type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       });
       break;
-    case "pdf":
+    case "pdf_io":
       const pdfTemplate = <PDFTemplate {...{ resume }} />;
       const pdf = await createPdf(pdfTemplate).toBlob();
       file = new Blob([pdf], {
         type: "application/pdf",
       });
       break;
+    case "pdf_frontmen":
+      const pdfTemplateFM = <PDFTemplateFM {...{ resume }} />;
+      const pdfFM = await createPdf(pdfTemplateFM).toBlob();
+      file = new Blob([pdfFM], {
+        type: "application/pdf",
+      });
+      break;
     default:
       return;
   }
+
   const filename = formatResumeFilename(firstName, lastName, type);
 
   saveAs(file, filename);

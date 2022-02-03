@@ -25,7 +25,7 @@ const SocialLinkWrapper = styled.View`
 `;
 
 const SocialLinkTitle = styled.Text`
-  font-family: "Stratum";
+  font-family: "TTCommonsPro";
   font-size: 8px;
   font-weight: 400;
 `;

@@ -1,40 +1,31 @@
 import styled from "@react-pdf/styled-components";
-import { VoidFunctionComponent } from "react";
+import { Fragment, VoidFunctionComponent } from "react";
 import { SkillModel } from "../LivePreviewerComponents/Skills";
+import { PDFExperinceSection } from "./PDFExperinceSection";
 
-const Root = styled.View`
-  background-color: #181626;
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 200px;
+const ViewWrapper = styled.View`
+  margin-top: 86px;
 `;
 
-const Header = styled.Text`
-  color: #19c3c0;
-  font-size: 10px;
-  padding-bottom: 10px;
+const ColumnViewSkills = styled.View`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  flex-basis: 25%;
 `;
 
 const LiWrapper = styled.View`
+  width: 386px;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  margin-bottom: 4px;
+  flex-wrap: wrap;
 `;
 
-const LiDot = styled.Text`
-  content: "";
-  width: 4px;
-  height: 4px;
-  border-radius: 4px;
-  background-color: #ff450d;
-  font-size: 25px;
-  margin-right: 10px;
-`;
+const Li = styled.Text``;
 
-const Li = styled.Text`
-  color: #fff;
-  font-size: 9px;
+const Space = styled.Text`
+  margin-bottom: 15px;
 `;
 
 interface PDFSkillsProps {
@@ -46,21 +37,30 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
     return null;
   }
 
-  return (
-    <Root>
-      <Header>SKILLS</Header>
-      {skills.map((skill) => {
-        if (!skill.isActive) {
-          return null;
-        }
+  const devideSkillsToRows = skills.reduce((acc, skill, index) => {
+    if (index % 4 === 0) {
+      acc.push([]);
+    }
+    acc[acc.length - 1].push(skill);
+    return acc;
+  }, [] as SkillModel[][]);
 
-        return (
-          <LiWrapper key={skill.name}>
-            <LiDot />
-            <Li>{skill.name}</Li>
-          </LiWrapper>
-        );
-      })}
-    </Root>
+  return (
+    <ViewWrapper>
+      <PDFExperinceSection title="Skills">
+        <LiWrapper>
+          {devideSkillsToRows.map((row, idx) => (
+            <Fragment key={idx}>
+              <ColumnViewSkills>
+                {idx >= 4 && <Space />}
+                {row.map((skill, index) => (
+                  <Li key={skill.name + index}>{skill.name}</Li>
+                ))}
+              </ColumnViewSkills>
+            </Fragment>
+          ))}
+        </LiWrapper>
+      </PDFExperinceSection>
+    </ViewWrapper>
   );
 };

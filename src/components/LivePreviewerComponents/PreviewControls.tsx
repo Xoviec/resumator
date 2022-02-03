@@ -10,14 +10,21 @@ import { useHistory, NavLink } from "react-router-dom";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { ResumeModel } from "./ResumeModel";
 
+export enum ThemeStyle {
+  FrontMen = "FrontMen",
+  iO = "iO",
+}
+
 interface PreviewControlsProps {
   resume: ResumeModel;
   setShowPDFModal: (show: boolean) => void;
+  setThemeStyle: (themeStyle: ThemeStyle) => void;
 }
 
 export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
   setShowPDFModal,
+  setThemeStyle,
 }) => {
   const { firebase } = useFirebaseApp();
   const history = useHistory();
@@ -46,7 +53,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         {/* Download as */}
         <DropdownButton
           variant="contained"
-          actions={["PDF", "DOCX"]}
+          actions={["PDF_FrontMen", "PDF_iO", "DOCX_FrontMen"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
           color="primary"
@@ -54,14 +61,26 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
           Download as..
         </DropdownButton>
         {/* Preview */}
-        <SpacedButton
+        {/* <SpacedButton
           variant="contained"
           startIcon={<VisibilityIcon />}
           onClick={() => setShowPDFModal(true)}
           color="primary"
         >
           Preview
-        </SpacedButton>
+        </SpacedButton> */}
+        <DropdownButton
+          variant="contained"
+          actions={["iO", "FrontMen"]}
+          startIcon={<VisibilityIcon />}
+          onClick={(action) => {
+            setShowPDFModal(true);
+            setThemeStyle(action as ThemeStyle);
+          }}
+          color="primary"
+        >
+          Preview
+        </DropdownButton>
       </Box>
       <Box
         display="flex"

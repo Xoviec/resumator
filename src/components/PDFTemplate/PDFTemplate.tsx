@@ -1,14 +1,27 @@
 import { memo, VoidFunctionComponent } from "react";
-import { Document, Font, Page, View, Image } from "@react-pdf/renderer";
+import {
+  Document,
+  Font,
+  Page,
+  View,
+  Image,
+  Text,
+  StyleSheet,
+} from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
-import Stratum1 from "../../assets/fonts/Stratum1-Bold.ttf";
-import Tillium from "../../assets/fonts/Titillium_Web/TitilliumWeb-Light.ttf";
+import Reckless from "../../assets/fonts/Reckless/TTF/Reckless-Regular.ttf";
+import RecklessBold from "../../assets/fonts/Reckless/TTF/Reckless-Bold.ttf";
+import RecklessItalic from "../../assets/fonts/Reckless/TTF/Reckless-RegularItalic.ttf";
+import TTCommonsPro from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Regular.ttf";
+import TTCommonsProMedium from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Medium.ttf";
+import TTCommonsProBold from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Bold.ttf";
+import TTCommonsProItalic from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Italic.ttf";
 import {
   PDFSideProjects,
   PDFSideProjectType,
 } from "../PDFBuilderComponents/PDFSideProjects";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import { pdfLogo } from "../PDFBuilderComponents/pdfLogo";
+import LogoBlack from "../../assets/images/iO-logo-black.png";
 import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
 import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
 import { PDFIntroduction } from "../PDFBuilderComponents/PDFIntroduction";
@@ -17,38 +30,70 @@ import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
 import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
 import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
 
-Font.register({ family: "Stratum", src: Stratum1 });
 Font.register({
-  family: "Titillium Web",
-  format: "truetype",
-  src: Tillium,
+  family: "Reckless",
+  fonts: [
+    { src: Reckless, fontWeight: "normal", fontStyle: "normal" },
+    { src: RecklessBold, fontWeight: "bold", fontStyle: "bold" },
+    { src: RecklessItalic, fontWeight: "normal", fontStyle: "italic" },
+  ],
+});
+
+Font.register({
+  family: "TTCommonsPro",
+  fonts: [
+    { src: TTCommonsPro, fontWeight: "normal", fontStyle: "normal" },
+    { src: TTCommonsProMedium, fontWeight: "medium", fontStyle: "medium" },
+    { src: TTCommonsProBold, fontWeight: "bold", fontStyle: "bold" },
+    { src: TTCommonsProItalic, fontWeight: "normal", fontStyle: "italic" },
+  ],
 });
 
 const CustomPage = styled(Page)`
-  padding: 20px 20px 70px;
   position: relative;
 `;
 
-const FlexView = styled(View)`
-  display: flex;
-  flex-direction: row;
+const SecondaryHeader = styled(View)`
+  position: absolute;
+  top: 10px;
+  left: 28px;
 `;
 
-const Footer = styled(View)`
-  position: absolute;
-  left: 0;
-  right: 20px;
-  bottom: 10px;
-  height: 60px;
-  text-align: right;
+const FooterWrapper = styled(View)`
+  margin-top: 65px;
+  height: 100%;
+  background: #873170;
+  position: relative;
+  padding: 15px 37px;
 `;
 
-const Logo = styled(Image)`
+const FooterWrapperBlock = styled(View)`
+  width: 412px;
+  height: 100%;
+  background: #f5b3cc;
   position: absolute;
-  right: 0;
-  bottom: 10px;
-  height: 40px;
+  right: 36px;
+  bottom: 36px;
 `;
+
+const styles = StyleSheet.create({
+  flexView: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  logo: {
+    width: 48,
+    height: 48,
+  },
+  text: {
+    fontFamily: "TTCommonsPro",
+    fontSize: 18,
+  },
+  mb_72: {
+    marginBottom: 72,
+  },
+});
 
 interface PDFTemplateProps {
   resume: ResumeModel;
@@ -58,35 +103,57 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
   ({ resume }) => {
     return (
       <Document>
-        <CustomPage size="A4">
-          <PDFHeader personalia={resume.personalia} />
+        <CustomPage size="A4" style={{ paddingBottom: 15 }}>
+          <PDFHeader
+            personalia={resume.personalia}
+            socialLinks={resume.socialLinks}
+            introduction={resume.introduction}
+          />
+          <SecondaryHeader fixed>
+            <View
+              render={({ pageNumber }) =>
+                pageNumber >= 2 ? (
+                  <View style={styles.flexView}>
+                    <Image src={LogoBlack} style={styles.logo} />
+                    <Text style={styles.text}>
+                      {resume.personalia.firstName} {resume.personalia.lastName}
+                    </Text>
+                  </View>
+                ) : null
+              }
+              fixed
+            />
+          </SecondaryHeader>
 
-          <FlexView>
-            <View>
-              <PDFIntroduction introduction={resume.introduction} />
-              <PDFSkills skills={resume.skills} />
-              <PDFEducation education={resume.education} />
-              <PDFSideProjects
-                type={PDFSideProjectType.SideProject}
-                sideProjects={resume.sideProjects}
-              />
-              <PDFSideProjects
-                type={PDFSideProjectType.Publication}
-                sideProjects={resume.publications}
-              />
-              <View style={{ width: "200px", height: "100vh" }}></View>
-            </View>
+          <View>
+            {/* <PDFIntroduction introduction={resume.introduction} /> */}
+            <PDFSkills skills={resume.skills} />
+            <View
+              render={({ pageNumber }) =>
+                (pageNumber >= 2 && resume.experience.length >= 1) ||
+                (pageNumber >= 2 && resume.projects.length >= 1) ? (
+                  <View style={styles.mb_72} />
+                ) : null
+              }
+              fixed
+            />
+            <PDFProjects projects={resume.projects} />
+            <PDFWorkExperience experience={resume.experience} />
+            {/* <PDFSideProjects
+              type={PDFSideProjectType.SideProject}
+              sideProjects={resume.sideProjects}
+            /> */}
+            {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
+          </View>
+          <FooterWrapper break>
+            <FooterWrapperBlock />
+            <PDFEducation education={resume.education} />
 
-            <View>
-              <PDFSocialLinks socialLinks={resume.socialLinks} />
-              <PDFProjects projects={resume.projects} />
-              <PDFWorkExperience experience={resume.experience} />
-            </View>
-          </FlexView>
-
-          <Footer fixed>
-            <Logo src={pdfLogo} />
-          </Footer>
+            <PDFSideProjects
+              type={PDFSideProjectType.Publication}
+              sideProjects={resume.publications}
+            />
+          </FooterWrapper>
         </CustomPage>
       </Document>
     );
