@@ -53,9 +53,12 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
             <Fragment key={idx}>
               <ColumnViewSkills>
                 {idx >= 4 && <Space />}
-                {row.map((skill, index) => (
-                  <Li key={skill.name + index}>{skill.name}</Li>
-                ))}
+                {row.map((skill, index) => {
+                  if (!skill.isActive) {
+                    return null;
+                  }
+                  return <Li key={skill.name + index}>{skill.name}</Li>;
+                })}
               </ColumnViewSkills>
             </Fragment>
           ))}

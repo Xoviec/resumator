@@ -145,15 +145,17 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             /> */}
             {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
           </View>
-          <FooterWrapper break>
-            <FooterWrapperBlock />
-            <PDFEducation education={resume.education} />
+          {resume.education.length || resume.publications.length ? (
+            <FooterWrapper break>
+              <FooterWrapperBlock />
+              <PDFEducation education={resume.education} />
 
-            <PDFSideProjects
-              type={PDFSideProjectType.Publication}
-              sideProjects={resume.publications}
-            />
-          </FooterWrapper>
+              <PDFSideProjects
+                type={PDFSideProjectType.Publication}
+                sideProjects={resume.publications}
+              />
+            </FooterWrapper>
+          ) : null}
         </CustomPage>
       </Document>
     );
