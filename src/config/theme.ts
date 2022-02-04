@@ -14,6 +14,7 @@ export const colors = {
   primary: "#873170",
   secondary: "#fdbc75",
   tertiary: "#868ADA",
+  black: "#000",
 };
 
 const theme = createTheme({

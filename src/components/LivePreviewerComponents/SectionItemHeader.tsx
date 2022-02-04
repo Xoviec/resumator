@@ -71,7 +71,7 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
             tooltip={`Delete ${type}`}
             onClick={() => setDeleteConfirmationOpen(true)}
           >
-            <DeleteIcon fontSize="small" style={{ color: colors.midBlue }} />
+            <DeleteIcon fontSize="small" style={{ color: colors.black }} />
           </TooltipIconButton>
           {/* Edit item */}
           <TooltipIconButton
@@ -81,7 +81,7 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
           >
             <EditIcon
               fontSize="small"
-              style={{ color: colors.midBlue }}
+              style={{ color: colors.black }}
               onClick={handleOpenEditModal}
             />
           </TooltipIconButton>

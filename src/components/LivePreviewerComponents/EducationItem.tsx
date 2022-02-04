@@ -43,10 +43,10 @@ export const EducationItem: FunctionComponent<EducationItemProps> = ({
       onEdit={() => onEdit(educationItem)}
     >
       <Box display="flex" flexDirection="column" gap="8px">
-        <DetailWithIcon icon={<SchoolIcon style={{ color: colors.midBlue }} />}>
+        <DetailWithIcon icon={<SchoolIcon style={{ color: colors.black }} />}>
           {educationItem.institute}
         </DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.midBlue }} />}>
+        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.black }} />}>
           {getTimespan()}
         </DetailWithIcon>
       </Box>

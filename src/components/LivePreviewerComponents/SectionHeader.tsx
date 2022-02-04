@@ -54,10 +54,10 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
               onClick={actionOnClick}
             >
               {action === "add" && (
-                <AddIcon fontSize="small" htmlColor={colors.midBlue} />
+                <AddIcon fontSize="small" htmlColor={colors.black} />
               )}
               {action === "edit" && (
-                <EditIcon fontSize="small" htmlColor={colors.midBlue} />
+                <EditIcon fontSize="small" htmlColor={colors.black} />
               )}
             </TooltipIconButton>
           )}

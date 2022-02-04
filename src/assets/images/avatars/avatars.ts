@@ -1,3 +1,4 @@
+import avatar0 from "../iO-logo-black.png";
 import avatar1 from "./1.png";
 import avatar2 from "./2.png";
 import avatar3 from "./3.png";
@@ -8,6 +9,10 @@ import avatar7 from "./7.png";
 import avatar8 from "./8.png";
 
 export const avatars = [
+  {
+    name: "0",
+    img: avatar0,
+  },
   {
     name: "1",
     img: avatar1,

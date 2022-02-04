@@ -64,10 +64,10 @@ export const ExperienceItem: FunctionComponent<ExperienceItemProps> = ({
       onEdit={() => onEdit(experienceItem)}
     >
       <Box display="flex" flexDirection="column" gap="8px">
-        <DetailWithIcon icon={<BusinessIcon style={{ color: colors.midBlue }} />}>
+        <DetailWithIcon icon={<BusinessIcon style={{ color: colors.black }} />}>
           {experienceItem.company}
         </DetailWithIcon>
-        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.midBlue }} />}>
+        <DetailWithIcon icon={<DateRangeIcon style={{ color: colors.black }} />}>
           {formatTimespan({
             startDate: experienceItem.startDate,
             endDate: experienceItem.endDate,

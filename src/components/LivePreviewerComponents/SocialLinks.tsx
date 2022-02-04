@@ -49,7 +49,7 @@ const StyledListItemText = styled(ListItemText)`
 
 type OnSubmit = (data: SocialLinkModel[]) => void;
 
-const iconButtonStyle = { color: colors.midBlue };
+const iconButtonStyle = { color: colors.black };
 
 interface SocialLinkTypeInfo {
   title: string;
