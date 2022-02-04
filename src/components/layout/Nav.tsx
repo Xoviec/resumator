@@ -17,7 +17,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
-import { FrontmenLogoIcon } from "./FrontmenLogoIcon";
+import LogoWhite from "../../assets/images/iO-logo-white.png";
 
 const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.primary.main,
@@ -102,7 +102,7 @@ export const Nav: VoidFunctionComponent = () => {
             </IconButton>
 
             <IconButton component={Link} to="/">
-              <FrontmenLogoIcon />
+              <img src={LogoWhite} alt="iO Logo white" height={44} />
             </IconButton>
 
             <Typography

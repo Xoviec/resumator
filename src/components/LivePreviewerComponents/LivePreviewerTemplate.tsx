@@ -29,7 +29,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const { personalia } = useMemo(() => resume, [resume]);
 
   useEffect(() => {
-    const defaultTitle = "CV | Frontmen";
+    const defaultTitle = "CV | iO";
     let fullName = "";
     if (personalia?.firstName) {
       fullName += personalia.firstName;
