@@ -12,7 +12,7 @@ exports[`LoginLayout renders correctly 1`] = `
     >
       <img
         alt="logo"
-        src="frontmenLogoIcon.png"
+        src="iO-logo-black.png"
       />
     </div>
     <div />
@@ -32,7 +32,7 @@ exports[`LoginLayout renders correctly with children 1`] = `
     >
       <img
         alt="logo"
-        src="frontmenLogoIcon.png"
+        src="iO-logo-black.png"
       />
     </div>
     <div>

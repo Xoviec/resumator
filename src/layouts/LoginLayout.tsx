@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import CssBaseline from "@mui/material/CssBaseline";
 import { FunctionComponent } from "react";
 import "../assets/css/global.css";
-import frontmenLogo from "../assets/images/frontmenLogoIcon.png";
+import LogoBlack from "../assets/images/iO-logo-black.png";
+
 import { colors } from "../config/theme";
 
 export const LoginLayout: FunctionComponent = ({ children }) => (
@@ -11,7 +12,7 @@ export const LoginLayout: FunctionComponent = ({ children }) => (
     <Layout bgColor={colors.lightGrey}>
       <Card>
         <LogoWrapper>
-          <img src={frontmenLogo} alt="logo" />
+          <img src={LogoBlack} alt="logo" />
         </LogoWrapper>
         <div>{children}</div>
       </Card>

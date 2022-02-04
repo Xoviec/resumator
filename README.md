@@ -1,11 +1,13 @@
 <p align="center">
-  <a href="https://nextjs.org/">
-    <img alt="Frontmen" src="https://media-exp1.licdn.com/dms/image/C560BAQGsCDFl6RMZ5g/company-logo_200_200/0/1615889795418?e=2159024400&v=beta&t=QGInBgnqfc6EtuYldRpirgHdCu6yab5xGdu_1Ujhhg0" width="100" />
+  <a href="https://iodigital.com/">
+    <img alt="iO" src="https://cv.frontmen.nl/iO-logo-black.png" width="100" />
   </a>
 </p>
 <h1 align="center">
   Resumator
 </h1>
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d4458616-8089-42f2-a6f9-77f052d1b606/deploy-status)](https://app.netlify.com/sites/fm-resume/deploys)
 
 project bootstrapped with [`create-react-app with typescript`](https://create-react-app.dev/docs/adding-typescript/).
 
