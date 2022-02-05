@@ -29,7 +29,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const { personalia } = useMemo(() => resume, [resume]);
 
   useEffect(() => {
-    const defaultTitle = "CV | Frontmen";
+    const defaultTitle = "CV | iO";
     let fullName = "";
     if (personalia?.firstName) {
       fullName += personalia.firstName;
@@ -106,7 +106,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         {/* Left column */}
         <Box display="flex" flexDirection="column" flex={2} gap="16px">
           <Experience
-            type="Projects via iO/FrontMen"
+            type="Projects via iO"
             skills={resume.skills}
             experience={resume.projects}
             onSubmit={(projects, skills) => handleSubmit({ projects, skills })}

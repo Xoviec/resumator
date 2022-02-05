@@ -21,11 +21,11 @@ interface PDFPreviewModalProps {
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   "&.MuiButtonBase-root": {
-    backgroundColor: colors.darkGray,
+    backgroundColor: colors.secondary,
     marginBottom: "10px",
   },
   "&.MuiButtonBase-root:hover": {
-    backgroundColor: colors.darkGray,
+    backgroundColor: colors.secondary,
   },
 }));
 

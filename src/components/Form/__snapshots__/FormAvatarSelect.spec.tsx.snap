@@ -19,7 +19,11 @@ exports[`FormAvatarSelect renders correctly 1`] = `
         class="MuiBox-root css-1d3yqbi"
       >
         <span
-          class="MuiBox-root css-q47r7h"
+          class="MuiBox-root css-1khc54h"
+          data-testid="avatar-0"
+        />
+        <span
+          class="MuiBox-root css-pu0jl8"
           data-testid="avatar-1"
         />
         <span

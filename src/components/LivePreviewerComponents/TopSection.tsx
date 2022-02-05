@@ -74,7 +74,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
               width={160}
               height={160}
               border={2}
-              borderColor={colors.midBlue}
+              borderColor={colors.black}
               marginRight={2}
               marginLeft={2}
               flexShrink={0}
@@ -102,13 +102,13 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
                 {isArchived && "(Archived) "}
                 {getFirstName()} {getLastName()}
               </Typography>
-              <DetailWithIcon icon={<EmailIcon style={{ color: colors.midBlue }} />}>
+              <DetailWithIcon icon={<EmailIcon style={{ color: colors.black }} />}>
                 {personalia.email}
               </DetailWithIcon>
-              <DetailWithIcon icon={<PlaceIcon style={{ color: colors.midBlue }} />}>
+              <DetailWithIcon icon={<PlaceIcon style={{ color: colors.black }} />}>
                 {personalia.city}
               </DetailWithIcon>
-              <DetailWithIcon icon={<CakeIcon style={{ color: colors.midBlue }} />}>
+              <DetailWithIcon icon={<CakeIcon style={{ color: colors.black }} />}>
                 {formatDate(dateOfBirth)}
               </DetailWithIcon>
             </Box>
