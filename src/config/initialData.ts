@@ -1,15 +1,24 @@
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 
-// TODO: fix this type
-export const initialResumeData = {
+export const initialResumeData: ResumeModel = {
   education: [],
   experience: [],
   introduction: "",
-  personalia: {},
+  personalia: {
+    avatar: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    dateOfBirth: "",
+    email: "",
+  },
   projects: [],
-  skills: [],
-  sideProjects: [],
   publications: [],
+  sideProjects: [],
+  skills: [],
   socialLinks: [],
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-} as unknown as ResumeModel; // @ts-ignore
+  id: "",
+  isImport: false,
+  isArchived: false,
+  motivation: "",
+};
