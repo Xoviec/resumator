@@ -13,7 +13,8 @@
     "cypress:headless": "cypress run --browser chrome --headless",
     "test:e2e": "env-cmd -f .env.test start-server-and-test start 3000 cypress",
     "test:e2e:ci": "env-cmd -f .env.test start-server-and-test start 3000 cypress:headless",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "lint-staged && npm run coverage"
   },
   "dependencies": {
     "@date-io/date-fns": "2.x",
@@ -103,7 +104,7 @@
     "eslint-plugin-react": "^7.27.1",
     "firebase-admin": "^10.0.0",
     "firebase-tools": "^9.23.3",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "jest-mock": "^27.4.2",
     "lint-staged": "^12.1.2",
     "mockdate": "^3.0.5",
@@ -122,7 +123,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run coverage"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {

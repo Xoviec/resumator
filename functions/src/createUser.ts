@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { PartialResume } from "../../types/Resume";
 
 const RESUME_COLLECTION = "resumes";
 const USER_COLLECTION = "users";
@@ -19,9 +18,12 @@ export const createUser = functions.auth.user().onCreate(async (user) => {
     let resumePromise;
     // Create resume if none exist for user
     if (resumeSnapshot.empty) {
-      const resume: PartialResume = {
+      const nameSplit = user.displayName?.split(" ");
+      const resume = {
         personalia: {
           email: email,
+          firstName: nameSplit?.[0],
+          lastName: nameSplit?.[1],
         },
       };
       resumePromise = resumeCollection.doc().set(resume);
@@ -53,6 +55,10 @@ export const createUser = functions.auth.user().onCreate(async (user) => {
     userPromise = userCollection.doc(user.uid).set(userData);
     return Promise.all([resumePromise, userPromise]);
   } catch (err) {
-    throw new functions.https.HttpsError("failed-precondition", err.message);
+    if (err instanceof Error) {
+      throw new functions.https.HttpsError("failed-precondition", err.message);
+    }
+
+    return false;
   }
 });

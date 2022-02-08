@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { useDocument } from "react-firebase-hooks/firestore";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 import { initialResumeData } from "../config/initialData";
 import { useFirebaseApp } from "../context/FirebaseContext/FirebaseContext";
@@ -11,26 +9,36 @@ interface ResumeResult {
   loading: boolean;
   error?: Error;
 }
-export const useResume = (id: string): ResumeResult => {
-  const { replace } = useHistory();
-  const { firebase } = useFirebaseApp();
-  const [value, loading, error] = useDocument(
-    firebase.firestore().doc(`resumes/${id}`)
-  );
 
-  const [resume, setResume] = useState<ResumeModel>();
+export const useResume = (): ResumeResult => {
+  const { firebase, userRecord } = useFirebaseApp();
+  const [resume, setResume] = useState<ResumeModel>(initialResumeData);
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (value?.exists) {
-      setResume({ ...initialResumeData, ...castDatesInObject(value.data()) });
-      return;
-    }
+  const getResume = React.useCallback(() => {
+    setLoading(true);
+    firebase
+      .firestore()
+      .collection("resumes")
+      .where("personalia.email", "==", userRecord?.email)
+      .get()
+      .then((doc) => {
+        setLoading(false);
+        return setResume((prev) => ({
+          ...prev,
+          ...castDatesInObject(doc?.docs?.[0]?.data()),
+        }));
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error);
+      });
+  }, [firebase, userRecord]);
 
-    // ! value can be undefined but we need to redirect only when value object exist will be false
-    if (value?.exists === false) {
-      replace("/");
-    }
-  }, [value]);
+  React.useEffect(() => {
+    getResume();
+  }, [getResume]);
 
   return { resume, loading, error };
 };

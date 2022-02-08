@@ -1,5 +1,5 @@
 import { VoidFunctionComponent } from "react";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps, Link, useParams } from "react-router-dom";
 import { styled } from "@mui/system";
 import Skeleton from "@mui/material/Skeleton";
 import { Card, Box, Button } from "@mui/material";
@@ -18,10 +18,15 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
 type LivePreviewerProps = RouteComponentProps<{ id: string }>;
 
-const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
-  const { resume, loading, error } = useResume(props.match.params.id);
+type paramsId = {
+  id: string;
+};
 
-  if (!props.match.params.id) {
+const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
+  const { id } = useParams<paramsId>();
+  const { resume, loading, error } = useResume();
+
+  if (!id) {
     return (
       <LivePreviewContainer>
         <Card>
@@ -88,7 +93,7 @@ const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = (props) => {
   if (resume) {
     return (
       <LivePreviewContainer>
-        <LivePreviewerTemplate data={{ ...resume, id: props.match.params.id }} />
+        <LivePreviewerTemplate data={{ ...resume, id }} />
       </LivePreviewContainer>
     );
   }

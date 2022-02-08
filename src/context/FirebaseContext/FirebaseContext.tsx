@@ -20,6 +20,9 @@ export type FirebaseAppContextType = {
   firebase: firebase.app.App;
   initializing: boolean;
   isLoading: boolean;
+  setUserRecord: React.Dispatch<
+    React.SetStateAction<FirebaseUserRecord | undefined>
+  >;
   authUser?: firebase.User;
   userRecord?: FirebaseUserRecord;
   authProvider: firebase.auth.AuthProvider;
@@ -104,10 +107,8 @@ export const FirebaseAppContextProvider: React.FC = ({ children }) => {
         .doc(authUser.uid)
         .get();
 
-      if (userRec) {
+      if (userRec.exists) {
         setUserRecord(userRec.data() as FirebaseUserRecord);
-      } else {
-        setUserRecord(undefined);
       }
 
       setAuthUserState(authUser);
@@ -127,6 +128,7 @@ export const FirebaseAppContextProvider: React.FC = ({ children }) => {
         isLoading,
         authUser: authUserState,
         userRecord,
+        setUserRecord,
         authProvider,
       }}
     >
