@@ -24,7 +24,7 @@ type paramsId = {
 
 const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
   const { id } = useParams<paramsId>();
-  const { resume, loading, error } = useResume();
+  const { resume, loading, error } = useResume({ id });
 
   if (!id) {
     return (
