@@ -16,16 +16,12 @@ import { checkListType } from "../../helpers";
 const styles = StyleSheet.create({
   bold: {
     fontFamily: "Helvetica-Bold",
-    fontWeight: "bold",
-    fontStyle: "bold",
   },
   underline: {
     textDecoration: "underline",
   },
   italic: {
     fontFamily: "Times-Italic",
-    fontWeight: "normal",
-    fontStyle: "italic",
   },
   "header-one": {
     fontSize: 18,
