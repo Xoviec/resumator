@@ -15,6 +15,7 @@ import { checkListType } from "../../helpers";
 
 const styles = StyleSheet.create({
   bold: {
+    fontFamily: "Helvetica-Bold",
     fontWeight: "bold",
     fontStyle: "bold",
   },
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
     textDecoration: "underline",
   },
   italic: {
+    fontFamily: "Times-Italic",
     fontWeight: "normal",
     fontStyle: "italic",
   },
