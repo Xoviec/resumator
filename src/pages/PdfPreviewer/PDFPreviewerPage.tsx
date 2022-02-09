@@ -27,7 +27,7 @@ export type PDFPreviewerPageProps = RouteComponentProps<{ id: string }>;
 export const PDFPreviewerPage: VoidFunctionComponent<PDFPreviewerPageProps> = (
   props
 ) => {
-  const { resume, loading, error } = useResume();
+  const { resume, loading, error } = useResume({ id: props.match.params.id });
 
   return (
     <>

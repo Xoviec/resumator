@@ -83,10 +83,9 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
 
     const userRecordData = {
       name: userRecord.user?.displayName ?? "",
-      isManager: false,
-      registered: true,
+      registered: userRecord.user?.emailVerified,
       email: userRecord.user?.email ?? "",
-    };
+    } as unknown as FirebaseUserRecord;
 
     setUserRecord(userRecordData);
 
