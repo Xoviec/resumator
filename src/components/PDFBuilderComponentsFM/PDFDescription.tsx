@@ -15,13 +15,15 @@ import { checkListType } from "../../helpers";
 
 const styles = StyleSheet.create({
   bold: {
-    fontFamily: "Helvetica-Bold",
+    fontWeight: "bold",
+    fontStyle: "bold",
   },
   underline: {
     textDecoration: "underline",
   },
   italic: {
-    fontFamily: "Times-Italic",
+    fontWeight: "normal",
+    fontStyle: "italic",
   },
   "header-one": {
     fontSize: 18,
@@ -136,16 +138,32 @@ export const PDFDescription: VoidFunctionComponent<PDFDescriptionProps> = ({
             <TextArea
               style={{
                 position: "absolute",
-                left: "-10px",
+                left: (() => {
+                  if (checkListType(block.type) && block.depth >= 1) {
+                    return block.depth * 10 + "px";
+                  }
+                  return "-10px";
+                })(),
                 ...styles[block.type],
               }}
             >
               {generatePrefix(block, counter)}
             </TextArea>
+
             <TextArea
               style={{
                 ...styles[block.type],
-                marginLeft: checkListType(block.type) ? "10px" : "0",
+                marginLeft: (() => {
+                  if (checkListType(block.type) && block.depth === 0) {
+                    return "10px";
+                  }
+
+                  if (checkListType(block.type) && block.depth >= 1) {
+                    return block.depth * 10 + 20 + "px";
+                  }
+
+                  return "0px";
+                })(),
               }}
             >
               {generateInlineStyle(block)}

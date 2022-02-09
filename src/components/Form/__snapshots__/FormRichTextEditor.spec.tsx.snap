@@ -6,7 +6,7 @@ exports[`FormRichTextEditor should render correctly 1`] = `
     class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
   >
     <label
-      class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
+      class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-1kty9di-MuiFormLabel-root-MuiInputLabel-root"
       data-shrink="true"
       for="form-rich-text-editor-input"
     >
