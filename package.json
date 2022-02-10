@@ -60,6 +60,7 @@
     "react-select": "^5.1.0",
     "react-sortable-hoc": "^2.0.0",
     "rebass": "^4.0.7",
+    "stream-browserify": "^3.0.0",
     "yup": "^0.32.8"
   },
   "browserslist": {

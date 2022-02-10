@@ -4,8 +4,7 @@ import { SkillModel } from "../LivePreviewerComponents/Skills";
 import { PDFExperinceSection } from "./PDFExperinceSection";
 
 const ViewWrapper = styled.View`
-  margin-top: 86px;
-  margin-bottom: 30px;
+  margin: 30px 0;
 `;
 
 const ColumnViewSkills = styled.View`
