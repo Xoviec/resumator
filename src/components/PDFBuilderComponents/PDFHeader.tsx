@@ -19,6 +19,7 @@ const Root = styled(View)`
   height: 360px;
   padding: 26px 0 0 35px;
   color: white;
+  margin-bottom: 86px;
 `;
 
 const Logo = styled(Image)`

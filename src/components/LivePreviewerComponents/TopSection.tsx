@@ -151,7 +151,7 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           </Hidden>
           {/* Introduction text. */}
           <Box padding={2} paddingTop={0}>
-            <Typography variant="body2">
+            <Typography variant="body2" style={{ whiteSpace: "pre-line" }}>
               {introduction || `${getFirstName()} has nothing to tell you.`}
             </Typography>
           </Box>

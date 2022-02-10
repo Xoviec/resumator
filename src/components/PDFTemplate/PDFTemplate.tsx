@@ -24,8 +24,7 @@ import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 import LogoBlack from "../../assets/images/iO-logo-black.png";
 import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
 import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
-import { PDFIntroduction } from "../PDFBuilderComponents/PDFIntroduction";
-import { PDFSocialLinks } from "../PDFBuilderComponents/PDFSocialLinks";
+import { PDFMotivation } from "../PDFBuilderComponents/PDFMotivation";
 import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
 import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
 import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
@@ -126,7 +125,7 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
           </SecondaryHeader>
 
           <View>
-            {/* <PDFIntroduction introduction={resume.introduction} /> */}
+            <PDFMotivation motivation={resume.motivation} />
             <PDFSkills skills={resume.skills} />
             <View
               render={({ pageNumber }) =>
@@ -139,11 +138,6 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             />
             <PDFProjects projects={resume.projects} />
             <PDFWorkExperience experience={resume.experience} />
-            {/* <PDFSideProjects
-              type={PDFSideProjectType.SideProject}
-              sideProjects={resume.sideProjects}
-            /> */}
-            {/* <PDFSocialLinks socialLinks={resume.socialLinks} /> */}
           </View>
           {resume.education.length || resume.publications.length ? (
             <FooterWrapper break>
@@ -153,6 +147,11 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
               <PDFSideProjects
                 type={PDFSideProjectType.Publication}
                 sideProjects={resume.publications}
+              />
+
+              <PDFSideProjects
+                type={PDFSideProjectType.SideProject}
+                sideProjects={resume.sideProjects}
               />
             </FooterWrapper>
           ) : null}
