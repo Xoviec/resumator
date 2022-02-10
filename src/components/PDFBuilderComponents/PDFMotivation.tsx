@@ -15,7 +15,7 @@ interface PDFMotivationProps {
 export const PDFMotivation: VoidFunctionComponent<PDFMotivationProps> = ({
   motivation,
 }) => {
-  if (!motivation || !motivation.length) {
+  if (!motivation || !motivation.length || motivation.length === 1) {
     return null;
   }
 

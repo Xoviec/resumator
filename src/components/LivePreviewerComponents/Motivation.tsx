@@ -5,12 +5,12 @@ import { useModal } from "../../hooks/useModal";
 import { SectionEditDialog } from "./SectionEditDialog";
 import { FormRow, FormTextField } from "../Form";
 
-interface IntroductionProps {
+interface MotivationProps {
   onSubmit: (value: { motivation: string }) => void;
   introText: string;
 }
 
-interface IntroductionDialogProps {
+interface MotivationDialogProps {
   data: {
     motivation: string;
   };
@@ -19,7 +19,7 @@ interface IntroductionDialogProps {
   open: boolean;
 }
 
-const IntroductionDialog: FunctionComponent<IntroductionDialogProps> = ({
+const MotivationDialog: FunctionComponent<MotivationDialogProps> = ({
   data,
   onCancel,
   onSave,
@@ -27,20 +27,26 @@ const IntroductionDialog: FunctionComponent<IntroductionDialogProps> = ({
 }) => {
   return (
     <SectionEditDialog
-      title="Edit introduction"
+      title="Edit motivation"
       data={data}
       onCancel={onCancel}
       onSave={onSave}
       open={open}
     >
       <FormRow>
-        <FormTextField multiline name="motivation" label="Introduction" rows={8} />
+        <FormTextField
+          multiline
+          name="motivation"
+          label="Motivation"
+          rows={8}
+          required={false}
+        />
       </FormRow>
     </SectionEditDialog>
   );
 };
 
-export const Introduction: FunctionComponent<IntroductionProps> = ({
+export const Motivation: FunctionComponent<MotivationProps> = ({
   onSubmit,
   introText,
 }) => {
@@ -53,7 +59,7 @@ export const Introduction: FunctionComponent<IntroductionProps> = ({
   return (
     <Box marginTop={2}>
       <Section
-        title="Introduction"
+        title="Motivation"
         action={introText ? "edit" : "add"}
         actionOnClick={handleOpenDialog}
       >
@@ -61,7 +67,7 @@ export const Introduction: FunctionComponent<IntroductionProps> = ({
           <p>{introText}</p>
         </Box>
 
-        <IntroductionDialog
+        <MotivationDialog
           data={{ motivation: introText }}
           open={isEditing}
           onCancel={() => setIsEditing(false)}

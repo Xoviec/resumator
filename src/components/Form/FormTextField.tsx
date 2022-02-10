@@ -2,10 +2,11 @@ import { useEffect, VoidFunctionComponent } from "react";
 import { useFormContext } from "react-hook-form";
 import { TextField, TextFieldProps } from "@mui/material";
 
-type FieldProps = TextFieldProps & { name: string };
+type FieldProps = TextFieldProps & { name: string; required?: boolean };
 
 export const FormTextField: VoidFunctionComponent<FieldProps> = ({
   name,
+  required = true,
   ...props
 }) => {
   const { register, resetField } = useFormContext();
@@ -17,7 +18,7 @@ export const FormTextField: VoidFunctionComponent<FieldProps> = ({
       fullWidth
       variant="outlined"
       size="small"
-      {...register(name, { required: true })}
+      {...register(name, { required })}
       {...props}
     />
   );

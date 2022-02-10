@@ -10,7 +10,7 @@ import { SideProjects } from "./SideProjects";
 import { Skills } from "./Skills";
 import { SocialLinks } from "./SocialLinks";
 import { TopSection } from "./TopSection";
-import { Introduction } from "./Introduction";
+import { Motivation } from "./Motivation";
 import { ThemeStyle } from "./PreviewControls";
 
 interface LivePreviewerTemplateProps {
@@ -89,7 +89,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
           });
         }}
       />
-      <Introduction
+      <Motivation
         introText={resume.motivation ? resume.motivation : ""}
         onSubmit={(data) => {
           handleSubmit({
