@@ -5,7 +5,7 @@ import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 import { PDFExperinceSection } from "./PDFExperinceSection";
 
 const ViewWrapper = styled.View`
-  margin-top: 30px;
+  margin-bottom: 16px;
 `;
 
 const Hr = styled.View`

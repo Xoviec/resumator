@@ -5,6 +5,7 @@ import { PDFExperinceSection } from "./PDFExperinceSection";
 
 const ViewWrapper = styled.View`
   margin-top: 86px;
+  margin-bottom: 30px;
 `;
 
 const ColumnViewSkills = styled.View`
