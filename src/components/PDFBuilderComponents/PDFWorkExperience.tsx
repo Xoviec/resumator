@@ -4,9 +4,7 @@ import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
 import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 import { PDFExperinceSection } from "./PDFExperinceSection";
 
-const ViewWrapper = styled.View`
-  margin-top: 30px;
-`;
+const ViewWrapper = styled.View``;
 
 const Hr = styled.View`
   width: 386px;

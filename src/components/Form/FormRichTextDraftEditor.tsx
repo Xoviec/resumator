@@ -179,6 +179,10 @@ export const FormRichTextDraftEditor: VoidFunctionComponent<
       <Editor
         spellCheck
         ref={editorRef}
+        onTab={(e) => {
+          e.preventDefault();
+          setEditorState(RichUtils.onTab(e, editorState, 4));
+        }}
         editorState={editorState}
         onChange={(state) => setEditorState(state)}
       />
