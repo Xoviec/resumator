@@ -64,7 +64,7 @@ export const Motivation: FunctionComponent<MotivationProps> = ({
         actionOnClick={handleOpenDialog}
       >
         <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
-          <p>{introText}</p>
+          <p style={{ whiteSpace: "pre-line" }}>{introText}</p>
         </Box>
 
         <MotivationDialog

@@ -32,20 +32,20 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
     >
       <FormColumn>
         <FormRow>
-          <FormTextField required name="firstName" label="First name" />
-          <FormTextField required name="lastName" label="Last name" />
+          <FormTextField required name="firstName" label="First name*" />
+          <FormTextField required name="lastName" label="Last name*" />
         </FormRow>
         <FormRow>
-          <FormTextField required name="email" label="Email" />
+          <FormTextField required name="email" label="Email*" />
         </FormRow>
         <FormRow>
           <FormColumn>
-            <FormTextField name="city" label="City" />
+            <FormTextField name="city" label="City*" />
           </FormColumn>
           <FormColumn>
             <FormDatePicker
               name="dateOfBirth"
-              label="Date of birth"
+              label="Date of birth*"
               inputFormat="dd-MM-yyyy"
               disableFuture
               minDate={minDate}
@@ -57,12 +57,13 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
           <FormTextField
             multiline
             name="introduction"
-            label="Introduction"
+            label="Introduction*"
             rows={8}
+            required={false}
           />
         </FormRow>
         <FormRow>
-          <FormAvatarSelect name="avatar" label="Avatar" />
+          <FormAvatarSelect name="avatar" label="Avatar*" />
         </FormRow>
         <FormRow>
           <Typography>
