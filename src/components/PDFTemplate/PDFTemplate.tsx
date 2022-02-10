@@ -148,6 +148,11 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
                 type={PDFSideProjectType.Publication}
                 sideProjects={resume.publications}
               />
+
+              <PDFSideProjects
+                type={PDFSideProjectType.SideProject}
+                sideProjects={resume.sideProjects}
+              />
             </FooterWrapper>
           ) : null}
         </CustomPage>
