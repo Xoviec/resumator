@@ -16,6 +16,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "./App.css";
 import { PrivateRoute } from "./utils/privateRoute";
+import { ResumeProvider } from "./context/ResumeContext/ResumeContext";
 
 export const App: VoidFunctionComponent = () => {
   return (
@@ -26,18 +27,23 @@ export const App: VoidFunctionComponent = () => {
             <FirebaseAppContextProvider>
               <BrowserRouter>
                 <Switch>
-                  <Route exact path="/login" component={LoginPage} />
-                  <SkillsContextProvider>
-                    <PrivateRoute exact path="/" component={LivePreviewerPage} />
-                    <PrivateRoute path="/resume/:id" component={LivePreviewerPage} />
-                    <PrivateRoute path="/new" component={CreatorPage} />
-                    <PrivateRoute path="/users" component={ManageUsersPage} />
-                    <PrivateRoute path="/skills" component={SkillsEditorPage} />
-                  </SkillsContextProvider>
-                  <PrivateRoute
-                    path="/pdf-preview/:id/"
-                    component={PDFPreviewerPage}
-                  />
+                  <ResumeProvider>
+                    <Route exact path="/login" component={LoginPage} />
+                    <SkillsContextProvider>
+                      <PrivateRoute exact path="/" component={LivePreviewerPage} />
+                      <PrivateRoute
+                        path="/resume/:id"
+                        component={LivePreviewerPage}
+                      />
+                      <PrivateRoute path="/new" component={CreatorPage} />
+                      <PrivateRoute path="/users" component={ManageUsersPage} />
+                      <PrivateRoute path="/skills" component={SkillsEditorPage} />
+                    </SkillsContextProvider>
+                    <PrivateRoute
+                      path="/pdf-preview/:id/"
+                      component={PDFPreviewerPage}
+                    />
+                  </ResumeProvider>
                 </Switch>
               </BrowserRouter>
             </FirebaseAppContextProvider>

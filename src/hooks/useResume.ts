@@ -1,68 +1,22 @@
-import React, { useState } from "react";
-import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
-import { initialResumeData } from "../config/initialData";
+import { useEffect } from "react";
 import { useFirebaseApp } from "../context/FirebaseContext/FirebaseContext";
-import { castDatesInObject } from "../lib/date";
+import { useResumeContext } from "../context/ResumeContext/ResumeContext";
 
-interface ResumeResult {
-  resume?: ResumeModel;
-  loading: boolean;
-  error?: Error;
-}
+const useResume = (id: string) => {
+  const { userRecord } = useFirebaseApp();
+  const { resume, loading, error, getPersonalResume, getResumeById, resumeId } =
+    useResumeContext();
 
-export const useResume = ({ id }: { id: string }): ResumeResult => {
-  const { firebase, userRecord } = useFirebaseApp();
-  const [resume, setResume] = useState<ResumeModel>(initialResumeData);
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    userRecord?.isManager ? getResumeById(id) : getPersonalResume();
+  }, [getPersonalResume, getResumeById, id, userRecord]);
 
-  const getPersonalResume = React.useCallback(() => {
-    setLoading(true);
-    firebase
-      .firestore()
-      .collection("resumes")
-      .where("personalia.email", "==", userRecord?.email)
-      .get()
-      .then((doc) => {
-        const docData = doc.docs?.[0].data();
-        setLoading(false);
-        if (!docData) return;
-        return setResume((prev) => ({
-          ...prev,
-          ...castDatesInObject(docData),
-        }));
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error);
-      });
-  }, [firebase, userRecord]);
-
-  const getCollectiveResume = React.useCallback(() => {
-    setLoading(true);
-    firebase
-      .firestore()
-      .collection("resumes")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        const docData = doc.data();
-        setLoading(false);
-        if (!docData) return;
-        return setResume((prev) => ({
-          ...prev,
-          ...castDatesInObject(docData),
-        }));
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error);
-      });
-  }, [firebase, userRecord, id]);
-
-  React.useEffect(() => {
-    userRecord?.isManager ? getCollectiveResume() : getPersonalResume();
-  }, [getPersonalResume, getCollectiveResume]);
-
-  return { resume, loading, error };
+  return {
+    resume,
+    loading,
+    error,
+    resumeId,
+  };
 };
+
+export { useResume };

@@ -1,16 +1,17 @@
-import { VoidFunctionComponent } from "react";
-import { RouteComponentProps, Link, useParams } from "react-router-dom";
+import { useCallback, useEffect, VoidFunctionComponent } from "react";
+import { RouteComponentProps, Link, useParams, useHistory } from "react-router-dom";
 import { styled } from "@mui/system";
 import Skeleton from "@mui/material/Skeleton";
 import { Card, Box, Button } from "@mui/material";
 
 // hooks
-import { useResume } from "../../hooks/useResume";
+import { useResume } from "../../hooks";
 
 // components
 import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import { MainLayout } from "../../layouts/MainLayout";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 
 const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
@@ -23,8 +24,20 @@ type paramsId = {
 };
 
 const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
+  const { userRecord } = useFirebaseApp();
   const { id } = useParams<paramsId>();
-  const { resume, loading, error } = useResume({ id });
+  const { resume, loading, error, resumeId } = useResume(id);
+  const history = useHistory();
+
+  const handleRedirect = useCallback(() => {
+    if (!userRecord?.isManager) {
+      history.push(`/resume/${resumeId}`);
+    }
+  }, [history, resumeId, userRecord]);
+
+  useEffect(() => {
+    handleRedirect();
+  }, [handleRedirect]);
 
   if (!id) {
     return (
@@ -46,46 +59,18 @@ const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
   }
 
   if (loading) {
+    const SKELETON_HEIGHT = [50, 200, 200, 300, 500, 500];
     return (
       <div>
-        <StyledSkeleton
-          animation="wave"
-          variant="rectangular"
-          width={1200}
-          height={50}
-        />
-        <StyledSkeleton
-          animation="wave"
-          variant="rectangular"
-          width={1200}
-          height={200}
-        />
-        <StyledSkeleton
-          animation="wave"
-          variant="rectangular"
-          width={1200}
-          height={200}
-        />
-
-        <StyledSkeleton
-          animation="wave"
-          variant="rectangular"
-          width={1200}
-          height={300}
-        />
-
-        <StyledSkeleton
-          animation="wave"
-          variant="rectangular"
-          width={1200}
-          height={500}
-        />
-        <StyledSkeleton
-          animation="wave"
-          variant="rectangular"
-          width={1200}
-          height={500}
-        />
+        {SKELETON_HEIGHT.map((height, index) => (
+          <StyledSkeleton
+            animation="wave"
+            variant="rectangular"
+            width={1200}
+            height={height}
+            key={`${height}-${index}`}
+          />
+        ))}
       </div>
     );
   }

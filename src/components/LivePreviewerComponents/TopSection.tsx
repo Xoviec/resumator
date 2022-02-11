@@ -41,13 +41,8 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
 
-  /**
-   * Get first and last name.
-   * Will return John / Jane Doe if the name is not filled in.
-   */
-  const getFirstName = () =>
-    personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane");
-  const getLastName = () => personalia.lastName || "Doe";
+  const getFirstName = () => personalia.firstName;
+  const getLastName = () => personalia.lastName;
 
   const dateOfBirth = useMemo(() => personalia.dateOfBirth || "", [personalia]);
 

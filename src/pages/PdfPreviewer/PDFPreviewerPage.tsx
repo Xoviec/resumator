@@ -3,7 +3,7 @@ import { memo, VoidFunctionComponent } from "react";
 import { RouteComponentProps } from "react-router";
 import { ResumeModel } from "../../components/LivePreviewerComponents/ResumeModel";
 import { PDFTemplate } from "../../components/PDFTemplate/PDFTemplate";
-import { useResume } from "../../hooks/useResume";
+import { useResume } from "../../hooks";
 
 export interface PDFTemplateWrapperProps {
   resume: ResumeModel;
@@ -27,7 +27,7 @@ export type PDFPreviewerPageProps = RouteComponentProps<{ id: string }>;
 export const PDFPreviewerPage: VoidFunctionComponent<PDFPreviewerPageProps> = (
   props
 ) => {
-  const { resume, loading, error } = useResume({ id: props.match.params.id });
+  const { resume, loading, error } = useResume(props.match.params.id);
 
   return (
     <>
