@@ -3,6 +3,31 @@ rules_version = "2";
 service cloud.firestore {
 
   match /databases/{database}/documents {
+  
+  match /users/{document=**} {
+  	function isManager() {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isManager == true
+      }
+      allow read, write, update: if true 
+      	&& isAuthorised()
+        && isAllowedDomain()
+        && isManager()
+    }
+
+    match /allSkills/{skill} {
+      function isManager() {
+        return
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isManager == true
+      }
+
+      allow read: if true
+      	&& isAuthorised()
+        && isAllowedDomain()
+      allow write: if true 
+      	&& isAuthorised()
+        && isAllowedDomain()
+        && isManager()      	
+    }
 
     match /users/{userId} {
       allow read, update, delete: if true
@@ -30,7 +55,7 @@ service cloud.firestore {
           || isOwner(resource)
           || isManager()
         )
-      
+
       allow create: if isAuthorised()
         && isAllowedDomain()
     }

@@ -6,17 +6,15 @@ const defaultProps = {
   onSubmit: jest.fn(),
 };
 
-test("expect name to be Jane Doe", () => {
-  const fallbackName = "Jane Doe";
-
-  render(<TopSection {...defaultProps} />);
-  expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(fallbackName);
-});
-
 test("expect fallback introduction to be displayed", () => {
-  const fallbackText = `Jane has nothing to tell you.`;
+  const personalia = {
+    firstName: "Donald",
+    lastName: "Trump",
+    email: "donald.trump@frontmen.nl",
+  } as PersonaliaModel;
+  const fallbackText = `Donald has nothing to tell you.`;
 
-  render(<TopSection {...defaultProps} />);
+  render(<TopSection personalia={personalia} onSubmit={defaultProps.onSubmit} />);
   expect(screen.getByText(fallbackText)).toBeInTheDocument();
 });
 

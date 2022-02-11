@@ -10,7 +10,8 @@
     "plugin:react/recommended",
     "react-app",
     "plugin:cypress/recommended",
-    "plugin:jest-dom/recommended"
+    "plugin:jest-dom/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "rules": {
     "no-console": "warn",
