@@ -39,6 +39,11 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
     if (!userRecord) return;
+
+    if (userRecord?.isManager) {
+      return history.push("/");
+    }
+
     setLoading(true);
     getResume(userRecord).then((doc) => {
       setLoading(false);
