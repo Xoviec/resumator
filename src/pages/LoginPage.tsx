@@ -60,15 +60,23 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
   const createResume = async (user: FirebaseUserRecord) => {
     try {
       const resumeCollection = firebase.firestore().collection(RESUME_COLLECTION);
+      let firstName = "";
+      let lastName = "";
 
-      const nameSplit = user.name?.split(" ");
+      if (user.name) {
+        firstName = user.name.split(" ")[0];
+        lastName = user.name.substring(firstName.length).trim();
+      }
+
       const resume = {
         personalia: {
           email: user.email,
-          firstName: nameSplit?.[0],
-          lastName: nameSplit?.[1],
+          firstName,
+          lastName,
         },
       };
+      console.log(resume);
+
       const resumePromise = await resumeCollection.doc().set(resume);
 
       return resumePromise;
