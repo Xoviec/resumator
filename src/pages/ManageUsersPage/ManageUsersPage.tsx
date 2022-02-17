@@ -1,8 +1,8 @@
 import { FC, useCallback, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 import { FirebaseUserRecord } from "../../context/FirebaseContext/FirebaseContext";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";

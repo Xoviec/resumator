@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import * as React from "react";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
 import getFirebaseConfig from "./getFirebaseConfig";
 
