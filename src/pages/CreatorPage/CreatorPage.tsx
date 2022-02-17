@@ -1,38 +1,38 @@
 import styled from "@emotion/styled";
-import { VoidFunctionComponent } from "react";
+import { Alert, Snackbar } from "@mui/material";
+import { VoidFunctionComponent, useState } from "react";
 import { useHistory } from "react-router";
 import { PersonaliaDialog } from "../../components/LivePreviewerComponents/PersonaliaDialog";
 import { PersonaliaModel } from "../../components/LivePreviewerComponents/TopSection";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
 import { initialResumeData } from "../../config/initialData";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { useResumeContext } from "../../context/ResumeContext/ResumeContext";
 import { MainLayout } from "../../layouts/MainLayout";
 
-interface PersonaliaAndIntroduction extends PersonaliaModel {
-  introduction: string;
-}
+const INITIAL_DATA = {
+  ...initialResumeData.personalia,
+  dateOfBirth: null,
+  introduction: initialResumeData.introduction,
+};
 
 export const CreatorPage: VoidFunctionComponent = () => {
   const history = useHistory();
   const { firebase } = useFirebaseApp();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  // TODO: this propagates to other parts as well, it would be nice to not have to define initial values here
-  const initialPersonalia: PersonaliaAndIntroduction = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    avatar: "",
-    city: "",
-    introduction: "",
-    dateOfBirth: null,
-  };
+  const { getResumePromise } = useResumeContext();
+
+  const [initialData, setInitialData] = useState<
+    PersonaliaModel & { introduction: string | undefined }
+  >(INITIAL_DATA);
 
   return (
     <MainLayout>
       <OverviewDrawer>
         <LivePreviewContainer>
           <PersonaliaDialog
-            data={initialPersonalia}
+            data={initialData}
             open={true}
             onCancel={() => {
               history.push("/");
@@ -40,6 +40,11 @@ export const CreatorPage: VoidFunctionComponent = () => {
             onSave={async (formData) => {
               try {
                 const { introduction, ...personalia } = formData;
+                const resume = await getResumePromise(formData.email);
+                if (resume?.docs[0]?.exists) {
+                  setInitialData(formData);
+                  return setOpenSnackbar(true);
+                }
                 const doc = firebase.firestore().collection("resumes").doc();
 
                 await doc.set({ ...initialResumeData, personalia, introduction });
@@ -54,6 +59,16 @@ export const CreatorPage: VoidFunctionComponent = () => {
               }
             }}
           />
+          <Snackbar
+            open={openSnackbar}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            onClose={() => setOpenSnackbar(false)}
+            autoHideDuration={6000}
+          >
+            <Alert severity="error" onClose={() => setOpenSnackbar(false)}>
+              This user has an existing resume
+            </Alert>
+          </Snackbar>
         </LivePreviewContainer>
       </OverviewDrawer>
     </MainLayout>

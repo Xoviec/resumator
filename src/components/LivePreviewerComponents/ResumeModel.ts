@@ -19,4 +19,5 @@ export interface ResumeModel {
   education: EducationModel[];
   socialLinks: SocialLinkModel[];
   motivation: string | undefined;
+  userId: string;
 }

@@ -14,6 +14,7 @@ export type FirebaseUserRecord = {
   registered: boolean;
   isManager: boolean;
   id?: string;
+  userId: string;
 };
 
 export type FirebaseAppContextType = {
@@ -29,16 +30,7 @@ export type FirebaseAppContextType = {
 };
 
 const getFirebaseAuthProvider = (): firebase.auth.AuthProvider => {
-  if (process.env.NODE_ENV === "development") {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({
-      hd: "frontmen.nl",
-    });
-
-    return provider;
-  } else {
-    return new firebase.auth.SAMLAuthProvider("saml.intracto");
-  }
+  return new firebase.auth.SAMLAuthProvider("saml.intracto");
 };
 
 const FirebaseAppContext = React.createContext<FirebaseAppContextType | undefined>(
