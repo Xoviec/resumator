@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parse, differenceInYears } from "date-fns";
 import firebase from "firebase/compat/app";
 import { LooseObject } from "../types/LooseObject";
 
@@ -132,3 +132,9 @@ export function setYear(year: number): number {
 export function getCurrentYear(): number {
   return new Date().getFullYear();
 }
+
+export const calculateAge = (dob: string | Date): number => {
+  const date = new Date(dob);
+  const age = differenceInYears(new Date(), date);
+  return age;
+};

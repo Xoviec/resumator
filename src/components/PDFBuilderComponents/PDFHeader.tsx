@@ -1,7 +1,6 @@
 import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Link, StyleSheet } from "@react-pdf/renderer";
 import LogoWhite from "../../assets/images/iO-logo-white.png";
-import { formatDate } from "../../lib/date";
 import { formatSocialMediaLink } from "../../lib/formatSocialMediaLink";
 import { VoidFunctionComponent } from "react";
 import { PersonaliaModel } from "../LivePreviewerComponents/TopSection";
@@ -9,6 +8,7 @@ import {
   SocialLinkModel,
   SocialLinkTypeToInfoMapping,
 } from "../LivePreviewerComponents/SocialLinks";
+import { calculateAge } from "../../lib";
 
 const Root = styled(View)`
   font-family: "Reckless";
@@ -74,8 +74,7 @@ export const PDFHeader: VoidFunctionComponent<{
   introduction,
   socialLinks,
 }) => {
-  const year = dateOfBirth ? formatDate(dateOfBirth, "yyyy") : "";
-  const age = dateOfBirth && year ? new Date().getFullYear() - +year : "";
+  const age = dateOfBirth ? calculateAge(dateOfBirth) : "";
   city = city ? city : "";
 
   const styles = StyleSheet.create({
