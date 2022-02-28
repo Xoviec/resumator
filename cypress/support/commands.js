@@ -1,8 +1,8 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import admin from "firebase-admin";
-import "firebase/auth";
-import "firebase/database";
-import "firebase/firestore";
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/firestore";
 import { attachCustomCommands } from "cypress-firebase";
 import serviceAccount from "../../serviceAccount.json";
 import "@testing-library/cypress/add-commands";

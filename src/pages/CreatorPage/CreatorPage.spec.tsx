@@ -8,6 +8,8 @@ import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { CreatorPage } from "./CreatorPage";
+import { useResumeContext } from "../../context/ResumeContext/ResumeContext";
+import { initialResumeData } from "../../config/initialData";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});
@@ -17,6 +19,7 @@ const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
 jest.mock("../../context/FirebaseContext/FirebaseContext");
 jest.mock("../../context/SkillsContext/SkillsContext");
 jest.mock("../../context/AppStateContext/AppStateContext");
+jest.mock("../../context/ResumeContext/ResumeContext");
 
 describe("Skill List", () => {
   beforeEach(() => {
@@ -25,6 +28,16 @@ describe("Skill List", () => {
     mocked(useSkillsContext).mockReturnValue({
       skillList: ["JS"],
       updateSkillList: jest.fn(),
+    });
+
+    mocked(useResumeContext).mockReturnValue({
+      resume: initialResumeData,
+      getPersonalResume: jest.fn(),
+      loading: false,
+      getResumeById: jest.fn(),
+      error: undefined,
+      getResumePromise: jest.fn(),
+      resumeId: null,
     });
 
     mocked(useAppState).mockReturnValue({

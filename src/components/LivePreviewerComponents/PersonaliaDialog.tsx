@@ -11,7 +11,7 @@ import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 import { PersonaliaModel } from "./TopSection";
 import { setYear, getCurrentYear } from "../../lib/date";
 
-type DialogFormData = PersonaliaModel & { introduction: string };
+type DialogFormData = PersonaliaModel & { introduction: string | undefined };
 
 type PersonaliaDialogProps = Omit<SectionEditDialogProps<DialogFormData>, "title">;
 

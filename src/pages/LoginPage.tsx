@@ -4,11 +4,13 @@ import {
   FirebaseUserRecord,
   useFirebaseApp,
 } from "../context/FirebaseContext/FirebaseContext";
+import rootFirebase from "firebase/compat/app";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { LoginLayout } from "../layouts/LoginLayout";
 import { VoidFunctionComponent } from "react";
+import { initialResumeData } from "../config/initialData";
 
 const RESUME_COLLECTION = "resumes";
 
@@ -39,6 +41,11 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => {
     if (!userRecord) return;
+
+    if (userRecord?.isManager) {
+      return history.push("/");
+    }
+
     setLoading(true);
     getResume(userRecord).then((doc) => {
       setLoading(false);
@@ -55,16 +62,27 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
   const createResume = async (user: FirebaseUserRecord) => {
     try {
       const resumeCollection = firebase.firestore().collection(RESUME_COLLECTION);
+      let firstName = "";
+      let lastName = "";
 
-      const nameSplit = user.name?.split(" ");
+      if (user.name) {
+        firstName = user.name.split(" ")[0];
+        lastName = user.name.substring(firstName.length).trim();
+      }
+
       const resume = {
         personalia: {
+          ...initialResumeData.personalia,
           email: user.email,
-          firstName: nameSplit?.[0],
-          lastName: nameSplit?.[1],
+          firstName,
+          lastName,
         },
+        userId: user.userId,
       };
-      const resumePromise = await resumeCollection.doc().set(resume);
+
+      const resumePromise = await resumeCollection
+        .doc()
+        .set({ ...initialResumeData, ...resume });
 
       return resumePromise;
     } catch (err) {
@@ -76,15 +94,34 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
     }
   };
 
+  const constructDisplayName = (userRecord: rootFirebase.auth.UserCredential) => {
+    const additionalInfo = userRecord.additionalUserInfo?.profile;
+    if (!additionalInfo) return;
+    const displayKey = Object.keys(additionalInfo).find((info) =>
+      info.includes("name")
+    );
+
+    if (!displayKey) return;
+
+    const joinedDisplayName = (additionalInfo as any)[displayKey];
+
+    if (!joinedDisplayName) return;
+
+    const [first, last] = joinedDisplayName.split(".");
+
+    return `${first} ${last}`;
+  };
+
   const login = async () => {
     const userRecord = await firebase.auth().signInWithPopup(authProvider);
 
     if (!userRecord) return;
 
     const userRecordData = {
-      name: userRecord.user?.displayName ?? "",
+      name: constructDisplayName(userRecord) ?? "",
       registered: userRecord.user?.emailVerified,
       email: userRecord.user?.email ?? "",
+      userId: userRecord.user?.uid,
     } as unknown as FirebaseUserRecord;
 
     setUserRecord(userRecordData);
@@ -97,7 +134,7 @@ export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
 
     const newResumeId = await getResume(userRecordData);
 
-    return setUserResumeId(newResumeId);
+    setUserResumeId(newResumeId);
   };
 
   if (isLoading || loading) return <div />;

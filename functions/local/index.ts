@@ -2,7 +2,7 @@ import { readdirSync } from "fs";
 import { extname, join as joinPath } from "path";
 
 import * as firebase from "firebase-admin";
-import "firebase/firestore";
+import 'firebase/compat/firestore';
 
 import importDocx from "./importDocx";
 
