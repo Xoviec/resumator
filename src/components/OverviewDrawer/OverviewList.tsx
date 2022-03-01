@@ -23,6 +23,8 @@ import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
+
 // components
 import { TooltipIconButton } from "../Material";
 
@@ -93,6 +95,7 @@ const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
   resume: { id, displayName, personalia, isImport, isArchived },
   onDelete,
 }) => {
+  const { setIsDrawerOpen } = useAppState();
   return (
     <NavLink
       className={clsx({
@@ -103,6 +106,9 @@ const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
       to={`/resume/${id}`}
     >
       <ListItem
+        onClick={() => {
+          setIsDrawerOpen(false);
+        }}
         classes={{
           container: clsx(classes.container, {
             [classes.isArchived]: isArchived,
