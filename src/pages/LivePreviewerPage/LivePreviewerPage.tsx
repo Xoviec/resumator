@@ -1,5 +1,5 @@
 import { useCallback, useEffect, VoidFunctionComponent } from "react";
-import { RouteComponentProps, Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { styled } from "@mui/system";
 import Skeleton from "@mui/material/Skeleton";
 import { Card, Box, Button } from "@mui/material";
@@ -17,15 +17,12 @@ const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
 }));
 
-type LivePreviewerProps = RouteComponentProps<{ id: string }>;
-
 type paramsId = {
   id: string;
 };
 
-const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
+const LivePreviewer: VoidFunctionComponent<paramsId> = ({ id }) => {
   const { userRecord } = useFirebaseApp();
-  const { id } = useParams<paramsId>();
   const { resume, loading, error, resumeId } = useResume(id);
   const history = useHistory();
 
@@ -95,13 +92,13 @@ const LivePreviewContainer = styled("div")(({ theme }) => ({
   maxWidth: 1200,
 }));
 
-export const LivePreviewerPage: VoidFunctionComponent<LivePreviewerProps> = (
-  props
-) => {
+export const LivePreviewerPage: VoidFunctionComponent = () => {
+  const params = useParams<paramsId>();
+
   return (
     <MainLayout>
       <OverviewDrawer>
-        <LivePreviewer {...props} />
+        <LivePreviewer {...params} />
       </OverviewDrawer>
     </MainLayout>
   );

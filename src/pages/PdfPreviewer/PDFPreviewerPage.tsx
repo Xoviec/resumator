@@ -1,6 +1,6 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import { memo, VoidFunctionComponent } from "react";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router-dom";
 import { ResumeModel } from "../../components/LivePreviewerComponents/ResumeModel";
 import { PDFTemplate } from "../../components/PDFTemplate/PDFTemplate";
 import { useResume } from "../../hooks";
@@ -22,12 +22,13 @@ const PDFTemplateWrapper: VoidFunctionComponent<PDFTemplateWrapperProps> = memo(
 
 PDFTemplateWrapper.displayName = "PDFTemplateWrapper";
 
-export type PDFPreviewerPageProps = RouteComponentProps<{ id: string }>;
+type paramsId = {
+  id: string;
+};
 
-export const PDFPreviewerPage: VoidFunctionComponent<PDFPreviewerPageProps> = (
-  props
-) => {
-  const { resume, loading, error } = useResume(props.match.params.id);
+export const PDFPreviewerPage: VoidFunctionComponent = () => {
+  const { id } = useParams<paramsId>();
+  const { resume, loading, error } = useResume(id);
 
   return (
     <>

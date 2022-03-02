@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   FirebaseUserRecord,
   useFirebaseApp,
@@ -14,7 +14,7 @@ import { initialResumeData } from "../config/initialData";
 
 const RESUME_COLLECTION = "resumes";
 
-export const LoginPage: VoidFunctionComponent<RouteComponentProps> = () => {
+export const LoginPage: VoidFunctionComponent = () => {
   const history = useHistory();
   const { firebase, authProvider, userRecord, setUserRecord, isLoading } =
     useFirebaseApp();
