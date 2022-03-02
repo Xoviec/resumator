@@ -39,6 +39,7 @@ describe("Nav", () => {
       () =>
         ({
           firebase: {},
+          userRecord: { isManager: true },
         } as FirebaseAppContextType)
     );
 
@@ -70,6 +71,7 @@ describe("Nav", () => {
       () =>
         ({
           firebase: {},
+          userRecord: { isManager: true },
         } as FirebaseAppContextType)
     );
 

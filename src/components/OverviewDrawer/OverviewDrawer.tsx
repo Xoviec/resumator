@@ -25,6 +25,9 @@ const DrawerRoot = styled("div")(({ theme }) => ({
 const Content = styled("div")(({ theme }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
+  "@media (max-width: 600px)": {
+    padding: theme.spacing(1),
+  },
 }));
 
 const StyledDrawer = styled(Drawer)(({ theme }) => ({

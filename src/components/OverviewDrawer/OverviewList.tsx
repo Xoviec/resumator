@@ -104,11 +104,11 @@ const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
       })}
       activeClassName={classes.activeLink}
       to={`/resume/${id}`}
+      onClick={() => {
+        setIsDrawerOpen(false);
+      }}
     >
       <ListItem
-        onClick={() => {
-          setIsDrawerOpen(false);
-        }}
         classes={{
           container: clsx(classes.container, {
             [classes.isArchived]: isArchived,
