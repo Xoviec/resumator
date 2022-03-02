@@ -24,7 +24,7 @@ exports[`FormRichTextEditor should render correctly 1`] = `
         class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
       >
         <legend
-          class="css-1z7n62"
+          class="css-7nxzgd"
         >
           <span>
             test-form-label
