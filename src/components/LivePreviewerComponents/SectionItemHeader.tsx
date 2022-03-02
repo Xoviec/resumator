@@ -79,11 +79,7 @@ export const SectionItemHeader: FunctionComponent<SectionItemHeaderProps> = ({
             tooltip={`Edit ${type}`}
             onClick={handleOpenEditModal}
           >
-            <EditIcon
-              fontSize="small"
-              style={{ color: colors.black }}
-              onClick={handleOpenEditModal}
-            />
+            <EditIcon fontSize="small" style={{ color: colors.black }} />
           </TooltipIconButton>
         </Actions>
 

@@ -13,7 +13,7 @@ import { TopSection } from "./TopSection";
 import { Motivation } from "./Motivation";
 import { ThemeStyle } from "./PreviewControls";
 
-interface LivePreviewerTemplateProps {
+export interface LivePreviewerTemplateProps {
   data: ResumeModel;
 }
 
