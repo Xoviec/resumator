@@ -12,7 +12,7 @@ import { PDFTemplateFM } from "../PDFTemplate/PDFTemplateFM";
 import { ResumeModel } from "./ResumeModel";
 import { ThemeStyle } from "./PreviewControls";
 
-interface PDFPreviewModalProps {
+export interface PDFPreviewModalProps {
   showPDFModal: boolean;
   setShowPDFModal: (s: boolean) => void;
   resume: ResumeModel;
@@ -69,6 +69,7 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
         onClose={handleClosePDFModal}
         aria-labelledby="PDF Preview"
         aria-describedby="PDF Preview"
+        data-testid="pdf-preview-modal"
       >
         <ModalContent>
           <StyledIconButton
