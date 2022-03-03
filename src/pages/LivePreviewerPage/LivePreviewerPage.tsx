@@ -1,5 +1,5 @@
 import { useCallback, useEffect, VoidFunctionComponent } from "react";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import Skeleton from "@mui/material/Skeleton";
 import { Card, Box, Button } from "@mui/material";
@@ -18,19 +18,19 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 type paramsId = {
-  id: string;
+  id?: string;
 };
 
 const LivePreviewer: VoidFunctionComponent<paramsId> = ({ id }) => {
   const { userRecord } = useFirebaseApp();
   const { resume, loading, error, resumeId } = useResume(id);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleRedirect = useCallback(() => {
     if (!userRecord?.isManager) {
-      history.push(`/resume/${resumeId}`);
+      navigate(`/resume/${resumeId}`);
     }
-  }, [history, resumeId, userRecord]);
+  }, [navigate, resumeId, userRecord]);
 
   useEffect(() => {
     handleRedirect();

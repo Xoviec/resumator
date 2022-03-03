@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   FirebaseUserRecord,
   useFirebaseApp,
@@ -15,7 +15,7 @@ import { initialResumeData } from "../config/initialData";
 const RESUME_COLLECTION = "resumes";
 
 export const LoginPage: VoidFunctionComponent = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { firebase, authProvider, userRecord, setUserRecord, isLoading } =
     useFirebaseApp();
   const [loading, setLoading] = React.useState(false);
@@ -43,7 +43,7 @@ export const LoginPage: VoidFunctionComponent = () => {
     if (!userRecord) return;
 
     if (userRecord?.isManager) {
-      return history.push("/");
+      return navigate("/");
     }
 
     setLoading(true);
@@ -56,8 +56,8 @@ export const LoginPage: VoidFunctionComponent = () => {
   React.useEffect(() => {
     if (!userResumeId || !userRecord) return;
 
-    history.push(`/resume/${userResumeId}`);
-  }, [history, userRecord, userResumeId]);
+    navigate(`/resume/${userResumeId}`);
+  }, [navigate, userRecord, userResumeId]);
 
   const createResume = async (user: FirebaseUserRecord) => {
     try {

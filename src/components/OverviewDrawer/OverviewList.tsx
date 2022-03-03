@@ -99,7 +99,6 @@ const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
         [classes.isImported]: isImport,
         [classes.link]: !isImport,
       })}
-      activeClassName={classes.activeLink}
       to={`/resume/${id}`}
     >
       <ListItem
