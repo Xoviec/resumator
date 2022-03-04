@@ -36,9 +36,6 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
           <FormTextField required name="lastName" label="Last name*" />
         </FormRow>
         <FormRow>
-          <FormTextField required name="email" label="Email*" />
-        </FormRow>
-        <FormRow>
           <FormColumn>
             <FormTextField name="city" label="City*" />
           </FormColumn>

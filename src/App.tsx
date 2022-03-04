@@ -28,21 +28,29 @@ export const App: VoidFunctionComponent = () => {
               <BrowserRouter>
                 <Switch>
                   <ResumeProvider>
-                    <Route exact path="/login" component={LoginPage} />
+                    <Route exact path="/login">
+                      <LoginPage />
+                    </Route>
                     <SkillsContextProvider>
-                      <PrivateRoute exact path="/" component={LivePreviewerPage} />
-                      <PrivateRoute
-                        path="/resume/:id"
-                        component={LivePreviewerPage}
-                      />
-                      <PrivateRoute path="/new" component={CreatorPage} />
-                      <PrivateRoute path="/users" component={ManageUsersPage} />
-                      <PrivateRoute path="/skills" component={SkillsEditorPage} />
+                      <PrivateRoute exact path="/">
+                        <LivePreviewerPage />
+                      </PrivateRoute>
+                      <PrivateRoute path="/resume/:id">
+                        <LivePreviewerPage />
+                      </PrivateRoute>
+                      <PrivateRoute path="/new">
+                        <CreatorPage />
+                      </PrivateRoute>
+                      <PrivateRoute path="/users">
+                        <ManageUsersPage />
+                      </PrivateRoute>
+                      <PrivateRoute path="/skills">
+                        <SkillsEditorPage />
+                      </PrivateRoute>
                     </SkillsContextProvider>
-                    <PrivateRoute
-                      path="/pdf-preview/:id/"
-                      component={PDFPreviewerPage}
-                    />
+                    <PrivateRoute path="/pdf-preview/:id">
+                      <PDFPreviewerPage />
+                    </PrivateRoute>
                   </ResumeProvider>
                 </Switch>
               </BrowserRouter>

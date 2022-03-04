@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { TopSection, PersonaliaModel } from "../TopSection";
+import { TopSection, PersonaliaModel } from "./TopSection";
 
 const defaultProps = {
   personalia: {} as PersonaliaModel,

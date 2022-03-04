@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { SectionHeader, SectionHeaderProps } from "../SectionHeader";
+import { SectionHeader, SectionHeaderProps } from "./SectionHeader";
 
 test("it should render a title", () => {
   const props = {

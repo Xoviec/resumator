@@ -20,7 +20,7 @@
     "@date-io/date-fns": "2.x",
     "@emotion/core": "^11.0.0",
     "@emotion/css": "^11.5.0",
-    "@emotion/react": "^11.7.0",
+    "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.6.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
@@ -73,12 +73,12 @@
     "@types/debounce": "^1.2.1",
     "@types/draft-js": "^0.11.7",
     "@types/file-saver": "^2.0.4",
-    "@types/jest": "^27.0.3",
+    "@types/jest": "^27.4.1",
     "@types/node": "^17.0.18",
     "@types/pizzip": "^3.0.1",
-    "@types/ramda": "^0.27.60",
+    "@types/ramda": "^0.28.0",
     "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.9",
+    "@types/react-dom": "^17.0.13",
     "@types/react-router-dom": "^5.1.7",
     "@types/rebass": "^4.0.9",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
@@ -86,7 +86,7 @@
     "cypress": "^9.3.1",
     "cypress-firebase": "^2.2.0",
     "env-cmd": "^10.1.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-jest-dom": "^4.0.1",
     "eslint-plugin-prettier": "^4.0.0",
@@ -140,10 +140,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 12,
-        "functions": 3,
-        "lines": 4,
-        "statements": 4
+        "branches": 22,
+        "functions": 40,
+        "lines": 42,
+        "statements": 43
       }
     }
   }

@@ -122,7 +122,6 @@ export const PDFHeader: VoidFunctionComponent<{
 
       <PersonalInfoBox>
         <View>
-          <Text>{email}</Text>
           <Text style={styles.my_5}>{city.toUpperCase()} REGION - NL</Text>
           <Text>{age ? `${age} years old` : ""}</Text>
         </View>

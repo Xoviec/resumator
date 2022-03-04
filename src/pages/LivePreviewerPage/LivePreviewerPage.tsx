@@ -1,5 +1,5 @@
 import { useCallback, useEffect, VoidFunctionComponent } from "react";
-import { RouteComponentProps, Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { styled } from "@mui/system";
 import Skeleton from "@mui/material/Skeleton";
 import { Card, Box, Button } from "@mui/material";
@@ -17,15 +17,12 @@ const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
 }));
 
-type LivePreviewerProps = RouteComponentProps<{ id: string }>;
-
 type paramsId = {
   id: string;
 };
 
-const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
+const LivePreviewer: VoidFunctionComponent<paramsId> = ({ id }) => {
   const { userRecord } = useFirebaseApp();
-  const { id } = useParams<paramsId>();
   const { resume, loading, error, resumeId } = useResume(id);
   const history = useHistory();
 
@@ -66,7 +63,6 @@ const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
           <StyledSkeleton
             animation="wave"
             variant="rectangular"
-            width={1200}
             height={height}
             key={`${height}-${index}`}
           />
@@ -87,21 +83,32 @@ const LivePreviewer: VoidFunctionComponent<LivePreviewerProps> = () => {
 };
 const StyledSkeleton = styled(Skeleton)`
   margin: 8px auto;
+  @media (max-width: 600px): {
+    max-width: 315px,
+  },
+  @media (min-width: 601px): {
+    max-width: 1200px,
+  },
 `;
 
 const LivePreviewContainer = styled("div")(({ theme }) => ({
   boxSizing: "border-box",
   margin: "0 auto",
-  maxWidth: 1200,
+  "@media (max-width: 600px)": {
+    maxWidth: 315,
+  },
+  "@media (min-width: 601px)": {
+    maxWidth: 1200,
+  },
 }));
 
-export const LivePreviewerPage: VoidFunctionComponent<LivePreviewerProps> = (
-  props
-) => {
+export const LivePreviewerPage: VoidFunctionComponent = () => {
+  const params = useParams<paramsId>();
+
   return (
     <MainLayout>
       <OverviewDrawer>
-        <LivePreviewer {...props} />
+        <LivePreviewer {...params} />
       </OverviewDrawer>
     </MainLayout>
   );
