@@ -62,7 +62,7 @@ describe("Skill List", () => {
     history.push = jest.fn();
 
     render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <ThemeProviderWrapper>
           <CreatorPage />
         </ThemeProviderWrapper>
@@ -72,6 +72,9 @@ describe("Skill List", () => {
     expect(screen.queryByRole("dialog")).toBeInTheDocument();
     fireEvent.click(screen.getByText("Cancel"));
 
-    expect(history.push).toHaveBeenCalledWith("/");
+    expect(history.push).toHaveBeenCalledWith(
+      { hash: "", pathname: "/", search: "" },
+      undefined
+    );
   });
 });

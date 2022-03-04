@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { ManageUsersPage } from "./ManageUsersPage";
 import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { mocked } from "jest-mock";
@@ -22,11 +22,11 @@ jest.mock("../../context/AppStateContext/AppStateContext");
 describe("ManageUsers Page", () => {
   const history = createMemoryHistory();
   const ManageUsersPageToRender = (
-    <Router history={history}>
+    <BrowserRouter>
       <ThemeProviderWrapper>
         <ManageUsersPage />
       </ThemeProviderWrapper>
-    </Router>
+    </BrowserRouter>
   );
 
   beforeEach(() => {

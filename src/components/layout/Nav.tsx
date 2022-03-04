@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState, VoidFunctionComponent } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
@@ -28,7 +28,7 @@ export const Nav: VoidFunctionComponent = () => {
   const { firebase, authUser, userRecord } = useFirebaseApp();
   const { isDrawerOpen, setIsDrawerOpen } = useAppState();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -50,7 +50,7 @@ export const Nav: VoidFunctionComponent = () => {
 
   const signOut = async () => {
     await firebase.auth().signOut();
-    history.push("/");
+    navigate("/");
   };
 
   const adminMenuItems = userRecord?.isManager ? (

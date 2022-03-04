@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { SkillHeader, SkillHeaderProps } from "./SkillHeader";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 
@@ -20,17 +19,14 @@ const props = {
 } as SkillHeaderProps;
 
 describe("Skill Header", () => {
-  const history = createMemoryHistory();
-
   it("should always render content", () => {
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <SkillHeader {...props} />
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
-
     expect(screen.getByRole("heading", { name: "Skills" })).toHaveTextContent(
       "Skills"
     );

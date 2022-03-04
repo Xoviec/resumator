@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFirebaseApp } from "../context/FirebaseContext/FirebaseContext";
 import { useResumeContext } from "../context/ResumeContext/ResumeContext";
 
-const useResume = (id: string) => {
+const useResume = (id?: string) => {
   const { userRecord } = useFirebaseApp();
   const { resume, loading, error, getPersonalResume, getResumeById, resumeId } =
     useResumeContext();

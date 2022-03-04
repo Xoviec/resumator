@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Alert, Snackbar } from "@mui/material";
 import { VoidFunctionComponent, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { PersonaliaDialog } from "../../components/LivePreviewerComponents/PersonaliaDialog";
 import { PersonaliaModel } from "../../components/LivePreviewerComponents/TopSection";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
@@ -17,7 +17,7 @@ const INITIAL_DATA = {
 };
 
 export const CreatorPage: VoidFunctionComponent = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { firebase } = useFirebaseApp();
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -35,7 +35,7 @@ export const CreatorPage: VoidFunctionComponent = () => {
             data={initialData}
             open={true}
             onCancel={() => {
-              history.push("/");
+              navigate("/");
             }}
             onSave={async (formData) => {
               try {
@@ -49,7 +49,7 @@ export const CreatorPage: VoidFunctionComponent = () => {
 
                 await doc.set({ ...initialResumeData, personalia, introduction });
 
-                history.push(`/resume/${doc.id}`);
+                navigate(`/resume/${doc.id}`);
               } catch (e) {
                 alert(
                   `Error adding document. ${

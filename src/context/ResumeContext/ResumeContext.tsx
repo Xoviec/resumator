@@ -8,7 +8,7 @@ import rootFirebase from "firebase/compat/app";
 interface IResumeContext {
   resume: ResumeModel | null;
   getPersonalResume: (email?: string) => void;
-  getResumeById: (id: string) => void;
+  getResumeById: (id?: string) => void;
   loading: boolean;
   error: string | undefined;
   resumeId: string | null;
@@ -66,7 +66,7 @@ const ResumeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   const getResumeById = useCallback(
-    (id: string) => {
+    (id?: string) => {
       setLoading(true);
       setResume(null);
       firebase

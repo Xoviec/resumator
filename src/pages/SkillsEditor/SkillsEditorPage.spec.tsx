@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { SkillsEditorPage } from "./SkillsEditorPage";
 import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { mocked } from "jest-mock";
@@ -24,11 +24,11 @@ jest.mock("../../context/AppStateContext/AppStateContext");
 describe("Skill Editor Page", () => {
   const history = createMemoryHistory();
   const SkillsEditorPageManageToRender = (
-    <Router history={history}>
+    <BrowserRouter>
       <ThemeProviderWrapper>
         <SkillsEditorPage />
       </ThemeProviderWrapper>
-    </Router>
+    </BrowserRouter>
   );
 
   beforeEach(() => {
@@ -51,11 +51,11 @@ describe("Skill Editor Page", () => {
 
   it("Should render page", () => {
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <SkillsEditorPage />
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
   });
 

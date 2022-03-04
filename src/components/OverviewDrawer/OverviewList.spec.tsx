@@ -1,9 +1,9 @@
 import { TabContext } from "@mui/lab";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { prettyDOM, waitFor, within } from "@testing-library/dom";
+import { waitFor, within } from "@testing-library/dom";
 import { FunctionComponent } from "react";
-import { Router } from "react-router";
+import { BrowserRouter, Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { mocked } from "jest-mock";
@@ -100,13 +100,13 @@ describe("OverviewList", () => {
 
   it("should show active resumes", () => {
     render(
-      <Router history={createMemoryHistory()}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <TabContext value="active-users-tab">
             <OverviewList searchTerms="" />
           </TabContext>
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
 
     expect(screen.getByText(/User1Name User1Surname/)).toBeInTheDocument();
@@ -114,13 +114,13 @@ describe("OverviewList", () => {
 
   it("should show archived resumes", () => {
     render(
-      <Router history={createMemoryHistory()}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <TabContext value="archived-users-tab">
             <OverviewList searchTerms="" />
           </TabContext>
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
 
     expect(screen.getByText(/Archived1Name Archived1Surname/)).toBeInTheDocument();
@@ -130,7 +130,7 @@ describe("OverviewList", () => {
     const history = createMemoryHistory();
 
     render(
-      <Router history={history}>
+      <Router location={history.location} navigator={history}>
         <ThemeProviderWrapper>
           <TabContext value="active-users-tab">
             <OverviewList searchTerms="" />
@@ -146,13 +146,13 @@ describe("OverviewList", () => {
   describe("DeleteConfirmationDialog", () => {
     const prepareDeleteConfirmationDialog = () => {
       render(
-        <Router history={createMemoryHistory()}>
+        <BrowserRouter>
           <ThemeProviderWrapper>
             <TabContext value="active-users-tab">
               <OverviewList searchTerms="" />
             </TabContext>
           </ThemeProviderWrapper>
-        </Router>
+        </BrowserRouter>
       );
 
       const resume2Container = screen
