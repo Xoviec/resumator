@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { Router } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
 import { createTheme } from "@mui/material/styles";
@@ -44,9 +44,9 @@ describe("Nav", () => {
     );
 
     const { asFragment, getByLabelText } = render(
-      <Router history={createMemoryHistory()}>
+      <BrowserRouter>
         <Nav />
-      </Router>
+      </BrowserRouter>
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -76,9 +76,9 @@ describe("Nav", () => {
     );
 
     const { asFragment, getByLabelText } = render(
-      <Router history={createMemoryHistory()}>
+      <BrowserRouter>
         <Nav />
-      </Router>
+      </BrowserRouter>
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -111,9 +111,9 @@ describe("Nav", () => {
     const memoryHistory = createMemoryHistory();
 
     const { getByLabelText } = render(
-      <Router history={memoryHistory}>
+      <BrowserRouter>
         <Nav />
-      </Router>
+      </BrowserRouter>
     );
 
     userEvent.click(getByLabelText(/sign out/i));
@@ -138,9 +138,9 @@ describe("Nav", () => {
 
     const { getByText } = render(
       <ThemeProviderWrapper>
-        <Router history={createMemoryHistory()}>
+        <BrowserRouter>
           <Nav />
-        </Router>
+        </BrowserRouter>
       </ThemeProviderWrapper>
     );
 
@@ -164,9 +164,9 @@ describe("Nav", () => {
 
     const { queryByText } = render(
       <ThemeProviderWrapper>
-        <Router history={createMemoryHistory()}>
+        <BrowserRouter>
           <Nav />
-        </Router>
+        </BrowserRouter>
       </ThemeProviderWrapper>
     );
 
@@ -190,9 +190,9 @@ describe("Nav", () => {
 
     const { getByAltText } = render(
       <ThemeProviderWrapper>
-        <Router history={createMemoryHistory()}>
+        <BrowserRouter>
           <Nav />
-        </Router>
+        </BrowserRouter>
       </ThemeProviderWrapper>
     );
 
@@ -215,9 +215,9 @@ describe("Nav", () => {
 
     const { getByLabelText } = render(
       <ThemeProviderWrapper>
-        <Router history={createMemoryHistory()}>
+        <BrowserRouter>
           <Nav />
-        </Router>
+        </BrowserRouter>
       </ThemeProviderWrapper>
     );
 

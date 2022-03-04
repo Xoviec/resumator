@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { SkillItem, SkillItemProps } from "./SkillItem";
 import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 
@@ -23,11 +23,11 @@ describe("Skill Item", () => {
     } as SkillItemProps;
 
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <SkillItem {...props} />
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
   });
 
@@ -41,11 +41,11 @@ describe("Skill Item", () => {
     } as SkillItemProps;
 
     const utils = render(
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <SkillItem {...props} />
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
 
     await waitFor(() => {
@@ -67,11 +67,11 @@ describe("Skill Item", () => {
     } as SkillItemProps;
 
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <SkillItem {...props} />
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
   });
 
@@ -85,11 +85,11 @@ describe("Skill Item", () => {
     } as SkillItemProps;
 
     const utils = render(
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProviderWrapper>
           <SkillItem {...props} />
         </ThemeProviderWrapper>
-      </Router>
+      </BrowserRouter>
     );
 
     await waitFor(() => {
