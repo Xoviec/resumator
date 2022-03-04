@@ -20,7 +20,7 @@ import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import LogoWhite from "../../assets/images/iO-logo-white.png";
 
 const StyledLink = styled(Link)(({ theme }) => ({
-  color: theme.palette.primary.main,
+  color: theme.palette?.primary?.main,
   textDecoration: "none",
 }));
 
@@ -91,15 +91,17 @@ export const Nav: VoidFunctionComponent = () => {
       <Box>
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label={isDrawerOpen ? "close drawer" : "open drawer"}
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ marginRight: 2, display: { lg: "none" } }}
-            >
-              {isDrawerOpen ? <ChevronLeftIcon /> : <MenuIcon />}
-            </IconButton>
+            {userRecord?.isManager && (
+              <IconButton
+                color="inherit"
+                aria-label={isDrawerOpen ? "close drawer" : "open drawer"}
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ marginRight: 2, display: { lg: "none" } }}
+              >
+                {isDrawerOpen ? <ChevronLeftIcon /> : <MenuIcon />}
+              </IconButton>
+            )}
 
             <IconButton component={Link} to="/">
               <img src={LogoWhite} alt="iO Logo white" height={44} />

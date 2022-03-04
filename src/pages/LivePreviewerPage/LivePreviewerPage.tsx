@@ -63,7 +63,6 @@ const LivePreviewer: VoidFunctionComponent<paramsId> = ({ id }) => {
           <StyledSkeleton
             animation="wave"
             variant="rectangular"
-            width={1200}
             height={height}
             key={`${height}-${index}`}
           />
@@ -84,12 +83,23 @@ const LivePreviewer: VoidFunctionComponent<paramsId> = ({ id }) => {
 };
 const StyledSkeleton = styled(Skeleton)`
   margin: 8px auto;
+  @media (max-width: 600px): {
+    max-width: 315px,
+  },
+  @media (min-width: 601px): {
+    max-width: 1200px,
+  },
 `;
 
 const LivePreviewContainer = styled("div")(({ theme }) => ({
   boxSizing: "border-box",
   margin: "0 auto",
-  maxWidth: 1200,
+  "@media (max-width: 600px)": {
+    maxWidth: 315,
+  },
+  "@media (min-width: 601px)": {
+    maxWidth: 1200,
+  },
 }));
 
 export const LivePreviewerPage: VoidFunctionComponent = () => {

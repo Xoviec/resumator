@@ -9,9 +9,11 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { mocked } from "jest-mock";
 import userEvent from "@testing-library/user-event";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { OverviewList } from "./OverviewList";
 
 jest.mock("../../context/FirebaseContext/FirebaseContext");
+jest.mock("../../context/AppStateContext/AppStateContext");
 jest.mock("react-firebase-hooks/firestore", () => ({
   ...jest.requireActual("react-firebase-hooks/firestore"),
   useCollection: jest.fn(),
@@ -61,11 +63,17 @@ describe("OverviewList", () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
+    mocked(useAppState).mockImplementation(() => ({
+      isDrawerOpen: true,
+      setIsDrawerOpen: jest.fn(),
+    }));
+
     mocked(useCollection).mockReturnValue([
       getExampleResumeQueryResult(),
       false,
       null,
     ] as any);
+
     mocked(useFirebaseApp).mockReturnValue({
       firebase: {
         firestore: jest.fn().mockReturnValue({ collection: jest.fn() }),
