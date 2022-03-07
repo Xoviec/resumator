@@ -142,7 +142,9 @@ describe("FormSkillsSelectAutocomplete", () => {
       />
     );
 
-    expect(SortableSelect.mock.calls[0][0]).toMatchObject({
+    const sortableSelect: [][] = SortableSelect.mock.calls[0];
+
+    expect(sortableSelect[0]).toMatchObject({
       options: [
         { value: "skill1", label: "skill1", isActive: true },
         { value: "skill2", label: "skill2", isActive: true },

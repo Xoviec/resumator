@@ -8,7 +8,7 @@ describe("Confirmation", () => {
       isOpen: true,
       denyClick: () => null,
       confirmClick: () => null,
-    } as ConfirmationProps;
+    } as unknown as ConfirmationProps;
 
     render(<Confirmation {...props} />);
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
