@@ -10,6 +10,7 @@ import {
 import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 import { PersonaliaModel } from "./TopSection";
 import { setYear, getCurrentYear } from "../../lib/date";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 
 type DialogFormData = PersonaliaModel & { introduction: string | undefined };
 
@@ -22,6 +23,7 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
   onCancel,
 }) => {
   const minDate = setYear(getCurrentYear() - 100);
+  const { userRecord } = useFirebaseApp();
   return (
     <SectionEditDialog
       title="Personal details"
@@ -35,6 +37,11 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
           <FormTextField required name="firstName" label="First name*" />
           <FormTextField required name="lastName" label="Last name*" />
         </FormRow>
+        {userRecord?.isManager && (
+          <FormRow>
+            <FormTextField required name="email" label="Email*" />
+          </FormRow>
+        )}
         <FormRow>
           <FormColumn>
             <FormTextField name="city" label="City*" />
