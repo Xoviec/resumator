@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { ManageUsersPage } from "./ManageUsersPage";
-import { createMemoryHistory } from "history";
 import { BrowserRouter } from "react-router-dom";
 import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -20,7 +19,6 @@ jest.mock("../../context/FirebaseContext/FirebaseContext");
 jest.mock("../../context/AppStateContext/AppStateContext");
 
 describe("ManageUsers Page", () => {
-  const history = createMemoryHistory();
   const ManageUsersPageToRender = (
     <BrowserRouter>
       <ThemeProviderWrapper>
