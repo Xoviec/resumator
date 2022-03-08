@@ -3,13 +3,14 @@ import {
   useFirebaseApp,
   FirebaseAppContextType,
 } from "../../context/FirebaseContext/FirebaseContext";
-import { TopSection, PersonaliaModel } from "./TopSection";
+import { TopSection } from "./TopSection";
+import { personalia } from "../../mocks/mocks";
 import { mocked } from "jest-mock";
 
 jest.mock("../../context/FirebaseContext/FirebaseContext");
 
 const defaultProps = {
-  personalia: {} as PersonaliaModel,
+  personalia,
   onSubmit: jest.fn(),
 };
 
@@ -23,32 +24,46 @@ describe("TopSection Tests", () => {
   });
 
   test("expect fallback introduction to be displayed", () => {
-    const personalia = {
-      firstName: "Donald",
-      lastName: "Trump",
-      email: "donald.trump@frontmen.nl",
-    } as PersonaliaModel;
-    const fallbackText = `Donald has nothing to tell you.`;
+    const fallbackText = `${personalia.firstName} has nothing to tell you.`;
 
-    render(<TopSection personalia={personalia} onSubmit={defaultProps.onSubmit} />);
+    render(
+      <TopSection
+        personalia={defaultProps.personalia}
+        onSubmit={defaultProps.onSubmit}
+      />
+    );
     expect(screen.getByText(fallbackText)).toBeInTheDocument();
   });
 
-  const personalia = {
-    firstName: "Donald",
-    lastName: "Trump",
-    email: "donald.trump@frontmen.nl",
-  } as PersonaliaModel;
+  test("expect name to be displayed", () => {
+    const name = `${defaultProps.personalia.firstName} ${defaultProps.personalia.lastName}`;
 
-  test("expect name to be Donald Trump", () => {
-    const name = `${personalia.firstName} ${personalia.lastName}`;
-
-    render(<TopSection personalia={personalia} onSubmit={defaultProps.onSubmit} />);
+    render(
+      <TopSection
+        personalia={defaultProps.personalia}
+        onSubmit={defaultProps.onSubmit}
+      />
+    );
     expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(name);
   });
 
+  test("expect role to be displayed", () => {
+    render(
+      <TopSection
+        personalia={defaultProps.personalia}
+        onSubmit={defaultProps.onSubmit}
+      />
+    );
+    expect(screen.getByText(defaultProps.personalia.role)).toBeInTheDocument();
+  });
+
   test("expect email to be displayed", () => {
-    render(<TopSection personalia={personalia} onSubmit={defaultProps.onSubmit} />);
-    expect(screen.getByText(personalia.email)).toBeInTheDocument();
+    render(
+      <TopSection
+        personalia={defaultProps.personalia}
+        onSubmit={defaultProps.onSubmit}
+      />
+    );
+    expect(screen.getByText(defaultProps.personalia.email)).toBeInTheDocument();
   });
 });

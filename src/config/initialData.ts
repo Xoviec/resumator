@@ -11,6 +11,7 @@ export const initialResumeData: ResumeModel = {
     city: "",
     dateOfBirth: "",
     email: "",
+    role: "",
   },
   projects: [],
   publications: [],
