@@ -20,6 +20,7 @@ const personalia = {
   email: "johndoe@frontmen.nl",
   firstName: "John",
   lastName: "Doe",
+  role: "Frontend developer",
 };
 
 const projects = [

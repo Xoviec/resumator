@@ -25,6 +25,17 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const { personalia } = resume;
 
   useEffect(() => {
+    const { personalia, ...otherResumeData } = data;
+    setResume({
+      ...otherResumeData,
+      personalia: {
+        ...personalia,
+        role: personalia.role || "Experienced Developer",
+      },
+    });
+  }, [data]);
+
+  useEffect(() => {
     const defaultTitle = "CV | iO";
     let fullName = "";
     if (personalia?.firstName) {
@@ -72,9 +83,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         resume={resume}
       />
       <TopSection
-        personalia={{
-          ...resume.personalia,
-        }}
+        personalia={personalia}
         introduction={resume.introduction}
         isArchived={resume.isArchived}
         onSubmit={(data) => {

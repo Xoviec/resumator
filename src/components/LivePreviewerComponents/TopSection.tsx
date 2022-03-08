@@ -20,6 +20,7 @@ export interface PersonaliaModel {
   email: string;
   city: string;
   dateOfBirth: Date | string | null;
+  role: string;
 }
 
 interface FormModel extends PersonaliaModel {
@@ -91,11 +92,19 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
                 align="left"
                 style={{
                   fontSize: "2.53rem",
-                  marginBottom: "30px",
+                  marginBottom: "-10px",
                 }}
               >
                 {isArchived && "(Archived) "}
                 {getFirstName()} {getLastName()}
+              </Typography>
+              <Typography
+                variant="h5"
+                style={{
+                  marginBottom: "20px",
+                }}
+              >
+                {personalia.role}
               </Typography>
               <DetailWithIcon icon={<EmailIcon style={{ color: colors.black }} />}>
                 {personalia.email}
