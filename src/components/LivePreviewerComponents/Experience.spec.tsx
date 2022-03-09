@@ -4,7 +4,7 @@ import { ExperienceModel } from "./ExperienceItem";
 import { formatTimespan } from "../../lib/date";
 import { workExperiences } from "../../mocks/mocks";
 
-describe("ExperienceItem", () => {
+describe("Experience", () => {
   const defaultProps = {
     type: "Work Experience",
     experience: [workExperiences[0]] as ExperienceModel[],
@@ -76,7 +76,7 @@ describe("ExperienceItem", () => {
   });
 
   // TODO move useSkillsContext out of FormSkillsSelectAutocomplete component and pass skillList as props
-  xtest("expect edit dialog to be closed on click cancel", async () => {
+  xtest("expect edit dialog to be closed on click cancel", () => {
     render(
       <Experience
         type={defaultProps.type}
@@ -87,9 +87,8 @@ describe("ExperienceItem", () => {
     );
 
     fireEvent.click(screen.getAllByTestId("EditIcon")[0]); // Click first edit icon
-    await act(async () => {
-      await fireEvent.click(screen.getByText(/cancel/i));
-    });
+    fireEvent.click(screen.getByText(/cancel/i));
+
     const dialogTitle = screen.queryByText(`Edit ${defaultProps.type}`);
     expect(dialogTitle).not.toBeInTheDocument();
   });

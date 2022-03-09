@@ -3,7 +3,6 @@ import { MouseEventHandler, VoidFunctionComponent } from "react";
 
 export interface SkillChipProps extends ChipProps {
   label: string;
-  // TODO: fix any type
   onDelete?: MouseEventHandler<HTMLDivElement>;
   isActive?: boolean;
   onActiveChange?: (label: string) => void;

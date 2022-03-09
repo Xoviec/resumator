@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
@@ -24,7 +24,7 @@ jest.mock("../../context/AppStateContext/AppStateContext");
 beforeEach(jest.clearAllMocks);
 
 describe("Nav", () => {
-  it("opens the drawer when clicked on open drawer button", () => {
+  it("opens the drawer when clicked on open drawer button", async () => {
     let isDrawerOpen = false;
     const setIsDrawerOpenMock = jest.fn((fn) => {
       isDrawerOpen = fn(isDrawerOpen);
@@ -51,7 +51,9 @@ describe("Nav", () => {
 
     expect(asFragment()).toMatchSnapshot();
 
-    userEvent.click(getByLabelText("open drawer"));
+    await act(async () => {
+      userEvent.click(getByLabelText("open drawer"));
+    });
 
     expect(isDrawerOpen).toEqual(true);
   });
@@ -83,7 +85,9 @@ describe("Nav", () => {
 
     expect(asFragment()).toMatchSnapshot();
 
-    userEvent.click(getByLabelText("close drawer"));
+    await act(async () => {
+      userEvent.click(getByLabelText("close drawer"));
+    });
 
     expect(isDrawerOpen).toEqual(false);
   });
@@ -116,7 +120,9 @@ describe("Nav", () => {
       </BrowserRouter>
     );
 
-    userEvent.click(getByLabelText(/sign out/i));
+    await act(async () => {
+      userEvent.click(getByLabelText(/sign out/i));
+    });
 
     expect(signOutMock).toHaveBeenCalled();
     expect(memoryHistory.location.pathname).toEqual("/");

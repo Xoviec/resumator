@@ -176,7 +176,7 @@ const SocialLinksFormContent: VoidFunctionComponent = () => {
   );
 };
 
-interface SocialLinksProps {
+export interface SocialLinksProps {
   socialLinks: SocialLinkModel[];
   onSubmit: OnSubmit;
 }

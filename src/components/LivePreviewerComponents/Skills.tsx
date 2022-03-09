@@ -11,7 +11,7 @@ export interface SkillModel {
   name: string;
   isActive?: boolean;
 }
-interface SkillsProps {
+export interface SkillsProps {
   skills: SkillModel[];
   onSubmit: (skills: SkillModel[]) => void;
 }

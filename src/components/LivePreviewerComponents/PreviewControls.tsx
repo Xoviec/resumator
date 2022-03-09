@@ -15,7 +15,7 @@ export enum ThemeStyle {
   iO = "iO",
 }
 
-interface PreviewControlsProps {
+export interface PreviewControlsProps {
   resume: ResumeModel;
   setShowPDFModal: (show: boolean) => void;
   setThemeStyle: (themeStyle: ThemeStyle) => void;
