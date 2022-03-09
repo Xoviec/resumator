@@ -3,7 +3,7 @@ import { ExperienceItem, ExperienceModel } from "./ExperienceItem";
 import { formatTimespan } from "../../lib/date";
 import { workExperiences } from "../../mocks/mocks";
 
-describe("EducationItem", () => {
+describe("ExperienceItem", () => {
   const defaultProps = {
     type: "Work Experience",
     experienceItem: workExperiences[0] as ExperienceModel,

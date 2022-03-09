@@ -75,7 +75,7 @@ describe("Motivation", () => {
     expect(defaultProps.onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  test("expect motivation dialog to be closed on click cancel", async () => {
+  test("expect motivation dialog to be closed on click cancel", () => {
     render(
       <Motivation
         introText={defaultProps.introText}
@@ -84,9 +84,8 @@ describe("Motivation", () => {
     );
 
     fireEvent.click(screen.getByTestId("EditIcon"));
-    await act(async () => {
-      await fireEvent.click(screen.getByText(/cancel/i));
-    });
+    fireEvent.click(screen.getByText(/cancel/i));
+
     const dialogTitle = screen.queryByRole("heading", { level: 6 });
     expect(dialogTitle).not.toBeInTheDocument();
   });

@@ -80,7 +80,7 @@ describe("Education", () => {
     expect(defaultProps.onSubmit).toHaveBeenCalledTimes(1);
   });
 
-  test("expect edit dialog to be closed on click cancel", async () => {
+  test("expect edit dialog to be closed on click cancel", () => {
     render(
       <Education
         education={defaultProps.education}
@@ -89,9 +89,8 @@ describe("Education", () => {
     );
 
     fireEvent.click(screen.getAllByTestId("EditIcon")[0]); // Click first edit icon
-    await act(async () => {
-      await fireEvent.click(screen.getByText(/cancel/i));
-    });
+    fireEvent.click(screen.getByText(/cancel/i));
+
     const dialogTitle = screen.queryByText("Edit education");
     expect(dialogTitle).not.toBeInTheDocument();
   });
