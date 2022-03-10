@@ -59,4 +59,20 @@ describe("PreviewControls", () => {
     expect(defaultProps.setShowPDFModal).toHaveBeenCalledTimes(1);
     expect(defaultProps.setThemeStyle).toHaveBeenCalledTimes(1);
   });
+
+  test("expect toggleIsArchive to be called on clicking 'Archive' button", async () => {
+    render(
+      <PreviewControls
+        resume={defaultProps.resume}
+        setShowPDFModal={defaultProps.setShowPDFModal}
+        setThemeStyle={defaultProps.setThemeStyle}
+        onToggleIsArchived={defaultProps.onToggleIsArchived}
+      />
+    );
+
+    await act(async () => {
+      await fireEvent.click(screen.getByText(/archive/i));
+    });
+    expect(defaultProps.onToggleIsArchived).toHaveBeenCalledTimes(1);
+  });
 });
