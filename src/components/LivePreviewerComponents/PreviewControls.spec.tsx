@@ -22,7 +22,7 @@ describe("PreviewControls", () => {
     resume,
     setShowPDFModal: jest.fn(),
     setThemeStyle: jest.fn(),
-    onArchive: jest.fn(),
+    onToggleIsArchived: jest.fn(),
   } as PreviewControlsProps;
 
   test("expect downloadResume to be called on selecting 'Download as..' option", async () => {
@@ -31,6 +31,7 @@ describe("PreviewControls", () => {
         resume={defaultProps.resume}
         setShowPDFModal={defaultProps.setShowPDFModal}
         setThemeStyle={defaultProps.setThemeStyle}
+        onToggleIsArchived={defaultProps.onToggleIsArchived}
       />
     );
 
@@ -47,6 +48,7 @@ describe("PreviewControls", () => {
         resume={defaultProps.resume}
         setShowPDFModal={defaultProps.setShowPDFModal}
         setThemeStyle={defaultProps.setThemeStyle}
+        onToggleIsArchived={defaultProps.onToggleIsArchived}
       />
     );
 
@@ -56,5 +58,21 @@ describe("PreviewControls", () => {
     });
     expect(defaultProps.setShowPDFModal).toHaveBeenCalledTimes(1);
     expect(defaultProps.setThemeStyle).toHaveBeenCalledTimes(1);
+  });
+
+  test("expect toggleIsArchive to be called on clicking 'Archive' button", async () => {
+    render(
+      <PreviewControls
+        resume={defaultProps.resume}
+        setShowPDFModal={defaultProps.setShowPDFModal}
+        setThemeStyle={defaultProps.setThemeStyle}
+        onToggleIsArchived={defaultProps.onToggleIsArchived}
+      />
+    );
+
+    await act(async () => {
+      await fireEvent.click(screen.getByText(/archive/i));
+    });
+    expect(defaultProps.onToggleIsArchived).toHaveBeenCalledTimes(1);
   });
 });
