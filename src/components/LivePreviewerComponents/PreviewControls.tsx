@@ -7,7 +7,6 @@ import GetAppIcon from "@mui/icons-material/GetApp";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { useLocation, NavLink } from "react-router-dom";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { ResumeModel } from "./ResumeModel";
 
 export enum ThemeStyle {
@@ -19,21 +18,17 @@ export interface PreviewControlsProps {
   resume: ResumeModel;
   setShowPDFModal: (show: boolean) => void;
   setThemeStyle: (themeStyle: ThemeStyle) => void;
+  onToggleIsArchived: () => void;
 }
 
 export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
   resume,
   setShowPDFModal,
   setThemeStyle,
+  onToggleIsArchived,
 }) => {
-  const { firebase } = useFirebaseApp();
   const location = useLocation();
   const isCreatorPage = location.pathname.includes("new");
-
-  const archiveResume = (isArchived = true) => {
-    if (!resume.id) return;
-    firebase.firestore().collection("resumes").doc(resume.id).update({ isArchived });
-  };
 
   return (
     <Box
@@ -92,7 +87,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         <SpacedButton
           variant="contained"
           startIcon={<ArchiveIcon />}
-          onClick={() => archiveResume(!resume.isArchived)}
+          onClick={onToggleIsArchived}
           color="primary"
         >
           {!resume.isArchived ? "Archive" : "Unarchive"}

@@ -81,6 +81,11 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         setShowPDFModal={setShowPDFModal}
         setThemeStyle={setThemeStyle}
         resume={resume}
+        onToggleIsArchived={() => {
+          handleSubmit({
+            isArchived: !resume.isArchived,
+          });
+        }}
       />
       <TopSection
         personalia={personalia}
