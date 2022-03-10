@@ -10,7 +10,6 @@ import { useLocation, NavLink } from "react-router-dom";
 import { ResumeModel } from "./ResumeModel";
 
 export enum ThemeStyle {
-  FrontMen = "FrontMen",
   iO = "iO",
 }
 
@@ -48,7 +47,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         {/* Download as */}
         <DropdownButton
           variant="contained"
-          actions={["PDF_FrontMen", "PDF_iO", "DOCX_FrontMen"]}
+          actions={["PDF_iO"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
           color="primary"
@@ -66,7 +65,7 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         </SpacedButton> */}
         <DropdownButton
           variant="contained"
-          actions={["iO", "FrontMen"]}
+          actions={["iO"]}
           startIcon={<VisibilityIcon />}
           onClick={(action) => {
             setShowPDFModal(true);

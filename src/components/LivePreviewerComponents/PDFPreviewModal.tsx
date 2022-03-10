@@ -8,7 +8,6 @@ import { useCallback, VoidFunctionComponent } from "react";
 import { colors } from "../../config/theme";
 // components
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
-import { PDFTemplateFM } from "../PDFTemplate/PDFTemplateFM";
 import { ResumeModel } from "./ResumeModel";
 import { ThemeStyle } from "./PreviewControls";
 
@@ -51,13 +50,10 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
   }, []);
 
   const renderPDF = useCallback(() => {
+    // TODO themeStyle left in here to support different resume styles in future
     return (
       <PDFViewer width="100%" height="100%">
-        {themeStyle === "FrontMen" ? (
-          <PDFTemplateFM resume={resume} />
-        ) : (
-          <PDFTemplate resume={resume} />
-        )}
+        <PDFTemplate resume={resume} />
       </PDFViewer>
     );
   }, [resume, themeStyle]);

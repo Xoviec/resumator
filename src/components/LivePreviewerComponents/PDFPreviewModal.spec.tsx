@@ -8,16 +8,13 @@ jest.mock("@react-pdf/renderer", () => ({
 jest.mock("../PDFTemplate/PDFTemplate", () => ({
   PDFTemplate: ({ children }: { children: any }) => <div>{children}</div>,
 }));
-jest.mock("../PDFTemplate/PDFTemplateFM", () => ({
-  PDFTemplateFM: ({ children }: { children: any }) => <div>{children}</div>,
-}));
 
 describe("PDFPreviewModal", () => {
   const defaultProps = {
     showPDFModal: true,
     setShowPDFModal: jest.fn(),
     resume,
-    themeStyle: "FrontMen",
+    themeStyle: "iO",
   } as PDFPreviewModalProps;
 
   test("expect pdf modal to be displayed when showPdfModal is true", () => {
