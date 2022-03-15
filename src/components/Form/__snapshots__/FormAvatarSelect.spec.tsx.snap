@@ -60,7 +60,7 @@ exports[`FormAvatarSelect renders correctly 1`] = `
         class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
       >
         <legend
-          class="css-7nxzgd"
+          class="css-1in441m"
         >
           <span>
             test-form-label

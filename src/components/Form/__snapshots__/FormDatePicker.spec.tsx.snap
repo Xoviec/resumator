@@ -57,7 +57,7 @@ exports[`FormDatePicker should render correctly 1`] = `
           class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="css-1g8cwq9"
+            class="css-1ftyaf0"
           >
             <span>
               test-form-label

@@ -5,6 +5,8 @@ import { castDatesInObject } from "../../lib";
 import { useFirebaseApp } from "../FirebaseContext/FirebaseContext";
 import rootFirebase from "firebase/compat/app";
 
+import { query, collection, where, getDocs } from "firebase/firestore";
+
 interface IResumeContext {
   resume: ResumeModel | null;
   getPersonalResume: (email?: string) => void;
