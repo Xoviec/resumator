@@ -6601,7 +6601,7 @@ eslint-plugin-react-hooks@^4.3.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.3.0.tgz#318dbf312e06fab1c835a4abef00121751ac1172"
   integrity sha512-XslZy0LnMn+84NEG9jSGR6eGqaZB3133L8xewQo3fQagbQuGt7a63gf+P1NGKZavEYEC3UXaWEAA/AqDkuN6xA==
 
-eslint-plugin-react@^7.27.1, eslint-plugin-react@^7.29.3:
+eslint-plugin-react@^7.27.1, eslint-plugin-react@^7.29.4:
   version "7.29.4"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.29.4.tgz#4717de5227f55f3801a5fd51a16a4fa22b5914d2"
   integrity sha512-CVCXajliVh509PcZYRFyu/BoUEz452+jtQJq2b3Bae4v3xBUWPLCmtmBM+ZinG4MzwmxJgJ2M5rMqhqLVn7MtQ==
@@ -11927,7 +11927,7 @@ react-firebase-hooks@^3.0.5:
   resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-3.0.5.tgz#4b0673ef4c028886a35c4a5c8def1a786d5e33e6"
   integrity sha512-9LztZGaZU0qJY/TQWzkBlfVrFmu0Ui6HE8CUjU7tNz9oGKGx5tUQG/xQbfyMIGClErgnnQsm8sC+oU9pg8Ri5Q==
 
-react-hook-form@^7.27.0:
+react-hook-form@^7.28.0:
   version "7.28.0"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.28.0.tgz#40f385da1f31a3c26bb7491d7d77c111b6ad6909"
   integrity sha512-mmLpT86BkMGPr0r6ca8zxV0WH4Y1FW5MKs7Rq1+uHLVeeg5pSWbF5Z/qLCnM5vPVblHNM6lRBRRotnfEAf0ALA==
