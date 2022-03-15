@@ -11,6 +11,7 @@ import { ResumeModel } from "./ResumeModel";
 
 export enum ThemeStyle {
   iO = "iO",
+  iOv2 = "iOv2",
 }
 
 export interface PreviewControlsProps {
@@ -47,10 +48,11 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         {/* Download as */}
         <DropdownButton
           variant="contained"
-          actions={["PDF_iO"]}
+          actions={["iO", "iOv2"]}
           startIcon={<GetAppIcon />}
           onClick={(action) => downloadResume(resume, action)}
           color="primary"
+          testIdPrefix="download"
         >
           Download as..
         </DropdownButton>
@@ -65,13 +67,14 @@ export const PreviewControls: FunctionComponent<PreviewControlsProps> = ({
         </SpacedButton> */}
         <DropdownButton
           variant="contained"
-          actions={["iO"]}
+          actions={["iO", "iOv2"]}
           startIcon={<VisibilityIcon />}
           onClick={(action) => {
             setShowPDFModal(true);
             setThemeStyle(action as ThemeStyle);
           }}
           color="primary"
+          testIdPrefix="preview"
         >
           Preview
         </DropdownButton>

@@ -70,7 +70,7 @@ export const PDFHeader: VoidFunctionComponent<{
   introduction: string | undefined;
   socialLinks: SocialLinkModel[];
 }> = ({
-  personalia: { firstName, city, dateOfBirth, lastName, email, role },
+  personalia: { firstName, city, dateOfBirth, lastName, role },
   introduction,
   socialLinks,
 }) => {
