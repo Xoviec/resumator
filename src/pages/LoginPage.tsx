@@ -22,15 +22,20 @@ export const LoginPage: VoidFunctionComponent = () => {
   const [userResumeId, setUserResumeId] = React.useState<string | null>(null);
 
   const getResume = React.useCallback(
-    (user: FirebaseUserRecord) => {
-      const existingResume = firebase
-        .firestore()
-        .collection("resumes")
-        .where("personalia.email", "==", user?.email)
+    async (user: FirebaseUserRecord) => {
+      const parts = user.email.split("@");
+      const collectionRef = firebase.firestore().collection("resumes");
+      const q1 = collectionRef
+        .where("personalia.email", "==", `${parts[0]}@frontmen.nl`)
         .get()
         .then((doc) => doc?.docs?.[0]?.id);
-
-      return existingResume;
+      const q2 = collectionRef
+        .where("personalia.email", "==", `${parts[0]}@iodigital.com`)
+        .get()
+        .then((doc) => doc?.docs?.[0]?.id);
+      const allPromises = await Promise.all([q1, q2]);
+      const resumeId = allPromises[0] || allPromises[1];
+      return resumeId;
     },
     [firebase]
   );
@@ -47,9 +52,9 @@ export const LoginPage: VoidFunctionComponent = () => {
     }
 
     setLoading(true);
-    getResume(userRecord).then((doc) => {
+    getResume(userRecord).then((id: string) => {
       setLoading(false);
-      setUserResumeId(doc);
+      setUserResumeId(id);
     });
   });
 
@@ -126,15 +131,13 @@ export const LoginPage: VoidFunctionComponent = () => {
 
     setUserRecord(userRecordData);
 
-    const resumeId = await getResume(userRecordData);
+    let resumeId = await getResume(userRecordData);
+    if (!resumeId) {
+      await createResume(userRecordData);
+      resumeId = await getResume(userRecordData);
+    }
 
-    if (resumeId) return setUserResumeId(resumeId);
-
-    await createResume(userRecordData);
-
-    const newResumeId = await getResume(userRecordData);
-
-    setUserResumeId(newResumeId);
+    setUserResumeId(resumeId);
   };
 
   if (isLoading || loading) return <div />;

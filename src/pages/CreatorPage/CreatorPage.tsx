@@ -40,8 +40,9 @@ export const CreatorPage: VoidFunctionComponent = () => {
             onSave={async (formData) => {
               try {
                 const { introduction, ...personalia } = formData;
-                const resume = await getResumePromise(formData.email);
-                if (resume?.docs[0]?.exists) {
+                const results = await getResumePromise(formData.email);
+                const result = results[0].docs?.[0]?.id ? results[0] : results[1];
+                if (result?.docs[0]?.exists) {
                   setInitialData(formData);
                   return setOpenSnackbar(true);
                 }
