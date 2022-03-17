@@ -17,7 +17,10 @@ interface IResumeContext {
   getResumePromise: (
     email?: string | undefined
   ) => Promise<
-    rootFirebase.firestore.QuerySnapshot<rootFirebase.firestore.DocumentData>
+    [
+      rootFirebase.firestore.QuerySnapshot<rootFirebase.firestore.DocumentData>,
+      rootFirebase.firestore.QuerySnapshot<rootFirebase.firestore.DocumentData>
+    ]
   >;
 }
 
@@ -32,11 +35,18 @@ const ResumeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getResumePromise = useCallback(
     (email?: string) => {
-      return firebase
-        .firestore()
-        .collection("resumes")
-        .where("personalia.email", "==", email || userRecord?.email)
+      const _email = email || userRecord?.email;
+      if (!_email) throw new Error("No email found to search a resume for");
+
+      const parts = _email.split("@");
+      const collectionRef = firebase.firestore().collection("resumes");
+      const q1 = collectionRef
+        .where("personalia.email", "==", `${parts[0]}@frontmen.nl`)
         .get();
+      const q2 = collectionRef
+        .where("personalia.email", "==", `${parts[0]}@iodigital.com`)
+        .get();
+      return Promise.all([q1, q2]);
     },
     [firebase, userRecord]
   );
@@ -46,9 +56,10 @@ const ResumeProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
       setResume(null);
       getResumePromise(email)
-        .then((doc) => {
-          const id = doc.docs?.[0].id;
-          const docData = doc.docs?.[0].data();
+        .then((results) => {
+          const result = results[0].docs?.[0]?.id ? results[0] : results[1];
+          const id = result.docs?.[0].id;
+          const docData = result.docs?.[0].data();
           setLoading(false);
           if (!docData) return;
           setResumeId(id);
