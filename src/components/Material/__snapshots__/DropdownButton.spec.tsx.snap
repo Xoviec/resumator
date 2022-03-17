@@ -44,6 +44,7 @@ exports[`DropdownButton should render correctly 1`] = `
       >
         <li
           class="MuiMenuItem-root MuiMenuItem-gutters MuiButtonBase-root css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root"
+          data-testid="action1"
           role="menuitem"
           tabindex="0"
         >
@@ -54,6 +55,7 @@ exports[`DropdownButton should render correctly 1`] = `
         </li>
         <li
           class="MuiMenuItem-root MuiMenuItem-gutters MuiButtonBase-root css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root"
+          data-testid="action2"
           role="menuitem"
           tabindex="-1"
         >

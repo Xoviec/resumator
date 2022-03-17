@@ -68,7 +68,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   };
 
   const [showPDFModal, setShowPDFModal] = useState(false);
-  const [themeStyle, setThemeStyle] = useState<"iO">("iO");
+  const [themeStyle, setThemeStyle] = useState<"iO" | "iOv2">("iO");
 
   const handleSubmit = (resumePartial: Partial<ResumeModel>) => {
     const newResume = { ...resume, ...resumePartial };

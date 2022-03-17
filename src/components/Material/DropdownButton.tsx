@@ -6,12 +6,14 @@ import { Menu, MenuItem } from "@mui/material";
 interface DropdownButtonProps extends Omit<ButtonProps, "onClick"> {
   actions: string[];
   onClick: (action: string) => void;
+  testIdPrefix?: string;
 }
 
 export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
   actions,
   children,
   onClick,
+  testIdPrefix = "",
   ...props
 }) => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -52,7 +54,15 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
         onClose={handleClose}
       >
         {actions.map((action) => (
-          <MenuItem key={action} onClick={() => handleAction(action)}>
+          <MenuItem
+            key={action}
+            onClick={() => handleAction(action)}
+            data-testid={
+              testIdPrefix
+                ? `${testIdPrefix}-${action.toLowerCase()}`
+                : action.toLowerCase()
+            }
+          >
             {action}
           </MenuItem>
         ))}
