@@ -37,7 +37,7 @@ describe("PreviewControls", () => {
 
     await act(async () => {
       await fireEvent.click(screen.getByText(/download as../i));
-      await fireEvent.click(screen.getByTestId("download-io"));
+      await fireEvent.click(screen.getByText(/pdf_io/i));
     });
     expect(downloadResume).toHaveBeenCalledTimes(1);
   });
@@ -54,7 +54,7 @@ describe("PreviewControls", () => {
 
     await act(async () => {
       await fireEvent.click(screen.getByText(/preview/i));
-      await fireEvent.click(screen.getByTestId("preview-iov2"));
+      await fireEvent.click(screen.getByText("iO"));
     });
     expect(defaultProps.setShowPDFModal).toHaveBeenCalledTimes(1);
     expect(defaultProps.setThemeStyle).toHaveBeenCalledTimes(1);

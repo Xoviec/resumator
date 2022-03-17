@@ -8,9 +8,6 @@ jest.mock("@react-pdf/renderer", () => ({
 jest.mock("../PDFTemplate/PDFTemplate", () => ({
   PDFTemplate: ({ children }: { children: any }) => <div>{children}</div>,
 }));
-jest.mock("../PDFTemplate/PDFTemplateV2", () => ({
-  PDFTemplateV2: ({ children }: { children: any }) => <div>{children}</div>,
-}));
 
 describe("PDFPreviewModal", () => {
   const defaultProps = {
