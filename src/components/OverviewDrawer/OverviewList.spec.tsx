@@ -14,6 +14,10 @@ import { OverviewList } from "./OverviewList";
 
 jest.mock("../../context/FirebaseContext/FirebaseContext");
 jest.mock("../../context/AppStateContext/AppStateContext");
+jest.mock("firebase/firestore", () => ({
+  getFirestore: jest.fn(),
+  collection: jest.fn(),
+}));
 jest.mock("react-firebase-hooks/firestore", () => ({
   ...jest.requireActual("react-firebase-hooks/firestore"),
   useCollection: jest.fn(),

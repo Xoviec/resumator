@@ -14,7 +14,6 @@ import { styled } from "@mui/system";
 import clsx from "clsx";
 import Fuse from "fuse.js";
 import { useMemo, useState, VoidFunctionComponent } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { NavLink } from "react-router-dom";
 // configs
 import { colors } from "../../config/theme";
@@ -24,6 +23,8 @@ import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
+import { getFirestore, collection } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 // components
 import { TooltipIconButton } from "../Material";
@@ -152,7 +153,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
 }) => {
   const { firebase, userRecord } = useFirebaseApp();
   const [resumeQueryResult, isLoading, error] = useCollection(
-    firebase.firestore().collection("resumes")
+    collection(getFirestore(firebase), "resumes")
   );
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [resumeToDelete, setResumeToDelete] = useState<ResumeModel | null>(null);

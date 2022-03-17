@@ -6,8 +6,9 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { useFirebaseApp } from "../FirebaseContext/FirebaseContext";
+import { getFirestore, collection } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 type SkillsContextType = {
   skillList: string[];
@@ -30,19 +31,21 @@ export const SkillsContextProvider: FunctionComponent = ({ children }) => {
 
   const [skillList, setSkillList] = useState<string[]>([]);
   const [docId, setDocId] = useState<string>("");
-  const [val] = useCollection(firebase.firestore().collection("allSkills"));
+  const [allSkillsResult] = useCollection(
+    collection(getFirestore(firebase), "allSkills")
+  );
 
   useEffect(() => {
-    if (val) {
-      setDocId(val.docs[0].id);
+    if (allSkillsResult) {
+      setDocId(allSkillsResult.docs[0].id);
 
       const uniqueSkillList = [
-        ...Array.from(new Set(val.docs[0].data().skills)),
+        ...Array.from(new Set(allSkillsResult.docs[0].data().skills)),
       ] as string[];
 
       setSkillList(uniqueSkillList);
     }
-  }, [val]);
+  }, [allSkillsResult]);
 
   const updateSkillList: SkillsContextType["updateSkillList"] = useMemo(() => {
     return async (newSkillList) => {
