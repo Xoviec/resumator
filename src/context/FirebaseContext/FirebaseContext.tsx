@@ -9,6 +9,7 @@ import getFirebaseConfig from "./getFirebaseConfig";
 export type FirestoreQuery = firebase.firestore.Query;
 
 export type FirebaseUserRecord = {
+  userRecord?: FirebaseUserRecord;
   email: string;
   name: string;
   registered: boolean;

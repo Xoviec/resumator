@@ -23,7 +23,8 @@ export const LoginPage: VoidFunctionComponent = () => {
 
   const getResume = React.useCallback(
     async (user: FirebaseUserRecord) => {
-      const parts = user.email.split("@");
+      const _user = user.userRecord ?? user;
+      const parts = _user.email.split("@");
       const collectionRef = firebase.firestore().collection("resumes");
       const q1 = collectionRef
         .where("personalia.email", "==", `${parts[0]}@frontmen.nl`)
@@ -70,19 +71,20 @@ export const LoginPage: VoidFunctionComponent = () => {
       let firstName = "";
       let lastName = "";
 
-      if (user.name) {
-        firstName = user.name.split(" ")[0];
-        lastName = user.name.substring(firstName.length).trim();
+      const _user = user.userRecord ?? user;
+      if (_user.name) {
+        firstName = _user.name.split(" ")[0];
+        lastName = _user.name.substring(firstName.length).trim();
       }
 
       const resume = {
         personalia: {
           ...initialResumeData.personalia,
-          email: user.email,
+          email: _user.email,
           firstName,
           lastName,
         },
-        userId: user.userId,
+        userId: _user.userId,
       };
 
       const resumePromise = await resumeCollection
