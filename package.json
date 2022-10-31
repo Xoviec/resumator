@@ -8,13 +8,13 @@
     "test": "env TZ=UTC craco test",
     "test:update-snapshot": "env TZ=UTC craco test --updateSnapshot",
     "coverage": "npm test -- --coverage --watchAll=false",
-    "lint": "eslint src/",
+    "lint": "eslint ./src/",
     "cypress": "cypress open",
     "cypress:headless": "cypress run --browser chrome --headless",
     "test:e2e": "env-cmd -f .env.test start-server-and-test start 3000 cypress",
     "test:e2e:ci": "env-cmd -f .env.test start-server-and-test start 3000 cypress:headless",
     "eject": "craco eject",
-    "prepare": "lint-staged && npm run coverage"
+    "prepare": "npm run coverage"
   },
   "dependencies": {
     "@craco/craco": "^6.4.3",
@@ -103,7 +103,7 @@
     "firebase-tools": "^10.3.0",
     "husky": "^7.0.0",
     "jest-mock": "^27.5.1",
-    "lint-staged": "^12.3.6",
+    "lint-staged": "13.0.3",
     "mockdate": "^3.0.5",
     "prettier": "^2.6.0",
     "process": "^0.11.10",
@@ -136,8 +136,13 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
-    "*.{md,html,css}": "prettier --write"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix"
+    ],
+    "*.{md,html,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "jest": {
     "collectCoverageFrom": [
