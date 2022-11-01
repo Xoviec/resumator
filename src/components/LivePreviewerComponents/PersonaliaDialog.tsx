@@ -6,6 +6,7 @@ import {
   FormDatePicker,
   FormRow,
   FormTextField,
+  FormCountrySelect,
 } from "../Form";
 import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 import { PersonaliaModel } from "./TopSection";
@@ -48,6 +49,9 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
         <FormRow>
           <FormColumn>
             <FormTextField name="city" label="City*" />
+          </FormColumn>
+          <FormColumn>
+            <FormCountrySelect name="countryCode" />
           </FormColumn>
           <FormColumn>
             <FormDatePicker

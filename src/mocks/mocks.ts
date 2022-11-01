@@ -1,3 +1,5 @@
+import { PersonaliaModel } from "../components/LivePreviewerComponents/TopSection";
+
 const educations = [
   {
     name: "Hogeschool van Utrecht",
@@ -13,9 +15,10 @@ const educations = [
   },
 ];
 
-const personalia = {
+const personalia: PersonaliaModel = {
   avatar: "1",
   city: "Utrecht",
+  countryCode: "NL",
   dateOfBirth: new Date(1990, 23, 4),
   email: "johndoe@frontmen.nl",
   firstName: "John",

@@ -8,14 +8,14 @@ import {
   SocialLinkModel,
   SocialLinkTypeToInfoMapping,
 } from "../LivePreviewerComponents/SocialLinks";
-import { calculateAge } from "../../lib";
+import { calculateAge, getCountry } from "../../lib";
 
 const Root = styled(View)`
   font-family: "Reckless";
   font-style: italic;
   font-width: normal;
   width: 100%;
-  background-color: #873170
+  background-color: #873170;
   height: 360px;
   padding: 26px 0 0 35px;
   color: white;
@@ -70,7 +70,7 @@ export const PDFHeader: VoidFunctionComponent<{
   introduction: string | undefined;
   socialLinks: SocialLinkModel[];
 }> = ({
-  personalia: { firstName, city, dateOfBirth, lastName, email, role },
+  personalia: { firstName, city, dateOfBirth, lastName, email, role, countryCode },
   introduction,
   socialLinks,
 }) => {
@@ -122,7 +122,9 @@ export const PDFHeader: VoidFunctionComponent<{
 
       <PersonalInfoBox>
         <View>
-          <Text style={styles.my_5}>{city.toUpperCase()} REGION - NL</Text>
+          <Text style={styles.my_5}>
+            {city.toUpperCase()} REGION - {getCountry(countryCode).code}
+          </Text>
           <Text>{age ? `${age} years old` : ""}</Text>
         </View>
         <View style={[styles.mt_15, styles.column]}>

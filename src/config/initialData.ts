@@ -9,6 +9,7 @@ export const initialResumeData: ResumeModel = {
     firstName: "",
     lastName: "",
     city: "",
+    countryCode: "NL",
     dateOfBirth: "",
     email: "",
     role: "",

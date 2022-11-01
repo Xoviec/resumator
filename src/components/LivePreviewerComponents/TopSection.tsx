@@ -6,12 +6,17 @@ import PlaceIcon from "@mui/icons-material/PlaceOutlined";
 import { Box, Card, Hidden, Typography } from "@mui/material";
 import { FunctionComponent, useMemo, useState } from "react";
 import { colors } from "../../config/theme";
-import { formatDate } from "../../lib/date";
+import { getCountryIcon, formatDate } from "../../lib";
 import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
 import { DetailWithIcon } from "./DetailWithIcon";
 import { PersonaliaDialog } from "./PersonaliaDialog";
 import { SectionHeader } from "./SectionHeader";
+
+export enum CountryCode {
+  NL = "NL",
+  BE = "BE",
+}
 
 export interface PersonaliaModel {
   avatar: string;
@@ -19,6 +24,7 @@ export interface PersonaliaModel {
   lastName: string;
   email: string;
   city: string;
+  countryCode: keyof typeof CountryCode;
   dateOfBirth: Date | string | null;
   role: string;
 }
@@ -111,6 +117,9 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
               </DetailWithIcon>
               <DetailWithIcon icon={<PlaceIcon style={{ color: colors.black }} />}>
                 {personalia.city}
+                <Box display="flex" alignItems="center" style={{ width: "16px" }}>
+                  {getCountryIcon(personalia.countryCode)}
+                </Box>
               </DetailWithIcon>
               <DetailWithIcon icon={<CakeIcon style={{ color: colors.black }} />}>
                 {formatDate(dateOfBirth)}

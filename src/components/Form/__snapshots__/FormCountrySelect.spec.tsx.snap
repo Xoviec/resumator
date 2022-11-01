@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormCountrySelect should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-sizeSmall css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
+    required=""
+    role="input"
+    variant="outlined"
+  >
+    <div
+      aria-expanded="false"
+      aria-haspopup="listbox"
+      aria-labelledby="mui-component-select-countryCode"
+      class="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-jedpe8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+      id="mui-component-select-countryCode"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="MuiBox-root css-ks2x85"
+      >
+        <div
+          class="MuiBox-root css-70qvj9"
+          style="width: 16px;"
+        >
+          <svg
+            id="flag-icons-nl"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M0 0h512v512H0z"
+              fill="#21468b"
+            />
+            <path
+              d="M0 0h512v341.3H0z"
+              fill="#fff"
+            />
+            <path
+              d="M0 0h512v170.7H0z"
+              fill="#ae1c28"
+            />
+          </svg>
+        </div>
+        The Netherlands
+      </div>
+    </div>
+    <input
+      aria-hidden="true"
+      class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+      name="countryCode"
+      required=""
+      tabindex="-1"
+      value="NL"
+    />
+    <svg
+      aria-hidden="true"
+      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+      data-testid="ArrowDropDownIcon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M7 10l5 5 5-5z"
+      />
+    </svg>
+    <fieldset
+      aria-hidden="true"
+      class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+    >
+      <legend
+        class="css-hdw1oc"
+      >
+        <span
+          class="notranslate"
+        >
+          ​
+        </span>
+      </legend>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;
