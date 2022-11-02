@@ -23,7 +23,7 @@ exports[`FormAvatarSelect renders correctly 1`] = `
           data-testid="avatar-0"
         />
         <span
-          class="MuiBox-root css-pu0jl8"
+          class="MuiBox-root css-1ulqw6t"
           data-testid="avatar-1"
         />
         <span

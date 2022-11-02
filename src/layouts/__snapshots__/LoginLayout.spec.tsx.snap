@@ -2,7 +2,7 @@
 
 exports[`LoginLayout renders correctly 1`] = `
 <div
-  class="css-va4j7j"
+  class="css-1m6ek"
 >
   <div
     class="css-nf597f"
@@ -22,7 +22,7 @@ exports[`LoginLayout renders correctly 1`] = `
 
 exports[`LoginLayout renders correctly with children 1`] = `
 <div
-  class="css-va4j7j"
+  class="css-1m6ek"
 >
   <div
     class="css-nf597f"

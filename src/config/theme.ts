@@ -1,19 +1,19 @@
 import { createTheme } from "@mui/material/styles";
 
 export const colors = {
-  lightBlue: "#00cccc",
-  midBlue: "#0B959D",
+  lightBlue: "#ebf4ff",
+  midBlue: "#5079f3",
   darkBlue: "#1f1e32",
-  orange: "#fdbc75",
-  lightGrey: "#e6e6e6",
-  mediumGrey: "#d1d1d1",
+  orange: "#ed7f53",
+  lightGrey: "#ebebeb",
+  mediumGrey: "#eaeaea",
   background: "#fafafa",
-  darkGray: "#777",
+  darkGray: "#aaaaaa",
   white: "#fff",
   darkGrayOpacity: "rgba(119, 119, 119, .2)",
-  primary: "#873170",
-  secondary: "#fdbc75",
-  tertiary: "#868ADA",
+  primary: "#365fd9",
+  secondary: "#e6e6e6",
+  tertiary: "#365fd9",
   black: "#000",
 };
 
