@@ -23,6 +23,9 @@ const Root = styled(View)`
 `;
 
 const Logo = styled(Image)`
+  position: absolute;
+  top: 0;
+  right: 36px;
   width: 71px;
   height: 71px;
   margin-left: -7px;
@@ -32,24 +35,23 @@ const Heading = styled(Text)`
   font-family: "TTCommonsPro";
   font-style: normal;
   font-size: 50px;
-  margin-top: -10px;
+  margin-top: 10px;
 `;
 
 const PersonalInfoText = styled(View)`
   max-width: 262px;
-  margin-top: 38px;
+  margin-top: 18px;
 `;
 
 const SubHeading = styled(Text)`
   font-size: 25px;
-  margin-left: 5px;
 `;
 
 const PersonalInfoBio = styled(Text)`
   font-family: "TTCommonsPro";
   font-style: normal;
-  font-size: 8px;
-  line-height: 1.5;
+  font-size: 9px;
+  line-height: 1.7;
   white-space: pre-wrap;
 `;
 
@@ -94,6 +96,7 @@ export const PDFHeader: VoidFunctionComponent<{
     socialsIcons: {
       width: "13px",
       height: "13px",
+      marginBottom: "9px",
       marginRight: "9px",
     },
     my_5: {

@@ -27,7 +27,7 @@ export const PDFProjects: VoidFunctionComponent<PDFProjectsProps> = ({
   }
 
   return (
-    <ViewWrapper wrap>
+    <ViewWrapper>
       <PDFExperinceSection title="Projects via iO">
         {projects.map((project, i) => {
           return (

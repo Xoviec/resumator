@@ -59,7 +59,7 @@ const SecondaryHeader = styled(View)`
 `;
 
 const FooterWrapper = styled(View)`
-  margin-top: 65px;
+  margin-top: 100px;
   height: 100%;
   background: #873170;
   position: relative;
@@ -71,6 +71,7 @@ const FooterWrapperBlock = styled(View)`
   height: 100%;
   background: #f5b3cc;
   position: absolute;
+  top: -40px;
   right: 36px;
   bottom: 36px;
 `;

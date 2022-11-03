@@ -2,42 +2,54 @@
 
 exports[`LoginLayout renders correctly 1`] = `
 <div
-  class="css-1m6ek"
+  class="css-wrxed4"
 >
   <div
-    class="css-nf597f"
+    class="MuiGrid-root MuiGrid-container css-vzz4uh-MuiGrid-root"
   >
     <div
-      class="css-ee05cj"
+      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 css-sn9kgx-MuiGrid-root"
     >
-      <img
-        alt="logo"
-        src="iO-logo-black.png"
+      <div
+        class="MuiBox-root css-10yvctz"
+      >
+        <img
+          alt="logo"
+          src="bg-portrait-black.jpg"
+        />
+      </div>
+      <div
+        class="css-nsi0op"
       />
     </div>
-    <div />
   </div>
 </div>
 `;
 
 exports[`LoginLayout renders correctly with children 1`] = `
 <div
-  class="css-1m6ek"
+  class="css-wrxed4"
 >
   <div
-    class="css-nf597f"
+    class="MuiGrid-root MuiGrid-container css-vzz4uh-MuiGrid-root"
   >
     <div
-      class="css-ee05cj"
+      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-md-10 css-sn9kgx-MuiGrid-root"
     >
-      <img
-        alt="logo"
-        src="iO-logo-black.png"
-      />
-    </div>
-    <div>
-      <div>
-        test-content
+      <div
+        class="MuiBox-root css-10yvctz"
+      >
+        <img
+          alt="logo"
+          src="bg-portrait-black.jpg"
+        />
+      </div>
+      <div
+        class="css-nsi0op"
+      >
+        <div>
+          test-content
+        </div>
       </div>
     </div>
   </div>

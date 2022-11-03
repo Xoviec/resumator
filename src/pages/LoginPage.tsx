@@ -11,8 +11,21 @@ import Button from "@mui/material/Button";
 import { LoginLayout } from "../layouts/LoginLayout";
 import { VoidFunctionComponent } from "react";
 import { initialResumeData } from "../config/initialData";
+import { styled } from "@mui/material/styles";
 
 const RESUME_COLLECTION = "resumes";
+
+const Title = styled(Typography)(({ theme }) => ({
+  fontSize: "2.5rem",
+  fontWeight: 500,
+  color: theme.palette.common.black,
+}));
+
+const Body = styled(Typography)(({ theme }) => ({
+  fontSize: "1.25rem",
+  fontWeight: 500,
+  color: theme.palette.common.black,
+}));
 
 export const LoginPage: VoidFunctionComponent = () => {
   const navigate = useNavigate();
@@ -146,20 +159,14 @@ export const LoginPage: VoidFunctionComponent = () => {
 
   return (
     <LoginLayout>
-      <Box width="100%" color="white" bgcolor="white" textAlign="center">
-        <Typography
-          variant="h4"
-          component="h1"
-          gutterBottom
-          color="primary"
-          style={{ fontSize: "40px" }}
-        >
-          Login
-        </Typography>
-        <Typography component="p" color="primary" paragraph>
+      <Box width="100%" color="white" textAlign="center">
+        <Title variant="h1" gutterBottom>
+          Consultancy Resumes
+        </Title>
+        <Body variant="body1" gutterBottom>
           Login to use the CV creator tool
-        </Typography>
-        <Button variant="contained" color="secondary" onClick={login}>
+        </Body>
+        <Button disableElevation variant="contained" onClick={login}>
           Login
         </Button>
       </Box>

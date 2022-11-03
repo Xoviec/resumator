@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { Grid, Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { FunctionComponent } from "react";
 import "../assets/css/global.css";
-import LogoBlack from "../assets/images/iO-logo-black.png";
+import LogoBlack from "../assets/images/bg-portrait-black.jpg";
 
 import { colors } from "../config/theme";
 
@@ -10,12 +11,14 @@ export const LoginLayout: FunctionComponent = ({ children }) => (
   <>
     <CssBaseline />
     <Layout bgColor={colors.lightGrey}>
-      <Card>
-        <LogoWrapper>
-          <img src={LogoBlack} alt="logo" />
-        </LogoWrapper>
-        <div>{children}</div>
-      </Card>
+      <Grid container justifyContent="center" maxWidth={1200}>
+        <Card item xs={8} md={10}>
+          <LogoWrapper display={{ xs: "none", md: "flex" }}>
+            <img src={LogoBlack} alt="logo" />
+          </LogoWrapper>
+          <ContentWrapper>{children}</ContentWrapper>
+        </Card>
+      </Grid>
     </Layout>
   </>
 );
@@ -28,21 +31,28 @@ const Layout = styled.div<LayoutProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 15px;
   height: 100vh;
-  background-color: ${({ bgColor }) => bgColor};
+  background: url(/iO-blend-blue.jpg) no-repeat 0 0;
+  background-size: cover;
 `;
 
-const Card = styled.div`
+const Card = styled(Grid)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
-  padding: 1.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  width: 100%;
   border-radius: 0.25rem;
   background-color: white;
 `;
 
-const LogoWrapper = styled.div`
-  max-width: 200px;
+const LogoWrapper = styled(Box)`
+  & > img {
+    border-radius: 0.25rem 0 0 0.25rem;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  padding: 3rem;
 `;

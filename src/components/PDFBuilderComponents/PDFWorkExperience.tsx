@@ -25,7 +25,7 @@ export const PDFWorkExperience: VoidFunctionComponent<PDFWorkExperienceProps> = 
   }
 
   return (
-    <ViewWrapper wrap>
+    <ViewWrapper>
       <PDFExperinceSection title="Work experience">
         {experience.map((project, i) => {
           return (
