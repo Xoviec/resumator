@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { LoginLayout } from "../layouts/LoginLayout";
 import { VoidFunctionComponent } from "react";
 import { initialResumeData } from "../config/initialData";
+import { Page } from "../components/layout";
 import { styled } from "@mui/material/styles";
 
 const RESUME_COLLECTION = "resumes";
@@ -158,18 +159,20 @@ export const LoginPage: VoidFunctionComponent = () => {
   if (isLoading || loading) return <div />;
 
   return (
-    <LoginLayout>
-      <Box width="100%" color="white" textAlign="center">
-        <Title variant="h1" gutterBottom>
-          Consultancy Resumes
-        </Title>
-        <Body variant="body1" gutterBottom>
-          Login to use the CV creator tool
-        </Body>
-        <Button disableElevation variant="contained" onClick={login}>
-          Login
-        </Button>
-      </Box>
-    </LoginLayout>
+    <Page title="login">
+      <LoginLayout>
+        <Box width="100%" color="white" textAlign="center">
+          <Title variant="h1" gutterBottom>
+            Consultancy Resumes
+          </Title>
+          <Body variant="body1" gutterBottom>
+            Login to use the CV creator tool
+          </Body>
+          <Button disableElevation variant="contained" onClick={login}>
+            Login
+          </Button>
+        </Box>
+      </LoginLayout>
+    </Page>
   );
 };

@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import { SkillHeader } from "./SkillHeader";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { Page } from "../../components/layout";
 
 const columns: GridColDef[] = [
   {
@@ -151,66 +152,68 @@ export const SkillsEditorPage: FC = () => {
   }
 
   return (
-    <MainLayout>
-      {userRecord?.isManager ? (
-        <>
-          <SkillHeader
-            isBtnDisabled={!newSkill || !isSkillUnique}
-            newSkill={newSkill}
-            editCount={rowsToDelete.length}
-            saveNewSkill={handleSave}
-            saveEditedSkills={handleDeleteBtn}
-            handleNewSkill={handleNewSkill}
-          />
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={20}
-            rowsPerPageOptions={[20]}
-            autoHeight
-            checkboxSelection
-            loading={rows.length === 0}
-            filterModel={filterModel}
-            density="compact"
-            components={{
-              Toolbar: GridToolbar,
-            }}
-            onSelectionModelChange={(selectionModel) => {
-              handleSnackbarClose();
-              setRowsToDelete(selectionModel);
-            }}
-            onStateChange={handleStateChange}
-            onFilterModelChange={(filterModel) =>
-              setTimeout(() => setFilterModel(filterModel), 0)
-            }
-          />
-        </>
-      ) : (
-        <Alert severity="info">
-          You are not authorized to manage skills. Go back to the{" "}
-          <Link to="/">home page</Link>.
-        </Alert>
-      )}
-      {snackbar && (
-        <Snackbar
-          open
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          onClose={handleSnackbarClose}
-          autoHideDuration={6000}
-        >
-          <Alert
-            {...snackbar}
+    <Page title="Manage Skills">
+      <MainLayout>
+        {userRecord?.isManager ? (
+          <>
+            <SkillHeader
+              isBtnDisabled={!newSkill || !isSkillUnique}
+              newSkill={newSkill}
+              editCount={rowsToDelete.length}
+              saveNewSkill={handleSave}
+              saveEditedSkills={handleDeleteBtn}
+              handleNewSkill={handleNewSkill}
+            />
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={20}
+              rowsPerPageOptions={[20]}
+              autoHeight
+              checkboxSelection
+              loading={rows.length === 0}
+              filterModel={filterModel}
+              density="compact"
+              components={{
+                Toolbar: GridToolbar,
+              }}
+              onSelectionModelChange={(selectionModel) => {
+                handleSnackbarClose();
+                setRowsToDelete(selectionModel);
+              }}
+              onStateChange={handleStateChange}
+              onFilterModelChange={(filterModel) =>
+                setTimeout(() => setFilterModel(filterModel), 0)
+              }
+            />
+          </>
+        ) : (
+          <Alert severity="info">
+            You are not authorized to manage skills. Go back to the{" "}
+            <Link to="/">home page</Link>.
+          </Alert>
+        )}
+        {snackbar && (
+          <Snackbar
+            open
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             onClose={handleSnackbarClose}
-            action={
-              <>
-                {snackbar.severity !== "error" && (
-                  <Button onClick={handleUndoChanges}>Undo changes</Button>
-                )}
-              </>
-            }
-          />
-        </Snackbar>
-      )}
-    </MainLayout>
+            autoHideDuration={6000}
+          >
+            <Alert
+              {...snackbar}
+              onClose={handleSnackbarClose}
+              action={
+                <>
+                  {snackbar.severity !== "error" && (
+                    <Button onClick={handleUndoChanges}>Undo changes</Button>
+                  )}
+                </>
+              }
+            />
+          </Snackbar>
+        )}
+      </MainLayout>
+    </Page>
   );
 };

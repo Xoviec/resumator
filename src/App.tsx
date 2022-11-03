@@ -16,6 +16,7 @@ import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
 import RequireAuth from "./utils/requireAuth";
 import theme from "./config/theme";
 import "./App.css";
+import { Page } from "./components/layout";
 
 export const App: VoidFunctionComponent = () => {
   return (
@@ -36,7 +37,14 @@ export const App: VoidFunctionComponent = () => {
                           path="/pdf-preview/:id"
                           element={<PDFPreviewerPage />}
                         />
-                        <Route path="/" element={<LivePreviewerPage />} />
+                        <Route
+                          path="/"
+                          element={
+                            <Page title="Overview">
+                              <LivePreviewerPage />
+                            </Page>
+                          }
+                        />
                         <Route path="/resume/:id" element={<LivePreviewerPage />} />
                         <Route path="/new" element={<CreatorPage />} />
                         <Route path="/users" element={<ManageUsersPage />} />

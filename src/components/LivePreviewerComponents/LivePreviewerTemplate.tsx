@@ -12,6 +12,7 @@ import { SocialLinks } from "./SocialLinks";
 import { TopSection } from "./TopSection";
 import { Motivation } from "./Motivation";
 import { ThemeStyle } from "./PreviewControls";
+import { Page } from "../layout";
 
 export interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -21,6 +22,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   data,
 }) => {
   const [resume, setResume] = useState<ResumeModel>(data);
+  const [title, setTitle] = useState("");
 
   const { personalia } = resume;
 
@@ -36,17 +38,14 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   }, [data]);
 
   useEffect(() => {
-    const defaultTitle = "CV | iO";
     let fullName = "";
     if (personalia?.firstName) {
       fullName += personalia.firstName;
       if (personalia.lastName) {
         fullName += ` ${personalia.lastName}`;
       }
-      fullName += " - ";
     }
-
-    document.title = `${fullName}${defaultTitle}`;
+    setTitle(fullName);
   }, [personalia.firstName, personalia.lastName]);
 
   const { firebase } = useFirebaseApp();
@@ -76,91 +75,93 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   };
 
   return (
-    <>
-      <PreviewControls
-        setShowPDFModal={setShowPDFModal}
-        setThemeStyle={setThemeStyle}
-        resume={resume}
-        onToggleIsArchived={() => {
-          handleSubmit({
-            isArchived: !resume.isArchived,
-          });
-        }}
-      />
-      <TopSection
-        personalia={personalia}
-        introduction={resume.introduction}
-        isArchived={resume.isArchived}
-        onSubmit={(data) => {
-          const { introduction, ...personalia } = data;
-          handleSubmit({
-            personalia,
-            introduction,
-          });
-        }}
-      />
-      <Motivation
-        introText={resume.motivation ? resume.motivation : ""}
-        onSubmit={(data) => {
-          handleSubmit({
-            motivation: data.motivation,
-          });
-        }}
-      />
-      <Box
-        display="flex"
-        flexDirection={{ xs: "column", md: "row" }}
-        marginTop={2}
-        gap="16px"
-      >
-        {/* Left column */}
-        <Box display="flex" flexDirection="column" flex={2} gap="16px">
-          <Experience
-            type="Projects via iO"
-            skills={resume.skills}
-            experience={resume.projects}
-            onSubmit={(projects, skills) => handleSubmit({ projects, skills })}
-          />
-          <Experience
-            type="Work Experience"
-            skills={resume.skills}
-            experience={resume.experience}
-            onSubmit={(experience, skills) => handleSubmit({ experience, skills })}
-          />
+    <Page title={title}>
+      <>
+        <PreviewControls
+          setShowPDFModal={setShowPDFModal}
+          setThemeStyle={setThemeStyle}
+          resume={resume}
+          onToggleIsArchived={() => {
+            handleSubmit({
+              isArchived: !resume.isArchived,
+            });
+          }}
+        />
+        <TopSection
+          personalia={personalia}
+          introduction={resume.introduction}
+          isArchived={resume.isArchived}
+          onSubmit={(data) => {
+            const { introduction, ...personalia } = data;
+            handleSubmit({
+              personalia,
+              introduction,
+            });
+          }}
+        />
+        <Motivation
+          introText={resume.motivation ? resume.motivation : ""}
+          onSubmit={(data) => {
+            handleSubmit({
+              motivation: data.motivation,
+            });
+          }}
+        />
+        <Box
+          display="flex"
+          flexDirection={{ xs: "column", md: "row" }}
+          marginTop={2}
+          gap="16px"
+        >
+          {/* Left column */}
+          <Box display="flex" flexDirection="column" flex={2} gap="16px">
+            <Experience
+              type="Projects via iO"
+              skills={resume.skills}
+              experience={resume.projects}
+              onSubmit={(projects, skills) => handleSubmit({ projects, skills })}
+            />
+            <Experience
+              type="Work Experience"
+              skills={resume.skills}
+              experience={resume.experience}
+              onSubmit={(experience, skills) => handleSubmit({ experience, skills })}
+            />
+          </Box>
+          {/* Right column */}
+          <Box display="flex" flexDirection="column" flex={1} gap="16px">
+            <SocialLinks
+              socialLinks={resume.socialLinks}
+              onSubmit={(data) => handleSubmit({ socialLinks: data })}
+            />
+            <Skills
+              skills={resume.skills}
+              onSubmit={(data) => handleSubmit({ skills: data })}
+            />
+            <SideProjects
+              type="Side projects"
+              projects={resume.sideProjects}
+              onSubmit={(data) => handleSubmit({ sideProjects: data })}
+            />
+            <SideProjects
+              type="Publications"
+              projects={resume.publications}
+              onSubmit={(data) => handleSubmit({ publications: data })}
+            />
+            <Education
+              education={resume.education}
+              onSubmit={(data) => handleSubmit({ education: data })}
+            />
+          </Box>
         </Box>
-        {/* Right column */}
-        <Box display="flex" flexDirection="column" flex={1} gap="16px">
-          <SocialLinks
-            socialLinks={resume.socialLinks}
-            onSubmit={(data) => handleSubmit({ socialLinks: data })}
-          />
-          <Skills
-            skills={resume.skills}
-            onSubmit={(data) => handleSubmit({ skills: data })}
-          />
-          <SideProjects
-            type="Side projects"
-            projects={resume.sideProjects}
-            onSubmit={(data) => handleSubmit({ sideProjects: data })}
-          />
-          <SideProjects
-            type="Publications"
-            projects={resume.publications}
-            onSubmit={(data) => handleSubmit({ publications: data })}
-          />
-          <Education
-            education={resume.education}
-            onSubmit={(data) => handleSubmit({ education: data })}
-          />
-        </Box>
-      </Box>
-      <PDFPreviewModal
-        resume={resume}
-        setShowPDFModal={setShowPDFModal}
-        themeStyle={themeStyle as ThemeStyle}
-        showPDFModal={showPDFModal}
-      />
-    </>
+        <PDFPreviewModal
+          resume={resume}
+          setShowPDFModal={setShowPDFModal}
+          themeStyle={themeStyle as ThemeStyle}
+          showPDFModal={showPDFModal}
+        />
+      </>
+    </Page>
   );
 };
 

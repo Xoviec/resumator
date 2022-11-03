@@ -22,6 +22,7 @@ import {
   GridCellParams,
 } from "@mui/x-data-grid";
 import Snackbar from "@mui/material/Snackbar";
+import { Page } from "../../components/layout";
 
 const columns: GridColumns = [
   { field: "id", headerName: "ID", width: 290 },
@@ -124,48 +125,57 @@ export const ManageUsersPage: FC = () => {
   }, [userRecord]);
 
   return (
-    <MainLayout>
-      {userRecord?.isManager ? (
-        <>
-          <Box display="flex" justifyContent="flex-start" alignItems="center" mb={4}>
-            <Typography variant="h3" component="h1">
-              Manage Users &nbsp;
-            </Typography>
+    <Page title="Manage Users">
+      <MainLayout>
+        {userRecord?.isManager ? (
+          <>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
+              mb={4}
+            >
+              <Typography variant="h3" component="h1">
+                Manage Users &nbsp;
+              </Typography>
 
-            <Button color="primary" variant="contained" component={NavLink} to="/">
-              Go to overview
-            </Button>
-          </Box>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-            loading={isLoading}
-            onCellEditCommit={handleCellEditCommit}
-            components={{
-              Toolbar: GridToolbar,
-            }}
-            isCellEditable={(params: GridCellParams) => params.row.rule !== "Admin"}
-            autoHeight
-          />
-        </>
-      ) : (
-        <Alert severity="info">
-          You are not authorized to manage users. Go back to the{" "}
-          <Link to="/">home page</Link>.
-        </Alert>
-      )}
-      {snackbar && (
-        <Snackbar
-          open
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          onClose={() => setSnackbar(null)}
-          autoHideDuration={6000}
-        >
-          <Alert {...snackbar} onClose={() => setSnackbar(null)} />
-        </Snackbar>
-      )}
-    </MainLayout>
+              <Button color="primary" variant="contained" component={NavLink} to="/">
+                Go to overview
+              </Button>
+            </Box>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={10}
+              rowsPerPageOptions={[10]}
+              loading={isLoading}
+              onCellEditCommit={handleCellEditCommit}
+              components={{
+                Toolbar: GridToolbar,
+              }}
+              isCellEditable={(params: GridCellParams) =>
+                params.row.rule !== "Admin"
+              }
+              autoHeight
+            />
+          </>
+        ) : (
+          <Alert severity="info">
+            You are not authorized to manage users. Go back to the{" "}
+            <Link to="/">home page</Link>.
+          </Alert>
+        )}
+        {snackbar && (
+          <Snackbar
+            open
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            onClose={() => setSnackbar(null)}
+            autoHideDuration={6000}
+          >
+            <Alert {...snackbar} onClose={() => setSnackbar(null)} />
+          </Snackbar>
+        )}
+      </MainLayout>
+    </Page>
   );
 };
