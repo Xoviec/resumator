@@ -193,7 +193,6 @@ function parseIntro(
       email,
       dateOfBirth: dateFromPartial(dateOfBirth),
       city,
-      avatar: "",
     },
     introduction,
   };
@@ -345,9 +344,8 @@ function parseSideProjects(lines: string[]): Partial<SideProject>[] {
           if (line.match(/^http(s):\/\//)) {
             lastEntry.link = line;
           } else {
-            lastEntry.description = `${
-              lastEntry.description ? lastEntry.description + "\n" : ""
-            }${line}`;
+            lastEntry.description = `${lastEntry.description ? lastEntry.description + "\n" : ""
+              }${line}`;
           }
         }
         return [

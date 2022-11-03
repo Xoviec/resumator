@@ -16,7 +16,6 @@ const educations = [
 ];
 
 const personalia: PersonaliaModel = {
-  avatar: "1",
   city: "Utrecht",
   countryCode: "NL",
   dateOfBirth: new Date(1990, 23, 4),
@@ -120,7 +119,6 @@ const workExperiences = [
 ];
 
 const resume = {
-  avatar: 1,
   education: educations,
   experience: workExperiences,
   id: "1",

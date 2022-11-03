@@ -2,10 +2,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import { TabPanel } from "@mui/lab";
 import {
-  Avatar,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
 } from "@mui/material/";
@@ -19,7 +17,6 @@ import { NavLink } from "react-router-dom";
 import { colors } from "../../config/theme";
 // context
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
-import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
@@ -93,7 +90,7 @@ interface ResumeItemProps {
 }
 
 const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
-  resume: { id, displayName, personalia, isImport, isArchived },
+  resume: { id, displayName, isImport, isArchived },
   onDelete,
 }) => {
   const { setIsDrawerOpen } = useAppState();
@@ -115,11 +112,6 @@ const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
           }),
         }}
       >
-        <ListItemAvatar>
-          <Avatar>
-            <img alt="avatar" width="15" src={getAvatarDataUri(personalia.avatar)} />
-          </Avatar>
-        </ListItemAvatar>
         <ListItemText>
           {isArchived && "(Archived) "}
           {displayName}
@@ -155,6 +147,7 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
   const [resumeQueryResult, isLoading, error] = useCollection(
     collection(getFirestore(firebase), "resumes")
   );
+
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [resumeToDelete, setResumeToDelete] = useState<ResumeModel | null>(null);
   const hasFetchError = !isLoading && error;

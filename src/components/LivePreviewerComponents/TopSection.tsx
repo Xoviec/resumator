@@ -7,7 +7,6 @@ import { Box, Card, Hidden, Typography } from "@mui/material";
 import { FunctionComponent, useMemo, useState } from "react";
 import { colors } from "../../config/theme";
 import { getCountryIcon, formatDate } from "../../lib";
-import getAvatarDataUri from "../../lib/getAvatarDataUri";
 import { TooltipIconButton } from "../Material";
 import { DetailWithIcon } from "./DetailWithIcon";
 import { PersonaliaDialog } from "./PersonaliaDialog";
@@ -19,7 +18,6 @@ export enum CountryCode {
 }
 
 export interface PersonaliaModel {
-  avatar: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -61,36 +59,11 @@ export const TopSection: FunctionComponent<TopSectionProps> = ({
           <Box
             display="flex"
             alignItems="center"
-            marginLeft={{ xs: 2, sm: 0 }}
+            marginLeft={2}
             flexDirection={{ xs: "column", sm: "row" }}
             gap="16px"
             flex={1}
           >
-            {/* Avatar */}
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRadius="50%"
-              overflow="hidden"
-              width={160}
-              height={160}
-              border={2}
-              borderColor={colors.black}
-              marginRight={2}
-              marginLeft={2}
-              flexShrink={0}
-            >
-              <img
-                alt="Avatar"
-                height="90%"
-                // Drop shadow for the avatar, only works if all avatars have a transparent background.
-                style={{
-                  marginTop: "10%",
-                }}
-                src={getAvatarDataUri(personalia.avatar)}
-              />
-            </Box>
             {/* Personalia */}
             <Box display="flex" flexDirection="column" marginBottom={1} gap="8px">
               <Typography

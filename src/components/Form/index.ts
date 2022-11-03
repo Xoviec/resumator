@@ -1,4 +1,3 @@
-export * from "./FormAvatarSelect";
 export * from "./FormColumn";
 export * from "./FormDatePicker";
 export * from "./FormRow";

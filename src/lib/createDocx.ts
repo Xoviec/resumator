@@ -1,5 +1,4 @@
 import Docxtemplater from "docxtemplater";
-import ImageModule from "docxtemplater-image-module-free";
 import PizZip from "pizzip";
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 import { LooseObject } from "../types/LooseObject";
@@ -8,22 +7,13 @@ import { formatDatesInObject } from "./date";
 
 export default async function createDocx(
   resume: ResumeModel,
-  template: ArrayBuffer,
-  avatar: ArrayBuffer
+  template: ArrayBuffer
 ) {
-  const imageModule = new ImageModule({
-    centered: false,
-    getImage: (tagValue: string) => avatar, // return avatar regardless of tag value
-    getSize: () => [80, 200],
-  });
-
   const zip = new PizZip(template);
-  const options = { modules: [imageModule] };
-  const doc = await new Docxtemplater(zip, options);
+  const doc = new Docxtemplater(zip);
   const tags = {
     ...formatDescriptionsInObject(resume),
     ...resume.personalia, // unnest names, city, date of birth for easier usage inside template
-    image: "avatar.png", // ImageModule won't load this file by name but needs it to import binary data correctly
   };
   doc.setData(formatDatesInObject(tags, "MMMM y"));
 

@@ -19,14 +19,9 @@ describe("resumes overview", () => {
           .should("have.length", resumes.length)
           .each(($listItem, index) => {
             const resume: Resume = resumes[index];
-            const { id, personalia, avatar } = resume;
-            const { avatar: pAvatar } = personalia;
+            const { id, personalia } = resume;
 
             cy.wrap($listItem).within(() => {
-              cy.findByRole("img")
-                .should("have.attr", "src")
-                .should("include", `${pAvatar || avatar}.`);
-
               cy.findByRole("link").contains(getLinkName(personalia, id));
 
               cy.findByRole("button", { name: /Delete/i }).should("not.be.visible");
@@ -46,9 +41,9 @@ describe("resumes overview", () => {
 
           cy.visit(`/resume/${id}`);
 
-          const title = `${
-            personalia.firstName || (+personalia.avatar > 4 ? "John" : "Jane")
-          } ${personalia.lastName || "Doe"}`;
+          const title = `${personalia.firstName || "John"} ${
+            personalia.lastName || "Doe"
+          }`;
 
           cy.findByRole("heading", { level: 3 }).contains(title);
 

@@ -1,7 +1,6 @@
 import { AccountCircle } from "@mui/icons-material";
 import {
   AppBar,
-  Avatar,
   Divider,
   IconButton,
   Menu,
@@ -25,7 +24,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 export const Nav: VoidFunctionComponent = () => {
-  const { firebase, authUser, userRecord } = useFirebaseApp();
+  const { firebase, userRecord } = useFirebaseApp();
   const { isDrawerOpen, setIsDrawerOpen } = useAppState();
 
   const navigate = useNavigate();
@@ -124,11 +123,7 @@ export const Nav: VoidFunctionComponent = () => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {authUser?.photoURL && authUser?.displayName ? (
-                <Avatar alt={authUser.displayName} src={authUser.photoURL} />
-              ) : (
-                <AccountCircle aria-label="user avatar" />
-              )}
+              <AccountCircle aria-label="user avatar" />
             </IconButton>
           </Toolbar>
         </AppBar>

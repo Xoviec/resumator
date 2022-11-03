@@ -180,32 +180,6 @@ describe("Nav", () => {
     expect(queryByText(/manage skills/i)).not.toBeInTheDocument();
   });
 
-  it("shows the user avatar when present", () => {
-    mocked(useAppState).mockImplementation(() => ({
-      isDrawerOpen: true,
-      setIsDrawerOpen: jest.fn(),
-    }));
-
-    mocked(useFirebaseApp).mockImplementation(
-      () =>
-        ({
-          firebase: {},
-          authUser: { displayName: "John Doe", photoURL: "https://example.com" },
-        } as FirebaseAppContextType)
-    );
-
-    const { getByAltText } = render(
-      <ThemeProviderWrapper>
-        <BrowserRouter>
-          <Nav />
-        </BrowserRouter>
-      </ThemeProviderWrapper>
-    );
-
-    expect(getByAltText("John Doe")).toBeInTheDocument();
-    expect(getByAltText("John Doe")).toHaveAttribute("src", "https://example.com");
-  });
-
   it("shows default avatar when user photo not present", () => {
     mocked(useAppState).mockImplementation(() => ({
       isDrawerOpen: true,

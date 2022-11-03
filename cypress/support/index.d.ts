@@ -4,7 +4,6 @@ declare interface Resume {
   education: [];
   experience: [];
   personalia: {
-    avatar: string;
     lastName: string;
     dateOfBirth: null;
     firstName: string;
@@ -14,7 +13,6 @@ declare interface Resume {
   isImport: false;
   isArchived: false;
   skills: [];
-  avatar: string;
   id: string;
   publications: [];
   sideProjects: [];

@@ -7,7 +7,7 @@ import { PDFTemplate } from "../components/PDFTemplate/PDFTemplate";
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 
 export default async function downloadResume(resume: ResumeModel, type: string) {
-  const { firstName, lastName, avatar: avatarName } = resume.personalia;
+  const { firstName, lastName } = resume.personalia;
   let file: Blob;
   switch (type.toLowerCase()) {
     case "pdf_io":

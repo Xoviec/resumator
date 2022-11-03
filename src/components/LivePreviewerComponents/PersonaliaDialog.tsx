@@ -1,7 +1,5 @@
-import { Typography } from "@mui/material";
 import { VoidFunctionComponent } from "react";
 import {
-  FormAvatarSelect,
   FormColumn,
   FormDatePicker,
   FormRow,
@@ -72,21 +70,6 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
             rows={8}
             required={false}
           />
-        </FormRow>
-        <FormRow>
-          <FormAvatarSelect name="avatar" label="Avatar*" />
-        </FormRow>
-        <FormRow>
-          <Typography>
-            Want to add your own avatar? Make a PR{" "}
-            <a
-              href="https://github.com/FrontMen/resumator/tree/develop/src/assets/images/avatars"
-              target="_blank"
-              rel="noreferrer"
-            >
-              here
-            </a>
-          </Typography>
         </FormRow>
       </FormColumn>
     </SectionEditDialog>

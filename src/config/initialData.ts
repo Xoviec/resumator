@@ -5,7 +5,6 @@ export const initialResumeData: ResumeModel = {
   experience: [],
   introduction: "",
   personalia: {
-    avatar: "",
     firstName: "",
     lastName: "",
     city: "",
