@@ -126,6 +126,7 @@ const resume = {
   isArchived: false,
   isImport: false,
   motivation: "Motivation",
+  lastUpdated: 0,
   personalia,
   projects,
   publications,

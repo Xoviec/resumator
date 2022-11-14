@@ -20,4 +20,5 @@ export interface ResumeModel {
   socialLinks: SocialLinkModel[];
   motivation: string | undefined;
   userId: string;
+  lastUpdated: number;
 }

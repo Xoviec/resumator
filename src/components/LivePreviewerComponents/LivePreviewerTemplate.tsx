@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { Education } from "./Education";
@@ -13,6 +13,7 @@ import { TopSection } from "./TopSection";
 import { Motivation } from "./Motivation";
 import { ThemeStyle } from "./PreviewControls";
 import { Page } from "../layout";
+import { convertSecondsToDateTimeString } from "../../utils";
 
 export interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -56,8 +57,9 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   const updateResume = async (resume: ResumeModel) => {
     try {
+      const { lastUpdated, ...restResume } = resume;
       await resumesRef.doc(resume.id).update({
-        ...resume,
+        ...restResume,
         isImport: false, // explicitly remove database import flag, but only when saving to firestore
       });
       setResume(resume);
@@ -71,9 +73,10 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
 
   const handleSubmit = (resumePartial: Partial<ResumeModel>) => {
     const newResume = { ...resume, ...resumePartial };
-    updateResume(newResume);
+    updateResume({ ...newResume, lastUpdated: Date.now() });
   };
 
+  const dateTimeString = convertSecondsToDateTimeString(resume.lastUpdated);
   return (
     <Page title={title}>
       <>
@@ -87,6 +90,15 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
             });
           }}
         />
+        <Typography
+          variant="subtitle1"
+          align="right"
+          style={{
+            fontSize: "0.625rem",
+          }}
+        >
+          Last modified: {dateTimeString}
+        </Typography>
         <TopSection
           personalia={personalia}
           introduction={resume.introduction}

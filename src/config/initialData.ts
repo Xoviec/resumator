@@ -23,4 +23,5 @@ export const initialResumeData: ResumeModel = {
   isArchived: false,
   motivation: "",
   userId: "",
+  lastUpdated: 0,
 };
