@@ -79,6 +79,17 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     updateResumeState(data);
   }, [data, updateResumeState]);
 
+  const transformLanguagesToIdMap = (resume: ResumeModel) => {
+    return (resume.languages as ResumeLanguage[]).map(
+      ({ language, proficiency }) => {
+        return {
+          languageId: language?.id,
+          proficiencyId: proficiency?.id,
+        };
+      }
+    );
+  };
+
   const { firebase } = useFirebaseApp();
 
   const resumesRef = firebase // Remove this when typings are provided for the Firebase context.livetem
@@ -88,11 +99,15 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const updateResume = async (resume: ResumeModel) => {
     try {
       const { lastUpdated, ...restResume } = resume;
-      await resumesRef.doc(resume.id).update({
+      const updatedResume = {
         ...restResume,
+        languages: transformLanguagesToIdMap(resume),
+      };
+      await resumesRef.doc(resume.id).update({
+        ...updatedResume,
         isImport: false, // explicitly remove database import flag, but only when saving to firestore
       });
-      updateResumeState(resume);
+      updateResumeState({ ...updatedResume, lastUpdated });
     } catch (e) {
       alert(`Error updating document. ${e instanceof Error ? `${e.message}` : ""}`);
     }

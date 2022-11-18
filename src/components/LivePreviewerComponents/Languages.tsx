@@ -22,7 +22,6 @@ import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
 import {
   Language,
-  LanguageProficiencyMap,
   Proficiency,
   ProficiencyLevel,
   ResumeLanguage,
@@ -31,7 +30,7 @@ import LanguagesHelpModal from "./LanguagesHelpModal";
 
 type Props = {
   resumeLanguages: ResumeLanguage[];
-  onSubmit: (languages: LanguageProficiencyMap[]) => void;
+  onSubmit: (languages: ResumeLanguage[]) => void;
 };
 
 const iconButtonStyle = { color: colors.black };
@@ -102,19 +101,10 @@ const Languages: React.FC<Props> = ({ resumeLanguages, onSubmit }) => {
     }
   };
 
-  const transformLanguagesToIdMap = () => {
-    return resumeLanguages.map(({ language, proficiency }) => {
-      return {
-        languageId: language?.id,
-        proficiencyId: proficiency?.id,
-      };
-    });
-  };
-
   const handleDelete = (languageId?: string) => {
     if (languageId) {
-      const updatedLanguages = transformLanguagesToIdMap().filter(
-        (language) => language.languageId !== languageId
+      const updatedLanguages = resumeLanguages.filter(
+        (language) => language?.language?.id !== languageId
       );
       onSubmit(updatedLanguages);
     }
@@ -124,19 +114,17 @@ const Languages: React.FC<Props> = ({ resumeLanguages, onSubmit }) => {
     const isEditing = editItemIndex !== null;
 
     const addedLanguage = {
-      languageId: availableLanguages[selectedLanguage].id,
-      proficiencyId: proficiencies[selectedProficiency].id,
+      language: availableLanguages[selectedLanguage],
+      proficiency: proficiencies[selectedProficiency],
     };
 
-    const userLanguages = transformLanguagesToIdMap();
-
     if (isEditing) {
-      userLanguages[editItemIndex] = addedLanguage;
+      resumeLanguages[editItemIndex] = addedLanguage;
     } else {
-      userLanguages.push(addedLanguage);
+      resumeLanguages.push(addedLanguage);
     }
 
-    onSubmit(userLanguages);
+    onSubmit(resumeLanguages);
     onCancel();
   };
 
