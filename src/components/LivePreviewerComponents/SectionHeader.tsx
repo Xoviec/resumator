@@ -14,6 +14,8 @@ export interface SectionHeaderProps {
   actionOnClick?: () => void;
   tooltipTitle?: string;
   tooltipIcon?: ReactElement;
+  disabled?: boolean;
+  onTooltipIconClick?: () => void;
 }
 
 export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
@@ -23,6 +25,8 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
   actionOnClick,
   tooltipTitle = "",
   tooltipIcon,
+  disabled,
+  onTooltipIconClick,
 }) => {
   return (
     <>
@@ -41,7 +45,7 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
           <Box display="flex" alignItems="center">
             {title && <Typography variant="h5">{title}</Typography>}
             {!!tooltipTitle && (
-              <Tooltip title={tooltipTitle}>
+              <Tooltip onClick={onTooltipIconClick} title={tooltipTitle}>
                 <IconButton>{tooltipIcon}</IconButton>
               </Tooltip>
             )}
@@ -52,9 +56,13 @@ export const SectionHeader: FunctionComponent<SectionHeaderProps> = ({
               color="inherit"
               tooltip={actionTooltip || ""}
               onClick={actionOnClick}
+              disabled={disabled}
             >
               {action === "add" && (
-                <AddIcon fontSize="small" htmlColor={colors.black} />
+                <AddIcon
+                  fontSize="small"
+                  htmlColor={!disabled ? colors.black : colors.lightGrey}
+                />
               )}
               {action === "edit" && (
                 <EditIcon fontSize="small" htmlColor={colors.black} />

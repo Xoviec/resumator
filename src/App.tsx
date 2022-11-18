@@ -17,6 +17,8 @@ import RequireAuth from "./utils/requireAuth";
 import theme from "./config/theme";
 import "./App.css";
 import { Page } from "./components/layout";
+import ManageLanguagesPage from "./pages/ManageLanguagesPage/ManageLanguagesPage";
+import ManageLanguageProficiencies from "./pages/ManageLanguageProficiencies/ManageLanguageProficiencies";
 
 export const App: VoidFunctionComponent = () => {
   return (
@@ -49,6 +51,11 @@ export const App: VoidFunctionComponent = () => {
                         <Route path="/new" element={<CreatorPage />} />
                         <Route path="/users" element={<ManageUsersPage />} />
                         <Route path="/skills" element={<SkillsEditorPage />} />
+                        <Route path="/languages" element={<ManageLanguagesPage />} />
+                        <Route
+                          path="/proficiencies"
+                          element={<ManageLanguageProficiencies />}
+                        />
                       </Route>
                     </Routes>
                   </SkillsContextProvider>

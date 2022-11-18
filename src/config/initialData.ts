@@ -18,6 +18,7 @@ export const initialResumeData: ResumeModel = {
   sideProjects: [],
   skills: [],
   socialLinks: [],
+  languages: [],
   id: "",
   isImport: false,
   isArchived: false,

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { Education } from "./Education";
 import { Experience } from "./Experience";
@@ -13,7 +13,18 @@ import { TopSection } from "./TopSection";
 import { Motivation } from "./Motivation";
 import { ThemeStyle } from "./PreviewControls";
 import { Page } from "../layout";
-import { convertSecondsToDateTimeString } from "../../utils";
+import Languages from "./Languages";
+import { useFetchData } from "../../hooks/useFetchData";
+import {
+  Language,
+  LanguageProficiencyMap,
+  Proficiency,
+  ResumeLanguage,
+} from "../../types/language";
+import {
+  transformResumeLanguages,
+  convertSecondsToDateTimeString,
+} from "../../utils";
 
 export interface LivePreviewerTemplateProps {
   data: ResumeModel;
@@ -25,18 +36,15 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
   const [resume, setResume] = useState<ResumeModel>(data);
   const [title, setTitle] = useState("");
 
-  const { personalia } = resume;
+  const { data: availableLanguages } = useFetchData<Language[]>({
+    collectionName: "languages",
+  });
 
-  useEffect(() => {
-    const { personalia, ...otherResumeData } = data;
-    setResume({
-      ...otherResumeData,
-      personalia: {
-        ...personalia,
-        role: personalia.role || "Experienced Developer",
-      },
-    });
-  }, [data]);
+  const { data: proficiencies } = useFetchData<Proficiency[]>({
+    collectionName: "proficiencies",
+  });
+
+  const { personalia } = resume;
 
   useEffect(() => {
     let fullName = "";
@@ -49,9 +57,31 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     setTitle(fullName);
   }, [personalia.firstName, personalia.lastName]);
 
+  const updateResumeState = useCallback(
+    (updatedResume: ResumeModel) => {
+      setResume({
+        ...updatedResume,
+        languages: transformResumeLanguages(
+          availableLanguages,
+          proficiencies,
+          updatedResume.languages as LanguageProficiencyMap[]
+        ),
+        personalia: {
+          ...updatedResume.personalia,
+          role: updatedResume.personalia.role || "Experienced Developer",
+        },
+      });
+    },
+    [availableLanguages, proficiencies]
+  );
+
+  useEffect(() => {
+    updateResumeState(data);
+  }, [data, updateResumeState]);
+
   const { firebase } = useFirebaseApp();
 
-  const resumesRef = firebase // Remove this when typings are provided for the Firebase context.
+  const resumesRef = firebase // Remove this when typings are provided for the Firebase context.livetem
     .firestore()
     .collection("resumes");
 
@@ -62,7 +92,7 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
         ...restResume,
         isImport: false, // explicitly remove database import flag, but only when saving to firestore
       });
-      setResume(resume);
+      updateResumeState(resume);
     } catch (e) {
       alert(`Error updating document. ${e instanceof Error ? `${e.message}` : ""}`);
     }
@@ -145,6 +175,10 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
             <SocialLinks
               socialLinks={resume.socialLinks}
               onSubmit={(data) => handleSubmit({ socialLinks: data })}
+            />
+            <Languages
+              resumeLanguages={resume.languages as ResumeLanguage[]}
+              onSubmit={(data) => handleSubmit({ languages: data })}
             />
             <Skills
               skills={resume.skills}

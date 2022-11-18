@@ -28,6 +28,8 @@ import { PDFMotivation } from "../PDFBuilderComponents/PDFMotivation";
 import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
 import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
 import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
+import PDFLanguages from "../PDFBuilderComponents/PDFLanguages";
+import { ResumeLanguage } from "../../types/language";
 
 Font.register({
   family: "Reckless",
@@ -101,6 +103,10 @@ interface PDFTemplateProps {
 
 export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
   ({ resume }) => {
+    const showFooter =
+      resume.education.length ||
+      resume.publications.length ||
+      resume.languages.length;
     return (
       <Document>
         <CustomPage size="A4" style={{ paddingBottom: 15 }}>
@@ -140,16 +146,15 @@ export const PDFTemplate: VoidFunctionComponent<PDFTemplateProps> = memo(
             <PDFProjects projects={resume.projects} />
             <PDFWorkExperience experience={resume.experience} />
           </View>
-          {resume.education.length || resume.publications.length ? (
+          {showFooter ? (
             <FooterWrapper break>
               <FooterWrapperBlock />
               <PDFEducation education={resume.education} />
-
+              <PDFLanguages resumeLanguages={resume.languages as ResumeLanguage[]} />
               <PDFSideProjects
                 type={PDFSideProjectType.Publication}
                 sideProjects={resume.publications}
               />
-
               <PDFSideProjects
                 type={PDFSideProjectType.SideProject}
                 sideProjects={resume.sideProjects}

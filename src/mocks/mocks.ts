@@ -1,4 +1,5 @@
 import { PersonaliaModel } from "../components/LivePreviewerComponents/TopSection";
+import { ResumeLanguage } from "../types/language";
 
 const educations = [
   {
@@ -118,6 +119,8 @@ const workExperiences = [
   },
 ];
 
+const languages: ResumeLanguage[] = [];
+
 const resume = {
   education: educations,
   experience: workExperiences,
@@ -128,6 +131,7 @@ const resume = {
   motivation: "Motivation",
   lastUpdated: 0,
   personalia,
+  languages,
   projects,
   publications,
   sideProjects,

@@ -1,3 +1,4 @@
+import { LanguageProficiencyMap, ResumeLanguage } from "../../types/language";
 import { EducationModel } from "./EducationItem";
 import { ExperienceModel } from "./ExperienceItem";
 import { SideProjectModel } from "./SideProjectItem";
@@ -14,6 +15,7 @@ export interface ResumeModel {
   projects: ExperienceModel[];
   experience: ExperienceModel[];
   skills: SkillModel[];
+  languages: ResumeLanguage[] | LanguageProficiencyMap[];
   sideProjects: SideProjectModel[];
   publications: SideProjectModel[];
   education: EducationModel[];

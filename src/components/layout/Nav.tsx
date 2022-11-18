@@ -63,6 +63,9 @@ export const Nav: VoidFunctionComponent = () => {
       <MenuItem>
         <StyledLink to="/users">Manage Users</StyledLink>
       </MenuItem>
+      <MenuItem>
+        <StyledLink to="/languages">Manage languages</StyledLink>
+      </MenuItem>
       <Divider />
     </div>
   ) : null;
