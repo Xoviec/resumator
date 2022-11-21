@@ -37,13 +37,15 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
     return null;
   }
 
-  const devideSkillsToRows = skills.reduce((acc, skill, index) => {
-    if (index % 4 === 0) {
-      acc.push([]);
-    }
-    acc[acc.length - 1].push(skill);
-    return acc;
-  }, [] as SkillModel[][]);
+  const devideSkillsToRows = skills
+    .filter((skill) => skill.isActive)
+    .reduce((acc, skill, index) => {
+      if (index % 4 === 0) {
+        acc.push([]);
+      }
+      acc[acc.length - 1].push(skill);
+      return acc;
+    }, [] as SkillModel[][]);
 
   return (
     <ViewWrapper>
@@ -54,9 +56,6 @@ export const PDFSkills: VoidFunctionComponent<PDFSkillsProps> = ({ skills }) => 
               <ColumnViewSkills>
                 {idx >= 4 && <Space />}
                 {row.map((skill, index) => {
-                  if (!skill.isActive) {
-                    return null;
-                  }
                   return <Li key={skill.name + index}>{skill.name}</Li>;
                 })}
               </ColumnViewSkills>
