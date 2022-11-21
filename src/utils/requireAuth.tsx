@@ -1,9 +1,11 @@
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 import { useFirebaseApp } from "../context/FirebaseContext/FirebaseContext";
 
-function RequireAuth() {
-  const { userRecord } = useFirebaseApp();
+export const RequireAuth = () => {
+  const { isLoading, userRecord } = useFirebaseApp();
   const location = useLocation();
+
+  if (isLoading) return <div>Loading...</div>;
 
   if (!userRecord) {
     // Redirect them to the /login page, but save the current location they were
@@ -14,6 +16,4 @@ function RequireAuth() {
   }
 
   return <Outlet />;
-}
-
-export default RequireAuth;
+};

@@ -25,7 +25,7 @@ export type FirebaseAppContextType = {
   setUserRecord: React.Dispatch<
     React.SetStateAction<FirebaseUserRecord | undefined>
   >;
-  authUser?: firebase.User;
+  authUser?: firebase.User | undefined;
   userRecord?: FirebaseUserRecord;
   authProvider: firebase.auth.AuthProvider;
 };
