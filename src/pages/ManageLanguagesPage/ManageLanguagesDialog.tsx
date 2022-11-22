@@ -35,7 +35,7 @@ const ManageLanguagesDialog: FC<Props> = ({ open, onSubmit, setIsDialogOpen }) =
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormColumn>
               <FormRow>
-                <FormTextField required name="name" label="Name" />
+                <FormTextField autoFocus required name="name" label="Name" />
               </FormRow>
             </FormColumn>
             <DialogActions>

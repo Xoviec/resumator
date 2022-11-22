@@ -30,7 +30,7 @@ const ExperienceFormFields: VoidFunctionComponent = () => {
   return (
     <FormColumn>
       <FormRow>
-        <FormTextField required name="role" label="Role" />
+        <FormTextField autoFocus required name="role" label="Role" />
         <FormTextField required name="company" label="Company" />
       </FormRow>
       <FormRow>

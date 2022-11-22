@@ -142,6 +142,7 @@ const SocialLinksFormContent: VoidFunctionComponent = () => {
     <FormColumn>
       <FormRow>
         <FormSelect
+          autoFocus
           required
           defaultValue={SocialLinkType.Other}
           name="linkType"

@@ -5,6 +5,7 @@ exports[`FormSkillsSelectAutocomplete should render SortableSelect with correct 
   "calls": Array [
     Array [
       Object {
+        "autoFocus": true,
         "axis": "xy",
         "closeMenuOnSelect": false,
         "components": Object {
@@ -26,6 +27,7 @@ exports[`FormSkillsSelectAutocomplete should render SortableSelect with correct 
     ],
     Array [
       Object {
+        "autoFocus": true,
         "axis": "xy",
         "closeMenuOnSelect": false,
         "components": Object {

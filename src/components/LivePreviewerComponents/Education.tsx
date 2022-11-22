@@ -90,7 +90,7 @@ const EducationFormFields: VoidFunctionComponent = () => {
   return (
     <FormColumn>
       <FormRow>
-        <FormTextField required name="name" label="Name" />
+        <FormTextField autoFocus required name="name" label="Name" />
         <FormTextField label="Institute" name="institute" />
       </FormRow>
       <FormRow>

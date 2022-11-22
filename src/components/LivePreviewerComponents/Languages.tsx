@@ -249,6 +249,7 @@ const Languages: React.FC<Props> = ({ resumeLanguages, onSubmit }) => {
           <FormColumn>
             <FormRow>
               <FormSelect
+                autoFocus
                 onChange={handleChange}
                 value={selectedLanguage}
                 name="languages_form"

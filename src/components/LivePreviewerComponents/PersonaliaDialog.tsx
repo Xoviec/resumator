@@ -33,7 +33,7 @@ export const PersonaliaDialog: VoidFunctionComponent<PersonaliaDialogProps> = ({
     >
       <FormColumn>
         <FormRow>
-          <FormTextField required name="firstName" label="First name*" />
+          <FormTextField autoFocus required name="firstName" label="First name*" />
           <FormTextField required name="lastName" label="Last name*" />
         </FormRow>
         <FormRow>

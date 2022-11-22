@@ -166,7 +166,7 @@ export const SideProjects: FunctionComponent<SideProjectProps> = ({
       >
         <FormColumn>
           <FormRow>
-            <FormTextField required name="title" label="Title" />
+            <FormTextField autoFocus required name="title" label="Title" />
             <FormTextField name="link" label="Link" />
           </FormRow>
           <FormRow>

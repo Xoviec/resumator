@@ -159,6 +159,7 @@ export const FormSkillsSelectAutocomplete: VoidFunctionComponent<
     <div style={{ width: "100%" }}>
       <SortableSelect
         useDragHandle
+        autoFocus
         axis="xy"
         onSortEnd={onSortEnd}
         distance={4}

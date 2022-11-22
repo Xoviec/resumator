@@ -57,6 +57,7 @@ export const SkillHeader: FunctionComponent<SkillHeaderProps> = ({
             >
               <form onSubmit={saveNewSkill} data-testid="form">
                 <InputBase
+                  autoFocus
                   placeholder="Skill name"
                   value={newSkill}
                   sx={inputStyle}
