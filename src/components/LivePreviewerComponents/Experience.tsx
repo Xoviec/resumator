@@ -4,7 +4,7 @@ import { FunctionComponent, VoidFunctionComponent } from "react";
 import { useModal, useStartDate } from "../../hooks/";
 // libs
 import { setYear } from "../../lib/date";
-import { appendSkills } from "../../utils/Skills";
+import { appendSkills } from "../../utils";
 import {
   FormColumn,
   FormDatePicker,

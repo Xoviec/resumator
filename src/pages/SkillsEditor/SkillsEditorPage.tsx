@@ -16,6 +16,7 @@ import { Page } from "../../components/layout";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { MainLayout } from "../../layouts/MainLayout";
+import { compareStrings } from "../../utils/compareStrings";
 import { SkillHeader } from "./SkillHeader";
 
 const columns: GridColDef[] = [
@@ -120,11 +121,15 @@ export const SkillsEditorPage: FC = () => {
   }
 
   function handleStateChange(state: GridState) {
-    const { pagination, filter } = state;
-    setNewSkill(filter.filterModel.items[0].value);
-    const isSearchRowCount = pagination.rowCount === 0;
-    if (isSearchRowCount) return setIsSkillUnique(true);
-    return setIsSkillUnique(false);
+    const { filter } = state;
+    const newSkillName: string = filter.filterModel.items[0].value;
+    setNewSkill(newSkillName);
+
+    const doesSkillAlreadyExist = skillList.some((skill) =>
+      compareStrings(skill, newSkillName)
+    );
+
+    setIsSkillUnique(!doesSkillAlreadyExist);
   }
 
   async function handleUndoChanges() {

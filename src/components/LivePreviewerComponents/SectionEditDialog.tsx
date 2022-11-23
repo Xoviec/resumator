@@ -18,7 +18,7 @@ import { EditConfirmationModal } from "../common/Modal";
 
 export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;
-  data: T;
+  data: { [x: string]: any };
   onCancel: () => void;
   onSave: (data: T) => void;
 }
