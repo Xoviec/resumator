@@ -1,16 +1,16 @@
-import { act, render } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import userEvent from "@testing-library/user-event";
-import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { act, render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { createMemoryHistory } from "history";
+import { mocked } from "jest-mock";
 import { FunctionComponent } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import {
   useFirebaseApp,
   FirebaseAppContextType,
 } from "../../context/FirebaseContext/FirebaseContext";
-import { useAppState } from "../../context/AppStateContext/AppStateContext";
-import { mocked } from "jest-mock";
 import { Nav } from "./Nav";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {

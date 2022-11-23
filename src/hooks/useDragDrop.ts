@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { SortEndHandler } from "react-sortable-hoc";
 import { arrayMove } from "../helpers";
-import { useEffect, useState } from "react";
 
 // TODO: create dynamic hook for each draggable component
 interface UseDragDropArgs {

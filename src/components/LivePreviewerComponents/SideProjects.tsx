@@ -1,23 +1,21 @@
-import { useState, FunctionComponent, useEffect } from "react";
+import { HelpSharp } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
+import { styled } from "@mui/system";
+import { useState, FunctionComponent, useEffect } from "react";
 import {
   SortableContainer,
   SortableElement,
   SortEndHandler,
 } from "react-sortable-hoc";
-import { HelpSharp } from "@mui/icons-material";
-import { styled } from "@mui/system";
-
+import { colors } from "../../config/theme";
 // helpers
 import { arrayMove } from "../../helpers";
-
+import { useModal } from "../../hooks/useModal";
+import { FormColumn, FormRow, FormTextField } from "../Form";
 // components
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { FormColumn, FormRow, FormTextField } from "../Form";
 import { SideProjectModel, SideProjectItem } from "./SideProjectItem";
-import { colors } from "../../config/theme";
-import { useModal } from "../../hooks/useModal";
 
 interface SideProjectProps {
   type: string;

@@ -1,12 +1,12 @@
-import { FunctionComponent } from "react";
-import { Box, Button } from "@mui/material";
-import { DropdownButton, SpacedButton } from "../Material";
-import downloadResume from "../../lib/downloadResume";
+import ArchiveIcon from "@mui/icons-material/Archive";
 // Icons
 import GetAppIcon from "@mui/icons-material/GetApp";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import ArchiveIcon from "@mui/icons-material/Archive";
+import { Box, Button } from "@mui/material";
+import { FunctionComponent } from "react";
 import { useLocation, NavLink } from "react-router-dom";
+import { downloadResume } from "../../lib/downloadResume";
+import { DropdownButton, SpacedButton } from "../Material";
 import { ResumeModel } from "./ResumeModel";
 
 export enum ThemeStyle {

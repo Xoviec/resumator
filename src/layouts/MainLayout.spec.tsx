@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-
 import { MainLayout } from "./MainLayout";
 
 jest.mock("../components/layout/Nav", () => ({

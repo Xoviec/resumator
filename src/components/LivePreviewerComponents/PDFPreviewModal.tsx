@@ -8,8 +8,8 @@ import { useCallback, VoidFunctionComponent } from "react";
 import { colors } from "../../config/theme";
 // components
 import { PDFTemplate } from "../PDFTemplate/PDFTemplate";
-import { ResumeModel } from "./ResumeModel";
 import { ThemeStyle } from "./PreviewControls";
+import { ResumeModel } from "./ResumeModel";
 
 export interface PDFPreviewModalProps {
   showPDFModal: boolean;
@@ -47,7 +47,7 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
 }) => {
   const handleClosePDFModal = useCallback(() => {
     setShowPDFModal(false);
-  }, []);
+  }, [setShowPDFModal]);
 
   const renderPDF = useCallback(() => {
     // TODO themeStyle left in here to support different resume styles in future
@@ -56,7 +56,7 @@ export const PDFPreviewModal: VoidFunctionComponent<PDFPreviewModalProps> = ({
         <PDFTemplate resume={resume} />
       </PDFViewer>
     );
-  }, [resume, themeStyle]);
+  }, [resume]);
 
   if (showPDFModal && resume) {
     return (

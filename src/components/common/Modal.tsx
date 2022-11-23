@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
 import { Box, Button, Typography, Modal as MuiModal } from "@mui/material";
+import { FunctionComponent } from "react";
 
 interface ModalProps {
   isModalOpen: boolean;

@@ -1,18 +1,18 @@
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import rootFirebase from "firebase/compat/app";
 import React from "react";
+import { VoidFunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
+import { Page } from "../components/layout";
+import { initialResumeData } from "../config/initialData";
 import {
   FirebaseUserRecord,
   useFirebaseApp,
 } from "../context/FirebaseContext/FirebaseContext";
-import rootFirebase from "firebase/compat/app";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { LoginLayout } from "../layouts/LoginLayout";
-import { VoidFunctionComponent } from "react";
-import { initialResumeData } from "../config/initialData";
-import { Page } from "../components/layout";
-import { styled } from "@mui/material/styles";
 
 const RESUME_COLLECTION = "resumes";
 

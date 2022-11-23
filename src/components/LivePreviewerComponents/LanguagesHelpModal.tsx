@@ -8,7 +8,7 @@ type Props = {
   onClose: () => void;
 };
 
-const LanguagesHelpModal: React.FC<Props> = ({
+export const LanguagesHelpModal: React.FC<Props> = ({
   proficiencies,
   isModalOpen,
   onClose,
@@ -32,5 +32,3 @@ const LanguagesHelpModal: React.FC<Props> = ({
     </Dialog>
   );
 };
-
-export default LanguagesHelpModal;

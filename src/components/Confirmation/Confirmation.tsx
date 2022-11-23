@@ -1,4 +1,3 @@
-import { VoidFunctionComponent } from "react";
 import {
   Box,
   Button,
@@ -7,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import { VoidFunctionComponent } from "react";
 
 export interface ConfirmationProps {
   isOpen: boolean;

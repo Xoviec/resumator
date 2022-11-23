@@ -1,11 +1,10 @@
-import { FunctionComponent, ReactElement } from "react";
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
-import { TooltipIconButton } from "../Material";
-
 // Icons
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { FunctionComponent, ReactElement } from "react";
 import { colors } from "../../config/theme";
+import { TooltipIconButton } from "../Material";
 
 export interface SectionHeaderProps {
   title: string;

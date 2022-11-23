@@ -17,12 +17,13 @@ export const colors = {
   black: "#000",
 };
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: { main: colors.primary },
     secondary: { main: colors.secondary },
     info: { main: colors.tertiary },
   },
+  mixins: {},
   typography: {
     fontFamily: [
       "TT Commons Pro",
@@ -39,5 +40,3 @@ const theme = createTheme({
     ].join(","),
   },
 });
-
-export default theme;

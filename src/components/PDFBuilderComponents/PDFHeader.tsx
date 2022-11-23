@@ -1,14 +1,14 @@
-import styled from "@react-pdf/styled-components";
 import { View, Text, Image, Link, StyleSheet } from "@react-pdf/renderer";
-import LogoWhite from "../../assets/images/iO-logo-white.png";
-import { formatSocialMediaLink } from "../../lib/formatSocialMediaLink";
+import styled from "@react-pdf/styled-components";
 import { VoidFunctionComponent } from "react";
-import { PersonaliaModel } from "../LivePreviewerComponents/TopSection";
+import LogoWhite from "../../assets/images/iO-logo-white.png";
+import { calculateAge, getCountry } from "../../lib";
+import { formatSocialMediaLink } from "../../lib/formatSocialMediaLink";
 import {
   SocialLinkModel,
   SocialLinkTypeToInfoMapping,
 } from "../LivePreviewerComponents/SocialLinks";
-import { calculateAge, getCountry } from "../../lib";
+import { PersonaliaModel } from "../LivePreviewerComponents/TopSection";
 
 const Root = styled(View)`
   font-family: "Reckless";

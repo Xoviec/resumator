@@ -20,7 +20,11 @@ const Content = styled(DialogContent)`
   overflow-y: visible;
 `;
 
-const ManageLanguagesDialog: FC<Props> = ({ open, onSubmit, setIsDialogOpen }) => {
+export const ManageLanguagesDialog: FC<Props> = ({
+  open,
+  onSubmit,
+  setIsDialogOpen,
+}) => {
   const { ...form } = useForm();
   return (
     <Dialog
@@ -54,5 +58,3 @@ const ManageLanguagesDialog: FC<Props> = ({ open, onSubmit, setIsDialogOpen }) =
     </Dialog>
   );
 };
-
-export default ManageLanguagesDialog;

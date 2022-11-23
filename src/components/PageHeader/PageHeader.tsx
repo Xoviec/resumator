@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 
-const PageHeader: FC<Props> = ({ title }) => {
+export const PageHeader: FC<Props> = ({ title }) => {
   return (
     <Box display="flex" justifyContent="flex-start" alignItems="center">
       <Typography variant="h3" component="h1">
@@ -18,5 +18,3 @@ const PageHeader: FC<Props> = ({ title }) => {
     </Box>
   );
 };
-
-export default PageHeader;

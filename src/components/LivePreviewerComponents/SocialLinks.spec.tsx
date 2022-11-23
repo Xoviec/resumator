@@ -1,11 +1,10 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
+import { MockTheme } from "../../mocks/MockTheme";
 import {
   SocialLinks,
   SocialLinksProps,
-  SocialLinkType,
   SocialLinkTypeToInfoMapping,
 } from "./SocialLinks";
-import MockTheme from "../../mocks/MockTheme";
 
 describe("SocialLinks", () => {
   const defaultProps = {

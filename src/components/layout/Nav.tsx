@@ -1,4 +1,6 @@
 import { AccountCircle } from "@mui/icons-material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Divider,
@@ -12,11 +14,9 @@ import {
 import { styled } from "@mui/system";
 import { useState, VoidFunctionComponent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
-import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import LogoWhite from "../../assets/images/iO-logo-white.png";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 
 const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette?.primary?.main,

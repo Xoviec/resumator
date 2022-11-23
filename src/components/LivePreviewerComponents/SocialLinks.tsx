@@ -5,7 +5,6 @@ import GithubIcon from "@mui/icons-material/GitHub";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import logos from "../../assets/images/socials";
 import {
   Box,
   IconButton,
@@ -22,14 +21,15 @@ import { styled } from "@mui/system";
 import * as React from "react";
 import { useEffect, VoidFunctionComponent } from "react";
 import { useFormContext } from "react-hook-form";
+import * as logos from "../../assets/images/socials";
 import { colors } from "../../config/theme";
+import { useModal } from "../../hooks/useModal";
 import { getDomain, isValidUrl } from "../../lib/url";
 import { FormColumn, FormRow } from "../Form";
 import { FormSelect } from "../Form/FormSelect";
 import { FormTextField } from "../Form/FormTextField";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { useModal } from "../../hooks/useModal";
 
 const StyledList = styled(List)`
   background-color: ${({ theme }) => theme.palette.background.paper};

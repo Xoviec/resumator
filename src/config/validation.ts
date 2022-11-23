@@ -28,7 +28,7 @@ const experienceSchema = yup.object().shape({
   stackAndTechniques: yup.array().min(1).of(skillOrStackSchema),
 });
 
-export default yup.object().shape({
+export const validation = yup.object().shape({
   personalia: yup.object().shape({
     firstName: yup.string().required(),
     lastName: yup.string().required(),

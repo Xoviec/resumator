@@ -82,7 +82,7 @@ const sortLanguages = (languages: ResumeLanguage[]) =>
       )
   );
 
-const PDFLanguages: React.FC<Props> = ({ resumeLanguages }) => {
+export const PDFLanguages: React.FC<Props> = ({ resumeLanguages }) => {
   if (!resumeLanguages || !resumeLanguages.length) {
     return null;
   }
@@ -113,5 +113,3 @@ const PDFLanguages: React.FC<Props> = ({ resumeLanguages }) => {
     </Row>
   );
 };
-
-export default PDFLanguages;

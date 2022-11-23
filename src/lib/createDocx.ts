@@ -2,13 +2,9 @@ import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import { ResumeModel } from "../components/LivePreviewerComponents/ResumeModel";
 import { LooseObject } from "../types/LooseObject";
-
 import { formatDatesInObject } from "./date";
 
-export default async function createDocx(
-  resume: ResumeModel,
-  template: ArrayBuffer
-) {
+export async function createDocx(resume: ResumeModel, template: ArrayBuffer) {
   const zip = new PizZip(template);
   const doc = new Docxtemplater(zip);
   const tags = {

@@ -1,4 +1,3 @@
-import { memo, VoidFunctionComponent } from "react";
 import {
   Document,
   Font,
@@ -9,27 +8,28 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import styled from "@react-pdf/styled-components";
-import Reckless from "../../assets/fonts/Reckless/TTF/Reckless-Regular.ttf";
+import { memo, VoidFunctionComponent } from "react";
 import RecklessBold from "../../assets/fonts/Reckless/TTF/Reckless-Bold.ttf";
+import Reckless from "../../assets/fonts/Reckless/TTF/Reckless-Regular.ttf";
 import RecklessItalic from "../../assets/fonts/Reckless/TTF/Reckless-RegularItalic.ttf";
-import TTCommonsPro from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Regular.ttf";
-import TTCommonsProMedium from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Medium.ttf";
 import TTCommonsProBold from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Bold.ttf";
 import TTCommonsProItalic from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Italic.ttf";
+import TTCommonsProMedium from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Medium.ttf";
+import TTCommonsPro from "../../assets/fonts/TTCommonsPro/TTCommonsPro-Regular.ttf";
+import LogoBlack from "../../assets/images/iO-logo-black.png";
+import { ResumeLanguage } from "../../types/language";
+import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
+import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
+import { PDFLanguages } from "../PDFBuilderComponents/PDFLanguages";
+import { PDFMotivation } from "../PDFBuilderComponents/PDFMotivation";
+import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
 import {
   PDFSideProjects,
   PDFSideProjectType,
 } from "../PDFBuilderComponents/PDFSideProjects";
-import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import LogoBlack from "../../assets/images/iO-logo-black.png";
-import { PDFProjects } from "../PDFBuilderComponents/PDFProjects";
-import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
-import { PDFMotivation } from "../PDFBuilderComponents/PDFMotivation";
 import { PDFSkills } from "../PDFBuilderComponents/PDFSkills";
-import { PDFEducation } from "../PDFBuilderComponents/PDFEducation";
-import { PDFHeader } from "../PDFBuilderComponents/PDFHeader";
-import PDFLanguages from "../PDFBuilderComponents/PDFLanguages";
-import { ResumeLanguage } from "../../types/language";
+import { PDFWorkExperience } from "../PDFBuilderComponents/PDFWorkExperience";
 
 Font.register({
   family: "Reckless",

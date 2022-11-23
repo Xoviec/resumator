@@ -1,8 +1,8 @@
-import { VoidFunctionComponent } from "react";
 import { List } from "@mui/material/";
-import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import ResumeItem from "./OverviewResumeItem";
 import Fuse from "fuse.js";
+import { VoidFunctionComponent } from "react";
+import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import { ResumeItem } from "./OverviewResumeItem";
 
 interface Props {
   onDelete: (resume: ResumeModel) => void;
@@ -10,7 +10,7 @@ interface Props {
   testId?: string;
 }
 
-const OverviewResumeList: VoidFunctionComponent<Props> = ({
+export const OverviewResumeList: VoidFunctionComponent<Props> = ({
   onDelete,
   resumes,
   testId = "",
@@ -28,5 +28,3 @@ const OverviewResumeList: VoidFunctionComponent<Props> = ({
     </List>
   );
 };
-
-export default OverviewResumeList;

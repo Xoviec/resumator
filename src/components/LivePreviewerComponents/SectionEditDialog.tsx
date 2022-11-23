@@ -1,5 +1,5 @@
-import { PropsWithChildren, useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+// Icons
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Button,
@@ -9,13 +9,12 @@ import {
   DialogProps,
   Typography,
 } from "@mui/material";
+import { isEmpty } from "ramda";
+import { PropsWithChildren, useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { TooltipIconButton } from "../Material";
-// Icons
-import CloseIcon from "@mui/icons-material/Close";
-
 // components
 import { EditConfirmationModal } from "../common/Modal";
-import { isEmpty } from "ramda";
 
 export interface SectionEditDialogProps<T> extends DialogProps {
   title: string;

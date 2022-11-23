@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState, VoidFunctionComponent } from "react";
 import { Search } from "@mui/icons-material";
-import { alpha } from "@mui/material/styles";
 import { InputBase } from "@mui/material";
-import { debounce } from "debounce";
+import { alpha } from "@mui/material/styles";
 import { styled } from "@mui/system";
+import { debounce } from "debounce";
+import { useCallback, useMemo, useState, VoidFunctionComponent } from "react";
 
 const StyledInput = styled(InputBase)(({ theme }) => ({
   width: "100%",

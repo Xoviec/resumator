@@ -1,8 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { Experience } from "./Experience";
-import { ExperienceModel } from "./ExperienceItem";
 import { formatTimespan } from "../../lib/date";
 import { workExperiences } from "../../mocks/mocks";
+import { Experience } from "./Experience";
+import { ExperienceModel } from "./ExperienceItem";
 
 describe("Experience", () => {
   const defaultProps = {
@@ -13,7 +13,7 @@ describe("Experience", () => {
   };
 
   test("expect text content of experience to be displayed", () => {
-    const { role, company, startDate, endDate, description, stackAndTechniques } =
+    const { role, company, startDate, endDate, stackAndTechniques } =
       defaultProps.experience[0];
 
     render(

@@ -1,10 +1,9 @@
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import { useState, useContext, useEffect } from "react";
 import * as React from "react";
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
-import "firebase/compat/auth";
-
-import getFirebaseConfig from "./getFirebaseConfig";
+import { getFirebaseConfig } from "./getFirebaseConfig";
 
 export type FirestoreQuery = firebase.firestore.Query;
 

@@ -1,10 +1,10 @@
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Grid, Box, Typography, InputBase, Button } from "@mui/material";
-import { SpacedButton } from "../../components/Material";
 import { ChangeEvent, FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
+import { SpacedButton } from "../../components/Material";
 import { inputStyle } from "./skillsEditorStyles";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 
 export interface SkillHeaderProps {
   isBtnDisabled: boolean;

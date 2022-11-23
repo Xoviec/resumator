@@ -1,13 +1,13 @@
-import { Box, Typography } from "@mui/material/";
-import { styled } from "@mui/system";
-import { ReactElement, VFC } from "react";
-import Fuse from "fuse.js";
-import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import BusinessIcon from "@mui/icons-material/Business";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import BusinessIcon from "@mui/icons-material/Business";
-import { findExperience, findSkillExperience } from "./utils";
+import { Box, Typography } from "@mui/material/";
+import { styled } from "@mui/system";
+import Fuse from "fuse.js";
+import { ReactElement, VFC } from "react";
 import { getCountryIcon } from "../../lib";
+import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import { findExperience, findSkillExperience } from "./utils";
 
 const StyledUl = styled("ul")({
   margin: 0,

@@ -1,3 +1,4 @@
+import { getFirestore, collection } from "firebase/firestore";
 import {
   createContext,
   FunctionComponent,
@@ -6,9 +7,8 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useFirebaseApp } from "../FirebaseContext/FirebaseContext";
-import { getFirestore, collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useFirebaseApp } from "../FirebaseContext/FirebaseContext";
 
 type SkillsContextType = {
   skillList: string[];

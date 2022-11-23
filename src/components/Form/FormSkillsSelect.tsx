@@ -1,6 +1,6 @@
+import { FormControlProps } from "@mui/material";
 import { useEffect, VoidFunctionComponent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { FormControlProps } from "@mui/material";
 import { FormSkillsSelectAutocomplete } from "./FormSkillsSelectAutocomplete";
 
 interface FormSkillsSelectProps extends FormControlProps {

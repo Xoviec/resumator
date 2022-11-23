@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
 import { FunctionComponent, useCallback } from "react";
-import { Section } from "./Section";
 import { useModal } from "../../hooks/useModal";
-import { SectionEditDialog } from "./SectionEditDialog";
 import { FormRow, FormTextField } from "../Form";
+import { Section } from "./Section";
+import { SectionEditDialog } from "./SectionEditDialog";
 
 interface MotivationProps {
   onSubmit: (value: { motivation: string }) => void;

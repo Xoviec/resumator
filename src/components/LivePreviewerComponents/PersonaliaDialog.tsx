@@ -1,4 +1,6 @@
 import { VoidFunctionComponent } from "react";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { setYear, getCurrentYear } from "../../lib/date";
 import {
   FormColumn,
   FormDatePicker,
@@ -8,8 +10,6 @@ import {
 } from "../Form";
 import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 import { PersonaliaModel } from "./TopSection";
-import { setYear, getCurrentYear } from "../../lib/date";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 
 type DialogFormData = PersonaliaModel & { introduction: string | undefined };
 

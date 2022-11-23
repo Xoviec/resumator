@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { PreviewControls, PreviewControlsProps } from "./PreviewControls";
+import { downloadResume } from "../../lib/downloadResume";
 import { resume } from "../../mocks/mocks";
-import downloadResume from "../../lib/downloadResume";
+import { PreviewControls, PreviewControlsProps } from "./PreviewControls";
 
 jest.mock("react-router-dom", () => ({
   useLocation: () => ({
@@ -15,7 +15,9 @@ jest.mock("../../context/FirebaseContext/FirebaseContext", () => ({
   }),
 }));
 
-jest.mock("../../lib/downloadResume", () => jest.fn());
+jest.mock("../../lib/downloadResume", () => ({
+  downloadResume: jest.fn(),
+}));
 
 describe("PreviewControls", () => {
   const defaultProps = {

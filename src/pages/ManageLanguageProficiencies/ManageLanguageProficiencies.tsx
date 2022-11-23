@@ -6,8 +6,8 @@ import {
   GridToolbar,
 } from "@mui/x-data-grid";
 import { FC } from "react";
+import { PageHeader } from "../../components/PageHeader/PageHeader";
 import { Page } from "../../components/layout";
-import PageHeader from "../../components/PageHeader/PageHeader";
 import { useFetchData } from "../../hooks/useFetchData";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Proficiency } from "../../types/language";
@@ -20,7 +20,7 @@ const columns: GridColumns = [
   { field: "description", headerName: "Description", flex: 1, editable: true },
 ];
 
-const ManageLanguageProficiencies: FC = () => {
+export const ManageLanguageProficiencies: FC = () => {
   const { data, isLoading, updateFieldsById } = useFetchData<Proficiency[]>({
     collectionName: "proficiencies",
   });
@@ -54,5 +54,3 @@ const ManageLanguageProficiencies: FC = () => {
     </Page>
   );
 };
-
-export default ManageLanguageProficiencies;

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { EducationItem, EducationModel } from "./EducationItem";
 import { educations } from "../../mocks/mocks";
+import { EducationItem, EducationModel } from "./EducationItem";
 
 describe("EducationItem", () => {
   const defaultProps = {

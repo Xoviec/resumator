@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import ManageLanguagesDialog from "./ManageLanguagesDialog";
+import { ManageLanguagesDialog } from "./ManageLanguagesDialog";
 
 describe("ManageLanguagesDialog", () => {
   it("It renders correctly", () => {

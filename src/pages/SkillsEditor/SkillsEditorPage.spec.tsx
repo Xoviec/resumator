@@ -1,16 +1,16 @@
-import { render, screen } from "@testing-library/react";
-import { SkillsEditorPage } from "./SkillsEditorPage";
-import { createMemoryHistory } from "history";
-import { BrowserRouter } from "react-router-dom";
-import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { render, screen } from "@testing-library/react";
+import { createMemoryHistory } from "history";
 import { mocked } from "jest-mock";
+import { FunctionComponent } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import {
   useFirebaseApp,
   FirebaseAppContextType,
 } from "../../context/FirebaseContext/FirebaseContext";
-import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
+import { SkillsEditorPage } from "./SkillsEditorPage";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});

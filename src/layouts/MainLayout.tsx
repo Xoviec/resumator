@@ -1,3 +1,4 @@
+import { ThemeOptions } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { styled } from "@mui/system";
 import { FunctionComponent } from "react";
@@ -9,9 +10,10 @@ const Root = styled("div")(({ theme }) => ({
   display: "flex",
 }));
 
-// TODO: fix toolbar
-// @ts-ignore
-const Spacer = styled("div")(({ theme }) => theme.mixins?.toolbar);
+const Spacer = styled("div")(({ theme }) => {
+  const { mixins } = theme as ThemeOptions;
+  return mixins?.toolbar;
+});
 
 const Content = styled("main")(({ theme }) => ({
   flexGrow: 1,

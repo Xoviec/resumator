@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { PDFPreviewModal, PDFPreviewModalProps } from "./PDFPreviewModal";
 import { resume } from "../../mocks/mocks";
+import { PDFPreviewModal, PDFPreviewModalProps } from "./PDFPreviewModal";
 
 jest.mock("@react-pdf/renderer", () => ({
   PDFViewer: ({ children }: { children: any }) => <div>{children}</div>,

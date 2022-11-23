@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 import { personalia } from "../../mocks/mocks";
+import { SectionEditDialog, SectionEditDialogProps } from "./SectionEditDialog";
 
 describe("SectionEditDialog", () => {
   const data = personalia;

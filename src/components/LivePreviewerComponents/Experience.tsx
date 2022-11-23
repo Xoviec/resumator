@@ -2,6 +2,9 @@ import { Box } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import { FunctionComponent, VoidFunctionComponent } from "react";
 import { useModal, useStartDate } from "../../hooks/";
+// libs
+import { setYear } from "../../lib/date";
+import { appendSkills } from "../../utils/Skills";
 import {
   FormColumn,
   FormDatePicker,
@@ -11,12 +14,10 @@ import {
 } from "../Form";
 import { FormRichTextEditor } from "../Form/FormRichTextEditor";
 import { ExperienceItem, ExperienceModel } from "./ExperienceItem";
-import { SkillModel } from "./Skills";
-import { appendSkills } from "../../utils/Skills";
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-// libs
-import { setYear } from "../../lib/date";
+import { SkillModel } from "./Skills";
+
 interface ExperienceProps {
   type: string;
   experience: ExperienceModel[];

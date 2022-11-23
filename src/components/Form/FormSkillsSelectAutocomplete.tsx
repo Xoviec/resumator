@@ -1,3 +1,4 @@
+import { ClassNames } from "@emotion/react";
 import {
   useState,
   VoidFunctionComponent,
@@ -21,8 +22,6 @@ import {
   SortableHandle,
 } from "react-sortable-hoc";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
-import { ClassNames } from "@emotion/react";
-
 // helpers
 import { arrayMove } from "../../helpers";
 import { SkillChip } from "../LivePreviewerComponents/SkillChip";

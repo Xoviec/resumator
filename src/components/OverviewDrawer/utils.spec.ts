@@ -1,3 +1,4 @@
+import Fuse from "fuse.js";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 import {
   getDisplayName,
@@ -13,7 +14,6 @@ import {
   findExperience,
   findSkillExperience,
 } from "./utils";
-import Fuse from "fuse.js";
 
 describe("overViewDrawer utils", () => {
   describe("findSkillExperience", () => {

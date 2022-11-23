@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import LanguagesHelpModal from "./LanguagesHelpModal";
+import { LanguagesHelpModal } from "./LanguagesHelpModal";
 
 describe("PageHeader", () => {
   it("It renders correctly", () => {

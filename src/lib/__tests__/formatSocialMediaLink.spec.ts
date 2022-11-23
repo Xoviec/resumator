@@ -1,5 +1,5 @@
-import { formatSocialMediaLink } from "../formatSocialMediaLink";
 import { SocialLinkModel } from "../../components/LivePreviewerComponents/SocialLinks";
+import { formatSocialMediaLink } from "../formatSocialMediaLink";
 
 describe("expect formatSocialMediaLink to return the correct userName", () => {
   test("when linkType is linkedin", () => {

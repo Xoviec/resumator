@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ExperienceItem, ExperienceModel } from "./ExperienceItem";
 import { formatTimespan } from "../../lib/date";
 import { workExperiences } from "../../mocks/mocks";
+import { ExperienceItem, ExperienceModel } from "./ExperienceItem";
 
 describe("ExperienceItem", () => {
   const defaultProps = {

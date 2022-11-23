@@ -25,6 +25,7 @@
     "import/first": "error",
     "react/prop-types": 0,
     "import/no-anonymous-default-export": 0,
+    "import/no-default-export": "error",
     "react/react-in-jsx-scope": 0 // no longer necessary with "react-jsx" pragma
   },
   "settings": {

@@ -1,8 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { SkillHeader, SkillHeaderProps } from "./SkillHeader";
-import { BrowserRouter } from "react-router-dom";
-import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { render, screen } from "@testing-library/react";
+import { FunctionComponent } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { SkillHeader, SkillHeaderProps } from "./SkillHeader";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});

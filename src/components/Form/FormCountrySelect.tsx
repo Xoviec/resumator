@@ -1,7 +1,7 @@
-import { VFC } from "react";
 import { Box, MenuItem } from "@mui/material";
-import { FormSelect } from "../Form/FormSelect";
+import { VFC } from "react";
 import { CountryMapping, getCountryIcon } from "../../lib";
+import { FormSelect } from "../Form/FormSelect";
 
 interface Props {
   name: string;

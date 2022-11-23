@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react";
 import { capitalize } from "../../utils";
 import { DEFAULT_PAGE_TITLE } from "../constants";
-
 import { Page } from "./Page";
 
 describe("Page", () => {

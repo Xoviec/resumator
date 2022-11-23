@@ -1,6 +1,6 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Grid, InputBase, IconButton, Card, Box } from "@mui/material";
 import { FunctionComponent } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { inputEditedStyle, inputStyle } from "./skillsEditorStyles";
 
 export interface SkillItemProps {

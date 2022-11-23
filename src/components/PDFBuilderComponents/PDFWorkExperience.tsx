@@ -1,8 +1,8 @@
 import styled from "@react-pdf/styled-components";
 import { Fragment, VoidFunctionComponent } from "react";
 import { ExperienceModel } from "../LivePreviewerComponents/ExperienceItem";
-import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 import { PDFExperinceSection } from "./PDFExperinceSection";
+import { ProjectsExperienceCard } from "./ProjectsExperienceCard";
 
 const ViewWrapper = styled.View``;
 

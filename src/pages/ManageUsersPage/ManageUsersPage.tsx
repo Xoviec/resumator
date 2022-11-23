@@ -1,17 +1,7 @@
-import { FC, useCallback, useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
-
-import { FirebaseUserRecord } from "../../context/FirebaseContext/FirebaseContext";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
-
-import { MainLayout } from "../../layouts/MainLayout";
-
 import Alert, { AlertProps } from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 import {
   DataGrid,
@@ -21,8 +11,14 @@ import {
   GridToolbar,
   GridCellParams,
 } from "@mui/x-data-grid";
-import Snackbar from "@mui/material/Snackbar";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import { FC, useCallback, useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Page } from "../../components/layout";
+import { FirebaseUserRecord } from "../../context/FirebaseContext/FirebaseContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { MainLayout } from "../../layouts/MainLayout";
 
 const columns: GridColumns = [
   { field: "id", headerName: "ID", width: 290 },

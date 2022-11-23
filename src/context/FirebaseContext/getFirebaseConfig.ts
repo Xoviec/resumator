@@ -7,7 +7,7 @@ export interface FirebaseConfig {
   messagingSenderId: string;
 }
 
-export default async function (): Promise<FirebaseConfig> {
+export async function getFirebaseConfig(): Promise<FirebaseConfig> {
   if (
     !process.env.REACT_APP_FIREBASE_API_KEY?.length ||
     !process?.env?.REACT_APP_FIREBASE_AUTH_DOMAIN?.length ||

@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { FunctionComponent } from "react";
 import { mocked } from "jest-mock";
+import { FunctionComponent } from "react";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { OverviewContent } from "./OverviewContent";

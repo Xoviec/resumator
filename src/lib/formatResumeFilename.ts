@@ -1,4 +1,4 @@
-export default function formatResumeFilename(
+export function formatResumeFilename(
   firstName: string,
   lastName: string,
   type: string

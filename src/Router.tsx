@@ -1,14 +1,14 @@
 import { VoidFunctionComponent } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Page } from "./components/layout";
+import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
 import { CreatorPage } from "./pages/CreatorPage/CreatorPage";
-import { ManageUsersPage } from "./pages/ManageUsersPage/ManageUsersPage";
 import { LivePreviewerPage } from "./pages/LivePreviewerPage/LivePreviewerPage";
+import { ManageLanguageProficiencies } from "./pages/ManageLanguageProficiencies/ManageLanguageProficiencies";
+import { ManageLanguagesPage } from "./pages/ManageLanguagesPage/ManageLanguagesPage";
+import { ManageUsersPage } from "./pages/ManageUsersPage/ManageUsersPage";
 import { PDFPreviewerPage } from "./pages/PdfPreviewer/PDFPreviewerPage";
 import { SkillsEditorPage } from "./pages/SkillsEditor/SkillsEditorPage";
-import { SkillsContextProvider } from "./context/SkillsContext/SkillsContext";
-import { Page } from "./components/layout";
-import ManageLanguagesPage from "./pages/ManageLanguagesPage/ManageLanguagesPage";
-import ManageLanguageProficiencies from "./pages/ManageLanguageProficiencies/ManageLanguageProficiencies";
 
 export const AppRouter: VoidFunctionComponent = () => (
   <SkillsContextProvider>

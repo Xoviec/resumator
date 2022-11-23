@@ -1,5 +1,5 @@
-import styled from "@react-pdf/styled-components";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import styled from "@react-pdf/styled-components";
 import {
   ContentState,
   convertFromRaw,
@@ -9,7 +9,6 @@ import {
   RawDraftContentState,
 } from "draft-js";
 import { VoidFunctionComponent } from "react";
-
 // helpers
 import { checkListType } from "../../helpers";
 

@@ -1,6 +1,6 @@
 import styled from "@react-pdf/styled-components";
-import { PDFExperinceSection } from "./PDFExperinceSection";
 import { VoidFunctionComponent } from "react";
+import { PDFExperinceSection } from "./PDFExperinceSection";
 
 const Root = styled.View``;
 

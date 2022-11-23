@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
+import { mocked } from "jest-mock";
 import {
   useFirebaseApp,
   FirebaseAppContextType,
 } from "../../context/FirebaseContext/FirebaseContext";
-import { TopSection } from "./TopSection";
 import { personalia } from "../../mocks/mocks";
-import { mocked } from "jest-mock";
+import { TopSection } from "./TopSection";
 
 jest.mock("../../context/FirebaseContext/FirebaseContext");
 

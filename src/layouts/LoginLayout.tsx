@@ -4,7 +4,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { FunctionComponent } from "react";
 import "../assets/css/global.css";
 import LogoBlack from "../assets/images/bg-portrait-black.jpg";
-
 import { colors } from "../config/theme";
 
 export const LoginLayout: FunctionComponent = ({ children }) => (

@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
 import { IconButton, IconButtonProps, Tooltip } from "@mui/material";
+import { FunctionComponent } from "react";
 
 interface TooltipIconButtonProps extends IconButtonProps {
   tooltip: string;

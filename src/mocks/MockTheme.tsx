@@ -1,9 +1,7 @@
-import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 
-function MockTheme({ children }: any) {
+export function MockTheme({ children }: any) {
   const theme = createTheme({});
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
-
-export default MockTheme;

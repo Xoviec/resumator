@@ -1,14 +1,14 @@
-import { render, screen } from "@testing-library/react";
-import { ManageUsersPage } from "./ManageUsersPage";
-import { BrowserRouter } from "react-router-dom";
-import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { render, screen } from "@testing-library/react";
 import { mocked } from "jest-mock";
+import { FunctionComponent } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
 import {
   useFirebaseApp,
   FirebaseAppContextType,
 } from "../../context/FirebaseContext/FirebaseContext";
-import { useAppState } from "../../context/AppStateContext/AppStateContext";
+import { ManageUsersPage } from "./ManageUsersPage";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});

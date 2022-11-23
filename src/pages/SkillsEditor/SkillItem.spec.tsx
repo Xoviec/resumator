@@ -1,9 +1,9 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
-import { SkillItem, SkillItemProps } from "./SkillItem";
-import { createMemoryHistory } from "history";
-import { BrowserRouter } from "react-router-dom";
-import { FunctionComponent } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { fireEvent, render, waitFor } from "@testing-library/react";
+import { createMemoryHistory } from "history";
+import { FunctionComponent } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { SkillItem, SkillItemProps } from "./SkillItem";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});

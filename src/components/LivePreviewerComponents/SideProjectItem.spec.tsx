@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { SideProjectItem, SideProjectModel } from "./SideProjectItem";
 import { sideProjects } from "../../mocks/mocks";
+import { SideProjectItem, SideProjectModel } from "./SideProjectItem";
 
 describe("SideProjectItem", () => {
   const defaultProps = {

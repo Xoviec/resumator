@@ -1,11 +1,11 @@
 import { TabPanel } from "@mui/lab";
+import { Box } from "@mui/material";
 import { useState, VoidFunctionComponent } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { useDeleteResume, useGetResumes } from "../../hooks/data";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import OverviewResumeList from "./OverviewResumeList";
-import { Box } from "@mui/material";
-import { useDeleteResume, useGetResumes } from "../../hooks/data";
+import { OverviewResumeList } from "./OverviewResumeList";
 import { useSearch } from "./useSearch";
 
 export interface OverviewListProps {

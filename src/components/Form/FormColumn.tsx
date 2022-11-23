@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
 import { Box } from "@mui/material";
+import { FunctionComponent } from "react";
 
 export const FormColumn: FunctionComponent = ({ children }) => {
   return (

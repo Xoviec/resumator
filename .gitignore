@@ -37,3 +37,5 @@ credentials.json
 serviceAccount.json
 cypress.env.json
 cypress/fixtures
+
+.scannerwork

@@ -1,24 +1,23 @@
-import { VoidFunctionComponent } from "react";
+import {
+  Delete as DeleteIcon,
+  ReportProblemOutlined as ReportProblemOutlinedIcon,
+} from "@mui/icons-material";
 import {
   ListItem,
   ListItemSecondaryAction,
   Tooltip,
   Typography,
 } from "@mui/material/";
-import {
-  Delete as DeleteIcon,
-  ReportProblemOutlined as ReportProblemOutlinedIcon,
-} from "@mui/icons-material";
-
-import { NavLink } from "react-router-dom";
-import Fuse from "fuse.js";
-import { useAppState } from "../../context/AppStateContext/AppStateContext";
-import { TooltipIconButton } from "../Material";
-import { getDisplayName } from "./utils";
-import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 import { styled } from "@mui/system";
+import Fuse from "fuse.js";
+import { VoidFunctionComponent } from "react";
+import { NavLink } from "react-router-dom";
 import { colors } from "../../config/theme";
+import { useAppState } from "../../context/AppStateContext/AppStateContext";
+import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
+import { TooltipIconButton } from "../Material";
 import { OverviewResumeSecondaryContent } from "./OverviewResumeSecondaryContent";
+import { getDisplayName } from "./utils";
 
 const StyledListItem = styled(ListItem)({
   cursor: "pointer",
@@ -62,7 +61,7 @@ interface ResumeItemProps {
   matches: ReadonlyArray<Fuse.FuseResultMatch> | undefined;
 }
 
-const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
+export const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
   resume,
   onDelete,
   matches,
@@ -107,5 +106,3 @@ const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
     </StyledListItem>
   );
 };
-
-export default ResumeItem;

@@ -1,3 +1,6 @@
+import { HelpSharp } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   IconButton,
@@ -9,24 +12,21 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { HelpSharp } from "@mui/icons-material";
 import React, { useState } from "react";
 import { colors } from "../../config/theme";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { useModal } from "../../hooks";
 import { useFetchData } from "../../hooks/useFetchData";
-import { FormColumn, FormRow } from "../Form";
-import { FormSelect } from "../Form/FormSelect";
-import { Section } from "./Section";
-import { SectionEditDialog } from "./SectionEditDialog";
 import {
   Language,
   Proficiency,
   ProficiencyLevel,
   ResumeLanguage,
 } from "../../types/language";
-import LanguagesHelpModal from "./LanguagesHelpModal";
+import { FormColumn, FormRow } from "../Form";
+import { FormSelect } from "../Form/FormSelect";
+import { LanguagesHelpModal } from "./LanguagesHelpModal";
+import { Section } from "./Section";
+import { SectionEditDialog } from "./SectionEditDialog";
 
 type Props = {
   resumeLanguages: ResumeLanguage[];
@@ -62,7 +62,7 @@ const Dash = styled(Typography)`
   margin-left: 10px;
 `;
 
-const Languages: React.FC<Props> = ({ resumeLanguages, onSubmit }) => {
+export const Languages: React.FC<Props> = ({ resumeLanguages, onSubmit }) => {
   const { data: availableLanguages } = useFetchData<Language[]>({
     collectionName: "languages",
   });
@@ -273,5 +273,3 @@ const Languages: React.FC<Props> = ({ resumeLanguages, onSubmit }) => {
     </>
   );
 };
-
-export default Languages;

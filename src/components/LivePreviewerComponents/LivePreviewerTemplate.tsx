@@ -1,19 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
-import { Education } from "./Education";
-import { Experience } from "./Experience";
-import { PDFPreviewModal } from "./PDFPreviewModal";
-import { PreviewControls } from "./PreviewControls";
-import { ResumeModel } from "./ResumeModel";
-import { SideProjects } from "./SideProjects";
-import { Skills } from "./Skills";
-import { SocialLinks } from "./SocialLinks";
-import { TopSection } from "./TopSection";
-import { Motivation } from "./Motivation";
-import { ThemeStyle } from "./PreviewControls";
-import { Page } from "../layout";
-import Languages from "./Languages";
 import { useFetchData } from "../../hooks/useFetchData";
 import {
   Language,
@@ -25,14 +12,27 @@ import {
   transformResumeLanguages,
   convertSecondsToDateTimeString,
 } from "../../utils";
+import { Page } from "../layout";
+import { Education } from "./Education";
+import { Experience } from "./Experience";
+import { Languages } from "./Languages";
+import { Motivation } from "./Motivation";
+import { PDFPreviewModal } from "./PDFPreviewModal";
+import { PreviewControls } from "./PreviewControls";
+import { ThemeStyle } from "./PreviewControls";
+import { ResumeModel } from "./ResumeModel";
+import { SideProjects } from "./SideProjects";
+import { Skills } from "./Skills";
+import { SocialLinks } from "./SocialLinks";
+import { TopSection } from "./TopSection";
 
 export interface LivePreviewerTemplateProps {
   data: ResumeModel;
 }
 
-const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
-  data,
-}) => {
+export const LivePreviewerTemplate: FunctionComponent<
+  LivePreviewerTemplateProps
+> = ({ data }) => {
   const [resume, setResume] = useState<ResumeModel>(data);
   const [title, setTitle] = useState("");
 
@@ -225,5 +225,3 @@ const LivePreviewerTemplate: FunctionComponent<LivePreviewerTemplateProps> = ({
     </Page>
   );
 };
-
-export default LivePreviewerTemplate;

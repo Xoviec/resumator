@@ -1,6 +1,6 @@
 import { fireEvent, render } from "@testing-library/react";
-import { SortableContainer } from "react-sortable-hoc";
 import { mocked } from "jest-mock";
+import { SortableContainer } from "react-sortable-hoc";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { FormSkillsSelectAutocomplete } from "./FormSkillsSelectAutocomplete";
 

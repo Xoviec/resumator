@@ -1,15 +1,15 @@
+import { createTheme, ThemeProvider } from "@mui/material";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
-import { FunctionComponent } from "react";
-import { createTheme, ThemeProvider } from "@mui/material";
 import { mocked } from "jest-mock";
-import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { FunctionComponent } from "react";
+import { Router } from "react-router-dom";
+import { initialResumeData } from "../../config/initialData";
 import { useAppState } from "../../context/AppStateContext/AppStateContext";
+import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+import { useResumeContext } from "../../context/ResumeContext/ResumeContext";
 import { useSkillsContext } from "../../context/SkillsContext/SkillsContext";
 import { CreatorPage } from "./CreatorPage";
-import { useResumeContext } from "../../context/ResumeContext/ResumeContext";
-import { initialResumeData } from "../../config/initialData";
 
 const ThemeProviderWrapper: FunctionComponent = ({ children }) => {
   const theme = createTheme({});

@@ -1,9 +1,9 @@
+import rootFirebase from "firebase/compat/app";
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { ResumeModel } from "../../components/LivePreviewerComponents/ResumeModel";
 import { initialResumeData } from "../../config/initialData";
 import { castDatesInObject } from "../../lib";
 import { useFirebaseApp } from "../FirebaseContext/FirebaseContext";
-import rootFirebase from "firebase/compat/app";
 
 interface IResumeContext {
   resume: ResumeModel | null;

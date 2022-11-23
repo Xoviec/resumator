@@ -1,22 +1,18 @@
-import { FunctionComponent, VoidFunctionComponent } from "react";
-import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { Box, Divider } from "@mui/material";
 import { styled } from "@mui/system";
-
+import { FunctionComponent, VoidFunctionComponent } from "react";
+import { SortableContainer, SortableElement } from "react-sortable-hoc";
+// config
+import { colors } from "../../config/theme";
+// hooks
+import { useDragDrop, useStartDate, useModal } from "../../hooks";
+// libs
+import { setYear } from "../../lib/date";
+import { FormColumn, FormRow, FormTextField, FormDatePicker } from "../Form";
+import { EducationModel, EducationItem } from "./EducationItem";
 // components
 import { Section } from "./Section";
 import { SectionEditDialog } from "./SectionEditDialog";
-import { FormColumn, FormRow, FormTextField, FormDatePicker } from "../Form";
-import { EducationModel, EducationItem } from "./EducationItem";
-
-// config
-import { colors } from "../../config/theme";
-
-// hooks
-import { useDragDrop, useStartDate, useModal } from "../../hooks";
-
-// libs
-import { setYear } from "../../lib/date";
 
 interface EducationProps {
   education: EducationModel[];

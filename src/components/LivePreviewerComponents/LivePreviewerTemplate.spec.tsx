@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import LivePreviewerTemplate, {
+import { render, screen } from "@testing-library/react";
+import { resume } from "../../mocks/mocks";
+import {
+  LivePreviewerTemplate,
   LivePreviewerTemplateProps,
 } from "./LivePreviewerTemplate";
-import { resume } from "../../mocks/mocks";
 
 describe("LivePreviewerTemplate", () => {
   const defaultProps = {

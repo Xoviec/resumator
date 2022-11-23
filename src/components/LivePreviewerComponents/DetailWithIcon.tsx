@@ -1,5 +1,5 @@
-import { FunctionComponent, ReactNode } from "react";
 import { Box } from "@mui/material";
+import { FunctionComponent, ReactNode } from "react";
 
 interface DetailWithIconProps {
   icon: ReactNode;

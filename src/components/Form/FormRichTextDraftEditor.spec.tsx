@@ -1,7 +1,7 @@
 import { render, fireEvent } from "@testing-library/react";
-import { FormRichTextDraftEditor } from "./FormRichTextDraftEditor";
 import * as draftJs from "draft-js";
 import { mocked } from "jest-mock";
+import { FormRichTextDraftEditor } from "./FormRichTextDraftEditor";
 
 jest.mock("draft-js", () => {
   const reactLib = jest.requireActual("react");

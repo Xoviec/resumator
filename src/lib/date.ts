@@ -1,4 +1,4 @@
-import { format, parse, differenceInYears } from "date-fns";
+import { format, differenceInYears } from "date-fns";
 import firebase from "firebase/compat/app";
 import { LooseObject } from "../types/LooseObject";
 
@@ -20,7 +20,9 @@ function isISODateString(timestamp: string): boolean {
   return ISODateRegex.test(timestamp);
 }
 
-export function castDate(timestamp: DateOrTimestamp | undefined): Date | undefined {
+export function castDate(
+  timestamp: string | DateOrTimestamp | undefined
+): Date | undefined {
   return timestamp && typeof timestamp === "object" && "seconds" in timestamp
     ? (new Date(timestamp.seconds * 1000) as Date)
     : (timestamp as Date | undefined);
@@ -66,12 +68,14 @@ export function formatDatesInObject(
   object: LooseObject,
   format = "yyyy-MM-dd"
 ): LooseObject {
-  return walkObject(object, (prop: any) => formatDate(prop, format));
+  return walkObject(object, (prop: string | DateOrTimestamp | undefined) =>
+    formatDate(prop, format)
+  );
 }
 
 function walkObject(
   object: LooseObject,
-  callback: (prop: any) => void
+  callback: (prop: string | DateOrTimestamp | undefined) => void
 ): LooseObject {
   for (const key in object) {
     const prop = object[key];

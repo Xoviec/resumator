@@ -1,7 +1,7 @@
+import { render, screen } from "@testing-library/react";
 import { VoidFunctionComponent } from "react";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
 import { useSearch } from "./useSearch";
-import { render, screen } from "@testing-library/react";
 
 const data = [
   {

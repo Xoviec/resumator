@@ -1,17 +1,15 @@
+import { Card, Box, Button } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
+import { styled } from "@mui/system";
 import { useCallback, useEffect, VoidFunctionComponent } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { styled } from "@mui/system";
-import Skeleton from "@mui/material/Skeleton";
-import { Card, Box, Button } from "@mui/material";
-
-// hooks
-import { useResume } from "../../hooks";
-
 // components
-import LivePreviewerTemplate from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
-import { MainLayout } from "../../layouts/MainLayout";
+import { LivePreviewerTemplate } from "../../components/LivePreviewerComponents/LivePreviewerTemplate";
 import { OverviewDrawer } from "../../components/OverviewDrawer/OverviewDrawer";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
+// hooks
+import { useResume } from "../../hooks";
+import { MainLayout } from "../../layouts/MainLayout";
 
 const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",

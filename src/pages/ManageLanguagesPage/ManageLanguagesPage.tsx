@@ -1,4 +1,6 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, capitalize, Grid } from "@mui/material";
+import { styled } from "@mui/system";
 import {
   DataGrid,
   GridCellEditCommitParams,
@@ -8,15 +10,13 @@ import {
 } from "@mui/x-data-grid";
 import { FC, useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { NavLink } from "react-router-dom";
+import { PageHeader } from "../../components/PageHeader/PageHeader";
 import { Page } from "../../components/layout";
-import PageHeader from "../../components/PageHeader/PageHeader";
 import { useFetchData } from "../../hooks/useFetchData";
 import { MainLayout } from "../../layouts/MainLayout";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ManageLanguagesDialog from "./ManageLanguagesDialog";
-import { NavLink } from "react-router-dom";
 import { Language } from "../../types/language";
-import { styled } from "@mui/system";
+import { ManageLanguagesDialog } from "./ManageLanguagesDialog";
 
 const PAGE_TITLE = "Manage Languages";
 
@@ -33,7 +33,7 @@ const RightSideGrid = styled(Grid)`
   margin-left: auto;
 `;
 
-const ManageLanguagesPage: FC = () => {
+export const ManageLanguagesPage: FC = () => {
   const [rowsToDelete, setRowsToDelete] = useState<GridRowId[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -118,5 +118,3 @@ const ManageLanguagesPage: FC = () => {
     </Page>
   );
 };
-
-export default ManageLanguagesPage;
