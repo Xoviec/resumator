@@ -161,12 +161,11 @@ describe("OverviewList", () => {
 
       const resume2Container = screen
         .getByText(/User2Name User2Surname/)
-        .closest("a");
+        .closest("li");
 
       if (!resume2Container) {
         throw new Error("Resume 2 container not found");
       }
-
       const deleteButton = within(resume2Container).getByLabelText("delete");
 
       // it would be better if we find a way to allow opacity to become 1 with hover

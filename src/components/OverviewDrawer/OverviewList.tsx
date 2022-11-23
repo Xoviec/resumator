@@ -1,292 +1,65 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import { TabPanel } from "@mui/lab";
-import {
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-} from "@mui/material/";
-import Tooltip from "@mui/material/Tooltip";
-import { styled } from "@mui/system";
-import clsx from "clsx";
-import Fuse from "fuse.js";
-import { useMemo, useState, VoidFunctionComponent } from "react";
-import { NavLink } from "react-router-dom";
-// configs
-import { colors } from "../../config/theme";
-// context
+import { useState, VoidFunctionComponent } from "react";
 import { useFirebaseApp } from "../../context/FirebaseContext/FirebaseContext";
 import { Confirmation } from "../Confirmation/Confirmation";
 import { ResumeModel } from "../LivePreviewerComponents/ResumeModel";
-import { useAppState } from "../../context/AppStateContext/AppStateContext";
-import { getFirestore, collection } from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
+import OverviewResumeList from "./OverviewResumeList";
+import { Box } from "@mui/material";
+import { useDeleteResume, useGetResumes } from "../../hooks/data";
+import { useSearch } from "./useSearch";
 
-// components
-import { TooltipIconButton } from "../Material";
-
-const PREFIX = "OverviewList";
-
-const classes = {
-  actions: `${PREFIX}-actions`,
-  container: `${PREFIX}-container`,
-  isArchived: `${PREFIX}-isArchived`,
-  link: `${PREFIX}-link`,
-  isImported: `${PREFIX}-isImported`,
-  importedWarning: `${PREFIX}-importedWarning`,
-  activeLink: `${PREFIX}-activeLink`,
-};
-
-const Root = styled("div")(({ theme }) => ({
-  [`& .${classes.actions}`]: {
-    opacity: 0,
-    transition: "opacity 150ms ease-out",
-    pointerEvents: "none",
-    alignSelf: "start",
-    flexShrink: 0,
-  },
-  [`& .${classes.container}`]: {
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: colors.darkGrayOpacity,
-    },
-    [`&:hover .${classes.actions}`]: {
-      opacity: 1,
-      pointerEvents: "all",
-    },
-  },
-  [`& .${classes.isArchived}`]: {
-    opacity: 0.6,
-  },
-  [`& .${classes.link}`]: {
-    color: colors.darkBlue,
-    textDecoration: "none",
-  },
-  [`& .${classes.isImported}`]: {
-    color: colors.darkGray,
-    textDecoration: "none",
-  },
-  [`& .${classes.importedWarning}`]: {
-    verticalAlign: "middle",
-    fontSize: "1.2rem",
-  },
-  [`& .${classes.activeLink}`]: {
-    color: colors.orange,
-  },
-}));
-
-interface OverviewListProps {
+export interface OverviewListProps {
   searchTerms: string;
 }
-
-interface ResumeModelWithDisplayName extends ResumeModel {
-  displayName: string;
-}
-
-interface ResumeItemProps {
-  resume: ResumeModelWithDisplayName;
-  onDelete: VoidFunction;
-}
-
-const ResumeItem: VoidFunctionComponent<ResumeItemProps> = ({
-  resume: { id, displayName, isImport, isArchived },
-  onDelete,
-}) => {
-  const { setIsDrawerOpen } = useAppState();
-  return (
-    <NavLink
-      className={clsx({
-        [classes.isImported]: isImport,
-        [classes.link]: !isImport,
-      })}
-      to={`/resume/${id}`}
-      onClick={() => {
-        setIsDrawerOpen(false);
-      }}
-    >
-      <ListItem
-        classes={{
-          container: clsx(classes.container, {
-            [classes.isArchived]: isArchived,
-          }),
-        }}
-      >
-        <ListItemText>
-          {isArchived && "(Archived) "}
-          {displayName}
-          {isImport && (
-            <>
-              &nbsp;
-              <Tooltip title="is imported">
-                <ReportProblemOutlinedIcon className={classes.importedWarning} />
-              </Tooltip>
-            </>
-          )}
-        </ListItemText>
-        <ListItemSecondaryAction className={classes.actions}>
-          <TooltipIconButton
-            color="inherit"
-            tooltip={"Delete resume"}
-            edge="end"
-            aria-label="delete"
-            onClick={onDelete}
-          >
-            <DeleteIcon fontSize="small" />
-          </TooltipIconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-    </NavLink>
-  );
-};
 
 export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
   searchTerms,
 }) => {
-  const { firebase, userRecord } = useFirebaseApp();
-  const [resumeQueryResult, isLoading, error] = useCollection(
-    collection(getFirestore(firebase), "resumes")
-  );
-
+  const { userRecord } = useFirebaseApp();
   const [openConfirmation, setOpenConfirmation] = useState(false);
-  const [resumeToDelete, setResumeToDelete] = useState<ResumeModel | null>(null);
-  const hasFetchError = !isLoading && error;
 
-  const resumes: ResumeModel[] = useMemo(
-    () =>
-      resumeQueryResult
-        ? resumeQueryResult.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }))
-        : [],
-    [resumeQueryResult]
-  );
+  const { resumes, hasFetchError } = useGetResumes();
+  const { deleteResume, setResumeToDelete, resumeToDelete } = useDeleteResume();
+  const { archivedResumes, unarchivedResumes } = useSearch(resumes, searchTerms);
 
-  const resumeFuseModel = useMemo(
-    () =>
-      new Fuse(resumes, {
-        threshold: 0,
-        keys: ["personalia.firstName", "personalia.lastName"],
-        useExtendedSearch: true,
-      }),
-    [resumes]
-  );
-
-  /**
-   * Formats the search terms (e.g. First name and last name),
-   * to search for both terms in the Fuse Model.
-   * See: https://fusejs.io/examples.html#extended-search
-   * @param searchTerms - search terms
-   * @returns - search terms splitted with `|`
-   */
-  const formatSearchTermsForExtendedSearch = (searchTerms: string) =>
-    searchTerms.split(" ").join(" | ");
-
-  const resumesToShow = useMemo(() => {
-    const searchResult = searchTerms.length
-      ? resumeFuseModel
-          .search(formatSearchTermsForExtendedSearch(searchTerms))
-          .map((r) => r.item)
-      : resumes;
-
-    const filteredResumes: ResumeModelWithDisplayName[] = searchResult
-      .filter((resume) => resume?.personalia)
-      .map((resume) => {
-        const {
-          id,
-          personalia: { firstName, lastName },
-        } = resume;
-
-        const displayName =
-          firstName || lastName ? `${firstName} ${lastName}` : `No name - ${id}`;
-
-        return {
-          ...resume,
-          displayName,
-        };
-      });
-
-    const sortByName = (
-      a: ResumeModelWithDisplayName,
-      b: ResumeModelWithDisplayName
-    ) => {
-      if (a.displayName < b.displayName) return -1;
-      if (a.displayName > b.displayName) return 1;
-      return 0;
-    };
-
-    const archivedResumes = filteredResumes
-      .filter((resume) => resume.isArchived)
-      .sort(sortByName);
-
-    const unarchivedResumes = filteredResumes
-      .filter((resume) => !resume.isArchived)
-      .sort(sortByName);
-
-    return {
-      unarchivedResumes,
-      archivedResumes,
-    };
-  }, [resumeFuseModel, resumes, searchTerms]);
-
-  const deleteResume = () => {
-    if (!resumeToDelete?.id) return;
-
-    firebase
-      .firestore()
-      .collection("resumes")
-      .doc(resumeToDelete.id)
-      .delete()
-      .then(() => setResumeToDelete(null))
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error("Error removing document: ", error);
-      });
+  const onDelete = (resume: ResumeModel) => {
+    setOpenConfirmation(true);
+    setResumeToDelete(resume);
   };
 
-  if (!userRecord?.isManager || !resumesToShow?.unarchivedResumes.length)
-    return null;
+  const shouldShowList =
+    !userRecord?.isManager || (!unarchivedResumes.length && !archivedResumes.length);
+
+  if (shouldShowList) return null;
 
   return (
-    <Root data-testid="overview-list-container">
+    <Box data-testid="overview-list-container">
       {hasFetchError && (
         <span>
           Could not fetch resume data. If this problem persists, notify application
           maintainer
         </span>
       )}
-      <TabPanel value="active-users-tab">
-        <List dense={true} data-testid="overview-list-active-resumes">
-          {resumesToShow?.unarchivedResumes.map((resume) => (
-            <ResumeItem
-              key={resume.id}
-              resume={resume}
-              onDelete={() => {
-                setOpenConfirmation(true);
-                setResumeToDelete(resume);
-              }}
-            />
-          ))}
-        </List>
+      <TabPanel value="active-users-tab" style={{ padding: 0 }}>
+        <OverviewResumeList
+          resumes={unarchivedResumes}
+          onDelete={onDelete}
+          testId="overview-list-active-resumes"
+        />
       </TabPanel>
       <TabPanel value="archived-users-tab">
-        <List dense={true} data-testid="overview-list-archived-resumes">
-          {resumesToShow?.archivedResumes.map((resume) => (
-            <ResumeItem
-              key={resume.id}
-              resume={resume}
-              onDelete={() => {
-                setOpenConfirmation(true);
-                setResumeToDelete(resume);
-              }}
-            />
-          ))}
-        </List>
+        <OverviewResumeList
+          resumes={archivedResumes}
+          onDelete={onDelete}
+          testId="overview-list-archived-resumes"
+        />
       </TabPanel>
       <Confirmation
         isOpen={openConfirmation}
         denyClick={() => setOpenConfirmation(false)}
         confirmClick={() => {
           setOpenConfirmation(false);
-          deleteResume();
+          deleteResume(resumeToDelete);
         }}
         title={"Delete item"}
         message={`Are you sure you want to delete this item?
@@ -295,6 +68,6 @@ export const OverviewList: VoidFunctionComponent<OverviewListProps> = ({
             <br/><br/>
             This action cannot be reversed.`}
       />
-    </Root>
+    </Box>
   );
 };

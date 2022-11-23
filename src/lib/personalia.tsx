@@ -20,6 +20,9 @@ export const CountryMapping: Record<CountryCode, CountryInfo> = {
   },
 };
 
+export const normalizeString = (str: string): string =>
+  str?.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
 export const getCountry = (
   countryCode: keyof typeof CountryCode = CountryCode.NL
 ) => {

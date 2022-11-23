@@ -91,6 +91,20 @@ function walkObject(
   return object;
 }
 
+export const yearsAndMonthString = (totalMonths: number): string => {
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  let str = "";
+  if (years === 1) str += `${years} year`;
+  if (years > 1) str += `${years} years`;
+  if (years && months) str += ` and `;
+  if (months === 1) str += `${months} month`;
+  if (months > 1) str += `${months} months`;
+
+  return str;
+};
+
 export function formatTimespan({
   startDate,
   endDate,
